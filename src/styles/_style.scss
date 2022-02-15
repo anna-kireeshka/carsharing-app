@@ -1,0 +1,52 @@
+/**Переменные*/
+$color-green: #0ec261;
+$white: #fff;
+$radius-btn:0.125rem;
+$main-black:#121212;
+$main-dark-gray:#999999;
+$main-light-gray:#EEEEEE;
+
+/**Миксины*/
+
+//Базовое состояние кнопки
+@mixin base-btn {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+//Базовый цвет кнопки
+@mixin base-btn-green {
+  background: linear-gradient(90deg, #0ec261 2.61%, #039f67 112.6%);
+  background-blend-mode: darken;
+  border-radius: $radius-btn;
+}
+
+//Наведение на кнопку
+@mixin base-hover-green {
+    background: linear-gradient(90deg, #0B934A 2.61%, #026E47 112.6%);
+    background-blend-mode: darken;
+    border-radius: $radius-btn;
+}
+
+//Нажатие на кнопку
+@mixin  base-active-green {
+    background: linear-gradient(90deg, #076432 2.61%, #013C27 112.6%);
+    background-blend-mode: darken;
+    border-radius: $radius-btn;
+}
+
+//Выбраная кнопка
+@mixin base-click-green {
+    background: linear-gradient(90deg, #0B934A 2.61%, #026E47 112.6%);
+    background-blend-mode: darken;
+    border-radius: $radius-btn;
+}
+
+
+//Заблокированая кнопка
+@mixin base-disabled-green {
+    background: $main-light-gray;
+    border-radius: $radius-btn;
+}
