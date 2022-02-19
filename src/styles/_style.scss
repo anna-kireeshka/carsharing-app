@@ -1,10 +1,21 @@
 /**Переменные*/
 $color-green: #0ec261;
 $white: #fff;
-$radius-btn:0.125rem;
+$radius-btn:0.5rem;
 $main-black:#121212;
 $main-dark-gray:#999999;
 $main-light-gray:#EEEEEE;
+$bg-img: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
+
+$background-overlay: rgba(21, 27, 31, 0.81);
+
+$btn-green-dark: linear-gradient(90deg, #13493F 0%, #0C7B1B 100%);;
+$btn-blue-sea: linear-gradient(90deg, #132949 0%, #0C7B67 100%);
+$btn-slider-red:linear-gradient(90deg, #493013 0%, #7B0C3B 100%);
+$btn-slider-violet:linear-gradient(90deg, #281349 0%, #720C7B 100%);
+
+
+
 
 /**Миксины*/
 
@@ -20,33 +31,62 @@ $main-light-gray:#EEEEEE;
 @mixin base-btn-green {
   background: linear-gradient(90deg, #0ec261 2.61%, #039f67 112.6%);
   background-blend-mode: darken;
-  border-radius: $radius-btn;
+  
 }
 
 //Наведение на кнопку
 @mixin base-hover-green {
     background: linear-gradient(90deg, #0B934A 2.61%, #026E47 112.6%);
     background-blend-mode: darken;
-    border-radius: $radius-btn;
 }
 
 //Нажатие на кнопку
 @mixin  base-active-green {
     background: linear-gradient(90deg, #076432 2.61%, #013C27 112.6%);
     background-blend-mode: darken;
-    border-radius: $radius-btn;
 }
 
 //Выбраная кнопка
 @mixin base-click-green {
     background: linear-gradient(90deg, #0B934A 2.61%, #026E47 112.6%);
     background-blend-mode: darken;
-    border-radius: $radius-btn;
-}
+  }
 
 
 //Заблокированая кнопка
 @mixin base-disabled-green {
     background: $main-light-gray;
-    border-radius: $radius-btn;
+}
+
+@mixin color-slider {
+  border-radius: 0.125rem;
+  width: 10.25rem;
+  height: 3rem;
+  @include base-btn
+}
+
+@mixin flex-column{
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin flex-row {
+  display: flex;
+  justify-content: space-between;
+  
+}
+
+@mixin slider-arrow-hover {
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  position: fixed;
+  top: 0;
+  z-index: 101;
+  height: 100%;
+  width: 4rem;
+  @media (min-width: 1020px) and (max-width: 1280px) {
+    width: 2rem;
+  }
 }

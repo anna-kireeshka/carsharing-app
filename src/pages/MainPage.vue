@@ -1,20 +1,19 @@
 <template>
   <div class="page">
-    <StartScreen />
-    <Slider />
+    <MainInfo class="info" />
+    <Slider class="slider-block" />
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
 
-import StartScreen from "@/components/StartScreen.vue";
 import Slider from "@/components/Slider.vue";
-
+import MainInfo from "@/components/MainInfo.vue";
 @Component({
   components: {
-    StartScreen,
     Slider,
+    MainInfo,
   },
 })
 export default class MainPage extends Vue {}
@@ -22,5 +21,8 @@ export default class MainPage extends Vue {}
 <style lang="scss" scoped>
 .page {
   display: flex;
+}
+.info {
+  min-height: 100vh;
 }
 </style>

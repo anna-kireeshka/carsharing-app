@@ -1,0 +1,21 @@
+
+/**Медиа для слайдера и его контента */
+@mixin slider-desctop-mini-heading {
+  @media (min-width: 1020px) and (max-width: 1280px) {
+    font-size: 32px;
+    line-height: 37px;
+    width: 282px;
+  }
+}
+@mixin slider-desctop-mini-descreption {
+  @media (min-width: 1020px) and (max-width: 1380px) {
+    font-size: 22px;
+    line-height: 22px;
+    width: 282px;
+  }
+}
+@mixin slider-table {
+  @media (min-width: 320px) and (max-width: 1020px) {
+    display: none;
+  }
+}

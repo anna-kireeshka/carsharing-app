@@ -1,19 +1,12 @@
-//  module.exports = {
-//     css: {
-//       extract: false,
-//       loaderOptions: {
-//         sass: {
-//           prependData: "@import `@/styles/_style.scss`;"
-//         }
-//       }
-//     }
-//   };
-//module.exports = {}
 module.exports = {
   css: {
     loaderOptions: {
       sass: {
-        prependData: `@import "@/styles/_style.scss";`,
+        prependData: `@import "@/styles/_style.scss";
+          @import "@/styles/_media.scss";
+          @import "@/styles/_fonts.scss";
+          @import "@/styles/_media_mini.scss";
+          @import "@/styles/_media_mobile.scss";`,
       },
     },
   },

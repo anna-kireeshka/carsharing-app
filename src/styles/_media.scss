@@ -1,0 +1,25 @@
+
+/**Медиа для блока контента */
+@mixin content-very-large-main {
+  @media screen and(max-width: 125rem) {
+    min-width:58.1875rem;
+  }
+}
+
+@mixin content-large-main {
+  @media screen and(max-width: 100rem) {
+    min-width: 50rem;
+  }
+}
+
+@mixin content-desctop-standart {
+  @media screen and (max-width: 90rem) {
+    min-width: 42.875rem;
+  }
+}
+@mixin  content-desctop--mini {
+  @media screen and (max-width:64rem) {
+    min-width: 36.3125rem;
+  }
+}
+
