@@ -9,10 +9,12 @@ $bg-img: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
 
 $background-overlay: rgba(21, 27, 31, 0.81);
 
-$btn-green-dark: linear-gradient(90deg, #13493F 0%, #0C7B1B 100%);;
-$btn-blue-sea: linear-gradient(90deg, #132949 0%, #0C7B67 100%);
-$btn-slider-red:linear-gradient(90deg, #493013 0%, #7B0C3B 100%);
-$btn-slider-violet:linear-gradient(90deg, #281349 0%, #720C7B 100%);
+$btn-green-dark: linear-gradient(90deg, #13493F 0%, #0C7B1B 100%);
+$btn-blue-sea: linear-gradient(90deg, #06152e 0%, #055345 100%);
+$btn-slider-red:linear-gradient(90deg, #493013 0%, #460721 100%);
+$btn-slider-violet:linear-gradient(90deg, #22084d 0%, #56005e 100%);
+
+
 
 
 
@@ -57,6 +59,7 @@ $btn-slider-violet:linear-gradient(90deg, #281349 0%, #720C7B 100%);
 @mixin base-disabled-green {
     background: $main-light-gray;
 }
+
 
 @mixin color-slider {
   border-radius: 0.125rem;

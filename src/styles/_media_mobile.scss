@@ -9,32 +9,32 @@
 
 @mixin logo-mobile {
   @media (min-width: 20rem) and (max-width: 37.5rem) {
-    font-size: 30px;
-    padding-right: 16px;
-    padding-top: 16px;
+    font-size: 1.875rem;
+    padding-right: 1rem;
+    padding-top: 1rem;
   }
 }
 @mixin city-mobile {
   @media (min-width: 20rem) and (max-width: 37.5rem) {
-    font-size: 14px;
-    padding-right: 16px;
-    margin-bottom: 33.67px;
+    font-size: 0.875rem;
+    padding-right: 1rem;
+    margin-bottom: 2.1rem;
   }
 }
 @mixin title-mobile {
   @media (min-width: 20rem) and (max-width: 37.5rem) {
-    font-size: 32px;
-    line-height: 32px;
-    padding-left: 16px;
+    font-size: 2rem;
+    line-height: 2rem;
+    padding-left: 1rem;
   }
 }
 @mixin desc-mobile {
   @media (min-width: 20rem) and (max-width: 37.5rem) {
-    font-size: 18px;
-    line-height: 21.09px;
+    font-size: 1.125rem;
+    line-height: 1.3181rem;
     font-weight: $light;
-    margin-bottom: 32px;
-    padding-left: 16px;
+    margin-bottom: 2rem;
+    padding-left: 1rem;
   }
 }
 
@@ -50,7 +50,7 @@
 
 @mixin flex-footer {
   @media (min-width: 20rem) and (max-width: 37.5rem) {
-    padding: 16px;
+    padding: 1rem;
     background-color: $main-black;
     max-width: 100vw;
     flex-direction: column-reverse;
@@ -62,16 +62,16 @@
 @mixin info-number {
   @media (min-width: 20rem) and (max-width: 47.9rem) {
     color: $color-green;
-    margin-bottom: 8px;
-    font-size: 13px;
-    line-height: 15px;
+    margin-bottom: 0.5rem;
+    font-size: 0.8125rem;
+    line-height: 0.9375rem;
   }
 }
 @mixin info-number-gray {
   @media (min-width: 20rem) and (max-width: 47.9rem) {
     color: $main-light-gray;
-    font-size: 13px;
-    line-height: 15px;
+    font-size: 0.8125rem;
+    line-height: 0.9375rem;
   }
 }
 
@@ -79,7 +79,7 @@
   @media (min-width: 20rem) and (max-width: 37.5rem) {
     min-width: 100%;
     border-radius: 0px;
-    margin-bottom: 173px;
+    margin-bottom: 10.8125rem;
   }
 }
 
@@ -91,12 +91,12 @@
 
 @mixin transition-mobile {
   @media (min-width: 20rem) and (max-width: 37.5rem) {
-    padding: 80px 110px 339px 28px;
+    padding: 5rem 6.875rem 21.1875rem 1.75rem;
   }
 }
 @mixin nav-item-mobile {
   @media (min-width: 20rem) and (max-width: 37.5rem) {
     font-size: 1.2rem;
-    line-height: 27.75px;
+    line-height: 1.3594rem;
   }
 }

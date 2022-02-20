@@ -1,21 +1,21 @@
 
 /**Медиа для слайдера и его контента */
 @mixin slider-desctop-mini-heading {
-  @media (min-width: 1020px) and (max-width: 1280px) {
-    font-size: 32px;
-    line-height: 37px;
-    width: 282px;
+  @media (min-width: 63.75rem) and (max-width: 80.56rem) {
+    font-size: 2rem;
+    line-height: 2.3125rem;
+    width: 17.625rem;
   }
 }
 @mixin slider-desctop-mini-descreption {
-  @media (min-width: 1020px) and (max-width: 1380px) {
-    font-size: 22px;
-    line-height: 22px;
-    width: 282px;
+  @media (min-width:63.75rem) and (max-width: 86.35rem) {
+    font-size: 1.375rem;
+    line-height: 1.375rem;
+    width: 17.625rem;
   }
 }
 @mixin slider-table {
-  @media (min-width: 320px) and (max-width: 1020px) {
+  @media (min-width: 20rem) and (max-width: 63.75rem) {
     display: none;
   }
 }

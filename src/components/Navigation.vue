@@ -144,6 +144,7 @@
         </div>
       </transition>
     </div>
+    <div class="overlay" v-if="isShowNavigationLink === true"></div>
   </div>
 </template>
 
@@ -216,7 +217,7 @@ export default class StartScreen extends Vue {
   position: absolute;
   left: 0;
   top: 0;
-  z-index: 2;
+  z-index: 1002;
   background-color: #111518;
   height: 100%;
 }
@@ -266,7 +267,7 @@ export default class StartScreen extends Vue {
 
   &__btn--close {
     position: relative;
-    z-index: 10;
+    z-index: 1010;
     transition: all 1s;
   }
 }
@@ -295,21 +296,21 @@ export default class StartScreen extends Vue {
 
 .link-pos {
   position: absolute;
-  top: -23px;
-  left: 16px;
+  top: -1.4375rem;
+  left: 1rem;
 }
 .mobile-lang {
   position: absolute;
-  left: 16px;
+  left: 1rem;
 }
 
 /**Появление блока анимации */
 .slide-fade-enter-active {
-  transition: all 0.3s;
+  transition: all 0.4s;
 }
 .slide-fade-leave-active {
   // transition: all .3s ease;
-  transition: all 0.3s ease-out;
+  transition: all 0.4s ease-out;
 }
 .slide-fade-enter {
   transform: translateX(-47rem);
@@ -329,11 +330,13 @@ export default class StartScreen extends Vue {
 .btn-enter, .btn-leave-to /* .fade-leave-active до версии 2.1.8 */ {
   opacity: 0;
 }
-// .overlay {
-//   position: absolute;
-//   width: 100vw;
-//   height: 100vh;
-//   background: $background-overlay;
-//   z-index: 0;
-// }
+.overlay {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background: $background-overlay;
+  z-index:1000;
+  top: 0;
+  left: 0;
+}
 </style>
