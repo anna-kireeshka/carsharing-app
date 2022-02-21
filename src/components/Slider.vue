@@ -3,38 +3,34 @@
     <div class="overlay"></div>
     <div class="slider" ref="img">
       <div
+        class="slider__img"
         v-for="item in slider"
         :key="item.id"
         :style="{ backgroundImage: 'url(' + item.img + ')' }"
-        class="slider__img"
       >
         <div class="content">
           <h2 class="content__title">{{ item.title }}</h2>
           <p class="content__descreption">
             {{ item.description }}
           </p>
-          <button class="content__btn" :style="{ background: item.background }">
+          <button
+            class="content__btn"
+            @mouseover="fHoverButton(item.id, $event)"
+            :style="{ background: item.background }"
+          >
             Подробнее
           </button>
         </div>
         <div class="dote">
-          <div
+          <button
+            v-for="item in slider"
+            :key="item.id"
             class="dote__item"
-            :class="{ 'dote__item--active': item.id === 0 }"
-          ></div>
-          <div
-            class="dote__item"
-            :class="{ 'dote__item--active': item.id === 1 }"
-          ></div>
-          <div
-            class="dote__item"
-            :class="{ 'dote__item--active': item.id === 2 }"
-          ></div>
-          <div
-            class="dote__item"
-            :class="{ 'dote__item--active': item.id === 3 }"
-          ></div>
+            :class="{ 'dote__item--active': item.id === activeSlider }"
+            @click.self="fGetSlideForDote(item.id, $event)"
+          ></button>
         </div>
+
         <button class="action-right" @click="fGetNextImage">
           <img
             src="../assets/arrow.svg"
@@ -58,10 +54,8 @@ import { Vue, Component } from "vue-property-decorator";
 @Component({})
 export default class Slider extends Vue {
   /* eslint-disable */ //Для объявления типов
-  position: number = 0; /**Положение ленты прокрутки*/
-  frame: number = 1; /**Общее колл-во видимых изображений*/
   imageWidth: number = 0; /**Ширина видимого окна*/
-  idBtn: number = 0;
+  activeSlider: number = 0; //активный/текщий слайдер
 
   slider: {
     id: number;
@@ -102,28 +96,56 @@ export default class Slider extends Vue {
       background: "linear-gradient(90deg, #281349 0%, #720C7B 100%)",
     },
   ];
-  /**Перейти к предыдущему элементу */
-  fGetPrevImage() {
-    let sliderList = document.querySelector(".slider") as HTMLElement;
-    this.position += this.iImageWidth * this.frame;
-    this.position = Math.min(this.position, 0);
 
-    sliderList.style.marginLeft = this.position + "px";
+  /**Отслеживаем изменение экрана */
+  mounted() {
+    window.addEventListener("resize", this.handleResize);
+    this.handleResize();
   }
-  /**Перейти к следующему слайду */
-  fGetNextImage() {
-    let sliderList = document.querySelector(".slider") as HTMLElement;
-    this.position -= this.imageWidth * this.frame;
-    this.position = Math.max(
-      this.position,
-      -this.iImageWidth * (this.slider.length - this.frame)
-    );
-    sliderList.style.marginLeft = this.position + "px";
+  destroyed() {
+    window.removeEventListener("resize", this.handleResize);
   }
-  /**Получить ширину картинки в зависимости от масштаба для переключения слайда*/
-  get iImageWidth() {
+  /**Получаем размер блока для адаптивного слайдера */
+  handleResize() {
     let a = (this.$refs.img as HTMLElement).clientWidth;
     return (this.imageWidth = a);
+  }
+  /**Перейти к предыдущему элементу */
+  fGetNextImage() {
+    this.activeSlider++;
+    if (this.activeSlider >= this.slider.length) {
+      this.activeSlider = 0;
+    }
+    this.sliderStylePosition;
+  }
+  /**Перейти к следующему слайду */
+  fGetPrevImage() {
+    this.activeSlider--;
+    if (this.activeSlider < 0) {
+      this.activeSlider = this.slider.length - 1;
+    }
+    this.sliderStylePosition;
+  }
+  /**Полчаем слайд по переключение кнопок навигации */
+  fGetSlideForDote(doteId: number, e: MouseEvent) {
+    if (this.activeSlider !== doteId) {
+      this.activeSlider = doteId;
+    }
+    this.sliderStylePosition;
+  }
+
+  /**Ховер кнопок */
+  fHoverButton(id: number, e: MouseEvent) {
+    if (id === 0) {
+      (e.target as Element).classList.toggle("content__btn--green");
+    }
+  }
+
+  /**Считаем насколько сдвигать слайдер */
+  get sliderStylePosition() {
+    let sliderList = document.querySelector(".slider") as HTMLElement;
+    return (sliderList.style.marginLeft =
+      -this.imageWidth * this.activeSlider + "px");
   }
 }
 </script>
@@ -132,7 +154,6 @@ export default class Slider extends Vue {
 .wrapper {
   position: relative;
   width: 50%;
-
   overflow: hidden;
 }
 .slider {
@@ -140,6 +161,7 @@ export default class Slider extends Vue {
   @include content-large-main;
   @include content-desctop-standart;
   @include content-desctop--mini;
+  @include slider-table;
   display: flex;
   position: relative;
   height: 100%;
@@ -154,9 +176,10 @@ export default class Slider extends Vue {
 }
 
 .content {
-  position: relative;
-  padding: 2rem 6rem;
-  margin-top: 12.8125rem;
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  padding: 0 6rem;
   z-index: 100;
   &__title {
     @include slider-desctop-mini-heading;
@@ -177,7 +200,6 @@ export default class Slider extends Vue {
   }
   &__btn {
     @include base-btn;
-    // background: $btn-green-dark;
     color: $main-light-gray;
     border-radius: 0.25rem;
     width: 10.1875rem;
@@ -186,12 +208,15 @@ export default class Slider extends Vue {
     font-size: 1.125rem;
     font-weight: $medium;
   }
+  &__btn--green {
+    background: $btn-slider-violet;
+  }
 }
 .dote {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -2%;
+  bottom: 3%;
   margin: auto;
   z-index: 110;
   width: 3.5rem;
@@ -202,16 +227,19 @@ export default class Slider extends Vue {
   }
 
   &__item {
+    @include base-btn;
     background-color: #fff;
     width: 0.5rem;
     height: 0.5rem;
     border-radius: 50%;
+    cursor: pointer;
   }
   &__item--active {
     background-color: $color-green;
   }
 }
 .action-left {
+  position: relative;
   @include slider-arrow-hover;
 }
 .action-left:hover {
@@ -219,6 +247,7 @@ export default class Slider extends Vue {
 }
 .action-right {
   @include slider-arrow-hover;
+  position: fixed;
   right: 0%;
 }
 .action-right:hover {
