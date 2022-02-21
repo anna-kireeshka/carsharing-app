@@ -1,7 +1,7 @@
 
 /**Медиа для слайдера и его контента */
 @mixin slider-desctop-mini-heading {
-  @media (min-width: 63.75rem) and (max-width: 80.56rem) {
+  @media (min-width: 60rem) and (max-width: 78rem) {
     font-size: 2rem;
     line-height: 2.3125rem;
     width: 17.625rem;

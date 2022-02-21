@@ -193,6 +193,10 @@ export default class StartScreen extends Vue {
     window.addEventListener("resize", this.updateWidth);
     this.updateWidth();
   }
+   destroyed() {
+    window.removeEventListener("resize", this.updateWidth);
+    this.updateWidth();
+  }
 }
 </script>
 
@@ -220,6 +224,7 @@ export default class StartScreen extends Vue {
   z-index: 1002;
   background-color: #111518;
   height: 100%;
+  width: 50%;
 }
 .menu {
   @include transition-mobile;

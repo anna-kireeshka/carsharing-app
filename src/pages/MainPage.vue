@@ -24,5 +24,6 @@ export default class MainPage extends Vue {}
 }
 .info {
   min-height: 100vh;
+  width: 50%;
 }
 </style>

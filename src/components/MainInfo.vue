@@ -89,7 +89,7 @@ export default class MainInfo extends Vue {}
     color: $main-black;
     font-size: 4.375rem;
     font-weight: $bold;
-    line-height: 4.1019px;
+    line-height: 4.1019rem;
   }
   &__title--green {
     color: $color-green;

@@ -84,12 +84,11 @@ $btn-slider-violet:linear-gradient(90deg, #22084d 0%, #56005e 100%);
   cursor: pointer;
   border: none;
   outline: none;
-  position: fixed;
   top: 0;
   z-index: 101;
   height: 100%;
   width: 4rem;
-  @media (min-width: 1020px) and (max-width: 1280px) {
+  @media (min-width: 60rem) and (max-width: 1280px) {
     width: 2rem;
   }
 }
