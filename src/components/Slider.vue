@@ -14,9 +14,10 @@
             {{ item.description }}
           </p>
           <button
-            class="content__btn"
-            @mouseover="fHoverButton(item.id, $event)"
+            @mouseover="fHoverButton(item.id, $event.target)"
+            @mouseleave="fGetOriginalColor($event.target, item.id)"
             :style="{ background: item.background }"
+            class="content__btn"
           >
             Подробнее
           </button>
@@ -51,6 +52,7 @@
 </template>
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
+import variables from "@/styles/_style.scss";
 @Component({})
 export default class Slider extends Vue {
   /* eslint-disable */ //Для объявления типов
@@ -71,7 +73,7 @@ export default class Slider extends Vue {
       title: "Бесплатная парковка",
       description:
         "Оставляйте машину на платных городских парковках и разрешенных местах, не нарушая ПДД, а также в аэропортах.",
-      background: "linear-gradient(90deg, #13493F 0%, #0C7B1B 100%)",
+      background: variables.green,
     },
 
     {
@@ -79,21 +81,21 @@ export default class Slider extends Vue {
       img: require("@/assets/slider-2.png"),
       title: "Страховка",
       description: "Полная страховка страховка автомобиля",
-      background: "linear-gradient(90deg, #132949 0%, #0C7B67 100%)",
+      background:variables.blue,
     },
     {
       id: 2,
       img: require("@/assets/slider-3.png"),
       title: "Бензин",
       description: "Полный бак на любой заправке города за наш счёт",
-      background: "linear-gradient(90deg, #493013 0%, #7B0C3B 100%)",
+      background: variables.red,
     },
     {
       id: 3,
       img: require("@/assets/slider-4.png"),
       title: "Обслуживание",
       description: "Автомобиль проходит еженедельное ТО",
-      background: "linear-gradient(90deg, #281349 0%, #720C7B 100%)",
+      background: variables.violet,
     },
   ];
 
@@ -135,9 +137,27 @@ export default class Slider extends Vue {
   }
 
   /**Ховер кнопок */
-  fHoverButton(id: number, e: MouseEvent) {
+  fHoverButton(id: number, e: HTMLElement) {
     if (id === 0) {
-      (e.target as Element).classList.toggle("content__btn--green");
+      e.style.background = variables.hoverGreen;
+    } else if (id === 1) {
+      e.style.background = variables.hoverBlue;
+    } else if (id === 2) {
+      e.style.background = variables.hoverRed;
+    } else if (id === 3) {
+      e.style.background = variables.hoverViolet;
+    }
+  }
+  /**Отменякм ховер при наведении */
+  fGetOriginalColor(e: HTMLElement, id: number) {
+    if (id === 0) {
+      e.style.background = variables.green;
+    } else if (id === 1) {
+      e.style.background = variables.blue;
+    } else if (id === 2) {
+      e.style.background = variables.red;
+    } else if (id === 3) {
+      e.style.background = variables.violet;
     }
   }
 
@@ -209,7 +229,16 @@ export default class Slider extends Vue {
     font-weight: $medium;
   }
   &__btn--green {
-    background: $btn-slider-violet;
+    background: linear-gradient(90deg, #49c07f 0%, #025a0d 100%);
+  }
+  &__btn--blue {
+    background: linear-gradient(90deg, #0849b8 0%, #004236 100%);
+  }
+  &__btn--red {
+    background: linear-gradient(90deg, #570c0c 0%, #a71d62 100%);
+  }
+  &__btn--violet {
+    background: linear-gradient(90deg, #1e014d 0%, #970477 100%);
   }
 }
 .dote {
