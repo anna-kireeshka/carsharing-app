@@ -224,18 +224,6 @@ export default class Slider extends Vue {
     font-size: 1.125rem;
     font-weight: $medium;
   }
-  &__btn--green {
-    background: linear-gradient(90deg, #49c07f 0%, #025a0d 100%);
-  }
-  &__btn--blue {
-    background: linear-gradient(90deg, #0849b8 0%, #004236 100%);
-  }
-  &__btn--red {
-    background: linear-gradient(90deg, #570c0c 0%, #a71d62 100%);
-  }
-  &__btn--violet {
-    background: linear-gradient(90deg, #1e014d 0%, #970477 100%);
-  }
 }
 .dote {
   position: absolute;

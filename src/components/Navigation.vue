@@ -69,23 +69,23 @@
             </ul>
             <div class="social">
               <ul class="social__list">
-                <li class="social__item">
-                  <a href="#" class="menu__item--link">
-                    <svg width="32" height="32">
+                <li class="menu__item social__item">
+                  <a href="#" class="menu__item--link social__item--link">
+                    <svg width="32" height="32" class="social__item--hover">
                       <use xlink:href="#telegram" />
                     </svg>
                   </a>
                 </li>
                 <li class="social__item">
-                  <a href="#" class="menu__item--link">
-                    <svg width="32" height="32">
+                  <a href="#" class="menu__item--link social__item--link">
+                    <svg width="32" height="32" class="social__item--hover">
                       <use xlink:href="#facebook" />
                     </svg>
                   </a>
                 </li>
                 <li class="social__item">
-                  <a href="#" class="menu__item--link">
-                    <svg width="32" height="32">
+                  <a href="#" class="menu__item--link social__item--link">
+                    <svg width="32" height="32" class="social__item--hover">
                       <use xlink:href="#instagram" />
                     </svg>
                   </a>
@@ -143,7 +143,7 @@ export default class StartScreen extends Vue {
   }
   /**Поменять язык интерфейса */
   fChangeLanguage() {
-    this.isEngLang = !this.isEngLang
+    this.isEngLang = !this.isEngLang;
   }
   /**Следим за обновлением размера браузера */
   updateWidth(): void {
@@ -194,10 +194,6 @@ export default class StartScreen extends Vue {
     list-style: none;
     margin-right: 8rem;
   }
-  &__item--link:hover,
-  &__item--link:active {
-    color: $color-green;
-  }
   &__item--link {
     color: $white;
     text-transform: uppercase;
@@ -207,21 +203,29 @@ export default class StartScreen extends Vue {
     text-decoration: none;
     @include nav-item-mobile;
   }
-  svg path:first-child:hover,
-  svg path :first-child:focus {
-    fill: $color-green;
+  &__item--link:hover,
+  &__item--link:active {
+    color: $color-green;
   }
-}
+  .social {
+    margin-top: 2.375rem;
+    &__list {
+      display: flex;
+      list-style: none;
+    }
+    &__item {
+      margin-right: 1.5rem;
+    }
 
-.social {
-  margin-top: 2.375rem;
-  &__list {
-    display: flex;
-    list-style: none;
+    &__item--hover path {
+      fill: $color-green;
+    }
   }
-  &__item {
-    margin-right: 1.5rem;
-  }
+
+  // svg path:first-child:hover,
+  // svg path :first-child:focus {
+  //   fill: $color-green;
+  // }
 }
 
 .link {

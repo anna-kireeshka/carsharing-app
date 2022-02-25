@@ -46,9 +46,9 @@ export default class MainInfo extends Vue {}
   @include content-desctop--mini;
   @include wrapper-mobile;
   display: flex;
+  width: 100%;
 
   &__block {
-    @include content-desctop--mini;
     @include wrapper-mobile;
     @include flex-column;
     height: 100%;
