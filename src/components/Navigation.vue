@@ -62,7 +62,7 @@
       >
         <div class="nav-block" id="slide" v-if="isShowNavigationLink === true">
           <div class="menu">
-            <ul class="menu__list" v-for="item in vMenuList" :key="item.id">
+            <ul class="menu__list" v-for="item in menuList" :key="item.id">
               <li class="menu__item">
                 <a class="menu__item--link" href="#">{{ item.title }}</a>
               </li>
@@ -122,7 +122,7 @@ import { Vue, Component } from "vue-property-decorator";
 export default class StartScreen extends Vue {
   /* eslint-disable */
   /**Меню навигации */
-  vMenuList: { id: number; title: string }[] = [
+  menuList: { id: number; title: string }[] = [
     { id: 0, title: "Парковка" },
     { id: 1, title: "Страховка" },
     { id: 2, title: "Бензин" },

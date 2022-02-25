@@ -51,7 +51,7 @@ import { Vue, Component } from "vue-property-decorator";
 import variables from "@/styles/_style.scss";
 @Component({})
 export default class Slider extends Vue {
-  /* eslint-disable */ //Для объявления типов
+  /* eslint-disable */
   imageWidth: number = 0; /**Ширина видимого окна*/
   activeSlider: number = 0; //активный/текщий слайдер
 
