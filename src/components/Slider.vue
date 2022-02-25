@@ -14,19 +14,19 @@
             {{ item.description }}
           </p>
           <button
+            class="content__btn"
+            :style="{ background: item.background }"
             @mouseover="fHoverButton(item.id, $event.target)"
             @mouseleave="fGetOriginalColor($event.target, item.id)"
-            :style="{ background: item.background }"
-            class="content__btn"
           >
             Подробнее
           </button>
         </div>
         <div class="dote">
           <button
+            class="dote__item"
             v-for="item in slider"
             :key="item.id"
-            class="dote__item"
             :class="{ 'dote__item--active': item.id === activeSlider }"
             @click.self="fGetSlideForDote(item.id, $event)"
           ></button>
@@ -52,8 +52,8 @@ import variables from "@/styles/_style.scss";
 @Component({})
 export default class Slider extends Vue {
   /* eslint-disable */
-  imageWidth: number = 0; /**Ширина видимого окна*/
-  activeSlider: number = 0; //активный/текщий слайдер
+  imageWidth: number = 0;
+  activeSlider: number = 0;
 
   slider: {
     id: number;
@@ -62,7 +62,6 @@ export default class Slider extends Vue {
     description: string;
     background?: string;
   }[] = [
-    /**Слайдер и его контент */
     {
       id: 0,
       img: require("@/assets/slider-1.png"),
@@ -94,6 +93,7 @@ export default class Slider extends Vue {
       background: variables.violet,
     },
   ];
+
 
   /**Отслеживаем изменение экрана */
   mounted() {
@@ -144,7 +144,7 @@ export default class Slider extends Vue {
       e.style.background = variables.hoverViolet;
     }
   }
-  /**Отменякм ховер при наведении */
+  /**Отменяем ховер при наведении */
   fGetOriginalColor(e: HTMLElement, id: number) {
     if (id === 0) {
       e.style.background = variables.green;

@@ -4,14 +4,14 @@
       <p v-if="witdthMobile >= 320 && witdthMobile <= 768" class="link-pos">
         <button
           class="link__btn"
-          @click="fOpenMenu"
           v-if="isShowNavigationLink === false"
+          @click="fOpenMenu"
         >
           <svg width="32" height="32">
             <use xlink:href="#menu-mobile" />
           </svg>
         </button>
-        <button class="link__btn link__btn--close" @click="fOpenMenu" v-else>
+        <button class="link__btn link__btn--close" v-else @click="fOpenMenu">
           <svg width="32" height="32">
             <use xlink:href="#close" />
           </svg>
@@ -22,8 +22,8 @@
           <transition name="btn" mode="in-out">
             <p>
               <button
-                v-if="isShowNavigationLink === false"
                 class="link__btn"
+                v-if="isShowNavigationLink === false"
                 @click="fOpenMenu"
               >
                 <svg width="32" height="32">
@@ -33,8 +33,8 @@
 
               <button
                 class="link__btn link__btn--close"
-                @click="fOpenMenu"
                 v-else
+                @click="fOpenMenu"
               >
                 <svg width="32" height="32">
                   <use xlink:href="#close" />
@@ -46,9 +46,9 @@
 
         <div class="navigation__lang lang">
           <button
+            class="lang__btn"
             v-if="isEngLang === true"
             @click="isEngLang = false"
-            class="lang__btn"
           >
             Eng
           </button>
@@ -121,7 +121,7 @@ import { Vue, Component } from "vue-property-decorator";
 @Component({})
 export default class StartScreen extends Vue {
   /* eslint-disable */
-  /**Меню навигации */
+
   menuList: { id: number; title: string }[] = [
     { id: 0, title: "Парковка" },
     { id: 1, title: "Страховка" },
@@ -129,27 +129,24 @@ export default class StartScreen extends Vue {
     { id: 3, title: "Обслуживание" },
   ];
 
-  isShowNavigationLink: boolean = false; /**Открыто ли меню навигации */
-  isEngLang: boolean = true; /**Дефолтный язык интерфейса */
-  witdthMobile: number = 0; /**Размер браузера */
+  isShowNavigationLink: boolean = false;
+  isEngLang: boolean = true;
+  witdthMobile: number = 0;
 
   /**Открыть меню */
   fOpenMenu() {
-    if (this.isShowNavigationLink === true) {
-      this.isShowNavigationLink = false;
-    } else {
-      this.isShowNavigationLink = true;
-    }
+    this.isShowNavigationLink = !this.isShowNavigationLink;
   }
   /**Поменять язык интерфейса */
   fChangeLanguage() {
     this.isEngLang = !this.isEngLang;
   }
-  /**Следим за обновлением размера браузера */
+
+   /**Изменяем бургер и положение иконки языковой расскладки меню при изменения размера браузера */
   updateWidth(): void {
     this.witdthMobile = window.innerWidth;
   }
-  /**Изменяем бургер и положение иконки языковой расскладки меню при изменения размера браузера */
+  
   created() {
     window.addEventListener("resize", this.updateWidth);
     this.updateWidth();
