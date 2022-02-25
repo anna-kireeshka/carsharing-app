@@ -143,11 +143,7 @@ export default class StartScreen extends Vue {
   }
   /**Поменять язык интерфейса */
   fChangeLanguage() {
-    if (this.isEngLang === true) {
-      this.isEngLang = false;
-    } else {
-      this.isEngLang = true;
-    }
+    this.isEngLang = !this.isEngLang
   }
   /**Следим за обновлением размера браузера */
   updateWidth(): void {
