@@ -5,12 +5,10 @@
       <div class="main-nav">
         <h1 class="main-nav__company">Need for drive</h1>
         <p class="main-nav__city-name">
-          <img
-            alt="Ваше местоположение"
-            src="../assets/gps.svg"
-            width="18"
-            height="20"
-          />Ульяновск
+          <svg width="18" height="20">
+            <use xlink:href="#gps" />
+          </svg>
+          Ульяновск
         </p>
       </div>
       <div class="main-block">

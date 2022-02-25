@@ -1,6 +1,7 @@
 <template>
   <div id="app" class="container">
     <MainPage />
+    <Icon />
   </div>
 </template>
 
@@ -8,9 +9,10 @@
 import Vue from "vue";
 
 import MainPage from "@/pages/MainPage.vue";
+import Icon from "@/components/Icon.vue";
 
 export default Vue.extend({
-  components: { MainPage },
+  components: { MainPage, Icon },
 });
 </script>
 

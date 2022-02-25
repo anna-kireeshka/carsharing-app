@@ -33,18 +33,14 @@
         </div>
 
         <button class="action-right" @click="fGetNextImage">
-          <img
-            src="../assets/arrow.svg"
-            alt="Следующий слайд"
-            class="svg-left"
-          />
+          <svg width="10" height="20" class="svg-left">
+            <use xlink:href="#arrow" />
+          </svg>
         </button>
         <button class="action-left" @click="fGetPrevImage">
-          <img
-            src="../assets/arrow.svg"
-            alt="Предыдущий слайд"
-            class="svg-right"
-          />
+          <svg width="10" height="20" class="svg-right">
+            <use xlink:href="#arrow" />
+          </svg>
         </button>
       </div>
     </div>
@@ -81,7 +77,7 @@ export default class Slider extends Vue {
       img: require("@/assets/slider-2.png"),
       title: "Страховка",
       description: "Полная страховка страховка автомобиля",
-      background:variables.blue,
+      background: variables.blue,
     },
     {
       id: 2,
