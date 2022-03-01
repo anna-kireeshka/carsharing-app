@@ -4,14 +4,14 @@
       <p v-if="witdthMobile >= 320 && witdthMobile <= 768" class="link-pos">
         <button
           class="link__btn"
-          v-if="isShowNavigationLink === false"
-          @click="fOpenMenu"
+          v-if="showNavigationLink === false"
+          @click="openMenu"
         >
           <svg width="32" height="32">
             <use xlink:href="#menu-mobile" />
           </svg>
         </button>
-        <button class="link__btn link__btn--close" v-else @click="fOpenMenu">
+        <button class="link__btn link__btn--close" v-else @click="openMenu">
           <svg width="32" height="32">
             <use xlink:href="#close" />
           </svg>
@@ -23,8 +23,8 @@
             <p>
               <button
                 class="link__btn"
-                v-if="isShowNavigationLink === false"
-                @click="fOpenMenu"
+                v-if="showNavigationLink === false"
+                @click="openMenu"
               >
                 <svg width="32" height="32">
                   <use xlink:href="#menu" />
@@ -34,7 +34,7 @@
               <button
                 class="link__btn link__btn--close"
                 v-else
-                @click="fOpenMenu"
+                @click="openMenu"
               >
                 <svg width="32" height="32">
                   <use xlink:href="#close" />
@@ -47,20 +47,18 @@
         <div class="navigation__lang lang">
           <button
             class="lang__btn"
-            v-if="isEngLang === true"
-            @click="isEngLang = false"
+            v-if="showEngLang === true"
+            @click="changeLanguage"
           >
             Eng
           </button>
-          <button v-else @click="isEngLang = true" class="lang__btn">
-            Рус
-          </button>
+          <button v-else @click="changeLanguage" class="lang__btn">Рус</button>
         </div>
       </div>
       <transition
-        :name="isShowNavigationLink ? 'slide-fade' : 'slide-fade-reverse'"
+        :name="showNavigationLink ? 'slide-fade' : 'slide-fade-reverse'"
       >
-        <div class="nav-block" id="slide" v-if="isShowNavigationLink === true">
+        <div class="nav-block" id="slide" v-if="showNavigationLink === true">
           <div class="menu">
             <ul class="menu__list" v-for="item in menuList" :key="item.id">
               <li class="menu__item">
@@ -98,20 +96,20 @@
             v-if="witdthMobile >= 320 && witdthMobile <= 768"
           >
             <button
-              v-if="isEngLang === true"
-              @click="isEngLang = false"
+              v-if="showEngLang === true"
+              @click="changeLanguage"
               class="lang__btn"
             >
               Eng
             </button>
-            <button v-else @click="isEngLang = true" class="lang__btn">
+            <button v-else @click="changeLanguage" class="lang__btn">
               Рус
             </button>
           </div>
         </div>
       </transition>
     </div>
-    <div class="overlay" v-if="isShowNavigationLink === true"></div>
+    <div class="overlay" v-if="showNavigationLink === true"></div>
   </div>
 </template>
 
@@ -129,23 +127,22 @@ export default class StartScreen extends Vue {
     { id: 3, title: "Обслуживание" },
   ];
 
-  isShowNavigationLink: boolean = false;
-  isEngLang: boolean = true;
+  showNavigationLink: boolean = false;
+  showEngLang: boolean = true;
   witdthMobile: number = 0;
 
-  
-  fOpenMenu() {
-    this.isShowNavigationLink = !this.isShowNavigationLink;
+  openMenu() {
+    this.showNavigationLink = !this.showNavigationLink;
   }
 
-  fChangeLanguage() {
-    this.isEngLang = !this.isEngLang;
+  changeLanguage() {
+    this.showEngLang = !this.showEngLang;
   }
 
   updateWidth(): void {
     this.witdthMobile = window.innerWidth;
   }
-  
+
   created() {
     window.addEventListener("resize", this.updateWidth);
     this.updateWidth();

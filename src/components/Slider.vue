@@ -16,8 +16,8 @@
           <button
             class="content__btn"
             :style="{ background: item.background }"
-            @mouseover="fHoverButton(item.id, $event.target)"
-            @mouseleave="fGetOriginalColor($event.target, item.id)"
+            @mouseover="hoverButton(item.id, $event.target)"
+            @mouseleave="getOriginalColor($event.target, item.id)"
           >
             Подробнее
           </button>
@@ -28,16 +28,16 @@
             v-for="item in slider"
             :key="item.id"
             :class="{ 'dote__item--active': item.id === activeSlider }"
-            @click.self="fGetSlideForDote(item.id, $event)"
+            @click.self="getSlideForDote(item.id, $event)"
           ></button>
         </div>
 
-        <button class="action-right" @click="fGetNextImage">
+        <button class="action-right" @click="getNextImage">
           <svg width="10" height="20" class="svg-left">
             <use xlink:href="#arrow" />
           </svg>
         </button>
-        <button class="action-left" @click="fGetPrevImage">
+        <button class="action-left" @click="getPrevImage">
           <svg width="10" height="20" class="svg-right">
             <use xlink:href="#arrow" />
           </svg>
@@ -108,7 +108,7 @@ export default class Slider extends Vue {
     return (this.imageWidth = a);
   }
 
-  fGetNextImage() {
+  getNextImage() {
     this.activeSlider++;
     if (this.activeSlider >= this.slider.length) {
       this.activeSlider = 0;
@@ -116,7 +116,7 @@ export default class Slider extends Vue {
     this.sliderStylePosition;
   }
   
-  fGetPrevImage() {
+  getPrevImage() {
     this.activeSlider--;
     if (this.activeSlider < 0) {
       this.activeSlider = this.slider.length - 1;
@@ -124,14 +124,14 @@ export default class Slider extends Vue {
     this.sliderStylePosition;
   }
   
-  fGetSlideForDote(doteId: number, e: MouseEvent) {
+  getSlideForDote(doteId: number, e: MouseEvent) {
     if (this.activeSlider !== doteId) {
       this.activeSlider = doteId;
     }
     this.sliderStylePosition;
   }
 
-  fHoverButton(id: number, e: HTMLElement) {
+  hoverButton(id: number, e: HTMLElement) {
     if (id === 0) {
       e.style.background = variables.hoverGreen;
     } else if (id === 1) {
@@ -143,7 +143,7 @@ export default class Slider extends Vue {
     }
   }
   
-  fGetOriginalColor(e: HTMLElement, id: number) {
+  getOriginalColor(e: HTMLElement, id: number) {
     if (id === 0) {
       e.style.background = variables.green;
     } else if (id === 1) {
