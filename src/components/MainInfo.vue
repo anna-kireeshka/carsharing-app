@@ -3,7 +3,11 @@
     <Navigation />
     <div class="wrapper__block">
       <div class="main-nav">
-        <h1 class="main-nav__company">Need for drive</h1>
+        <h1>
+          <router-link class="main-nav__company" :to="{ name: 'MainPage' }"
+            >Need for drive</router-link
+          >
+        </h1>
         <p class="main-nav__city-name">
           <svg width="18" height="20">
             <use xlink:href="#gps" />
@@ -66,21 +70,12 @@ export default class MainInfo extends Vue {}
   @include flex-logo;
 
   &__company {
-    @include logo-mobile;
-    color: $color-green;
-    font-weight: $bold;
-    font-size: 1.875rem;
+    @include logo;
   }
   &__city-name {
-    @include city-mobile;
-    color: $main-dark-gray;
-    font-size: 0.875rem;
-    font-weight: 400;
-
-    display: flex;
-    align-items: center;
+    @include city;
   }
-  &__city-name img {
+  &__city-name svg {
     margin-right: 0.4713rem;
   }
 }
@@ -109,6 +104,8 @@ export default class MainInfo extends Vue {}
     @include btn-style-mobile;
     @include base-btn;
     @include base-btn-green;
+    padding-top: 12px;
+    text-decoration: none;
     border-radius: 0.5rem;
     width: 15.625rem;
     height: 3rem;

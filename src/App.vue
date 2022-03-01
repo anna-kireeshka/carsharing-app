@@ -31,7 +31,7 @@ export default Vue.extend({
 body {
   min-height: 100vh;
   min-height: -webkit-fill-available;
-  overflow: hidden;
+  overflow: auto;
   font-family: "Roboto", sans-serif;
 }
 html {

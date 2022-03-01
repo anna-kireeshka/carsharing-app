@@ -14,17 +14,9 @@
           class="navigation__link"
           >{{ item.text }}</router-link
         >
-        <!-- <img
-          src="../assets/arrow-route.svg"
-          alt="Перейти"
-          v-if="item.text !== '/'"
-          class="navigation__arrow"
-          style="
-             {
-              navigation__arrow--disabled: isLastPath;
-            }
-          "
-        /> -->
+        <svg width="6" height="8" class="navigation__arrow">
+          <use xlink:href="#arrow-breadcrumbs" />
+        </svg>
       </li>
     </ul>
   </div>

@@ -1,10 +1,13 @@
 <template>
   <div class="main-wrapper">
     <Navigation />
-    <!---Heeader-->
     <div class="main">
       <div class="main-nav">
-        <h1 class="main-nav__company">Need for drive</h1>
+        <h1>
+          <router-link class="main-nav__company" :to="{ name: 'MainPage' }"
+            >Need for drive</router-link
+          >
+        </h1>
         <p class="main-nav__city-name">
           <svg width="18" height="20">
             <use xlink:href="#gps" />
@@ -30,7 +33,12 @@
           </div>
           <div class="card">
             <p class="card__desc">Выбрать на карте:</p>
-            <img src="../assets/location.png" alt="Карта" />
+            <img
+              src="../assets/location.png"
+              alt="Карта"
+              width="736"
+              height="352"
+            />
           </div>
         </div>
         <PreOrderInfo />
@@ -51,80 +59,69 @@ export default class CardLocation extends Vue {}
 </script>
 <style scoped lang="scss">
 .main-wrapper {
-  display: flex;
-  justify-content: space-between;
+  @include flex-row;
 }
 .main {
   width: 100%;
 }
 .main-nav {
-  display: flex;
-  justify-content: space-between;
-  padding: 32px 63px 32px 128px;
   @include flex-row;
   @include flex-logo;
+  @include order-card-mobile;
+  padding: 32px 63px 32px 128px;
+
   &__company {
-    @include logo-mobile;
-    color: $color-green;
-    font-weight: $bold;
-    font-size: 1.875rem;
+    @include logo;
   }
   &__city-name {
-    @include city-mobile;
-    color: $main-dark-gray;
-    font-size: 0.875rem;
-    font-weight: 400;
-    display: flex;
-    align-items: center;
+    @include city;
   }
-  &__city-name img {
+  &__city-name svg {
     margin-right: 0.4713rem;
   }
 }
-.wrapper {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-}
 .card-form {
-  display: flex;
-  justify-content: space-between;
-  display: flex;
+  @include flex-row;
+  @include content-very-large-main;
+  @include content-large-main;
+  @include content-desctop-standart;
+  @include content-desctop--mini;
+  @include wrapper-mobile;
 }
 .form {
+  @include order-card;
+  @include order-card-mobile;
+  @include flex-column;
   min-width: calc(100% - 384px - 128px);
-  padding: 32px 0 0 128px;
-  display: flex;
-  flex-direction: column;
+  padding: 32px 192px 0 128px;
   align-items: flex-start;
-  border-right: 1px solid #eeeeee;
+  border-right: 1px solid $main-light-gray;
 }
 
 .city {
-  display: flex;
-  flex-direction: column;
+  @include flex-column;
   align-items: flex-end;
   &__wrap {
     margin-bottom: 16px;
   }
   &__label {
-    font-weight: 300;
+    font-weight: $light;
     font-size: 14px;
     line-height: 16px;
-    color: #121212;
+    color: $main-black;
     padding-right: 8px;
   }
   &__form {
     border: none;
-    border-bottom: 1px solid #999999;
+    border-bottom: 1px solid $main-light-gray;
     outline: none;
     width: 224px;
   }
   &__form[type="text"] {
-    font-weight: 300;
+    font-weight: $light;
     font-size: 14px;
     line-height: 16px;
-    color: #121212;
+    color: $main-black;
   }
   &__cross-icon {
     border: none;
@@ -133,15 +130,18 @@ export default class CardLocation extends Vue {}
   }
 }
 .card {
-  display: flex;
-  flex-direction: column;
+  @include flex-column;
   align-items: flex-start;
   margin-top: calc(45px - 16px);
+  img {
+    width: 100%;
+    object-fit: cover;
+  }
   &__desc {
-    font-weight: 300;
+    font-weight: $light;
     font-size: 14px;
     line-height: 16px;
-    color: #121212;
+    color: $main-black;
 
     margin-bottom: 16px;
   }
