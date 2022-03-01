@@ -12,6 +12,7 @@
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "baseUrl": ".",
+    "strictPropertyInitialization": false,
     "types": [
       "webpack-env"
     ],
@@ -36,5 +37,10 @@
   ],
   "exclude": [
     "node_modules"
-  ]
+  ],
+  "rules" : {
+    "no-inferrable-types": [true, "ignore-params",
+      "ignore-properties"]
+  }
+  
 }
