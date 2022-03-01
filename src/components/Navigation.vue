@@ -133,16 +133,15 @@ export default class StartScreen extends Vue {
   isEngLang: boolean = true;
   witdthMobile: number = 0;
 
-  /**Открыть меню */
+  
   fOpenMenu() {
     this.isShowNavigationLink = !this.isShowNavigationLink;
   }
-  /**Поменять язык интерфейса */
+
   fChangeLanguage() {
     this.isEngLang = !this.isEngLang;
   }
 
-   /**Изменяем бургер и положение иконки языковой расскладки меню при изменения размера браузера */
   updateWidth(): void {
     this.witdthMobile = window.innerWidth;
   }

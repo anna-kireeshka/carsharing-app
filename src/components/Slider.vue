@@ -95,7 +95,6 @@ export default class Slider extends Vue {
   ];
 
 
-  /**Отслеживаем изменение экрана */
   mounted() {
     window.addEventListener("resize", this.handleResize);
     this.handleResize();
@@ -103,12 +102,12 @@ export default class Slider extends Vue {
   destroyed() {
     window.removeEventListener("resize", this.handleResize);
   }
-  /**Получаем размер блока для адаптивного слайдера */
+
   handleResize() {
     let a = (this.$refs.img as HTMLElement).clientWidth;
     return (this.imageWidth = a);
   }
-  /**Перейти к предыдущему элементу */
+
   fGetNextImage() {
     this.activeSlider++;
     if (this.activeSlider >= this.slider.length) {
@@ -116,7 +115,7 @@ export default class Slider extends Vue {
     }
     this.sliderStylePosition;
   }
-  /**Перейти к следующему слайду */
+  
   fGetPrevImage() {
     this.activeSlider--;
     if (this.activeSlider < 0) {
@@ -124,7 +123,7 @@ export default class Slider extends Vue {
     }
     this.sliderStylePosition;
   }
-  /**Полчаем слайд по переключение кнопок навигации */
+  
   fGetSlideForDote(doteId: number, e: MouseEvent) {
     if (this.activeSlider !== doteId) {
       this.activeSlider = doteId;
@@ -132,7 +131,6 @@ export default class Slider extends Vue {
     this.sliderStylePosition;
   }
 
-  /**Ховер кнопок */
   fHoverButton(id: number, e: HTMLElement) {
     if (id === 0) {
       e.style.background = variables.hoverGreen;
@@ -144,7 +142,7 @@ export default class Slider extends Vue {
       e.style.background = variables.hoverViolet;
     }
   }
-  /**Отменяем ховер при наведении */
+  
   fGetOriginalColor(e: HTMLElement, id: number) {
     if (id === 0) {
       e.style.background = variables.green;
@@ -157,7 +155,6 @@ export default class Slider extends Vue {
     }
   }
 
-  /**Считаем насколько сдвигать слайдер */
   get sliderStylePosition() {
     let sliderList = document.querySelector(".slider") as HTMLElement;
     return (sliderList.style.marginLeft =
