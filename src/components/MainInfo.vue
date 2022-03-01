@@ -19,7 +19,11 @@
         <p class="main-block__discreption">
           Поминутная аренда авто твоего города
         </p>
-        <button class="main-block__booking">Забронировать</button>
+        <!-- <button class="main-block__booking"> -->
+        <router-link class="main-block__booking" :to="{ name: 'location' }"
+          >Забронировать</router-link
+        >
+        <!-- </button> -->
       </div>
       <div class="main-footer">
         <p class="main-footer__info">© 2016-2019 «Need for drive»</p>

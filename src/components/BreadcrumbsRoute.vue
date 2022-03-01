@@ -14,7 +14,7 @@
           class="navigation__link"
           >{{ item.text }}</router-link
         >
-        <img
+        <!-- <img
           src="../assets/arrow-route.svg"
           alt="Перейти"
           v-if="item.text !== '/'"
@@ -24,7 +24,7 @@
               navigation__arrow--disabled: isLastPath;
             }
           "
-        />
+        /> -->
       </li>
     </ul>
   </div>
@@ -34,7 +34,7 @@ import { Vue, Component } from "vue-property-decorator";
 import { RouteMeta } from "vue-router";
 
 @Component({})
-export default class NavigationRoute extends Vue {
+export default class BreadcrumbsRoute extends Vue {
   get breadCrumbs(): void {
     if ((this.$route.meta as RouteMeta).breadCrumb) {
       return (this.$route.meta as RouteMeta).breadCrumb.call(this, this.$route);

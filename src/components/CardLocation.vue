@@ -1,78 +1,77 @@
 <template>
-  <!--TODO:Перенсти в pages посли слияния v-01-->
-  <div class="wrapper">
-    <router-view />
+  <div class="main-wrapper">
+    <Navigation />
     <!---Heeader-->
-    <div class="main-nav">
-      <h1 class="main-nav__company">Need for drive</h1>
-      <p class="main-nav__city-name">
-        <!-- <svg width="18" height="20">
+    <div class="main">
+      <div class="main-nav">
+        <h1 class="main-nav__company">Need for drive</h1>
+        <p class="main-nav__city-name">
+          <svg width="18" height="20">
             <use xlink:href="#gps" />
-          </svg> -->
-        Ульяновск
-      </p>
-    </div>
-    <NavigationRoute />
-    <div class="card-form">
-      <div class="form">
-        <div class="city">
-          <p class="city__wrap">
-            <label for="city" class="city__label">Город</label>
-            <input id="city" type="text" class="city__form" />
-            <button class="city__cross-icon">
-              <!--TODO:Если что-то введено показывать-->
-              <img src="../assets/cross.svg" alt="Очистить" />
-            </button>
-          </p>
-
-          <p class="city__wrap">
-            <label for="pvz" class="city__label">Пункт выдачи</label>
-            <input id="pvz" type="text" class="city__form" />
-            <button class="city__cross-icon">
-              <!--TODO:Если что-то введено показывать-->
-              <img src="../assets/cross.svg" alt="Очистить" />
-            </button>
-          </p>
-        </div>
-        <div class="card">
-          <p class="card__desc">Выбрать на карте:</p>
-          <img src="../assets/location.png" alt="Карта" />
-        </div>
+          </svg>
+          Ульяновск
+        </p>
       </div>
-      <PreOrderInfo />
+      <BreadcrumbsRoute />
+      <div class="card-form">
+        <div class="form">
+          <div class="city">
+            <p class="city__wrap">
+              <label for="city" class="city__label">Город</label>
+              <input id="city" type="text" class="city__form" />
+              <button class="city__cross-icon"></button>
+            </p>
+
+            <p class="city__wrap">
+              <label for="pvz" class="city__label">Пункт выдачи</label>
+              <input id="pvz" type="text" class="city__form" />
+              <button class="city__cross-icon"></button>
+            </p>
+          </div>
+          <div class="card">
+            <p class="card__desc">Выбрать на карте:</p>
+            <img src="../assets/location.png" alt="Карта" />
+          </div>
+        </div>
+        <PreOrderInfo />
+      </div>
     </div>
   </div>
 </template>
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
-import NavigationRoute from "./NavigationRoute.vue";
+import BreadcrumbsRoute from "./BreadcrumbsRoute.vue";
 import PreOrderInfo from "./PreOrderInfo.vue";
+import Navigation from "./Navigation.vue";
+
 @Component({
-  components: { NavigationRoute, PreOrderInfo },
+  components: { BreadcrumbsRoute, PreOrderInfo, Navigation },
 })
 export default class CardLocation extends Vue {}
 </script>
 <style scoped lang="scss">
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+.main-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+.main {
+  width: 100%;
 }
 .main-nav {
   display: flex;
   justify-content: space-between;
   padding: 32px 63px 32px 128px;
-  // @include flex-row;
-  // @include flex-logo;
+  @include flex-row;
+  @include flex-logo;
   &__company {
-    // @include logo-mobile;
-    // color: $color-green;
-    // font-weight: $bold;
+    @include logo-mobile;
+    color: $color-green;
+    font-weight: $bold;
     font-size: 1.875rem;
   }
   &__city-name {
-    // @include city-mobile;
-    // color: $main-dark-gray;
+    @include city-mobile;
+    color: $main-dark-gray;
     font-size: 0.875rem;
     font-weight: 400;
     display: flex;
