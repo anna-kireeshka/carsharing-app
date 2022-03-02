@@ -65,7 +65,5 @@ export default class BreadcrumbsRoute extends Vue {
   &__arrow {
     padding: 0px 16px;
   }
-  &__arrow--disabled {
-  }
 }
 </style>
