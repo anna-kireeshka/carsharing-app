@@ -3,7 +3,7 @@
     <div class="wrapper">
       <p v-if="witdthMobile >= 320 && witdthMobile <= 768" class="link-pos">
         <button
-          class="link__btn"
+          class="link__btn link__btn--mobile"
           v-if="showNavigationLink === false"
           @click="openMenu"
         >
@@ -214,18 +214,16 @@ export default class StartScreen extends Vue {
       fill: $color-green;
     }
   }
-
-  // svg path:first-child:hover,
-  // svg path :first-child:focus {
-  //   fill: $color-green;
-  // }
 }
 
 .link {
   &__btn {
     @include base-btn;
-    margin-top: 2.5rem;
+    margin-top: 2rem;
     transition: all 1s;
+  }
+  &__btn--mobile {
+    margin-top: 3.6rem;
   }
 
   &__btn--close {

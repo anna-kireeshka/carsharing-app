@@ -1,5 +1,4 @@
 
-/**Медиа для слайдера и его контента */
 @mixin slider-desctop-mini-heading {
   @media (min-width: 60rem) and (max-width: 78rem) {
     font-size: 2rem;
@@ -17,5 +16,10 @@
 @mixin slider-table {
   @media (min-width: 20rem) and (max-width: 50rem) {
     display: none;
+  }
+}
+@mixin order-card {
+  @media (min-width: 50rem) and (max-width: 78rem) {
+   padding: 9px 70px 0 50px;;
   }
 }
