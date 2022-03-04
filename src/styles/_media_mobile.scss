@@ -100,3 +100,10 @@
     line-height: 1.3594rem;
   }
 }
+@mixin order-card-mobile {
+  @media (min-width: 20rem) and (max-width:60rem){
+    @include flex-column;
+    padding: 1rem;
+  }
+  
+}

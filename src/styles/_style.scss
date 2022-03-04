@@ -71,7 +71,15 @@ $btn-violet:linear-gradient(90deg, #1e014d 0%, #970477 100%);
 
 //Заблокированая кнопка
 @mixin base-disabled-green {
-    background: $main-light-gray;
+  background: $main-light-gray;
+  text-align: center;
+
+  border-radius: 8px;
+
+  color: $white;
+  font-weight: $medium;
+  font-size: 18px;
+  line-height: 21px;
 }
 
 
@@ -105,4 +113,20 @@ $btn-violet:linear-gradient(90deg, #1e014d 0%, #970477 100%);
   @media (min-width: 60rem) and (max-width: 1280px) {
     width: 2rem;
   }
+}
+@mixin logo {
+  @include logo-mobile;
+  text-decoration: none;
+  cursor: pointer;
+  color: $color-green;
+  font-weight: $bold;
+  font-size: 1.875rem;
+}
+@mixin city {
+  @include city-mobile;
+    color: $main-dark-gray;
+    font-size: 0.875rem;
+    font-weight: $normal;
+    display: flex;
+    align-items: center;
 }
