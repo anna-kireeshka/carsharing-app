@@ -2,18 +2,13 @@
   <div class="navigation">
     <ul
       class="navigation__list"
-      :key="index"
       v-for="(item, index) in breadCrumbs"
+      :key="index"
     >
       <li class="navigation___item">
-        <router-link
-          :to="item.to"
-          :class="{
-            'navigation__link--disabled': breadCrumbs.length + 1 === index,
-          }"
-          class="navigation__link"
-          >{{ item.text }}</router-link
-        >
+        <router-link :to="item.to" class="navigation__link" id="a">{{
+          item.text
+        }}</router-link>
         <svg width="6" height="8" class="navigation__arrow">
           <use xlink:href="#arrow-breadcrumbs" />
         </svg>
@@ -27,7 +22,7 @@ import { RouteMeta } from "vue-router";
 
 @Component({})
 export default class BreadcrumbsRoute extends Vue {
-  get breadCrumbs(): void {
+  get breadCrumbs(): string[] {
     if ((this.$route.meta as RouteMeta).breadCrumb) {
       return (this.$route.meta as RouteMeta).breadCrumb.call(this, this.$route);
     }
@@ -41,11 +36,10 @@ export default class BreadcrumbsRoute extends Vue {
   display: flex;
   border-top: 1px solid #eeeeee;
   border-bottom: 1px solid #eeeeee;
-  padding: 8px;
+  padding-left: 128px;
   &__list {
     list-style: none;
     margin: 0;
-    padding-left: 128px;
   }
   &__item {
   }
@@ -57,10 +51,10 @@ export default class BreadcrumbsRoute extends Vue {
     text-decoration: none;
   }
   &__link--disabled {
-    font-weight: bold;
-    font-size: 14px;
-    line-height: 16px;
     color: #999999;
+  }
+  &__link--sucsess {
+    color: $main-black;
   }
   &__arrow {
     padding: 0px 16px;
