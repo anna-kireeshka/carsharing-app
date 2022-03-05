@@ -6,7 +6,7 @@
       :key="index"
     >
       <li class="navigation___item">
-        <router-link :to="item.to" class="navigation__link" id="a">{{
+        <router-link :to="item.to" class="navigation__link">{{
           item.text
         }}</router-link>
         <svg width="6" height="8" class="navigation__arrow">
