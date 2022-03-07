@@ -61,6 +61,42 @@
                 <img src="../assets/car-1.png" alt="Машина" />
               </div>
             </div>
+            <div class="car-order__card">
+              <div class="car-content">
+                <p class="car-content__model">Модель</p>
+                <p class="car-content__price">Цена</p>
+              </div>
+              <div class="car-order__image">
+                <img src="../assets/car-1.png" alt="Машина" />
+              </div>
+            </div>
+            <div class="car-order__card">
+              <div class="car-content">
+                <p class="car-content__model">Модель</p>
+                <p class="car-content__price">Цена</p>
+              </div>
+              <div class="car-order__image">
+                <img src="../assets/car-1.png" alt="Машина" />
+              </div>
+            </div>
+            <div class="car-order__card">
+              <div class="car-content">
+                <p class="car-content__model">Модель</p>
+                <p class="car-content__price">Цена</p>
+              </div>
+              <div class="car-order__image">
+                <img src="../assets/car-1.png" alt="Машина" />
+              </div>
+            </div>
+            <div class="car-order__card">
+              <div class="car-content">
+                <p class="car-content__model">Модель</p>
+                <p class="car-content__price">Цена</p>
+              </div>
+              <div class="car-order__image">
+                <img src="../assets/car-1.png" alt="Машина" />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -130,6 +166,7 @@ export default class CarModel extends Vue {
   @include order-card-mobile;
   @include flex-column;
   min-width: calc(100% - 728px);
+  height: 100vh;
   padding: 32px 192px 0 64px;
   align-items: flex-start;
   border-right: 1px solid $main-light-gray;
@@ -173,6 +210,7 @@ export default class CarModel extends Vue {
 .car-order {
   display: flex;
   flex-wrap: wrap;
+  width: 736px;
   &__card {
     width: 368px;
     height: 224px;
