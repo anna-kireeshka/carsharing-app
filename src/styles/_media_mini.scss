@@ -19,3 +19,15 @@
     display: none;
   }
 }
+@mixin order-card {
+  @media (min-width: 50rem) and (max-width: 78rem) {
+   padding: 9px 70px 0 50px;;
+  }
+}
+@mixin order-card-mobile {
+  @media (min-width: 20rem) and (max-width:37.5rem){
+    @include flex-column;
+    padding: 1rem;
+  }
+  
+}

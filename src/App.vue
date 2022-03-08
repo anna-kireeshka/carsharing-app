@@ -1,18 +1,17 @@
 <template>
   <div id="app" class="container">
-    <MainPage />
     <Icon />
+    <router-view />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 
-import MainPage from "@/pages/MainPage.vue";
 import Icon from "@/components/Icon.vue";
 
 export default Vue.extend({
-  components: { MainPage, Icon },
+  components: { Icon },
 });
 </script>
 

@@ -106,3 +106,19 @@ $btn-violet:linear-gradient(90deg, #1e014d 0%, #970477 100%);
     width: 2rem;
   }
 }
+@mixin logo {
+  @include logo-mobile;
+  text-decoration: none;
+  cursor: pointer;
+  color: $color-green;
+  font-weight: $bold;
+  font-size: 1.875rem;
+}
+@mixin city {
+  @include city-mobile;
+    color: $main-dark-gray;
+    font-size: 0.875rem;
+    font-weight: $normal;
+    display: flex;
+    align-items: center;
+}
