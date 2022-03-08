@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 import MainPage from "../pages/MainPage.vue";
-import FinalOrder from "@/components/FinalOrder.vue";
+import FinalOrder from "@/components/ModalFinalOrder.vue";
 Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
