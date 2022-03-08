@@ -16,7 +16,7 @@
         </p>
       </div>
       <BreadcrumbsRoute />
-      <div class="a">
+      <div class="form">
         <div class="car-model">
           <div class="filter">
             <div
@@ -153,7 +153,7 @@ export default class CarModel extends Vue {
     margin-right: 0.4713rem;
   }
 }
-.a {
+.form {
   @include flex-row;
   @include content-very-large-main;
   @include content-large-main;
