@@ -43,8 +43,7 @@
           </div>
         </div>
       </div>
-
-      <!-- <PreOrderInfo /> -->
+      <PreOrderInfo />
     </div>
   </div>
 </template>
