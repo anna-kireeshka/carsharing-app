@@ -46,17 +46,39 @@
     </div>
   </div>
 </template>
+
 <script lang="ts">
-import { Vue, Component } from "vue-property-decorator";
+/* eslint-disable */
+import { Vue, Component, Prop } from "vue-property-decorator";
 import BreadcrumbsRoute from "./BreadcrumbsRoute.vue";
 import PreOrderInfo from "./PreOrderInfo.vue";
 import Navigation from "./Navigation.vue";
 
+import {State, Action, Getter} from 'vuex-class';
+import {ProfileState} from '../store/location/types';
+const namespace: string = 'location';
 @Component({
   components: { BreadcrumbsRoute, PreOrderInfo, Navigation },
 })
-export default class CardLocation extends Vue {}
+export default class CardLocation extends Vue {
+   @State('profile') location: ProfileState;
+   @Action('fetchData', {namespace}) fetchData: any;
+   @Getter('fgetCityName', {namespace}) getCityName: string;
+
+    mounted() {
+      this.fetchData();
+      
+console.log(process.env.VUE_APP_CARSHARING_APPLICATION_ID)
+      
+    }
+
+    get cityName() {
+      const city = this.location && this.location.city;
+      return (city || []);
+    }
+}
 </script>
+
 <style scoped lang="scss">
 .main-wrapper {
   @include flex-row;
