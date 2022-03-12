@@ -15,7 +15,7 @@
           Ульяновск
         </p>
       </div>
-      <!-- <BreadcrumbsRoute /> -->
+      <BreadcrumbsRoute />
       <div class="form">
         <div class="car-model">
           <div class="filter">
@@ -101,41 +101,48 @@
         </div>
       </div>
     </div>
-    <!-- <PreOrderInfo /> -->
+    <PreOrderInfo />
   </div>
 </template>
+
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
-// import BreadcrumbsRoute from "./BreadcrumbsRoute.vue";
-//import PreOrderInfo from "./PreOrderInfo.vue";
+import { CarModelFilter } from "../types";
+import BreadcrumbsRoute from "./BreadcrumbsRoute.vue";
+import PreOrderInfo from "./PreOrderInfo.vue";
 import Navigation from "./Navigation.vue";
+
 @Component({
   components: {
     Navigation,
-    //  BreadcrumbsRoute,
-    // PreOrderInfo
+    BreadcrumbsRoute,
+    PreOrderInfo,
   },
 })
 export default class CarModel extends Vue {
-  radioFilter: { name: string; checked: boolean; val: string }[] = [
-    {
-      name: "Все модели",
-      checked: true,
-      val: "allModel",
-    },
-    {
-      name: "Эконом",
-      checked: false,
-      val: "economy",
-    },
-    {
-      name: "Премиум",
-      checked: false,
-      val: "premium",
-    },
-  ];
+  radioFilter: CarModelFilter[];
+  mounted() {
+    this.radioFilter = [
+      {
+        name: "Все модели",
+        checked: true,
+        val: "allModel",
+      },
+      {
+        name: "Эконом",
+        checked: false,
+        val: "economy",
+      },
+      {
+        name: "Премиум",
+        checked: false,
+        val: "premium",
+      },
+    ];
+  }
 }
 </script>
+
 <style lang="scss" scoped>
 .main-wrapper {
   @include flex-row;
