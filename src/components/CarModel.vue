@@ -15,7 +15,7 @@
           Ульяновск
         </p>
       </div>
-      <BreadcrumbsRoute />
+      <!-- <BreadcrumbsRoute /> -->
       <div class="form">
         <div class="car-model">
           <div class="filter">
@@ -101,17 +101,22 @@
         </div>
       </div>
     </div>
-    <PreOrderInfo />
+    <!-- <PreOrderInfo /> -->
   </div>
 </template>
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
-import BreadcrumbsRoute from "./BreadcrumbsRoute.vue";
-import PreOrderInfo from "./PreOrderInfo.vue";
+// import BreadcrumbsRoute from "./BreadcrumbsRoute.vue";
+//import PreOrderInfo from "./PreOrderInfo.vue";
 import Navigation from "./Navigation.vue";
-@Component({ components: { Navigation, BreadcrumbsRoute, PreOrderInfo } })
+@Component({
+  components: {
+    Navigation,
+    //  BreadcrumbsRoute,
+    // PreOrderInfo
+  },
+})
 export default class CarModel extends Vue {
-  /**Радиокнопки выбора кдасса авто */
   radioFilter: { name: string; checked: boolean; val: string }[] = [
     {
       name: "Все модели",
