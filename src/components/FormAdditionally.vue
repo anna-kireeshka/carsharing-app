@@ -28,6 +28,7 @@
         </div>
       </div>
     </div>
+
     <div class="price">
       <p class="price__first-step">
         <span class="price__first-step--dark">Цена</span>: от 8 000 до 12 000 ₽
@@ -36,11 +37,14 @@
     </div>
   </div>
 </template>
+
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
+
 @Component
 export default class FormAdditionally extends Vue {}
 </script>
+
 <style scoped lang="scss">
 .wrapper-form {
   width: 100%;

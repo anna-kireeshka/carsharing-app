@@ -15,7 +15,7 @@
           Ульяновск
         </p>
       </div>
-      <!-- <BreadcrumbsRoute /> -->
+      <BreadcrumbsRoute />
       <div class="additionally-container">
         <div class="filter">
           <p class="filter__desc">Цвет</p>
@@ -28,7 +28,7 @@
               <label
                 class="filter__label"
                 :for="item.val"
-                :class="{ 'filter__label--disabled': item.checked === false }"
+                :class="{ 'filter__label--disabled': !item.checked }"
               >
                 <input
                   type="radio"
@@ -76,7 +76,7 @@
               <label
                 class="filter__label"
                 :for="item.val"
-                :class="{ 'filter__label--disabled': item.checked === false }"
+                :class="{ 'filter__label--disabled': !item.checked }"
               >
                 <input
                   type="radio"
@@ -100,7 +100,7 @@
               <label
                 class="filter__label flter__lable--check"
                 :for="item.name"
-                :class="{ 'filter__label--disabled': item.checked === false }"
+                :class="{ 'filter__label--disabled': !item.checked }"
               >
                 <input
                   type="checkbox"
@@ -114,44 +114,52 @@
             </div>
           </div>
         </div>
-
         <FinalInfo />
       </div>
     </div>
   </div>
 </template>
+
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
 import FinalInfo from "./FormAdditionally.vue";
 import Navigation from "./Navigation.vue";
+import { CarColorFilter, CarRate, CarAdditionaly } from "../types";
+
 @Component({ components: { FinalInfo, Navigation } })
 export default class OrderAdditionally extends Vue {
-  colorFilter: { name: string; checked: boolean; val: string }[] = [
-    {
-      name: "Любой",
-      checked: true,
-      val: "allColor",
-    },
-    {
-      name: "Красный",
-      checked: false,
-      val: "red",
-    },
-    {
-      name: "Голубой",
-      checked: false,
-      val: "blue",
-    },
-  ];
-  rate: { name: string; checked: boolean; val: string }[] = [
-    { name: "Поминутно, 7₽/мин", checked: false, val: "minute" },
-    { name: "На сутки, 1999 ₽/сутки", checked: true, val: "allDay" },
-  ];
-  additionaly: { name: string; checked: boolean; val: string }[] = [
-    { name: "Полный бак, 500р", checked: true, val: "fullTank" },
-    { name: "Детское кресло, 200р", checked: false, val: "babyChair" },
-    { name: "Правый руль, 1600р", checked: false, val: "rightHandDrive" },
-  ];
+  colorFilter: CarColorFilter[];
+  rate: CarRate[];
+  additionaly: CarAdditionaly[];
+
+  mounted() {
+    this.colorFilter = [
+      {
+        name: "Любой",
+        checked: true,
+        val: "allColor",
+      },
+      {
+        name: "Красный",
+        checked: false,
+        val: "red",
+      },
+      {
+        name: "Голубой",
+        checked: false,
+        val: "blue",
+      },
+    ];
+    this.rate = [
+      { name: "Поминутно, 7₽/мин", checked: false, val: "minute" },
+      { name: "На сутки, 1999 ₽/сутки", checked: true, val: "allDay" },
+    ];
+    this.additionaly = [
+      { name: "Полный бак, 500р", checked: true, val: "fullTank" },
+      { name: "Детское кресло, 200р", checked: false, val: "babyChair" },
+      { name: "Правый руль, 1600р", checked: false, val: "rightHandDrive" },
+    ];
+  }
 }
 </script>
 
