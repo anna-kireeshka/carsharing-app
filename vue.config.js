@@ -9,5 +9,5 @@ module.exports = {
   },
 
   outputDir: "docs",
-  publicPath: "/need-for-drive",
+  publicPath: "",
 };

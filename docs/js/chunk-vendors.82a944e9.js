@@ -979,7 +979,6 @@
               },
             }),
               window.addEventListener("test-passive", null, ct);
-          // eslint-disable-next-line no-empty
           } catch (Ca) {}
         var st = function () {
             return (
