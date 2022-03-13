@@ -30,16 +30,19 @@
                 @keydown.up="onArrowUp"
                 @keydown.enter="onEnter"
                 :value="valueCity"
-                :chose-city="valueCity"
               />
-              <button class="city__cross-icon"></button>
+              <button class="city__cross-icon" @click="resetCity">
+                <svg width="8" height="8">
+                  <use xlink:href="#cross" />
+                </svg>
+              </button>
 
               <ul class="city__autocomplete-list city-wrap" v-show="openCity">
                 <li
                   class="city__autocomplete-item"
                   v-for="(city, index) in cityList"
                   :key="index"
-                  @click="setResult(city.name)"
+                  @click="setResultCity(city.name)"
                   :class="{
                     'city__autocomplete-item': index === arrowCounterCity,
                   }"
@@ -61,16 +64,19 @@
                 @keydown.up="onArrowUp"
                 @keydown.enter="onEnter"
                 :value="valuePvz"
-                :chose-pvz="valuePvz"
               />
-              <button class="city__cross-icon"></button>
+              <button class="city__cross-icon" @click="resetPvz">
+                <svg width="8" height="8">
+                  <use xlink:href="#cross" />
+                </svg>
+              </button>
 
               <ul class="city__autocomplete-list pvz-wrap" v-show="openPvz">
                 <li
                   class="city__autocomplete-item"
-                  v-for="(pvz, cityId) in pvzList"
-                  :key="cityId"
-                  @click="setResult(pvz.name)"
+                  v-for="(pvz, index) in pvzList"
+                  :key="index"
+                  @click="setResultPvz(pvz.name, pvz.address)"
                   :class="{
                     'city__autocomplete-item': index === arrowCounterPvz,
                   }"
@@ -103,7 +109,6 @@ import { Vue, Component, Prop } from "vue-property-decorator";
 import BreadcrumbsRoute from "./BreadcrumbsRoute.vue";
 import PreOrderInfo from "./PreOrderInfo.vue";
 import Navigation from "./Navigation.vue";
-const namespace: string = "location";
 @Component({
   components: { BreadcrumbsRoute, PreOrderInfo, Navigation },
 })
@@ -123,11 +128,13 @@ export default class CardLocation extends Vue {
 
   searchCity(e: { target: HTMLInputElement }) {
     this.$store.commit("location/searchCity", e.target.value);
+    this.openCity = true;
     this.fetchData();
   }
 
   searchPvz(e: { target: HTMLInputElement }) {
     this.$store.commit("location/searchPvz", e.target.value);
+    this.openPvz = true;
     this.fetchDataPvz();
   }
 
@@ -179,7 +186,7 @@ export default class CardLocation extends Vue {
   onEnter() {
     if (this.valueCity) {
       this.$store.commit(
-        "location/searchPvz",
+        "location/searchCity",
         this.cityList[this.arrowCounterCity].name
       );
       this.openCity = false;
@@ -187,21 +194,43 @@ export default class CardLocation extends Vue {
     if (this.valuePvz) {
       this.$store.commit(
         "location/searchPvz",
-        this.pvzList[this.arrowCounterPvz].name
+        this.pvzList[this.arrowCounterPvz].name,
+        this.pvzList[this.arrowCounterPvz].address
       );
+
       this.openPvz = false;
     }
   }
-  setResult(name: string) {
-    if (this.valueCity) {
-      this.$store.commit("location/searchPvz", name);
-      this.openCity = false;
-    }
-    if (this.valuePvz) {
-      this.$store.commit("location/searchPvz", name);
-      this.openPvz = false;
+
+  setResultPvz(name: string, address: string) {
+    this.$store.commit("location/searchPvz", name + address);
+    this.openPvz = false;
+    this.$router.push({
+            query: { pvz: address, city:this.valueCity },
+    });
+     if(this.valuePvz === "") {
+      this.$router.push(this.$route.path);
     }
   }
+
+  setResultCity(name: string) {
+    this.$store.commit("location/searchCity", name);
+    this.openCity = false;
+    this.$router.push({
+            query: { city: this.valueCity},
+    });
+  }
+
+  resetCity() {
+   this.$store.commit("location/searchCity", "");
+   this.$router.push(this.$route.path);
+  }
+
+  resetPvz() {
+   this.$store.commit("location/searchPvz", "");
+   this.$router.push(this.$route.path);
+  }
+
 
   get valueCity(): string {
     return this.$store.state.location.valueCity;
@@ -212,11 +241,11 @@ export default class CardLocation extends Vue {
   }
 
   get cityList() {
-    return this.$store.state.location.city;
+    return this.$store.state.location.city.data;
   }
 
   get pvzList() {
-    return this.$store.state.location.pvz;
+    return this.$store.state.location.pvz.data;
   }
 }
 </script>
@@ -257,6 +286,7 @@ export default class CardLocation extends Vue {
   @include order-card-mobile;
   @include flex-column;
   min-width: calc(100% - 384px - 128px);
+  height: 100vh;
   padding: 32px 192px 0 128px;
   align-items: flex-start;
   border-right: 1px solid $main-light-gray;
@@ -283,6 +313,7 @@ export default class CardLocation extends Vue {
     width: 224px;
   }
   &__form[type="text"] {
+    padding-right: 20px;
     font-weight: $light;
     font-size: 14px;
     line-height: 16px;

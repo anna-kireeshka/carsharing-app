@@ -6,8 +6,8 @@
         <p class="pvz__name">Пункт выдачи</p>
         <p class="pvz__dote"></p>
         <div class="pvz__block-location">
-          <p class="pvz__location">{{ cityName }},</p>
-          <p class="pvz__location">{{ pvzAddress }}</p>
+          <p class="pvz__location">{{ city }}</p>
+          <p class="pvz__location">{{ pvz }}</p>
         </div>
       </div>
     </div>
@@ -15,24 +15,41 @@
       <p class="price__first-step">
         <span class="price__first-step--dark">Цена</span>: от 8 000 до 12 000 ₽
       </p>
-      <button class="price__model-action">Выбрать модель</button>
+      <button
+        class="price__model-action"
+        :class="{ 'price__model-action--active': !checkValidForm }"
+      >
+        Выбрать модель
+      </button>
     </div>
   </div>
 </template>
 <script lang="ts">
-import { Vue, Component, Prop } from "vue-property-decorator";
+import { Vue, Component } from "vue-property-decorator";
 
 @Component
 export default class PreOrderInfo extends Vue {
-  @Prop() public choseCity!: string;
-  @Prop() public chosePvz!: string;
+  /* eslint-disable */
+  get city() {
+    return this.$route.query.city;
+  }
 
-  cityName = this.choseCity;
-  pvzAddress = this.chosePvz;
+  get pvz() {
+    return this.$route.query.pvz;
+  }
+
+  get checkValidForm() {
+    let empty: boolean = false;
+    if (this.city === null && this.pvz === null) {
+      empty = true;
+    }
+    return empty;
+  }
 }
 </script>
 <style scoped lang="scss">
 .wrapper-form {
+  width: 100%;
   padding: 32px 63px 32px 32px;
 }
 .order {
@@ -59,7 +76,7 @@ export default class PreOrderInfo extends Vue {
     }
     &__dote {
       border-bottom: 1px dotted $main-dark-gray;
-      width: calc(100% - 91px - 101px - 24px);
+      width: calc(100% - 91px - 101px - 80px);
     }
     &__block-location {
       @include flex-column;
@@ -93,6 +110,9 @@ export default class PreOrderInfo extends Vue {
     @include base-disabled-green;
     width: 287px;
     padding: 15px 0;
+  }
+  &__model-action--active {
+    @include base-btn-green;
   }
 }
 </style>

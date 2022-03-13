@@ -4,8 +4,8 @@ import { ProfileState, City, Pvz } from "./types";
 import { RootState } from "../types";
 
 export const actions: ActionTree<ProfileState, RootState> = {
-  fetchData({ commit }) {
-    HTTP("/api/db/city").then(
+  fetchData({ commit, state }) {
+    HTTP.get("/api/db/city").then(
       (response) => {
         const city: City[] = response && response.data;
         commit("cityLoaded", city);
