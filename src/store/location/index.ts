@@ -7,7 +7,10 @@ import { ProfileState } from './types';
 import { RootState } from '../types';
 
 export const state: ProfileState = {
-  city: undefined,
+  city: [],
+  pvz: [],
+  valueCity:"",
+  valuePvz:"",
   error: false,
 };
 

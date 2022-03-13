@@ -19,17 +19,67 @@
       <div class="card-form">
         <div class="form">
           <div class="city">
-            <p class="city__wrap">
+            <div class="city__wrap">
               <label for="city" class="city__label">Город</label>
-              <input id="city" type="text" class="city__form" />
+              <input
+                id="city"
+                type="text"
+                class="city__form"
+                @input="searchCity"
+                @keydown.down="onArrowDown"
+                @keydown.up="onArrowUp"
+                @keydown.enter="onEnter"
+                :value="valueCity"
+                :chose-city="valueCity"
+              />
               <button class="city__cross-icon"></button>
-            </p>
 
-            <p class="city__wrap">
+              <ul class="city__autocomplete-list city-wrap" v-show="openCity">
+                <li
+                  class="city__autocomplete-item"
+                  v-for="(city, index) in cityList"
+                  :key="index"
+                  @click="setResult(city.name)"
+                  :class="{
+                    'city__autocomplete-item': index === arrowCounterCity,
+                  }"
+                  ref="optionsCity"
+                >
+                  {{ city.name }}
+                </li>
+              </ul>
+            </div>
+
+            <div class="city__wrap">
               <label for="pvz" class="city__label">Пункт выдачи</label>
-              <input id="pvz" type="text" class="city__form" />
+              <input
+                id="pvz"
+                type="text"
+                class="city__form"
+                @input="searchPvz"
+                @keydown.down="onArrowDown"
+                @keydown.up="onArrowUp"
+                @keydown.enter="onEnter"
+                :value="valuePvz"
+                :chose-pvz="valuePvz"
+              />
               <button class="city__cross-icon"></button>
-            </p>
+
+              <ul class="city__autocomplete-list pvz-wrap" v-show="openPvz">
+                <li
+                  class="city__autocomplete-item"
+                  v-for="(pvz, cityId) in pvzList"
+                  :key="cityId"
+                  @click="setResult(pvz.name)"
+                  :class="{
+                    'city__autocomplete-item': index === arrowCounterPvz,
+                  }"
+                  ref="optionsPvz"
+                >
+                  {{ pvz.name }} - {{ pvz.address }}
+                </li>
+              </ul>
+            </div>
           </div>
           <div class="card">
             <p class="card__desc">Выбрать на карте:</p>
@@ -53,29 +103,121 @@ import { Vue, Component, Prop } from "vue-property-decorator";
 import BreadcrumbsRoute from "./BreadcrumbsRoute.vue";
 import PreOrderInfo from "./PreOrderInfo.vue";
 import Navigation from "./Navigation.vue";
-
-import {State, Action, Getter} from 'vuex-class';
-import {ProfileState} from '../store/location/types';
-const namespace: string = 'location';
+const namespace: string = "location";
 @Component({
   components: { BreadcrumbsRoute, PreOrderInfo, Navigation },
 })
 export default class CardLocation extends Vue {
-   @State('profile') location: ProfileState;
-   @Action('fetchData', {namespace}) fetchData: any;
-   @Getter('fgetCityName', {namespace}) getCityName: string;
+  openCity: boolean = false;
+  openPvz: boolean = false;
+  arrowCounterCity: number = -1;
+  arrowCounterPvz: number = -1;
 
-    mounted() {
-      this.fetchData();
-      
-console.log(process.env.VUE_APP_CARSHARING_APPLICATION_ID)
-      
+  mounted() {
+    let page = document.querySelector(".main-wrapper") as HTMLElement;
+    page.addEventListener("click", () => {
+      this.openCity = false;
+      this.openPvz = false;
+    });
+  }
+
+  searchCity(e: { target: HTMLInputElement }) {
+    this.$store.commit("location/searchCity", e.target.value);
+    this.fetchData();
+  }
+
+  searchPvz(e: { target: HTMLInputElement }) {
+    this.$store.commit("location/searchPvz", e.target.value);
+    this.fetchDataPvz();
+  }
+
+  fetchDataPvz() {
+    return this.$store.dispatch("location/fetchDataPvz");
+  }
+
+  fetchData() {
+    return this.$store.dispatch("location/fetchData");
+  }
+
+  fixScrollingPvzKeyUp() {
+    //@ts-ignore
+    const scroll = this.$refs.optionsPvz[this.arrowCounterPvz].clientHeight;
+    (document.querySelector(".pvz-wrap") as HTMLElement).scrollTop =
+      scroll * this.arrowCounterPvz;
+  }
+
+  fixScrollingCityKeyUp() {
+    //@ts-ignore
+    const scroll = this.$refs.optionsCity[this.arrowCounterCity].clientHeight;
+    (document.querySelector(".city-wrap") as HTMLElement).scrollTop =
+      scroll * this.arrowCounterCity;
+  }
+
+  onArrowDown() {
+    if (this.arrowCounterCity < this.valueCity.length) {
+      this.arrowCounterCity += 1;
+      this.fixScrollingCityKeyUp();
+    }
+    if (this.arrowCounterPvz < this.valuePvz.length) {
+      this.arrowCounterPvz += 1;
+      this.fixScrollingPvzKeyUp();
+    }
+  }
+
+  onArrowUp() {
+    if (this.arrowCounterCity > 0) {
+      this.arrowCounterCity -= 1;
+      this.fixScrollingCityKeyUp();
     }
 
-    get cityName() {
-      const city = this.location && this.location.city;
-      return (city || []);
+    if (this.arrowCounterPvz > 0) {
+      this.arrowCounterPvz -= 1;
+      this.fixScrollingPvzKeyUp();
     }
+  }
+
+  onEnter() {
+    if (this.valueCity) {
+      this.$store.commit(
+        "location/searchPvz",
+        this.cityList[this.arrowCounterCity].name
+      );
+      this.openCity = false;
+    }
+    if (this.valuePvz) {
+      this.$store.commit(
+        "location/searchPvz",
+        this.pvzList[this.arrowCounterPvz].name
+      );
+      this.openPvz = false;
+    }
+  }
+  setResult(name: string) {
+    if (this.valueCity) {
+      this.$store.commit("location/searchPvz", name);
+      this.openCity = false;
+    }
+    if (this.valuePvz) {
+      this.$store.commit("location/searchPvz", name);
+      this.openPvz = false;
+    }
+  }
+
+  get valueCity(): string {
+    return this.$store.state.location.valueCity;
+  }
+
+  get valuePvz(): string {
+    return this.$store.state.location.valuePvz;
+  }
+
+  get cityList() {
+    return this.$store.state.location.city;
+  }
+
+  get pvzList() {
+    return this.$store.state.location.pvz;
+  }
 }
 </script>
 
@@ -124,6 +266,7 @@ console.log(process.env.VUE_APP_CARSHARING_APPLICATION_ID)
   @include flex-column;
   align-items: flex-end;
   &__wrap {
+    position: relative;
     margin-bottom: 16px;
   }
   &__label {
@@ -149,6 +292,24 @@ console.log(process.env.VUE_APP_CARSHARING_APPLICATION_ID)
     border: none;
     outline: none;
     background: transparent;
+  }
+  &__autocomplete-list {
+    padding: 0;
+    margin: 0;
+    border: 1px solid $main-light-gray;
+    height: 120px;
+    min-height: 1em;
+    max-height: 224px;
+    overflow: auto;
+  }
+  &__autocomplete-item {
+    list-style: none;
+    text-align: left;
+    padding: 4px 2px;
+    cursor: pointer;
+  }
+  &__autocomplete-item:hover {
+    border-bottom: 1px solid $color-green;
   }
 }
 .card {

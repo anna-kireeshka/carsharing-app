@@ -6,8 +6,8 @@
         <p class="pvz__name">Пункт выдачи</p>
         <p class="pvz__dote"></p>
         <div class="pvz__block-location">
-          <p class="pvz__location">Ульяновск,</p>
-          <p class="pvz__location">Нариманова 42</p>
+          <p class="pvz__location">{{ cityName }},</p>
+          <p class="pvz__location">{{ pvzAddress }}</p>
         </div>
       </div>
     </div>
@@ -20,10 +20,16 @@
   </div>
 </template>
 <script lang="ts">
-import { Vue, Component } from "vue-property-decorator";
+import { Vue, Component, Prop } from "vue-property-decorator";
 
 @Component
-export default class PreOrderInfo extends Vue {}
+export default class PreOrderInfo extends Vue {
+  @Prop() public choseCity!: string;
+  @Prop() public chosePvz!: string;
+
+  cityName = this.choseCity;
+  pvzAddress = this.chosePvz;
+}
 </script>
 <style scoped lang="scss">
 .wrapper-form {
