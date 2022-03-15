@@ -89,7 +89,7 @@
           </div>
           <div
             class="navigation__lang mobile-lang"
-            v-if="witdthMobile >= 320 && witdthMobile <= 768"
+            v-if="navigationWidthMobile"
           >
             <button
               v-if="showEngLang"
