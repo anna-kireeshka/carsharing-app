@@ -18,3 +18,10 @@ export interface CarModelFilter {
   val: string;
 }
 [];
+
+export interface CarAdditionaly {
+  name: string;
+  checked: boolean;
+  val: string;
+}
+[];
