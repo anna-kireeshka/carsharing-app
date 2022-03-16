@@ -101,9 +101,9 @@
   }
 }
 @mixin order-card-mobile {
-  @media (min-width: 20rem) and (max-width:37.5rem){
+  @media (min-width: 20rem) and (max-width:37.5rem) {
     @include flex-column;
     padding: 1rem;
   }
-  
 }
+

@@ -265,12 +265,11 @@ export default class StartScreen extends Vue {
   left: 1rem;
 }
 
-/**Появление блока анимации */
+
 .slide-fade-enter-active {
   transition: all 0.4s;
 }
 .slide-fade-leave-active {
-  // transition: all .3s ease;
   transition: all 0.4s ease-out;
 }
 .slide-fade-enter {
@@ -283,12 +282,11 @@ export default class StartScreen extends Vue {
   opacity: 1;
 }
 
-/**счезновение и появление кнопок - закрыть навигацию и открыть */
 .btn-enter-active,
 .btn-leave-active {
   transition: opacity 0.5s;
 }
-.btn-enter, .btn-leave-to /* .fade-leave-active до версии 2.1.8 */ {
+.btn-enter, .btn-leave-to {
   opacity: 0;
 }
 .overlay {
