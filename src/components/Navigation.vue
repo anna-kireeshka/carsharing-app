@@ -1,10 +1,10 @@
 <template>
   <div class="container">
     <div class="wrapper">
-      <p v-if="witdthMobile >= 320 && witdthMobile <= 768" class="link-pos">
+      <p v-if="navigationWidthMobile" class="link-pos">
         <button
-          class="link__btn"
-          v-if="showNavigationLink === false"
+          class="link__btn link__btn--mobile"
+          v-if="!showNavigationLink"
           @click="openMenu"
         >
           <svg width="32" height="32">
@@ -23,7 +23,7 @@
             <p>
               <button
                 class="link__btn"
-                v-if="showNavigationLink === false"
+                v-if="!showNavigationLink"
                 @click="openMenu"
               >
                 <svg width="32" height="32">
@@ -45,11 +45,7 @@
         </div>
 
         <div class="navigation__lang lang">
-          <button
-            class="lang__btn"
-            v-if="showEngLang === true"
-            @click="changeLanguage"
-          >
+          <button class="lang__btn" v-if="showEngLang" @click="changeLanguage">
             Eng
           </button>
           <button v-else @click="changeLanguage" class="lang__btn">Рус</button>
@@ -93,10 +89,10 @@
           </div>
           <div
             class="navigation__lang mobile-lang"
-            v-if="witdthMobile >= 320 && witdthMobile <= 768"
+            v-if="navigationWidthMobile"
           >
             <button
-              v-if="showEngLang === true"
+              v-if="showEngLang"
               @click="changeLanguage"
               class="lang__btn"
             >
@@ -109,7 +105,7 @@
         </div>
       </transition>
     </div>
-    <div class="overlay" v-if="showNavigationLink === true"></div>
+    <div class="overlay" v-if="showNavigationLink"></div>
   </div>
 </template>
 
@@ -141,6 +137,10 @@ export default class StartScreen extends Vue {
 
   updateWidth(): void {
     this.witdthMobile = window.innerWidth;
+  }
+
+  get navigationWidthMobile() {
+    return this.witdthMobile >= 320 && this.witdthMobile <= 768
   }
 
   created() {
@@ -214,18 +214,16 @@ export default class StartScreen extends Vue {
       fill: $color-green;
     }
   }
-
-  // svg path:first-child:hover,
-  // svg path :first-child:focus {
-  //   fill: $color-green;
-  // }
 }
 
 .link {
   &__btn {
     @include base-btn;
-    margin-top: 2.5rem;
+    margin-top: 2rem;
     transition: all 1s;
+  }
+  &__btn--mobile {
+    margin-top: 3.6rem;
   }
 
   &__btn--close {
@@ -267,12 +265,11 @@ export default class StartScreen extends Vue {
   left: 1rem;
 }
 
-/**Появление блока анимации */
+
 .slide-fade-enter-active {
   transition: all 0.4s;
 }
 .slide-fade-leave-active {
-  // transition: all .3s ease;
   transition: all 0.4s ease-out;
 }
 .slide-fade-enter {
@@ -285,12 +282,11 @@ export default class StartScreen extends Vue {
   opacity: 1;
 }
 
-/**счезновение и появление кнопок - закрыть навигацию и открыть */
 .btn-enter-active,
 .btn-leave-active {
   transition: opacity 0.5s;
 }
-.btn-enter, .btn-leave-to /* .fade-leave-active до версии 2.1.8 */ {
+.btn-enter, .btn-leave-to {
   opacity: 0;
 }
 .overlay {

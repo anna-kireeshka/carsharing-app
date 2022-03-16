@@ -1,13 +1,12 @@
 <template>
   <div id="app" class="container">
     <Icon />
-    <router-view />
+    <router-view></router-view>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-
 import Icon from "@/components/Icon.vue";
 
 export default Vue.extend({
@@ -29,7 +28,7 @@ export default Vue.extend({
 body {
   min-height: 100vh;
   min-height: -webkit-fill-available;
-  overflow: hidden;
+  overflow: auto;
   font-family: "Roboto", sans-serif;
 }
 html {
