@@ -21,13 +21,26 @@ declare namespace ymaps {
     controls: any;
 
     constructor(element: string | any, state: MapState);
-
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     setBounds(bounds: any, param2: { checkZoomRange: boolean });
+    getCenter();
   }
 
+  export class Placemark {
+    constructor(element: string | any, state: PlacemarkState);
+  }
+  export class PlacemarkState {
+    iconLayout?: string;
+    iconImageHref?: string;
+    iconImageSize?: number[];
+    iconImageOffset?: number[];
+  }
   export class MapState {
     center: number[];
     controls: string[];
     zoom: number;
   }
+}
+declare namespace ymaps.templateLayoutFactory {
+  export function createClass(element: string);
 }

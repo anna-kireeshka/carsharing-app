@@ -24,8 +24,11 @@
               <input
                 id="city"
                 type="text"
+                placeholder="Введите название города"
+                autocomplete="off"
                 class="city__form"
                 @input="searchCity"
+                @click.prevent="searchCity"
                 :value="valueCity"
               />
               <button class="city__cross-icon" @click="resetCity">
@@ -45,7 +48,10 @@
                   }"
                   ref="optionsCity"
                 >
-                  {{ city.name }}
+                  <p>{{ city.name }}</p>
+                </li>
+                <li class="city__autocomplete-item" v-show="!emptyCityList">
+                  <p>Ничего не надено</p>
                 </li>
               </ul>
             </div>
@@ -55,6 +61,8 @@
               <input
                 id="pvz"
                 type="text"
+                placeholder="Введите название пункта выдачи"
+                autocomplete="off"
                 class="city__form"
                 @input="searchPvz"
                 :value="valuePvz"
@@ -77,9 +85,9 @@
                   ref="optionsPvz"
                 >
                   <p>{{ pvz.name }} - {{ pvz.address }}</p>
-                  <p v-show="pvzList.length === 0">
-                    В {{ valueCity }} отсутствуют пункты выдачи
-                  </p>
+                </li>
+                <li class="city__autocomplete-item" v-if="!emptyPvzList">
+                  <p>В выбраном городе отсутствуют пункты выдачи</p>
                 </li>
               </ul>
             </div>
@@ -138,26 +146,26 @@ export default class CardLocation extends Vue {
     return this.$store.dispatch("location/fetchData");
   }
 
-  setResultPvz(name: string, address: string, id:number) {
+  setResultPvz(name: string, address: string, id: number) {
     this.$store.commit("location/searchPvz", name + address);
-    this.$store.commit("location/getPvzId", id)
+    this.$store.commit("location/getPvzId", id);
     this.openPvz = false;
   }
 
-  setResultCity(name: string, id:number) {
+  setResultCity(name: string, id: number) {
     this.$store.commit("location/searchCity", name);
     this.$store.commit("location/getCityId", id);
     this.openCity = false;
   }
 
   resetCity() {
-   this.$store.commit("location/searchCity", "");
-   this.$router.push(this.$route.path);
+    this.$store.commit("location/searchCity", "");
+    this.$router.push(this.$route.path);
   }
 
   resetPvz() {
-   this.$store.commit("location/searchPvz", "");
-   this.$router.push(this.$route.path);
+    this.$store.commit("location/searchPvz", "");
+    this.$router.push(this.$route.path);
   }
 
   get valueCity(): string {
@@ -169,12 +177,28 @@ export default class CardLocation extends Vue {
   }
 
   get cityList() {
-    return this.$store.state.location.city.data
-    // return this.$store.getters["location/getCityValue"](this.valueCity);
+    if (this.valueCity !== "")
+      return this.$store.getters["location/getCityValue"](this.valueCity);
   }
 
   get pvzList() {
     return this.$store.state.location.pvz.data;
+  }
+
+  get emptyCityList() {
+    let empty: boolean = false;
+    if (this.cityList === [] && this.valueCity !== "") {
+      empty = true;
+    }
+    return empty;
+  }
+
+  get emptyPvzList() {
+    let empty = false;
+    if (this.valuePvz !== "" && this.pvzList === []) {
+      empty = true;
+    }
+    return empty;
   }
 }
 </script>
@@ -257,7 +281,7 @@ export default class CardLocation extends Vue {
     padding: 0;
     margin: 0;
     border: 1px solid $main-light-gray;
-    height: 120px;
+    height: auto;
     min-height: 1em;
     max-height: 224px;
     overflow: auto;

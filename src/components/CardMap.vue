@@ -14,20 +14,20 @@ import { Vue, Component } from "vue-property-decorator";
 @Component({})
 export default class CardMap extends Vue {
   created() {
-    ymaps.ready().then(() => {
+    ymaps.ready().then((coords:any) => {
       let myMap = new ymaps.Map("map", {
         center: [54.36927208, 48.15935496],
         zoom: 9,
-        controls: [],
+        controls: []
       });
 
-      ymaps
-        .geocode(this.valueCity, {
+       ymaps.geocode(this.valueCity, {
           results: 1,
         })
-        .then(function(res: any) {
-          let firstGeoObject = res.geoObjects.get(0),
-            bounds = firstGeoObject.properties.get('bounds').getAll();
+         .then(function (res: any) {
+           let firstGeoObject =  res.geoObjects.get(0),
+             coords = firstGeoObject.geometry.getCoordinates(),
+             bounds = firstGeoObject.properties.get("boundedBy");
 
           firstGeoObject.options.set(
             "preset",
@@ -42,13 +42,21 @@ export default class CardMap extends Vue {
           myMap.setBounds(bounds, {
             checkZoomRange: true,
           });
+
+           const myPlacemark = new ymaps.Placemark(coords, {
+             iconLayout: "default#image",
+             iconImageHref: "../assets/svg/mark.svg",
+             iconImageSize: [30, 42],
+             iconImageOffset: [-5, -38]
+           });
+           myMap.geoObjects.add(myPlacemark);
         });
-      ymaps.findOrganization(this.pvzId).then(
-        function (orgGeoObject: { balloon: { open: () => void; }; }) {
+
+      ymaps
+        .findOrganization(this.pvzId)
+        .then(function (orgGeoObject: { balloon: { open: () => void } }) {
           myMap.geoObjects.add(orgGeoObject);
-          orgGeoObject.balloon.open();
-        },
-      )
+        });
     });
   }
 
@@ -61,7 +69,7 @@ export default class CardMap extends Vue {
   }
 
   get pvzId() {
-     return this.$store.state.location.pvzId;
+    return this.$store.state.location.pvzId;
   }
 }
 </script>

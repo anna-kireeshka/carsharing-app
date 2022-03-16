@@ -17,7 +17,10 @@
       </p>
       <button
         class="price__model-action"
-        :class="{ 'price__model-action--active': !checkValidForm }"
+        :class="{
+          'price__model-action--active': !checkValidForm,
+        }"
+        @click="fNextStep"
       >
         Выбрать модель
       </button>
@@ -31,17 +34,21 @@ import { Vue, Component } from "vue-property-decorator";
 export default class PreOrderInfo extends Vue {
   /* eslint-disable */
   get city() {
-    return this.$route.query.city;
+    return this.$store.state.location.valueCity
   }
 
   get pvz() {
-    return this.$route.query.pvz;
+    return this.$store.state.location.valuePvz
+  }
+
+  fNextStep() {
+    this.$router.push({ query: {city:this.city, pvz:this.pvz}})
   }
 
   get checkValidForm() {
-    let empty: boolean = false;
-    if (this.city === null && this.pvz === null) {
-      empty = true;
+    let empty: boolean = true;
+    if (this.city !== '' && this.pvz !== '') {
+      empty = false;
     }
     return empty;
   }
