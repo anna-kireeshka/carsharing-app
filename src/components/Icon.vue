@@ -125,5 +125,9 @@
         stroke-linejoin="round"
       />
     </symbol>
+
+    <symbol id="arrow-breadcrumbs" viewBox="0 0 6 8" fill="none">
+      <path d="M0 0L6 4.03L0 8V0Z" fill="#999999" />
+    </symbol>
   </svg>
 </template>
