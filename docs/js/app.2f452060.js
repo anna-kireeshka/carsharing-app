@@ -2,31 +2,31 @@
 (function (t) {
   function e(e) {
     for (
-      var a, r, o = e[0], l = e[1], c = e[2], u = 0, v = [];
+      var a, r, o = e[0], c = e[1], l = e[2], u = 0, v = [];
       u < o.length;
       u++
     )
       (r = o[u]),
-        Object.prototype.hasOwnProperty.call(n, r) && n[r] && v.push(n[r][0]),
-        (n[r] = 0);
-    for (a in l) Object.prototype.hasOwnProperty.call(l, a) && (t[a] = l[a]);
+        Object.prototype.hasOwnProperty.call(s, r) && s[r] && v.push(s[r][0]),
+        (s[r] = 0);
+    for (a in c) Object.prototype.hasOwnProperty.call(c, a) && (t[a] = c[a]);
     d && d(e);
     while (v.length) v.shift()();
-    return s.push.apply(s, c || []), i();
+    return n.push.apply(n, l || []), i();
   }
   function i() {
-    for (var t, e = 0; e < s.length; e++) {
-      for (var i = s[e], a = !0, o = 1; o < i.length; o++) {
-        var l = i[o];
-        0 !== n[l] && (a = !1);
+    for (var t, e = 0; e < n.length; e++) {
+      for (var i = n[e], a = !0, o = 1; o < i.length; o++) {
+        var c = i[o];
+        0 !== s[c] && (a = !1);
       }
-      a && (s.splice(e--, 1), (t = r((r.s = i[0]))));
+      a && (n.splice(e--, 1), (t = r((r.s = i[0]))));
     }
     return t;
   }
   var a = {},
-    n = { app: 0 },
-    s = [];
+    s = { app: 0 },
+    n = [];
   function r(e) {
     if (a[e]) return a[e].exports;
     var i = (a[e] = { i: e, l: !1, exports: {} });
@@ -78,16 +78,15 @@
     }),
     (r.p = "");
   var o = (window["webpackJsonp"] = window["webpackJsonp"] || []),
-    l = o.push.bind(o);
+    c = o.push.bind(o);
   (o.push = e), (o = o.slice());
-  for (var c = 0; c < o.length; c++) e(o[c]);
-  var d = l;
-  s.push([0, "chunk-vendors"]), i();
+  for (var l = 0; l < o.length; l++) e(o[l]);
+  var d = c;
+  n.push([0, "chunk-vendors"]), i();
 })({
   0: function (t, e, i) {
     t.exports = i("cd49");
   },
-  "0397": function (t, e, i) {},
   "0796": function (t, e, i) {},
   "0b3f": function (t, e, i) {
     t.exports = {
@@ -101,18 +100,26 @@
       hoverViolet: "linear-gradient(90deg, #1e014d 0%, #970477 100%)",
     };
   },
+  1364: function (t, e, i) {
+    "use strict";
+    i("ce66");
+  },
+  "137e": function (t, e, i) {
+    t.exports = i.p + "img/car-1.69acf491.png";
+  },
   "26bf": function (t, e, i) {},
   "2fea": function (t, e, i) {
     t.exports = i.p + "img/slider-3.3a884404.png";
   },
+  "3a0f": function (t, e, i) {
+    "use strict";
+    i("4731");
+  },
   4172: function (t, e, i) {
     t.exports = i.p + "img/slider-2.54d42d5c.png";
   },
+  4731: function (t, e, i) {},
   "4da1": function (t, e, i) {},
-  "58a0": function (t, e, i) {
-    "use strict";
-    i("0397");
-  },
   "5c0b": function (t, e, i) {
     "use strict";
     i("9c0c");
@@ -152,7 +159,7 @@
     i.r(e);
     i("e260"), i("e6cf"), i("cca6"), i("a79d");
     var a = i("2b0e"),
-      n = function () {
+      s = function () {
         var t = this,
           e = t.$createElement,
           i = t._self._c || e;
@@ -163,7 +170,7 @@
           1
         );
       },
-      s = [],
+      n = [],
       r = function () {
         var t = this,
           e = t.$createElement,
@@ -392,16 +399,16 @@
         );
       },
       o = [],
-      l = i("2877"),
-      c = {},
-      d = Object(l["a"])(c, r, o, !1, null, null, null),
+      c = i("2877"),
+      l = {},
+      d = Object(c["a"])(l, r, o, !1, null, null, null),
       u = d.exports,
       v = a["a"].extend({ components: { Icon: u } }),
-      h = v,
-      C = (i("5c0b"), Object(l["a"])(h, n, s, !1, null, null, null)),
-      _ = C.exports,
-      g = i("8c4f"),
-      f = function () {
+      _ = v,
+      C = (i("5c0b"), Object(c["a"])(_, s, n, !1, null, null, null)),
+      h = C.exports,
+      p = i("8c4f"),
+      g = function () {
         var t = this,
           e = t.$createElement,
           i = t._self._c || e;
@@ -415,7 +422,7 @@
           1
         );
       },
-      p = [],
+      f = [],
       b = i("bee2"),
       m = i("d4ec"),
       k = i("262e"),
@@ -659,8 +666,8 @@
     E = Object(y["a"])([Object(j["a"])({})], E);
     var S = E,
       B = S,
-      N = (i("965e"), Object(l["a"])(B, O, x, !1, null, "09d6882e", null)),
-      P = N.exports,
+      P = (i("965e"), Object(c["a"])(B, O, x, !1, null, "09d6882e", null)),
+      N = P.exports,
       $ = function () {
         var t = this,
           e = t.$createElement,
@@ -744,7 +751,7 @@
           ]);
         },
       ],
-      H = function () {
+      I = function () {
         var t = this,
           e = t.$createElement,
           i = t._self._c || e;
@@ -753,24 +760,10 @@
             "div",
             { staticClass: "wrapper" },
             [
-              t.witdthMobile >= 320 && t.witdthMobile <= 768
+              t.navigationWidthMobile
                 ? i("p", { staticClass: "link-pos" }, [
-                    !1 === t.showNavigationLink
+                    t.showNavigationLink
                       ? i(
-                          "button",
-                          {
-                            staticClass: "link__btn",
-                            on: { click: t.openMenu },
-                          },
-                          [
-                            i("svg", { attrs: { width: "32", height: "32" } }, [
-                              i("use", {
-                                attrs: { "xlink:href": "#menu-mobile" },
-                              }),
-                            ]),
-                          ]
-                        )
-                      : i(
                           "button",
                           {
                             staticClass: "link__btn link__btn--close",
@@ -779,6 +772,20 @@
                           [
                             i("svg", { attrs: { width: "32", height: "32" } }, [
                               i("use", { attrs: { "xlink:href": "#close" } }),
+                            ]),
+                          ]
+                        )
+                      : i(
+                          "button",
+                          {
+                            staticClass: "link__btn link__btn--mobile",
+                            on: { click: t.openMenu },
+                          },
+                          [
+                            i("svg", { attrs: { width: "32", height: "32" } }, [
+                              i("use", {
+                                attrs: { "xlink:href": "#menu-mobile" },
+                              }),
                             ]),
                           ]
                         ),
@@ -795,28 +802,8 @@
                           { attrs: { name: "btn", mode: "in-out" } },
                           [
                             i("p", [
-                              !1 === t.showNavigationLink
+                              t.showNavigationLink
                                 ? i(
-                                    "button",
-                                    {
-                                      staticClass: "link__btn",
-                                      on: { click: t.openMenu },
-                                    },
-                                    [
-                                      i(
-                                        "svg",
-                                        {
-                                          attrs: { width: "32", height: "32" },
-                                        },
-                                        [
-                                          i("use", {
-                                            attrs: { "xlink:href": "#menu" },
-                                          }),
-                                        ]
-                                      ),
-                                    ]
-                                  )
-                                : i(
                                     "button",
                                     {
                                       staticClass: "link__btn link__btn--close",
@@ -835,6 +822,26 @@
                                         ]
                                       ),
                                     ]
+                                  )
+                                : i(
+                                    "button",
+                                    {
+                                      staticClass: "link__btn",
+                                      on: { click: t.openMenu },
+                                    },
+                                    [
+                                      i(
+                                        "svg",
+                                        {
+                                          attrs: { width: "32", height: "32" },
+                                        },
+                                        [
+                                          i("use", {
+                                            attrs: { "xlink:href": "#menu" },
+                                          }),
+                                        ]
+                                      ),
+                                    ]
                                   ),
                             ]),
                           ]
@@ -844,7 +851,7 @@
                     )
                   : t._e(),
                 i("div", { staticClass: "navigation__lang lang" }, [
-                  !0 === t.showEngLang
+                  t.showEngLang
                     ? i(
                         "button",
                         {
@@ -999,12 +1006,12 @@
                             ],
                             2
                           ),
-                          t.witdthMobile >= 320 && t.witdthMobile <= 768
+                          t.navigationWidthMobile
                             ? i(
                                 "div",
                                 { staticClass: "navigation__lang mobile-lang" },
                                 [
-                                  !0 === t.showEngLang
+                                  t.showEngLang
                                     ? i(
                                         "button",
                                         {
@@ -1032,13 +1039,11 @@
             ],
             1
           ),
-          !0 === t.showNavigationLink
-            ? i("div", { staticClass: "overlay" })
-            : t._e(),
+          t.showNavigationLink ? i("div", { staticClass: "overlay" }) : t._e(),
         ]);
       },
-      V = [],
-      Z = (function (t) {
+      W = [],
+      H = (function (t) {
         Object(k["a"])(i, t);
         var e = Object(w["a"])(i);
         function i() {
@@ -1079,6 +1084,12 @@
               },
             },
             {
+              key: "navigationWidthMobile",
+              get: function () {
+                return this.witdthMobile >= 320 && this.witdthMobile <= 768;
+              },
+            },
+            {
               key: "created",
               value: function () {
                 window.addEventListener("resize", this.updateWidth),
@@ -1096,10 +1107,10 @@
           i
         );
       })(j["b"]);
-    Z = Object(y["a"])([Object(j["a"])({})], Z);
-    var I = Z,
-      W = I,
-      R = (i("58a0"), Object(l["a"])(W, H, V, !1, null, "77bea588", null)),
+    H = Object(y["a"])([Object(j["a"])({})], H);
+    var V = H,
+      Z = V,
+      R = (i("3a0f"), Object(c["a"])(Z, I, W, !1, null, "2b7b4096", null)),
       F = R.exports,
       T = (function (t) {
         Object(k["a"])(i, t);
@@ -1112,7 +1123,7 @@
     T = Object(y["a"])([Object(j["a"])({ components: { Navigation: F } })], T);
     var G = T,
       D = G,
-      J = (i("d818"), Object(l["a"])(D, $, z, !1, null, "dcad2dd4", null)),
+      J = (i("d818"), Object(c["a"])(D, $, z, !1, null, "dcad2dd4", null)),
       q = J.exports,
       A = (function (t) {
         Object(k["a"])(i, t);
@@ -1123,12 +1134,12 @@
         return Object(b["a"])(i);
       })(j["b"]);
     A = Object(y["a"])(
-      [Object(j["a"])({ components: { Slider: P, MainInfo: q } })],
+      [Object(j["a"])({ components: { Slider: N, MainInfo: q } })],
       A
     );
     var K = A,
       Q = K,
-      U = (i("92b9"), Object(l["a"])(Q, f, p, !1, null, "0c74c646", null)),
+      U = (i("92b9"), Object(c["a"])(Q, g, f, !1, null, "0c74c646", null)),
       X = U.exports,
       Y = function () {
         var t = this,
@@ -1166,15 +1177,42 @@
                   ]),
                 ]),
                 i("BreadcrumbsRoute"),
-                i(
-                  "div",
-                  { staticClass: "card-form" },
-                  [t._m(0), i("PreOrderInfo")],
-                  1
-                ),
+                i("div", { staticClass: "form" }, [
+                  i("div", { staticClass: "car-model" }, [
+                    i(
+                      "div",
+                      { staticClass: "filter" },
+                      t._l(t.radioFilter, function (e) {
+                        return i(
+                          "div",
+                          { key: e.val, staticClass: "filter__list" },
+                          [
+                            i("input", {
+                              staticClass: "filter__radio-item",
+                              attrs: { type: "radio", name: "radioModel" },
+                              domProps: { checked: e.checked },
+                            }),
+                            i("span", { staticClass: "filter__castom" }),
+                            i(
+                              "label",
+                              {
+                                staticClass: "filter__label",
+                                attrs: { for: "radioModel" },
+                              },
+                              [t._v(t._s(e.name))]
+                            ),
+                          ]
+                        );
+                      }),
+                      0
+                    ),
+                    t._m(0),
+                  ]),
+                ]),
               ],
               1
             ),
+            i("PreOrderInfo"),
           ],
           1
         );
@@ -1184,45 +1222,67 @@
           var t = this,
             e = t.$createElement,
             a = t._self._c || e;
-          return a("div", { staticClass: "form" }, [
-            a("div", { staticClass: "city" }, [
-              a("p", { staticClass: "city__wrap" }, [
-                a(
-                  "label",
-                  { staticClass: "city__label", attrs: { for: "city" } },
-                  [t._v("Город")]
-                ),
-                a("input", {
-                  staticClass: "city__form",
-                  attrs: { id: "city", type: "text" },
-                }),
-                a("button", { staticClass: "city__cross-icon" }),
+          return a("div", { staticClass: "car-order" }, [
+            a("div", { staticClass: "car-order__card" }, [
+              a("div", { staticClass: "car-content" }, [
+                a("p", { staticClass: "car-content__model" }, [t._v("Модель")]),
+                a("p", { staticClass: "car-content__price" }, [t._v("Цена")]),
               ]),
-              a("p", { staticClass: "city__wrap" }, [
-                a(
-                  "label",
-                  { staticClass: "city__label", attrs: { for: "pvz" } },
-                  [t._v("Пункт выдачи")]
-                ),
-                a("input", {
-                  staticClass: "city__form",
-                  attrs: { id: "pvz", type: "text" },
+              a("div", { staticClass: "car-order__image" }, [
+                a("img", {
+                  attrs: {
+                    src: i("137e"),
+                    alt: "Машина",
+                    width: "256",
+                    height: "116",
+                  },
                 }),
-                a("button", { staticClass: "city__cross-icon" }),
               ]),
             ]),
-            a("div", { staticClass: "card" }, [
-              a("p", { staticClass: "card__desc" }, [
-                t._v("Выбрать на карте:"),
+            a("div", { staticClass: "car-order__card" }, [
+              a("div", { staticClass: "car-content" }, [
+                a("p", { staticClass: "car-content__model" }, [t._v("Модель")]),
+                a("p", { staticClass: "car-content__price" }, [t._v("Цена")]),
               ]),
-              a("img", {
-                attrs: {
-                  src: i("e6b6"),
-                  alt: "Карта",
-                  width: "736",
-                  height: "352",
-                },
-              }),
+              a("div", { staticClass: "car-order__image" }, [
+                a("img", { attrs: { src: i("137e"), alt: "Машина" } }),
+              ]),
+            ]),
+            a("div", { staticClass: "car-order__card" }, [
+              a("div", { staticClass: "car-content" }, [
+                a("p", { staticClass: "car-content__model" }, [t._v("Модель")]),
+                a("p", { staticClass: "car-content__price" }, [t._v("Цена")]),
+              ]),
+              a("div", { staticClass: "car-order__image" }, [
+                a("img", { attrs: { src: i("137e"), alt: "Машина" } }),
+              ]),
+            ]),
+            a("div", { staticClass: "car-order__card" }, [
+              a("div", { staticClass: "car-content" }, [
+                a("p", { staticClass: "car-content__model" }, [t._v("Модель")]),
+                a("p", { staticClass: "car-content__price" }, [t._v("Цена")]),
+              ]),
+              a("div", { staticClass: "car-order__image" }, [
+                a("img", { attrs: { src: i("137e"), alt: "Машина" } }),
+              ]),
+            ]),
+            a("div", { staticClass: "car-order__card" }, [
+              a("div", { staticClass: "car-content" }, [
+                a("p", { staticClass: "car-content__model" }, [t._v("Модель")]),
+                a("p", { staticClass: "car-content__price" }, [t._v("Цена")]),
+              ]),
+              a("div", { staticClass: "car-order__image" }, [
+                a("img", { attrs: { src: i("137e"), alt: "Машина" } }),
+              ]),
+            ]),
+            a("div", { staticClass: "car-order__card" }, [
+              a("div", { staticClass: "car-content" }, [
+                a("p", { staticClass: "car-content__model" }, [t._v("Модель")]),
+                a("p", { staticClass: "car-content__price" }, [t._v("Цена")]),
+              ]),
+              a("div", { staticClass: "car-order__image" }, [
+                a("img", { attrs: { src: i("137e"), alt: "Машина" } }),
+              ]),
             ]),
           ]);
         },
@@ -1287,17 +1347,17 @@
         );
       })(j["b"]);
     at = Object(y["a"])([Object(j["a"])({})], at);
-    var nt = at,
-      st = nt,
-      rt = (i("ae0d"), Object(l["a"])(st, et, it, !1, null, "56cdedc2", null)),
+    var st = at,
+      nt = st,
+      rt = (i("ae0d"), Object(c["a"])(nt, et, it, !1, null, "56cdedc2", null)),
       ot = rt.exports,
-      lt = function () {
+      ct = function () {
         var t = this,
           e = t.$createElement;
         t._self._c;
         return t._m(0);
       },
-      ct = [
+      lt = [
         function () {
           var t = this,
             e = t.$createElement,
@@ -1343,9 +1403,140 @@
     dt = Object(y["a"])([j["a"]], dt);
     var ut = dt,
       vt = ut,
-      ht = (i("6c43"), Object(l["a"])(vt, lt, ct, !1, null, "55fafc16", null)),
-      Ct = ht.exports,
-      _t = (function (t) {
+      _t = (i("6c43"), Object(c["a"])(vt, ct, lt, !1, null, "55fafc16", null)),
+      Ct = _t.exports,
+      ht = (function (t) {
+        Object(k["a"])(i, t);
+        var e = Object(w["a"])(i);
+        function i() {
+          return Object(m["a"])(this, i), e.apply(this, arguments);
+        }
+        return (
+          Object(b["a"])(i, [
+            {
+              key: "mounted",
+              value: function () {
+                this.radioFilter = [
+                  { name: "Все модели", checked: !0, val: "allModel" },
+                  { name: "Эконом", checked: !1, val: "economy" },
+                  { name: "Премиум", checked: !1, val: "premium" },
+                ];
+              },
+            },
+          ]),
+          i
+        );
+      })(j["b"]);
+    ht = Object(y["a"])(
+      [
+        Object(j["a"])({
+          components: { Navigation: F, BreadcrumbsRoute: ot, PreOrderInfo: Ct },
+        }),
+      ],
+      ht
+    );
+    var pt = ht,
+      gt = pt,
+      ft = (i("1364"), Object(c["a"])(gt, Y, tt, !1, null, "4110e5ca", null)),
+      bt = ft.exports,
+      mt = function () {
+        var t = this,
+          e = t.$createElement,
+          i = t._self._c || e;
+        return i(
+          "div",
+          { staticClass: "main-wrapper" },
+          [
+            i("Navigation"),
+            i(
+              "div",
+              { staticClass: "main" },
+              [
+                i("div", { staticClass: "main-nav" }, [
+                  i(
+                    "h1",
+                    [
+                      i(
+                        "router-link",
+                        {
+                          staticClass: "main-nav__company",
+                          attrs: { to: { name: "MainPage" } },
+                        },
+                        [t._v("Need for drive")]
+                      ),
+                    ],
+                    1
+                  ),
+                  i("p", { staticClass: "main-nav__city-name" }, [
+                    i("svg", { attrs: { width: "18", height: "20" } }, [
+                      i("use", { attrs: { "xlink:href": "#gps" } }),
+                    ]),
+                    t._v(" Ульяновск "),
+                  ]),
+                ]),
+                i("BreadcrumbsRoute"),
+                i(
+                  "div",
+                  { staticClass: "card-form" },
+                  [t._m(0), i("PreOrderInfo")],
+                  1
+                ),
+              ],
+              1
+            ),
+          ],
+          1
+        );
+      },
+      kt = [
+        function () {
+          var t = this,
+            e = t.$createElement,
+            a = t._self._c || e;
+          return a("div", { staticClass: "form" }, [
+            a("div", { staticClass: "city" }, [
+              a("p", { staticClass: "city__wrap" }, [
+                a(
+                  "label",
+                  { staticClass: "city__label", attrs: { for: "city" } },
+                  [t._v("Город")]
+                ),
+                a("input", {
+                  staticClass: "city__form",
+                  attrs: { id: "city", type: "text" },
+                }),
+                a("button", { staticClass: "city__cross-icon" }),
+              ]),
+              a("p", { staticClass: "city__wrap" }, [
+                a(
+                  "label",
+                  { staticClass: "city__label", attrs: { for: "pvz" } },
+                  [t._v("Пункт выдачи")]
+                ),
+                a("input", {
+                  staticClass: "city__form",
+                  attrs: { id: "pvz", type: "text" },
+                }),
+                a("button", { staticClass: "city__cross-icon" }),
+              ]),
+            ]),
+            a("div", { staticClass: "card" }, [
+              a("p", { staticClass: "card__desc" }, [
+                t._v("Выбрать на карте:"),
+              ]),
+              a("img", {
+                attrs: {
+                  src: i("e6b6"),
+                  alt: "Карта",
+                  width: "736",
+                  height: "352",
+                },
+              }),
+            ]),
+          ]);
+        },
+      ],
+      wt = (function (t) {
         Object(k["a"])(i, t);
         var e = Object(w["a"])(i);
         function i() {
@@ -1353,25 +1544,25 @@
         }
         return Object(b["a"])(i);
       })(j["b"]);
-    _t = Object(y["a"])(
+    wt = Object(y["a"])(
       [
         Object(j["a"])({
           components: { BreadcrumbsRoute: ot, PreOrderInfo: Ct, Navigation: F },
         }),
       ],
-      _t
+      wt
     );
-    var gt = _t,
-      ft = gt,
-      pt = (i("d734"), Object(l["a"])(ft, Y, tt, !1, null, "27cf1aba", null)),
-      bt = pt.exports;
-    a["a"].use(g["a"]);
-    var mt = [
+    var yt = wt,
+      jt = yt,
+      Ot = (i("d734"), Object(c["a"])(jt, mt, kt, !1, null, "27cf1aba", null)),
+      xt = Ot.exports;
+    a["a"].use(p["a"]);
+    var Mt = [
         { path: "", name: "MainPage", component: X, props: !0 },
         {
           path: "/location",
           name: "location",
-          component: bt,
+          component: xt,
           props: !0,
           meta: {
             breadCrumb: function () {
@@ -1379,12 +1570,26 @@
             },
           },
         },
+        {
+          path: "/car-model",
+          name: "CarModel",
+          component: bt,
+          props: !0,
+          meta: {
+            breadCrumb: function () {
+              return [
+                { text: "Местоположение", to: { name: "location" } },
+                { text: "Модель", to: { name: "CarModel" } },
+              ];
+            },
+          },
+        },
       ],
-      kt = new g["a"]({ routes: mt }),
-      wt = kt,
-      yt = i("2f62");
-    a["a"].use(yt["a"]);
-    var jt = new yt["a"].Store({
+      Lt = new p["a"]({ routes: Mt }),
+      Et = Lt,
+      St = i("2f62");
+    a["a"].use(St["a"]);
+    var Bt = new St["a"].Store({
       state: {},
       mutations: {},
       actions: {},
@@ -1392,13 +1597,14 @@
     });
     (a["a"].config.productionTip = !1),
       new a["a"]({
-        router: wt,
-        store: jt,
+        router: Et,
+        store: Bt,
         render: function (t) {
-          return t(_);
+          return t(h);
         },
       }).$mount("#app");
   },
+  ce66: function (t, e, i) {},
   d734: function (t, e, i) {
     "use strict";
     i("26bf");
@@ -1418,4 +1624,4 @@
     t.exports = i.p + "img/slider-1.5decc706.png";
   },
 });
-//# sourceMappingURL=app.872def04.js.map
+//# sourceMappingURL=app.2f452060.js.map
