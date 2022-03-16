@@ -4,10 +4,10 @@ import { ProfileState, City, Pvz } from "./types";
 import { RootState } from "../types";
 
 export const actions: ActionTree<ProfileState, RootState> = {
-  fetchData({ commit, state }) {
-    HTTP.get("/api/db/city").then(
+  fetchData({ commit }) {
+    HTTP.get("/api/db/city/").then(
       (response) => {
-        const city: City[] = response && response.data;
+        const city: City[] = response.data;
         commit("cityLoaded", city);
       },
       (error) => {
@@ -16,10 +16,10 @@ export const actions: ActionTree<ProfileState, RootState> = {
       }
     );
   },
-  fetchDataPvz({ commit }) {
-    HTTP.get("/api/db/point").then(
+  fetchDataPvz({ commit, state }) {
+    HTTP.get("/api/db/point", { params: { cityId: state.cityId } }).then(
       (response) => {
-        const pvz: Pvz[] = response && response.data;
+        const pvz: Pvz[] = response.data;
         commit("pvzLoaded", pvz);
       },
       (error) => {

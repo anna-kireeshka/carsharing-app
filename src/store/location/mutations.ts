@@ -3,11 +3,9 @@ import { ProfileState, City, Pvz, ValueInput } from "./types";
 
 export const mutations: MutationTree<ProfileState> = {
   cityLoaded(state, city: City[]) {
-    state.error = false;
     state.city = city;
   },
   pvzLoaded(state, pvz: Pvz[]) {
-    state.error = false;
     state.pvz = pvz;
   },
 
@@ -18,12 +16,21 @@ export const mutations: MutationTree<ProfileState> = {
     state.valuePvz = payload;
   },
 
-  cityError(state) {
-    state.error = true;
-    state.city = undefined;
+  getCityId(state, city: City[]) {
+    if (city.length !== 0) {
+      for (let i = 0; i < city.length; i++) {
+        state.cityId = city;
+      }
+    }
+    return state.cityId;
   },
-  pvzError(state) {
-    state.error = true;
-    state.pvz = undefined;
+
+  getPvzId(state, pvz: Pvz[]) {
+    if (pvz.length !== 0) {
+      for (let i = 0; i < pvz.length; i++) {
+        state.pvzId = pvz;
+      }
+    }
+    return state.cityId;
   },
 };

@@ -11,7 +11,7 @@ export const state: ProfileState = {
   pvz: [],
   valueCity:"",
   valuePvz:"",
-  error: false,
+
 };
 
 const namespaced: boolean = true;

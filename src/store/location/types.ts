@@ -21,5 +21,6 @@ export interface ProfileState {
   pvz?: Pvz[];
   valueCity?: ValueInput["valueCity"];
   valuePvz?: ValueInput["valuePvz"];
-  error: boolean;
+  cityId?: any;
+  pvzId?: any;
 }

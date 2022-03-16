@@ -26,9 +26,6 @@
                 type="text"
                 class="city__form"
                 @input="searchCity"
-                @keydown.down="onArrowDown"
-                @keydown.up="onArrowUp"
-                @keydown.enter="onEnter"
                 :value="valueCity"
               />
               <button class="city__cross-icon" @click="resetCity">
@@ -42,7 +39,7 @@
                   class="city__autocomplete-item"
                   v-for="(city, index) in cityList"
                   :key="index"
-                  @click="setResultCity(city.name)"
+                  @click="setResultCity(city.name, city.id)"
                   :class="{
                     'city__autocomplete-item': index === arrowCounterCity,
                   }"
@@ -60,9 +57,6 @@
                 type="text"
                 class="city__form"
                 @input="searchPvz"
-                @keydown.down="onArrowDown"
-                @keydown.up="onArrowUp"
-                @keydown.enter="onEnter"
                 :value="valuePvz"
               />
               <button class="city__cross-icon" @click="resetPvz">
@@ -76,26 +70,21 @@
                   class="city__autocomplete-item"
                   v-for="(pvz, index) in pvzList"
                   :key="index"
-                  @click="setResultPvz(pvz.name, pvz.address)"
+                  @click="setResultPvz(pvz.name, pvz.address, pvz.id)"
                   :class="{
                     'city__autocomplete-item': index === arrowCounterPvz,
                   }"
                   ref="optionsPvz"
                 >
-                  {{ pvz.name }} - {{ pvz.address }}
+                  <p>{{ pvz.name }} - {{ pvz.address }}</p>
+                  <p v-show="pvzList.length === 0">
+                    В {{ valueCity }} отсутствуют пункты выдачи
+                  </p>
                 </li>
               </ul>
             </div>
           </div>
-          <div class="card">
-            <p class="card__desc">Выбрать на карте:</p>
-            <img
-              src="../assets/location.png"
-              alt="Карта"
-              width="736"
-              height="352"
-            />
-          </div>
+          <CardMap />
         </div>
         <PreOrderInfo />
       </div>
@@ -105,12 +94,14 @@
 
 <script lang="ts">
 /* eslint-disable */
-import { Vue, Component, Prop } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
 import BreadcrumbsRoute from "./BreadcrumbsRoute.vue";
 import PreOrderInfo from "./PreOrderInfo.vue";
 import Navigation from "./Navigation.vue";
+import CardMap from "@/components/CardMap.vue";
+
 @Component({
-  components: { BreadcrumbsRoute, PreOrderInfo, Navigation },
+  components: { CardMap, BreadcrumbsRoute, PreOrderInfo, Navigation },
 })
 export default class CardLocation extends Vue {
   openCity: boolean = false;
@@ -134,6 +125,7 @@ export default class CardLocation extends Vue {
 
   searchPvz(e: { target: HTMLInputElement }) {
     this.$store.commit("location/searchPvz", e.target.value);
+
     this.openPvz = true;
     this.fetchDataPvz();
   }
@@ -146,79 +138,16 @@ export default class CardLocation extends Vue {
     return this.$store.dispatch("location/fetchData");
   }
 
-  fixScrollingPvzKeyUp() {
-    //@ts-ignore
-    const scroll = this.$refs.optionsPvz[this.arrowCounterPvz].clientHeight;
-    (document.querySelector(".pvz-wrap") as HTMLElement).scrollTop =
-      scroll * this.arrowCounterPvz;
-  }
-
-  fixScrollingCityKeyUp() {
-    //@ts-ignore
-    const scroll = this.$refs.optionsCity[this.arrowCounterCity].clientHeight;
-    (document.querySelector(".city-wrap") as HTMLElement).scrollTop =
-      scroll * this.arrowCounterCity;
-  }
-
-  onArrowDown() {
-    if (this.arrowCounterCity < this.valueCity.length) {
-      this.arrowCounterCity += 1;
-      this.fixScrollingCityKeyUp();
-    }
-    if (this.arrowCounterPvz < this.valuePvz.length) {
-      this.arrowCounterPvz += 1;
-      this.fixScrollingPvzKeyUp();
-    }
-  }
-
-  onArrowUp() {
-    if (this.arrowCounterCity > 0) {
-      this.arrowCounterCity -= 1;
-      this.fixScrollingCityKeyUp();
-    }
-
-    if (this.arrowCounterPvz > 0) {
-      this.arrowCounterPvz -= 1;
-      this.fixScrollingPvzKeyUp();
-    }
-  }
-
-  onEnter() {
-    if (this.valueCity) {
-      this.$store.commit(
-        "location/searchCity",
-        this.cityList[this.arrowCounterCity].name
-      );
-      this.openCity = false;
-    }
-    if (this.valuePvz) {
-      this.$store.commit(
-        "location/searchPvz",
-        this.pvzList[this.arrowCounterPvz].name,
-        this.pvzList[this.arrowCounterPvz].address
-      );
-
-      this.openPvz = false;
-    }
-  }
-
-  setResultPvz(name: string, address: string) {
+  setResultPvz(name: string, address: string, id:number) {
     this.$store.commit("location/searchPvz", name + address);
+    this.$store.commit("location/getPvzId", id)
     this.openPvz = false;
-    this.$router.push({
-            query: { pvz: address, city:this.valueCity },
-    });
-     if(this.valuePvz === "") {
-      this.$router.push(this.$route.path);
-    }
   }
 
-  setResultCity(name: string) {
+  setResultCity(name: string, id:number) {
     this.$store.commit("location/searchCity", name);
+    this.$store.commit("location/getCityId", id);
     this.openCity = false;
-    this.$router.push({
-            query: { city: this.valueCity},
-    });
   }
 
   resetCity() {
@@ -231,7 +160,6 @@ export default class CardLocation extends Vue {
    this.$router.push(this.$route.path);
   }
 
-
   get valueCity(): string {
     return this.$store.state.location.valueCity;
   }
@@ -241,7 +169,8 @@ export default class CardLocation extends Vue {
   }
 
   get cityList() {
-    return this.$store.state.location.city.data;
+    return this.$store.state.location.city.data
+    // return this.$store.getters["location/getCityValue"](this.valueCity);
   }
 
   get pvzList() {
@@ -338,6 +267,9 @@ export default class CardLocation extends Vue {
     text-align: left;
     padding: 4px 2px;
     cursor: pointer;
+
+    color: $main-black;
+    font-weight: $light;
   }
   &__autocomplete-item:hover {
     border-bottom: 1px solid $color-green;
