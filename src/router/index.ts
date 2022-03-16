@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 import MainPage from "../pages/MainPage.vue";
+import OrderAdditionally from "@/components/OrderAdditionally.vue";
 import CarModel from "@/components/CarModel.vue";
 import CardLocation from "@/components/CardLocation.vue";
 
@@ -47,6 +48,29 @@ const routes: Array<RouteConfig> = [
             text: "Модель",
             to: {
               name: "CarModel",
+            },
+          },
+        ];
+      },
+    },
+  },
+  {
+    path: "/additionally",
+    name: "OrderAdditionally",
+    component: OrderAdditionally,
+    meta: {
+      breadCrumb() {
+        return [
+          {
+            text: "Модель",
+            to: {
+              name: "CarModel",
+            },
+          },
+          {
+            text: "Дополнительно",
+            to: {
+              name: "OrderAdditionally",
             },
           },
         ];
