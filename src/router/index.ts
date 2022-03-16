@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 import MainPage from "../pages/MainPage.vue";
+import FinalOrder from "@/components/ModalFinalOrder.vue";
 import OrderAdditionally from "@/components/OrderAdditionally.vue";
 import CarModel from "@/components/CarModel.vue";
 import CardLocation from "@/components/CardLocation.vue";
@@ -76,6 +77,12 @@ const routes: Array<RouteConfig> = [
         ];
       },
     },
+  },
+  {
+    path: "/final-order",
+    name: "FinalOrder",
+    component: FinalOrder,
+    props: true,
   },
 ];
 
