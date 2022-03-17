@@ -20,63 +20,18 @@ const routes: Array<RouteConfig> = [
     name: "location",
     component: CardLocation,
     props: true,
-    meta: {
-      breadCrumb() {
-        return [
-          {
-            text: "Местоположение",
-            to: {
-              name: "location",
-            },
-          },
-        ];
-      },
-    },
   },
   {
     path: "/car-model",
     name: "CarModel",
     component: CarModel,
     props: true,
-    meta: {
-      breadCrumb() {
-        return [
-          {
-            text: "Местоположение",
-            to: { name: "location" },
-          },
-          {
-            text: "Модель",
-            to: {
-              name: "CarModel",
-            },
-          },
-        ];
-      },
-    },
   },
   {
     path: "/additionally",
     name: "OrderAdditionally",
     component: OrderAdditionally,
-    meta: {
-      breadCrumb() {
-        return [
-          {
-            text: "Модель",
-            to: {
-              name: "CarModel",
-            },
-          },
-          {
-            text: "Дополнительно",
-            to: {
-              name: "OrderAdditionally",
-            },
-          },
-        ];
-      },
-    },
+    props: true,
   },
   {
     path: "/final-order",

@@ -2,13 +2,13 @@
   <div class="navigation">
     <ul
       class="navigation__list"
-      v-for="(item, index) in breadCrumbs"
+      v-for="(item, index) in crumbsList"
       :key="index"
     >
       <li class="navigation___item">
-        <router-link :to="item.to" class="navigation__link">{{
-          item.text
-        }}</router-link>
+        <router-link :to="{ name: item.name }" class="navigation__link"
+          >{{ item.text }}
+        </router-link>
         <svg width="6" height="8" class="navigation__arrow">
           <use xlink:href="#arrow-breadcrumbs" />
         </svg>
@@ -18,16 +18,27 @@
 </template>
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
-import { RouteMeta } from "vue-router";
 
 @Component({})
 export default class BreadcrumbsRoute extends Vue {
-  get breadCrumbs(): string[] {
-    if ((this.$route.meta as RouteMeta).breadCrumb) {
-      return (this.$route.meta as RouteMeta).breadCrumb.call(this, this.$route);
-    }
-    return (this.$route.meta as RouteMeta).breadCrumb;
-  }
+  crumbsList = [
+    {
+      text: "Местоположение",
+      name: "location",
+    },
+    {
+      text: "Модель",
+      name: "CarModel",
+    },
+    {
+      text: "Дополнительно",
+      name: "OrderAdditionally",
+    },
+    {
+      text: "Итого",
+      name: "FinalOrder",
+    },
+  ];
 }
 </script>
 
@@ -36,7 +47,7 @@ export default class BreadcrumbsRoute extends Vue {
   display: flex;
   border-top: 1px solid #eeeeee;
   border-bottom: 1px solid #eeeeee;
-  padding-left: 128px;
+  padding-left: 64px;
   &__list {
     list-style: none;
     margin: 0;
