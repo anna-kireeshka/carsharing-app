@@ -124,9 +124,10 @@
 import { Vue, Component } from "vue-property-decorator";
 import FinalInfo from "./FormAdditionally.vue";
 import Navigation from "./Navigation.vue";
+import BreadcrumbsRoute from "@/components/BreadcrumbsRoute.vue";
 import { CarColorFilter, CarRate, CarAdditionaly } from "../types";
 
-@Component({ components: { FinalInfo, Navigation } })
+@Component({ components: { FinalInfo, Navigation, BreadcrumbsRoute } })
 export default class OrderAdditionally extends Vue {
   colorFilter: CarColorFilter[];
   rate: CarRate[];
