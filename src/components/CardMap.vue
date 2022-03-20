@@ -61,15 +61,15 @@ export default class CardMap extends Vue {
   }
 
   get valueCity() {
-    return this.$store.state.location.valueCity;
+    return this.$store.state.OrderForm.valueCity;
   }
 
   get pvzValue() {
-    return this.$store.state.location.valuePvz;
+    return this.$store.state.OrderForm.valuePvz;
   }
 
   get pvzId() {
-    return this.$store.state.location.pvzId;
+    return this.$store.state.OrderForm.pvzId;
   }
 }
 </script>

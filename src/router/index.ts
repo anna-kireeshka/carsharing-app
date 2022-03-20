@@ -16,7 +16,7 @@ const routes: Array<RouteConfig> = [
     props: true,
   },
   {
-    path: "/location",
+    path: "/OrderForm",
     name: "location",
     component: CardLocation,
     props: true,

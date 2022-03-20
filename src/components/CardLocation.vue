@@ -126,63 +126,63 @@ export default class CardLocation extends Vue {
   }
 
   searchCity(e: { target: HTMLInputElement }) {
-    this.$store.commit("location/searchCity", e.target.value);
+    this.$store.commit("OrderForm/searchCity", e.target.value);
     this.openCity = true;
     this.fetchData();
   }
 
   searchPvz(e: { target: HTMLInputElement }) {
-    this.$store.commit("location/searchPvz", e.target.value);
+    this.$store.commit("OrderForm/searchPvz", e.target.value);
 
     this.openPvz = true;
     this.fetchDataPvz();
   }
 
   fetchDataPvz() {
-    return this.$store.dispatch("location/fetchDataPvz");
+    return this.$store.dispatch("OrderForm/fetchDataPvz");
   }
 
   fetchData() {
-    return this.$store.dispatch("location/fetchData");
+    return this.$store.dispatch("OrderForm/fetchData");
   }
 
   setResultPvz(name: string, address: string, id: number) {
-    this.$store.commit("location/searchPvz", name + address);
-    this.$store.commit("location/getPvzId", id);
+    this.$store.commit("OrderForm/searchPvz", name + address);
+    this.$store.commit("OrderForm/getPvzId", id);
     this.openPvz = false;
   }
 
   setResultCity(name: string, id: number) {
-    this.$store.commit("location/searchCity", name);
-    this.$store.commit("location/getCityId", id);
+    this.$store.commit("OrderForm/searchCity", name);
+    this.$store.commit("OrderForm/getCityId", id);
     this.openCity = false;
   }
 
   resetCity() {
-    this.$store.commit("location/searchCity", "");
+    this.$store.commit("OrderForm/searchCity", "");
     this.$router.push(this.$route.path);
   }
 
   resetPvz() {
-    this.$store.commit("location/searchPvz", "");
+    this.$store.commit("OrderForm/searchPvz", "");
     this.$router.push(this.$route.path);
   }
 
   get valueCity(): string {
-    return this.$store.state.location.valueCity;
+    return this.$store.state.OrderForm.valueCity;
   }
 
   get valuePvz(): string {
-    return this.$store.state.location.valuePvz;
+    return this.$store.state.OrderForm.valuePvz;
   }
 
   get cityList() {
     if (this.valueCity !== "")
-      return this.$store.getters["location/getCityValue"](this.valueCity);
+      return this.$store.getters["OrderForm/getCityValue"](this.valueCity);
   }
 
   get pvzList() {
-    return this.$store.state.location.pvz.data;
+    return this.$store.state.OrderForm.pvz.data;
   }
 
   get emptyCityList() {
