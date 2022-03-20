@@ -19,95 +19,55 @@
       <div class="form">
         <div class="car-model">
           <div class="filter">
-            <div
-              class="filter__list"
-              v-for="item in radioFilter"
-              :key="item.val"
-            >
-              <input
-                type="radio"
-                class="filter__radio-item"
-                name="radioModel"
-                :checked="item.checked"
-              />
-              <span class="filter__castom"></span>
-              <label class="filter__label" for="radioModel">{{
-                item.name
-              }}</label>
+            <div class="filter__list" v-for="item in carFilter" :key="item.id">
+              <label class="filter__label">
+                <input
+                  type="radio"
+                  class="filter__radio-item"
+                  name="radioModel"
+                  :value="item.id"
+                  @change="choseCarFilter($event, item.id)"
+                />
+                <span class="filter__castom"></span>
+                {{ item.name }}</label
+              >
             </div>
           </div>
 
           <div class="car-order">
-            <div class="car-order__card">
+            <button
+              class="car-order__card"
+              v-for="car in carList"
+              :key="car.id"
+              @click="choseCar(car.name, car.number)"
+            >
               <div class="car-content">
-                <p class="car-content__model">Модель</p>
-                <p class="car-content__price">Цена</p>
+                <p class="car-content__model">{{ car.name }}</p>
+                <p class="car-content__price">
+                  {{ car.priceMin }} - {{ car.priceMax }}
+                </p>
               </div>
               <div class="car-order__image">
                 <img
-                  src="../assets/car-1.png"
+                  v-image-fall-back
+                  :src="car.thumbnail.path"
                   alt="Машина"
                   width="256"
                   height="116"
                 />
               </div>
-            </div>
-            <div class="car-order__card">
-              <div class="car-content">
-                <p class="car-content__model">Модель</p>
-                <p class="car-content__price">Цена</p>
-              </div>
-              <div class="car-order__image">
-                <img src="../assets/car-1.png" alt="Машина" />
-              </div>
-            </div>
-            <div class="car-order__card">
-              <div class="car-content">
-                <p class="car-content__model">Модель</p>
-                <p class="car-content__price">Цена</p>
-              </div>
-              <div class="car-order__image">
-                <img src="../assets/car-1.png" alt="Машина" />
-              </div>
-            </div>
-            <div class="car-order__card">
-              <div class="car-content">
-                <p class="car-content__model">Модель</p>
-                <p class="car-content__price">Цена</p>
-              </div>
-              <div class="car-order__image">
-                <img src="../assets/car-1.png" alt="Машина" />
-              </div>
-            </div>
-            <div class="car-order__card">
-              <div class="car-content">
-                <p class="car-content__model">Модель</p>
-                <p class="car-content__price">Цена</p>
-              </div>
-              <div class="car-order__image">
-                <img src="../assets/car-1.png" alt="Машина" />
-              </div>
-            </div>
-            <div class="car-order__card">
-              <div class="car-content">
-                <p class="car-content__model">Модель</p>
-                <p class="car-content__price">Цена</p>
-              </div>
-              <div class="car-order__image">
-                <img src="../assets/car-1.png" alt="Машина" />
-              </div>
-            </div>
+            </button>
           </div>
         </div>
+        <PreOrderInfo />
       </div>
     </div>
-    <PreOrderInfo />
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
-import { CarModelFilter } from "../types";
+//import { CarModelFilter } from "@/types";
 import BreadcrumbsRoute from "./BreadcrumbsRoute.vue";
 import PreOrderInfo from "./PreOrderInfo.vue";
 import Navigation from "./Navigation.vue";
@@ -120,25 +80,40 @@ import Navigation from "./Navigation.vue";
   },
 })
 export default class CarModel extends Vue {
-  radioFilter: CarModelFilter[];
+  // radioFilter:CarModelFilter[];
   mounted() {
-    this.radioFilter = [
-      {
-        name: "Все модели",
-        checked: true,
-        val: "allModel",
-      },
-      {
-        name: "Эконом",
-        checked: false,
-        val: "economy",
-      },
-      {
-        name: "Премиум",
-        checked: false,
-        val: "premium",
-      },
-    ];
+    this.carListFetch();
+    this.carFilterFetch();
+  }
+
+  carListFetch() {
+    this.$store.dispatch("location/fetchDataCar");
+    this.carList;
+  }
+
+  carFilterFetch() {
+    this.$store.dispatch("location/fetchDataCarFilter");
+    this.carFilter;
+  }
+
+  choseCar(model: string, num: number) {
+    this.$store.commit("location/getCarModel", model);
+    this.$store.commit("location/getCarNumber", num);
+  }
+
+  choseCarFilter(event: { target: HTMLInputElement }, carId: number) {
+    this.$store.commit("location/getCarId", carId);
+    this.carListFetch();
+    this.carList;
+    console.log(event.target, carId);
+  }
+
+  get carList() {
+    return this.$store.state.location.car.data;
+  }
+
+  get carFilter() {
+    return this.$store.state.location.carFilter.data;
   }
 }
 </script>
@@ -224,11 +199,17 @@ export default class CarModel extends Vue {
   flex-wrap: wrap;
   width: 736px;
   &__card {
+    background-color: transparent;
+    outline: none;
+
     width: 368px;
     height: 224px;
     border: 1px solid $main-light-gray;
 
     padding: 16px;
+  }
+  &__card:active {
+    border: 1px solid $color-green;
   }
   .car-content {
     @include flex-column;

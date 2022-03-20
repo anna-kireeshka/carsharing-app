@@ -10,20 +10,32 @@
           <p class="pvz__location">{{ pvz }}</p>
         </div>
       </div>
+      <div class="car" v-show="fullRoute === 'CarModel'">
+        <p class="car__model">{{ carModel }}</p>
+        <p class="car__number">{{ carNumber }}</p>
+      </div>
     </div>
     <div class="price">
       <p class="price__first-step">
         <span class="price__first-step--dark">Цена</span>: от 8 000 до 12 000 ₽
       </p>
-      <button
+      <router-link
+        v-show="fullRoute === 'location'"
         class="price__model-action"
         :class="{
           'price__model-action--active': !checkValidForm,
         }"
-        @click="fNextStep"
+        :to="{ name: 'CarModel', params: { city: this.city, pvz: this.pvz } }"
       >
         Выбрать модель
-      </button>
+      </router-link>
+      <router-link
+        v-show="fullRoute === 'CarModel'"
+        class="price__model-action"
+        :to="{ name: 'OrderAdditionally' }"
+      >
+        Дополнительно
+      </router-link>
     </div>
   </div>
 </template>
@@ -41,8 +53,8 @@ export default class PreOrderInfo extends Vue {
     return this.$store.state.location.valuePvz
   }
 
-  fNextStep() {
-    this.$router.push({ query: {city:this.city, pvz:this.pvz}})
+  get fullRoute() {
+    return this.$route.name
   }
 
   get checkValidForm() {
@@ -51,6 +63,13 @@ export default class PreOrderInfo extends Vue {
       empty = false;
     }
     return empty;
+  }
+  get carNumber() {
+    return this.$store.state.location.carNumber;
+  }
+
+  get carModel() {
+    return this.$store.state.location.carModel;
   }
 }
 </script>

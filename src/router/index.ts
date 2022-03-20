@@ -22,7 +22,7 @@ const routes: Array<RouteConfig> = [
     props: true,
   },
   {
-    path: "/car-model",
+    path: "/car-model/:city/:pvz",
     name: "CarModel",
     component: CarModel,
     props: true,

@@ -1,6 +1,6 @@
 import { HTTP } from "../../services/api";
 import { ActionTree } from "vuex";
-import { ProfileState, City, Pvz } from "./types";
+import { ProfileState, City, Pvz, Car, CarFilter } from "./types";
 import { RootState } from "../types";
 
 export const actions: ActionTree<ProfileState, RootState> = {
@@ -25,6 +25,32 @@ export const actions: ActionTree<ProfileState, RootState> = {
       (error) => {
         console.log(error);
         commit("pvzLoaded");
+      }
+    );
+  },
+
+  fetchDataCar({ commit }) {
+    HTTP.get("/api/db/car").then(
+      (response) => {
+        const car: Car[] = response.data;
+        commit("carLoaded", car);
+      },
+      (error) => {
+        console.log(error);
+        commit("carLoaded");
+      }
+    );
+  },
+
+  fetchDataCarFilter({ commit }) {
+    HTTP.get("/api/db/category").then(
+      (response) => {
+        const carFilter: CarFilter[] = response.data;
+        commit("carFilterLoaded", carFilter);
+      },
+      (error) => {
+        console.log(error);
+        commit("carFilterLoaded");
       }
     );
   },

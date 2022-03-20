@@ -7,4 +7,5 @@ export const HTTP = axios.create({
     "Content-Type": "application/json",
   },
 });
-HTTP.defaults.headers.common["X-Api-Factory-Application-Id"] = API_KEY;
+HTTP.defaults.headers.common["X-Api-Factory-Application-Id"] =
+  "5e25c641099b810b946c5d5b";

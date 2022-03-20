@@ -4,7 +4,9 @@ import router from "./router";
 import store from "./store";
 import axios from "axios";
 import VueAxios from "vue-axios";
+import ImageFallBack from "./directive";
 
+Vue.directive("image-fall-back", ImageFallBack);
 Vue.use(VueAxios, axios);
 
 Vue.config.productionTip = false;

@@ -12,12 +12,14 @@ export interface CarRate {
 }
 [];
 
-export interface CarModelFilter {
-  name: string;
-  checked: boolean;
-  val: string;
-}
-[];
+// export interface CarModelFilter {
+//   name?: string;
+//   checked: boolean;
+//   val: string;
+//
+//   push(param: {name: any}): void;
+// }
+// [];
 
 export interface CarAdditionaly {
   name: string;

@@ -9,8 +9,12 @@ import { RootState } from '../types';
 export const state: ProfileState = {
   city: [],
   pvz: [],
-  valueCity:"",
-  valuePvz:"",
+  car: [],
+  carFilter: [],
+  valueCity: "",
+  valuePvz: "",
+  carModel: "",
+  carNumber: "",
 
 };
 
