@@ -2,17 +2,48 @@
   <div class="wrapper-form">
     <div class="order">
       <p class="order__title">Ваш заказ:</p>
-      <div class="pvz">
-        <p class="pvz__name">Пункт выдачи</p>
-        <p class="pvz__dote"></p>
-        <div class="pvz__block-location">
-          <p class="pvz__location">{{ city }}</p>
-          <p class="pvz__location">{{ pvz }}</p>
+      <div class="additionally">
+        <div class="form">
+          <p class="additionally__name">Пункт выдачи</p>
+          <div class="additionally__dote"></div>
+          <div class="additionally__block">
+            <p class="additionally__text">{{ city }}</p>
+            <p class="additionally__text">{{ pvz }}</p>
+          </div>
         </div>
-      </div>
-      <div class="car" v-show="fullRoute === 'CarModel'">
-        <p class="car__model">{{ carModel }}</p>
-        <p class="car__number">{{ carNumber }}</p>
+        <div class="form">
+          <p class="additionally__name">Модель</p>
+          <p class="additionally__dote additionally__dote--model"></p>
+          <p class="additionally__text">{{ carModel }}</p>
+        </div>
+        <div class="form">
+          <p class="additionally__name">Цвет</p>
+          <p class="additionally__dote additionally__dote--color"></p>
+          <div class="additionally__block">
+            <p class="additionally__text">Голубой</p>
+          </div>
+        </div>
+        <div class="form">
+          <p class="additionally__name">Длительность аренды</p>
+          <p class="additionally__dote additionally__dote--rent"></p>
+          <div class="additionally__block">
+            <p class="additionally__text">1д 2ч</p>
+          </div>
+        </div>
+        <div class="form">
+          <p class="additionally__name">Тариф</p>
+          <p class="additionally__dote additionally__dote--color"></p>
+          <div class="additionally__block">
+            <p class="additionally__text">На сутки</p>
+          </div>
+        </div>
+        <div class="form">
+          <p class="additionally__name">Полный бак</p>
+          <p class="additionally__dote additionally__dote--rent"></p>
+          <div class="additionally__block">
+            <p class="additionally__text">Да</p>
+          </div>
+        </div>
       </div>
     </div>
     <div class="price">
@@ -25,7 +56,7 @@
         :class="{
           'price__model-action--active': !checkValidForm,
         }"
-        :to="{ name: 'CarModel', params: { city: this.city, pvz: this.pvz } }"
+        :to="{ name: 'CarModel' }"
       >
         Выбрать модель
       </router-link>
@@ -46,30 +77,30 @@ import { Vue, Component } from "vue-property-decorator";
 export default class PreOrderInfo extends Vue {
   /* eslint-disable */
   get city() {
-    return this.$store.state.location.valueCity
+    return this.$store.state.OrderForm.valueCity;
   }
 
   get pvz() {
-    return this.$store.state.location.valuePvz
+    return this.$store.state.OrderForm.valuePvz;
   }
 
   get fullRoute() {
-    return this.$route.name
+    return this.$route.name;
   }
 
   get checkValidForm() {
     let empty: boolean = true;
-    if (this.city !== '' && this.pvz !== '') {
+    if (this.city !== "" && this.pvz !== "") {
       empty = false;
     }
     return empty;
   }
   get carNumber() {
-    return this.$store.state.location.carNumber;
+    return this.$store.state.OrderForm.carNumber;
   }
 
   get carModel() {
-    return this.$store.state.location.carModel;
+    return this.$store.state.OrderForm.carModel;
   }
 }
 </script>
@@ -87,13 +118,17 @@ export default class PreOrderInfo extends Vue {
     font-size: 18px;
     line-height: 21px;
     color: $main-black;
-
     margin-bottom: 26px;
   }
-  .pvz {
+  .additionally {
     width: 100%;
-    @include flex-row;
-    align-items: flex-end;
+    @include flex-column;
+    .form {
+      @include flex-row
+      align-items: flex-end;
+      width: 100%;
+      margin-bottom: 16px;
+    }
     &__name {
       font-weight: $light;
       font-size: 14px;
@@ -102,13 +137,13 @@ export default class PreOrderInfo extends Vue {
     }
     &__dote {
       border-bottom: 1px dotted $main-dark-gray;
-      width: calc(100% - 91px - 101px - 80px);
+      //width: 100%;
     }
-    &__block-location {
+    &__block {
       @include flex-column;
       align-items: flex-end;
     }
-    &__location {
+    &__text {
       font-weight: $light;
       font-size: 14px;
       line-height: 16px;

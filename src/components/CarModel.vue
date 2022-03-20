@@ -39,9 +39,8 @@
               class="car-order__card"
               v-for="car in carList"
               :key="car.id"
-              @click="choseCar(car.name, car.number)"
             >
-              <div class="car-content">
+              <div class="car-content" @click="choseCar(car.name, car.number)">
                 <p class="car-content__model">{{ car.name }}</p>
                 <p class="car-content__price">
                   {{ car.priceMin }} - {{ car.priceMax }}
@@ -49,11 +48,11 @@
               </div>
               <div class="car-order__image">
                 <img
-                  v-image-fall-back
-                  :src="car.thumbnail.path"
                   alt="Машина"
                   width="256"
                   height="116"
+                  @error="defaultImage($event)"
+                  :src="car.thumbnail.path"
                 />
               </div>
             </button>
@@ -67,7 +66,6 @@
 
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
-//import { CarModelFilter } from "@/types";
 import BreadcrumbsRoute from "./BreadcrumbsRoute.vue";
 import PreOrderInfo from "./PreOrderInfo.vue";
 import Navigation from "./Navigation.vue";
@@ -80,6 +78,7 @@ import Navigation from "./Navigation.vue";
   },
 })
 export default class CarModel extends Vue {
+  image = require("@/assets/car.png");
   // radioFilter:CarModelFilter[];
   mounted() {
     this.carListFetch();
@@ -87,33 +86,38 @@ export default class CarModel extends Vue {
   }
 
   carListFetch() {
-    this.$store.dispatch("location/fetchDataCar");
+    this.$store.dispatch("OrderForm/fetchDataCar");
     this.carList;
   }
 
   carFilterFetch() {
-    this.$store.dispatch("location/fetchDataCarFilter");
+    this.$store.dispatch("OrderForm/fetchDataCarFilter");
     this.carFilter;
   }
 
-  choseCar(model: string, num: number) {
-    this.$store.commit("location/getCarModel", model);
-    this.$store.commit("location/getCarNumber", num);
+  choseCar(model: string, num: string) {
+    this.$store.commit("OrderForm/getCarModel", model);
+    this.$store.commit("OrderForm/getCarNumber", num);
   }
 
   choseCarFilter(event: { target: HTMLInputElement }, carId: number) {
-    this.$store.commit("location/getCarId", carId);
+    this.$store.commit("OrderForm/getCarId", carId);
+
     this.carListFetch();
     this.carList;
     console.log(event.target, carId);
   }
 
+  defaultImage(event: { target: HTMLImageElement }) {
+    event.target.src = this.image;
+  }
+
   get carList() {
-    return this.$store.state.location.car.data;
+    return this.$store.getters["OrderForm/getFilteredCar"];
   }
 
   get carFilter() {
-    return this.$store.state.location.carFilter.data;
+    return this.$store.state.OrderForm.carFilter.data;
   }
 }
 </script>
@@ -124,12 +128,15 @@ export default class CarModel extends Vue {
 }
 .main {
   width: 100%;
+  height: 100vh;
+  overflow: hidden;
 }
 .main-nav {
   @include flex-row;
   @include flex-logo;
   @include order-card-mobile;
   padding: 32px 63px 32px 64px;
+
   &__company {
     @include logo;
   }
@@ -152,10 +159,10 @@ export default class CarModel extends Vue {
   @include order-card;
   @include order-card-mobile;
   @include flex-column;
-  min-width: calc(100% - 728px);
-  height: 100vh;
+  min-width: calc(100% - 384px - 128px);
   padding: 32px 192px 0 64px;
   align-items: flex-start;
+  max-height: 100vh;
   border-right: 1px solid $main-light-gray;
 }
 .filter {
@@ -198,6 +205,11 @@ export default class CarModel extends Vue {
   display: flex;
   flex-wrap: wrap;
   width: 736px;
+  max-height: 100vh;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
   &__card {
     background-color: transparent;
     outline: none;
@@ -208,7 +220,11 @@ export default class CarModel extends Vue {
 
     padding: 16px;
   }
-  &__card:active {
+  &__card:hover {
+    border: 1px solid $main-dark-gray;
+  }
+  &__card:active,
+  &__card:focus {
     border: 1px solid $color-green;
   }
   .car-content {

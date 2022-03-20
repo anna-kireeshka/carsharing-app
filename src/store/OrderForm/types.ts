@@ -51,6 +51,6 @@ export interface ProfileState {
   cityId?: any;
   pvzId?: any;
   car?: Car[];
-  carModel?: CarInfo["carModel"];
-  carNumber?: CarInfo["carNumber"];
+  carModel?: any;
+  carNumber?: any;
 }

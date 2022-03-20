@@ -16,13 +16,13 @@ const routes: Array<RouteConfig> = [
     props: true,
   },
   {
-    path: "/location",
+    path: "/OrderForm",
     name: "location",
     component: CardLocation,
     props: true,
   },
   {
-    path: "/car-model/:city/:pvz",
+    path: "/car-model",
     name: "CarModel",
     component: CarModel,
     props: true,

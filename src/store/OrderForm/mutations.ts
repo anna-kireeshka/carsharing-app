@@ -1,5 +1,13 @@
 import { MutationTree } from "vuex";
-import { ProfileState, City, Pvz, ValueInput, Car, CarFilter } from "./types";
+import {
+  ProfileState,
+  City,
+  Pvz,
+  ValueInput,
+  Car,
+  CarFilter,
+  CarInfo,
+} from "./types";
 
 export const mutations: MutationTree<ProfileState> = {
   cityLoaded(state, city: City[]) {
@@ -42,19 +50,20 @@ export const mutations: MutationTree<ProfileState> = {
     return state.cityId;
   },
 
-  getCarModelNumber(state, car: Car[]) {
+  getCarModel(state, car: Car[]) {
     if (car.length !== 0) {
       for (let i = 0; i < car.length; i++) {
-        state.carModel = car[i].name;
+        state.carModel = car;
       }
     }
+
     return state.carModel;
   },
 
   getCarNumber(state, car: Car[]) {
     if (car.length !== 0) {
       for (let i = 0; i < car.length; i++) {
-        state.carNumber = car[i].number;
+        state.carNumber = car;
       }
     }
     return state.carNumber;

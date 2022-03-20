@@ -20,7 +20,7 @@ export const state: ProfileState = {
 
 const namespaced: boolean = true;
 
-export const location: Module<ProfileState, RootState> = {
+export const OrderForm: Module<ProfileState, RootState> = {
   namespaced,
   state,
   getters,

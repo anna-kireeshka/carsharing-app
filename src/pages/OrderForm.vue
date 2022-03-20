@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="order-card">
     <CarModel />
     <CardLocation />
     <FormAdditionally />
@@ -23,3 +23,5 @@ import FinalOrder from "@/components/FinalOrder.vue";
 })
 export default class OrderForm extends Vue {}
 </script>
+
+<style lang="scss" scoped></style>
