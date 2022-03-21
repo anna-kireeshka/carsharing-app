@@ -6,7 +6,7 @@ import {
   ValueInput,
   Car,
   CarFilter,
-  CarInfo,
+  Rate,
 } from "./types";
 
 export const mutations: MutationTree<ProfileState> = {
@@ -23,6 +23,10 @@ export const mutations: MutationTree<ProfileState> = {
 
   carFilterLoaded(state, filter: CarFilter[]) {
     state.carFilter = filter;
+  },
+
+  rateLoaded(state, rate: Rate[]) {
+    state.rate = rate;
   },
 
   searchCity(state, payload: ValueInput["valueCity"]) {

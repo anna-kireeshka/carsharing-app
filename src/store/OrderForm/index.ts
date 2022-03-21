@@ -10,6 +10,7 @@ export const state: ProfileState = {
   city: [],
   pvz: [],
   car: [],
+  rate: [],
   carFilter: [],
   valueCity: "",
   valuePvz: "",

@@ -49,7 +49,7 @@
                 >С
                 <input
                   type="text"
-                  onfocus="(this.type='date')"
+                  onfocus="(this.type='datetime')"
                   onblur="(this.type='text')"
                   id="startDate"
                   class="filter__date"
@@ -72,29 +72,29 @@
           <div class="filter__rate">
             <p class="filter__desc">Тариф</p>
 
-            <div class="filter__item" v-for="item in rate" :key="item.val">
-              <label
-                class="filter__label"
-                :for="item.val"
-                :class="{ 'filter__label--disabled': !item.checked }"
-              >
-                <input
-                  type="radio"
-                  class="filter__radio-item"
-                  :id="item.val"
-                  :value="item.val"
-                  name="rate"
-                />
-                <span class="filter__castom"></span>
-                {{ item.name }}</label
-              >
+            <div class="filter__item" v-for="item in rate" :key="item.id">
+              <template v-for="rateType in rate.rateTypeId">
+                <div :key="rateType.id">
+                  <label class="filter__label" :for="rateType.id">
+                    <input
+                      type="radio"
+                      class="filter__radio-item"
+                      :id="rateType.id"
+                      :value="rateType.name"
+                      name="rate"
+                    />
+                    <span class="filter__castom"></span>
+                    {{ rateType.name }}, {{ item.price }}</label
+                  >
+                </div>
+              </template>
             </div>
           </div>
           <div class="filter__services">
             <p class="filter__desc">Доп услуги</p>
             <div
               class="filter__item"
-              v-for="item in additionaly"
+              v-for="item in additionally"
               :key="item.val"
             >
               <label
@@ -114,7 +114,7 @@
             </div>
           </div>
         </div>
-        <FinalInfo />
+        <PreOrderInfo />
       </div>
     </div>
   </div>
@@ -122,16 +122,15 @@
 
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
-import FinalInfo from "./FormAdditionally.vue";
+import PreOrderInfo from "@/components/PreOrderInfo.vue";
 import Navigation from "./Navigation.vue";
 import BreadcrumbsRoute from "@/components/BreadcrumbsRoute.vue";
-import { CarColorFilter, CarRate, CarAdditionaly } from "../types";
+import { CarColorFilter, CarAdditionally } from "@/types";
 
-@Component({ components: { FinalInfo, Navigation, BreadcrumbsRoute } })
+@Component({ components: { PreOrderInfo, Navigation, BreadcrumbsRoute } })
 export default class OrderAdditionally extends Vue {
   colorFilter: CarColorFilter[];
-  rate: CarRate[];
-  additionaly: CarAdditionaly[];
+  additionally: CarAdditionally[];
 
   mounted() {
     this.colorFilter = [
@@ -151,15 +150,21 @@ export default class OrderAdditionally extends Vue {
         val: "blue",
       },
     ];
-    this.rate = [
-      { name: "Поминутно, 7₽/мин", checked: false, val: "minute" },
-      { name: "На сутки, 1999 ₽/сутки", checked: true, val: "allDay" },
-    ];
-    this.additionaly = [
+    this.additionally = [
       { name: "Полный бак, 500р", checked: true, val: "fullTank" },
       { name: "Детское кресло, 200р", checked: false, val: "babyChair" },
       { name: "Правый руль, 1600р", checked: false, val: "rightHandDrive" },
     ];
+    this.fetchRate();
+  }
+  fetchRate() {
+    this.$store.dispatch("OrderForm/fetchDataRate");
+    this.rate;
+  }
+
+  get rate() {
+    //return this.$store.state.rate.data;
+    return this.$store.getters["OrderForm/getRateFilter"];
   }
 }
 </script>
@@ -169,7 +174,9 @@ export default class OrderAdditionally extends Vue {
   @include flex-row;
 }
 .main {
+  height: 100vh;
   width: 100%;
+  overflow: hidden;
 }
 .main-nav {
   @include flex-row;
@@ -192,6 +199,7 @@ export default class OrderAdditionally extends Vue {
   justify-content: space-between;
   width: 100%;
   height: 100vh;
+
   @include flex-row;
   @include content-very-large-main;
   @include content-large-main;
@@ -206,7 +214,7 @@ export default class OrderAdditionally extends Vue {
   min-width: calc(100% - 384px - 128px);
   padding: 32px 192px 0 64px;
   align-items: flex-start;
-  //border-right: 1px solid $main-light-gray;
+  border-right: 1px solid $main-light-gray;
   &__desc-wrap {
     display: flex;
     align-items: flex-start;
@@ -297,7 +305,7 @@ export default class OrderAdditionally extends Vue {
     line-height: 16px;
     color: #121212;
   }
-  input[type="date"]::-webkit-calendar-picker-indicator {
+  input[type="datetime"]::-webkit-calendar-picker-indicator {
     opacity: 0;
   }
   &__rate {

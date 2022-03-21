@@ -37,20 +37,30 @@ export interface ValueInput {
   valuePvz: string;
   valueCity: string;
 }
-export interface CarInfo {
-  carModel: string;
-  carNumber: string;
+
+export interface Rate {
+  updatedAt: number;
+  createdAt: number;
+  price: number;
+  rateTypeId: {
+    unit: string;
+    name: string;
+    id: string;
+  };
+  id: string;
 }
+[];
 
 export interface ProfileState {
   city?: City[];
   pvz?: Pvz[];
   carFilter: CarFilter[];
+  car?: Car[];
+  rate?: Rate[];
   valueCity?: ValueInput["valueCity"];
   valuePvz?: ValueInput["valuePvz"];
   cityId?: any;
   pvzId?: any;
-  car?: Car[];
   carModel?: any;
   carNumber?: any;
 }
