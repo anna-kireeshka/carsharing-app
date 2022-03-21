@@ -15,6 +15,7 @@ export const state: ProfileState = {
   valuePvz: "",
   carModel: "",
   carNumber: "",
+  loadingCarList:false,
 
 };
 

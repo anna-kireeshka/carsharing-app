@@ -29,10 +29,13 @@ export const actions: ActionTree<ProfileState, RootState> = {
     );
   },
 
-  fetchDataCar({ commit }) {
-    HTTP.get("/api/db/car").then(
+  fetchDataCar({ commit, state }) {
+    HTTP.get("/api/db/car", {
+      params: { categoryId: state.categoryId },
+    }).then(
       (response) => {
         const car: Car[] = response.data;
+        state.loadingCarList = true;
         commit("carLoaded", car);
       },
       (error) => {

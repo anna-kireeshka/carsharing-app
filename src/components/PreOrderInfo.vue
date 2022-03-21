@@ -11,39 +11,45 @@
             <p class="additionally__text">{{ pvz }}</p>
           </div>
         </div>
-        <div class="form">
-          <p class="additionally__name">Модель</p>
-          <p class="additionally__dote additionally__dote--model"></p>
-          <p class="additionally__text">{{ carModel }}</p>
-        </div>
-        <div class="form">
-          <p class="additionally__name">Цвет</p>
-          <p class="additionally__dote additionally__dote--color"></p>
-          <div class="additionally__block">
-            <p class="additionally__text">Голубой</p>
+        <template
+          v-if="fullRoute === 'CarModel' && fullRoute === 'OrderAdditionally'"
+        >
+          <div class="form">
+            <p class="additionally__name">Модель</p>
+            <p class="additionally__dote additionally__dote--model"></p>
+            <p class="additionally__text">{{ carModel }}</p>
           </div>
-        </div>
-        <div class="form">
-          <p class="additionally__name">Длительность аренды</p>
-          <p class="additionally__dote additionally__dote--rent"></p>
-          <div class="additionally__block">
-            <p class="additionally__text">1д 2ч</p>
+        </template>
+        <template v-if="fullRoute === 'OrderAdditionally'">
+          <div class="form">
+            <p class="additionally__name">Цвет</p>
+            <p class="additionally__dote additionally__dote--color"></p>
+            <div class="additionally__block">
+              <p class="additionally__text">Голубой</p>
+            </div>
           </div>
-        </div>
-        <div class="form">
-          <p class="additionally__name">Тариф</p>
-          <p class="additionally__dote additionally__dote--color"></p>
-          <div class="additionally__block">
-            <p class="additionally__text">На сутки</p>
+          <div class="form">
+            <p class="additionally__name">Длительность аренды</p>
+            <p class="additionally__dote additionally__dote--rent"></p>
+            <div class="additionally__block">
+              <p class="additionally__text">1д 2ч</p>
+            </div>
           </div>
-        </div>
-        <div class="form">
-          <p class="additionally__name">Полный бак</p>
-          <p class="additionally__dote additionally__dote--rent"></p>
-          <div class="additionally__block">
-            <p class="additionally__text">Да</p>
+          <div class="form">
+            <p class="additionally__name">Тариф</p>
+            <p class="additionally__dote additionally__dote--color"></p>
+            <div class="additionally__block">
+              <p class="additionally__text">На сутки</p>
+            </div>
           </div>
-        </div>
+          <div class="form">
+            <p class="additionally__name">Полный бак</p>
+            <p class="additionally__dote additionally__dote--rent"></p>
+            <div class="additionally__block">
+              <p class="additionally__text">Да</p>
+            </div>
+          </div>
+        </template>
       </div>
     </div>
     <div class="price">
@@ -124,7 +130,7 @@ export default class PreOrderInfo extends Vue {
     width: 100%;
     @include flex-column;
     .form {
-      @include flex-row
+      @include flex-row;
       align-items: flex-end;
       width: 100%;
       margin-bottom: 16px;
@@ -137,7 +143,6 @@ export default class PreOrderInfo extends Vue {
     }
     &__dote {
       border-bottom: 1px dotted $main-dark-gray;
-      //width: 100%;
     }
     &__block {
       @include flex-column;

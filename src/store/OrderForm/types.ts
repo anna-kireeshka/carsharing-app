@@ -53,4 +53,6 @@ export interface ProfileState {
   car?: Car[];
   carModel?: any;
   carNumber?: any;
+  categoryId?: any;
+  loadingCarList?: boolean;
 }
