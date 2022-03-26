@@ -4,9 +4,7 @@ import router from "./router";
 import store from "./store";
 import axios from "axios";
 import VueAxios from "vue-axios";
-import skeleton from "tb-skeleton";
-import "tb-skeleton/dist/skeleton.css";
-Vue.use(skeleton);
+
 Vue.use(VueAxios, axios);
 
 Vue.config.productionTip = false;
