@@ -36,6 +36,8 @@ export interface CarFilter {
 export interface ValueInput {
   valuePvz: string;
   valueCity: string;
+  dateFrom: string;
+  dateTo: string;
 }
 
 export interface Rate {
@@ -46,8 +48,24 @@ export interface Rate {
     unit: string;
     name: string;
     id: string;
-  };
+  }[];
+
   id: string;
+}
+[];
+
+export interface ColorFilter {
+  name: string;
+  checked: boolean;
+  val: string;
+}
+[];
+
+export interface CarAdditionally {
+  name: string;
+  checked: boolean;
+  val: string;
+  price: number;
 }
 [];
 
@@ -63,4 +81,11 @@ export interface ProfileState {
   pvzId?: any;
   carModel?: any;
   carNumber?: any;
+  colorFilter?: ColorFilter[];
+  carAdditionally?: CarAdditionally[];
+  carColor?: any;
+  additionallyFilter?: any;
+  rateFilter?: any;
+  dateFrom?: ValueInput["dateFrom"];
+  dateTo?: ValueInput["dateTo"];
 }

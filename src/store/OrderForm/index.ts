@@ -3,7 +3,7 @@ import { Module } from 'vuex';
 import { getters } from './getters';
 import { actions } from './actions';
 import { mutations } from './mutations';
-import { ProfileState } from './types';
+import { ProfileState } from "./types";
 import { RootState } from '../types';
 
 export const state: ProfileState = {
@@ -16,6 +16,13 @@ export const state: ProfileState = {
   valuePvz: "",
   carModel: "",
   carNumber: "",
+  colorFilter: [],
+  carAdditionally: [],
+  carColor: "",
+  additionallyFilter: [],
+  rateFilter: "",
+  dateFrom: "",
+  dateTo: "",
 
 };
 

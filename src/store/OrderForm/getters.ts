@@ -1,5 +1,5 @@
 import { GetterTree } from "vuex";
-import { ProfileState, ValueInput } from "./types";
+import { CarAdditionally, ProfileState, ValueInput } from "./types";
 import { RootState } from "../types";
 
 export const getters: GetterTree<ProfileState, RootState> = {
@@ -24,5 +24,28 @@ export const getters: GetterTree<ProfileState, RootState> = {
     rateList = rateList?.filter((el: any) => el !== undefined);
 
     return rateList;
+  },
+
+  getColorFilter: (state) => {
+    state.colorFilter = [
+      { name: "Любой", checked: true, val: "allColor" },
+      { name: "Красный", checked: false, val: "red" },
+      { name: "Голубой", checked: false, val: "blue" },
+    ];
+    return state.colorFilter;
+  },
+
+  getCarAdditionally: (state) => {
+    state.carAdditionally = [
+      { name: "Полный бак", checked: true, val: "fullTank", price: 500 },
+      { name: "Детское кресло", checked: false, val: "babyChair", price: 200 },
+      {
+        name: "Правый руль",
+        checked: false,
+        val: "rightHandDrive",
+        price: 1600,
+      },
+    ];
+    return state.carAdditionally;
   },
 };

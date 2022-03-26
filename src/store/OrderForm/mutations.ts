@@ -7,6 +7,8 @@ import {
   Car,
   CarFilter,
   Rate,
+  CarAdditionally,
+  ColorFilter,
 } from "./types";
 
 export const mutations: MutationTree<ProfileState> = {
@@ -72,4 +74,52 @@ export const mutations: MutationTree<ProfileState> = {
     }
     return state.carNumber;
   },
+
+  getCarColor(state, color: ColorFilter[]) {
+    if (color.length !== 0) {
+      for (let i = 0; i < color.length; i++) {
+        state.carColor = color;
+      }
+    }
+    return state.carModel;
+  },
+
+  getCarAdditionallyFilter(state, filter: CarFilter[]) {
+    if (filter.length !== 0) {
+      for (let i = 0; i < filter.length; i++) {
+        state.additionallyFilter = [];
+        state.additionallyFilter.push(filter);
+      }
+    }
+    return state.additionallyFilter;
+  },
+
+  getCarRate(state, rate: Rate[]) {
+    if (rate.length !== 0) {
+      for (let i = 0; i < rate.length; i++) {
+        state.rateFilter = rate;
+      }
+    }
+    return state.rateFilter;
+  },
+
+  getDateTimeFrom(state, startDate: ValueInput["dateFrom"]) {
+    state.dateFrom = startDate;
+  },
+
+  getDateTimeTo(state, endDate: ValueInput["dateTo"]) {
+    state.dateTo = endDate;
+  },
+
+  // getRateTime(state) {
+  //   const dateStart = new Date(state.dateFrom);
+  //   const dateEnd = new Date(state.dateTo);
+  //
+  //   const oneDay: number = 1000 * 60 * 60 * 24;
+  //   const diffInTime = dateStart.getTime() - dateEnd.getTime();
+  //
+  //   const diffInDays = Math.round(diffInTime / oneDay);
+  //
+  //   return diffInDays;
+  // },
 };

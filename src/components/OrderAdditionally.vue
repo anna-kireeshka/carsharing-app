@@ -36,6 +36,7 @@
                   :id="item.val"
                   :value="item.val"
                   name="color"
+                  @change="checkColor(item.name)"
                 />
                 <span class="filter__castom"></span>
                 {{ item.name }}</label
@@ -49,11 +50,13 @@
                 >С
                 <input
                   type="text"
-                  onfocus="(this.type='datetime')"
+                  onfocus="(this.type='datetime-local')"
                   onblur="(this.type='text')"
                   id="startDate"
-                  class="filter__date"
+                  class="filter__date filter__date--start"
                   placeholder="Введите дату и время"
+                  v-model="dateFrom"
+                  @input="checkDateFrom(dateFrom)"
                 />
               </label>
             </p>
@@ -61,11 +64,13 @@
               <label for="endDate" class="filter__label"
                 >По<input
                   type="text"
-                  onfocus="(this.type='date')"
+                  onfocus="(this.type='datetime-local')"
                   onblur="(this.type='text')"
                   id="endDate"
                   class="filter__date"
                   placeholder="Введите дату и время"
+                  v-model="dateTo"
+                  @input="checkDateTo(dateTo)"
               /></label>
             </p>
           </div>
@@ -73,21 +78,20 @@
             <p class="filter__desc">Тариф</p>
 
             <div class="filter__item" v-for="item in rate" :key="item.id">
-              <template v-for="rateType in rate.rateTypeId">
-                <div :key="rateType.id">
-                  <label class="filter__label" :for="rateType.id">
-                    <input
-                      type="radio"
-                      class="filter__radio-item"
-                      :id="rateType.id"
-                      :value="rateType.name"
-                      name="rate"
-                    />
-                    <span class="filter__castom"></span>
-                    {{ rateType.name }}, {{ item.price }}</label
-                  >
-                </div>
-              </template>
+              <label class="filter__label" :for="item.rateTypeId.id">
+                <input
+                  type="radio"
+                  class="filter__radio-item"
+                  @change="checkRate(item.rateTypeId.name)"
+                  :id="item.rateTypeId.id"
+                  :value="item.rateTypeId.name"
+                  name="rate"
+                />
+                <span class="filter__castom"></span>
+                {{ item.rateTypeId.name }}, {{ item.price }} ₽/{{
+                  item.rateTypeId.unit
+                }}
+              </label>
             </div>
           </div>
           <div class="filter__services">
@@ -107,6 +111,7 @@
                   class="filter__checkbox-item"
                   :id="item.name"
                   :checked="item.checked"
+                  @change="checkFilter(item.name)"
                 />
                 <span class="filter__castom--checkbox"></span>
                 {{ item.name }}</label
@@ -125,46 +130,56 @@ import { Vue, Component } from "vue-property-decorator";
 import PreOrderInfo from "@/components/PreOrderInfo.vue";
 import Navigation from "./Navigation.vue";
 import BreadcrumbsRoute from "@/components/BreadcrumbsRoute.vue";
-import { CarColorFilter, CarAdditionally } from "@/types";
 
 @Component({ components: { PreOrderInfo, Navigation, BreadcrumbsRoute } })
 export default class OrderAdditionally extends Vue {
-  colorFilter: CarColorFilter[];
-  additionally: CarAdditionally[];
-
   mounted() {
-    this.colorFilter = [
-      {
-        name: "Любой",
-        checked: true,
-        val: "allColor",
-      },
-      {
-        name: "Красный",
-        checked: false,
-        val: "red",
-      },
-      {
-        name: "Голубой",
-        checked: false,
-        val: "blue",
-      },
-    ];
-    this.additionally = [
-      { name: "Полный бак, 500р", checked: true, val: "fullTank" },
-      { name: "Детское кресло, 200р", checked: false, val: "babyChair" },
-      { name: "Правый руль, 1600р", checked: false, val: "rightHandDrive" },
-    ];
     this.fetchRate();
   }
+
   fetchRate() {
     this.$store.dispatch("OrderForm/fetchDataRate");
     this.rate;
   }
 
+  checkColor(color: string) {
+    this.$store.commit("OrderForm/getCarColor", color);
+  }
+
+  checkFilter(filter: string) {
+    this.$store.commit("OrderForm/getCarAdditionallyFilter", filter);
+  }
+
+  checkRate(duration: string) {
+    this.$store.commit("OrderForm/getCarRate", duration);
+  }
+
+  checkDateFrom(from: string) {
+    this.$store.commit("OrderForm/getDateTimeFrom", from);
+  }
+
+  checkDateTo(to: string) {
+    this.$store.commit("OrderForm/getDateTimeTo", to);
+  }
+
   get rate() {
-    //return this.$store.state.rate.data;
     return this.$store.getters["OrderForm/getRateFilter"];
+  }
+
+  get colorFilter() {
+    return this.$store.getters["OrderForm/getColorFilter"];
+  }
+
+  get additionally() {
+    return this.$store.getters["OrderForm/getCarAdditionally"];
+  }
+
+  get startDate() {
+    return this.$store.state.OrderForm.dateFrom;
+  }
+
+  get endDate() {
+    return this.$store.state.OrderForm.dateTo;
   }
 }
 </script>
@@ -297,6 +312,9 @@ export default class OrderAdditionally extends Vue {
     width: 224px;
 
     margin-left: 8px;
+  }
+  &__date--start {
+    margin-bottom: 13px;
   }
   &__date[type="text"] {
     font-family: inherit;
