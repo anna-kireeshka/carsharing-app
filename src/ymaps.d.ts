@@ -19,6 +19,7 @@ declare namespace ymaps {
   export class Map {
     geoObjects: any;
     controls: any;
+    container: any;
 
     constructor(element: string | any, state: MapState);
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types

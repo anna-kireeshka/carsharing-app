@@ -14,43 +14,45 @@ import { Vue, Component } from "vue-property-decorator";
 @Component({})
 export default class CardMap extends Vue {
   created() {
-    ymaps.ready().then((coords:any) => {
+    ymaps.ready().then((coords: any) => {
       let myMap = new ymaps.Map("map", {
         center: [54.36927208, 48.15935496],
         zoom: 9,
-        controls: []
+        controls: [],
       });
+      if (this.valueCity !== "") {
+        ymaps
+          .geocode(this.valueCity, {
+            results: 10,
+          })
+          .then(function (res: any) {
+            let firstGeoObject = res.geoObjects.get(0),
+              coords = firstGeoObject.geometry.getCoordinates(),
+              bounds = firstGeoObject.properties.get("boundedBy");
 
-       ymaps.geocode(this.valueCity, {
-          results: 1,
-        })
-         .then(function (res: any) {
-           let firstGeoObject =  res.geoObjects.get(0),
-             coords = firstGeoObject.geometry.getCoordinates(),
-             bounds = firstGeoObject.properties.get("boundedBy");
+            firstGeoObject.options.set(
+              "preset",
+              "islands#darkBlueDotIconWithCaption"
+            );
+            firstGeoObject.properties.set(
+              "iconCaption",
+              firstGeoObject.getAddressLine()
+            );
 
-          firstGeoObject.options.set(
-            "preset",
-            "islands#darkBlueDotIconWithCaption"
-          );
-          firstGeoObject.properties.set(
-            "iconCaption",
-            firstGeoObject.getAddressLine()
-          );
+            myMap.geoObjects.add(firstGeoObject);
+            myMap.setBounds(bounds, {
+              checkZoomRange: true,
+            });
 
-          myMap.geoObjects.add(firstGeoObject);
-          myMap.setBounds(bounds, {
-            checkZoomRange: true,
+            const myPlacemark = new ymaps.Placemark(coords, {
+              iconLayout: "default#image",
+              iconImageHref: "../assets/svg/mark.svg",
+              iconImageSize: [30, 42],
+              iconImageOffset: [-5, -38],
+            });
+            myMap.geoObjects.add(myPlacemark);
           });
-
-           const myPlacemark = new ymaps.Placemark(coords, {
-             iconLayout: "default#image",
-             iconImageHref: "../assets/svg/mark.svg",
-             iconImageSize: [30, 42],
-             iconImageOffset: [-5, -38]
-           });
-           myMap.geoObjects.add(myPlacemark);
-        });
+      }
 
       ymaps
         .findOrganization(this.pvzId)
@@ -77,17 +79,19 @@ export default class CardMap extends Vue {
 <style scoped lang="scss">
 .card {
   @include flex-column;
+  width: 100%;
+  height: 100%;
   align-items: flex-start;
   margin-top: calc(45px - 16px);
   #map {
-    width: 736px;
+    width: 100% !important;
     height: 352px;
 
-    filter: grayscale(0.65);
-    -ms-filter: grayscale(0.65);
-    -webkit-filter: grayscale(0.65);
-    -moz-filter: grayscale(0.65);
-    -o-filter: grayscale(0.65);
+    filter: grayscale(0.8);
+    -ms-filter: grayscale(0.8);
+    -webkit-filter: grayscale(0.8);
+    -moz-filter: grayscale(0.8);
+    -o-filter: grayscale(0.8);
   }
   &__desc {
     font-weight: $light;
@@ -96,6 +100,9 @@ export default class CardMap extends Vue {
     color: $main-black;
 
     margin-bottom: 16px;
+  }
+  ymaps {
+    width: 100%;
   }
 }
 </style>
