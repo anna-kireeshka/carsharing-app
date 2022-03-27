@@ -180,6 +180,7 @@ export default class CarModel extends Vue {
 }
 .filter {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   margin-bottom: 48px;
   &__list {
@@ -217,7 +218,7 @@ export default class CarModel extends Vue {
 .car-order {
   display: flex;
   flex-wrap: wrap;
-  width: 736px;
+  width: 100%;
   max-height: 100vh;
   overflow-y: scroll;
   &::-webkit-scrollbar {
