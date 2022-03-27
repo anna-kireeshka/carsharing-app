@@ -62,6 +62,7 @@ export default class BreadcrumbsRoute extends Vue {
 <style scoped lang="scss">
 .navigation {
   display: flex;
+  flex-wrap: wrap;
   border-top: 1px solid #eeeeee;
   border-bottom: 1px solid #eeeeee;
   padding-left: 64px;
