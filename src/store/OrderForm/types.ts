@@ -88,4 +88,5 @@ export interface ProfileState {
   rateFilter?: any;
   dateFrom?: ValueInput["dateFrom"];
   dateTo?: ValueInput["dateTo"];
+  checkedAdditionally?: any;
 }

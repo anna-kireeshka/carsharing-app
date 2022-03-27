@@ -55,8 +55,8 @@
                   id="startDate"
                   class="filter__date filter__date--start"
                   placeholder="Введите дату и время"
-                  v-model="dateFrom"
-                  @input="checkDateFrom(dateFrom)"
+                  v-model="startDateModel"
+                  @input="checkDateFrom(startDateModel)"
                 />
               </label>
             </p>
@@ -69,8 +69,8 @@
                   id="endDate"
                   class="filter__date"
                   placeholder="Введите дату и время"
-                  v-model="dateTo"
-                  @input="checkDateTo(dateTo)"
+                  v-model="endDateModel"
+                  @input="checkDateTo(endDateModel)"
               /></label>
             </p>
           </div>
@@ -111,7 +111,7 @@
                   class="filter__checkbox-item"
                   :id="item.name"
                   :checked="item.checked"
-                  @change="checkFilter(item.name)"
+                  @change="checkFilter(item.name, item.checked)"
                 />
                 <span class="filter__castom--checkbox"></span>
                 {{ item.name }}</label
@@ -133,6 +133,10 @@ import BreadcrumbsRoute from "@/components/BreadcrumbsRoute.vue";
 
 @Component({ components: { PreOrderInfo, Navigation, BreadcrumbsRoute } })
 export default class OrderAdditionally extends Vue {
+  /* eslint-disable */
+  startDateModel:string = "";
+  endDateModel:string = "";
+
   mounted() {
     this.fetchRate();
   }
@@ -174,11 +178,11 @@ export default class OrderAdditionally extends Vue {
     return this.$store.getters["OrderForm/getCarAdditionally"];
   }
 
-  get startDate() {
+  get startDate(): string {
     return this.$store.state.OrderForm.dateFrom;
   }
 
-  get endDate() {
+  get endDate(): string {
     return this.$store.state.OrderForm.dateTo;
   }
 }

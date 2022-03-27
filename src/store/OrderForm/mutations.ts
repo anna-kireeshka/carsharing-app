@@ -1,14 +1,14 @@
 import { MutationTree } from "vuex";
 import {
-  ProfileState,
-  City,
-  Pvz,
-  ValueInput,
   Car,
-  CarFilter,
-  Rate,
   CarAdditionally,
+  CarFilter,
+  City,
   ColorFilter,
+  ProfileState,
+  Pvz,
+  Rate,
+  ValueInput,
 } from "./types";
 
 export const mutations: MutationTree<ProfileState> = {
@@ -86,10 +86,7 @@ export const mutations: MutationTree<ProfileState> = {
 
   getCarAdditionallyFilter(state, filter: CarFilter[]) {
     if (filter.length !== 0) {
-      for (let i = 0; i < filter.length; i++) {
-        state.additionallyFilter = [];
-        state.additionallyFilter.push(filter);
-      }
+      state.additionallyFilter.push(filter);
     }
     return state.additionallyFilter;
   },
@@ -110,16 +107,4 @@ export const mutations: MutationTree<ProfileState> = {
   getDateTimeTo(state, endDate: ValueInput["dateTo"]) {
     state.dateTo = endDate;
   },
-
-  // getRateTime(state) {
-  //   const dateStart = new Date(state.dateFrom);
-  //   const dateEnd = new Date(state.dateTo);
-  //
-  //   const oneDay: number = 1000 * 60 * 60 * 24;
-  //   const diffInTime = dateStart.getTime() - dateEnd.getTime();
-  //
-  //   const diffInDays = Math.round(diffInTime / oneDay);
-  //
-  //   return diffInDays;
-  // },
 };

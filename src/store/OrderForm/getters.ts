@@ -1,6 +1,7 @@
 import { GetterTree } from "vuex";
 import { CarAdditionally, ProfileState, ValueInput } from "./types";
 import { RootState } from "../types";
+import dayjs from "dayjs";
 
 export const getters: GetterTree<ProfileState, RootState> = {
   getCityValue: (state) => (value: ValueInput["valueCity"]) => {
@@ -11,24 +12,18 @@ export const getters: GetterTree<ProfileState, RootState> = {
   },
 
   getFilteredCar: (state) => {
-    const engRegEx = /([a-z])/g;
     let carList = state.car.data;
-    carList = carList?.filter(
-      (el: any) => el.priceMin >= 5000 && el.name?.match(engRegEx)
-    );
+    carList = carList?.filter((el: any) => el.priceMin >= 5000);
     return carList;
   },
 
   getRateFilter: (state) => {
-    let rateList = state.rate.data;
-    rateList = rateList?.filter((el: any) => el !== undefined);
-
-    return rateList;
+    return state.rate.data;
   },
 
   getColorFilter: (state) => {
     state.colorFilter = [
-      { name: "Любой", checked: true, val: "allColor" },
+      { name: "Любой", checked: false, val: "allColor" },
       { name: "Красный", checked: false, val: "red" },
       { name: "Голубой", checked: false, val: "blue" },
     ];
@@ -37,7 +32,7 @@ export const getters: GetterTree<ProfileState, RootState> = {
 
   getCarAdditionally: (state) => {
     state.carAdditionally = [
-      { name: "Полный бак", checked: true, val: "fullTank", price: 500 },
+      { name: "Полный бак", checked: false, val: "fullTank", price: 500 },
       { name: "Детское кресло", checked: false, val: "babyChair", price: 200 },
       {
         name: "Правый руль",
@@ -47,5 +42,15 @@ export const getters: GetterTree<ProfileState, RootState> = {
       },
     ];
     return state.carAdditionally;
+  },
+
+  getRateTime: (state) => {
+    let duration: any = null;
+    if (state.dateTo !== "" && state.dateFrom !== "") {
+      const startDate = dayjs(state.dateTo);
+      const endDate = dayjs(state.dateFrom);
+      duration = dayjs.duration(startDate.diff(endDate)).format("D[д] H[ч]");
+    }
+    return duration;
   },
 };

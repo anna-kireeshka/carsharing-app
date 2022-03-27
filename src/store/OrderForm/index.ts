@@ -23,6 +23,7 @@ export const state: ProfileState = {
   rateFilter: "",
   dateFrom: "",
   dateTo: "",
+  checkedAdditionally: false,
 
 };
 

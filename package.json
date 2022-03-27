@@ -10,6 +10,7 @@
   "dependencies": {
     "axios": "^0.26.1",
     "core-js": "^3.6.5",
+    "dayjs": "^1.11.0",
     "lodash": "^4.17.21",
     "vue": "^2.6.11",
     "vue-2-crumbs": "^0.5.4",

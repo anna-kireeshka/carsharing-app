@@ -35,7 +35,7 @@
             <p class="additionally__name">Длительность аренды</p>
             <p class="additionally__dote additionally__dote--rent"></p>
             <div class="additionally__block">
-              <p class="additionally__text">1д 2ч</p>
+              <p class="additionally__text">{{ dateDuration }}</p>
             </div>
           </div>
           <div class="form">
@@ -45,8 +45,8 @@
               <p class="additionally__text">{{ rate }}</p>
             </div>
           </div>
-          <div class="form">
-            <p class="additionally__name">Полный бак</p>
+          <div class="form" v-for="(item, index) in checkbox" :key="index">
+            <p class="additionally__name">{{ item }}</p>
             <p class="additionally__dote additionally__dote--rent"></p>
             <div class="additionally__block">
               <p class="additionally__text">Да</p>
@@ -73,8 +73,21 @@
         v-show="fullRoute === 'CarModel'"
         class="price__model-action"
         :to="{ name: 'OrderAdditionally' }"
+        :class="{
+          'price__model-action--active': !checkValidFormCarModel,
+        }"
       >
         Дополнительно
+      </router-link>
+      <router-link
+        v-show="fullRoute === 'OrderAdditionally'"
+        class="price__model-action"
+        :to="{ name: 'FinalOrder' }"
+        :class="{
+          'price__model-action--active': !checkValidFormAdditionally,
+        }"
+      >
+        Итого
       </router-link>
     </div>
   </div>
@@ -104,6 +117,29 @@ export default class PreOrderInfo extends Vue {
     }
     return empty;
   }
+
+  get checkValidFormCarModel() {
+    let empty: boolean = true;
+    if (this.city !== "" && this.pvz !== "" && this.carModel !== "") {
+      empty = false;
+    }
+    return empty;
+  }
+
+  get checkValidFormAdditionally() {
+    let empty: boolean = true;
+    if (
+      this.city !== "" && this.pvz !== "" &&
+      this.carColor !== "" &&
+      this.dateDuration !== null &&
+      this.rate !== "" &&
+      this.checkbox.length > 0
+    ) {
+      empty = false;
+    }
+    return empty;
+  }
+
   get carNumber() {
     return this.$store.state.OrderForm.carNumber;
   }
@@ -116,12 +152,16 @@ export default class PreOrderInfo extends Vue {
     return this.$store.state.OrderForm.carColor;
   }
 
-  get carFilter() {
-    return this.$store.state.OrderForm.additionallyFilter;
-  }
-
   get rate() {
     return this.$store.state.OrderForm.rateFilter;
+  }
+
+  get dateDuration() {
+    return this.$store.getters["OrderForm/getRateTime"];
+  }
+
+  get checkbox() {
+    return this.$store.state.OrderForm.additionallyFilter;
   }
 }
 </script>
@@ -190,6 +230,7 @@ export default class PreOrderInfo extends Vue {
   &__model-action {
     @include base-btn;
     @include base-disabled-green;
+    text-decoration: none;
     width: 287px;
     padding: 15px 0;
   }
