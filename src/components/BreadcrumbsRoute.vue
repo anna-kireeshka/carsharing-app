@@ -5,8 +5,13 @@
       v-for="(item, index) in crumbsList"
       :key="index"
     >
-      <li class="navigation___item">
-        <router-link :to="{ name: item.name }" class="navigation__link"
+      <li class="navigation__item">
+        <router-link
+          :to="{ name: item.name }"
+          class="navigation__link"
+          :class="{
+            'navigation__link--active': $route.name === item.name,
+          }"
           >{{ item.text }}
         </router-link>
         <svg width="6" height="8" class="navigation__arrow">
@@ -39,6 +44,18 @@ export default class BreadcrumbsRoute extends Vue {
       name: "FinalOrder",
     },
   ];
+
+  get activeRoutes() {
+    let active = document.querySelector(".navigation__link") as Element;
+    for (let i = 0; i < this.crumbsList.length; i++) {
+      if (this.$route.name === this.crumbsList[i].name) {
+        return active.classList?.add("navigation__link--active");
+      } else {
+        console.log(false);
+      }
+    }
+    return active;
+  }
 }
 </script>
 
@@ -52,18 +69,20 @@ export default class BreadcrumbsRoute extends Vue {
     list-style: none;
     margin: 0;
   }
-  &__item {
-  }
   &__link {
     font-weight: bold;
     font-size: 14px;
     line-height: 16px;
-    color: #0ec261;
+    color: #999999;
     text-decoration: none;
   }
-  &__link--disabled {
-    color: #999999;
+
+  &__link--active {
+    color: #0ec261;
   }
+  //&__disabled {
+  //  color: #999999;
+  //}
   &__link--sucsess {
     color: $main-black;
   }

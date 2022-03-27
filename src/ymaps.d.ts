@@ -3,8 +3,8 @@ declare namespace ymaps {
 
   export function geocode(valueCity: string, param2: { results: number });
 
-  export function findOrganization(pvzId: number);
   class Promise {
+    geoObjects: any;
     then(
       // eslint-disable-next-line @typescript-eslint/ban-types
       onFulfilled?: Function,
@@ -19,7 +19,6 @@ declare namespace ymaps {
   export class Map {
     geoObjects: any;
     controls: any;
-    container: any;
 
     constructor(element: string | any, state: MapState);
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -28,13 +27,17 @@ declare namespace ymaps {
   }
 
   export class Placemark {
-    constructor(element: string | any, state: PlacemarkState);
-  }
-  export class PlacemarkState {
-    iconLayout?: string;
-    iconImageHref?: string;
-    iconImageSize?: number[];
-    iconImageOffset?: number[];
+    constructor(
+      element: string | any,
+      state: {
+        hintContent: string;
+      },
+      options: {
+        iconLayout: string;
+        iconImageHref: string;
+        iconImageSize: number[];
+      }
+    );
   }
   export class MapState {
     center: number[];
