@@ -70,20 +70,6 @@
                     </svg>
                   </a>
                 </li>
-                <li class="social__item">
-                  <a href="#" class="menu__item--link social__item--link">
-                    <svg width="32" height="32" class="social__item--hover">
-                      <use xlink:href="#facebook" />
-                    </svg>
-                  </a>
-                </li>
-                <li class="social__item">
-                  <a href="#" class="menu__item--link social__item--link">
-                    <svg width="32" height="32" class="social__item--hover">
-                      <use xlink:href="#instagram" />
-                    </svg>
-                  </a>
-                </li>
               </ul>
             </div>
           </div>
