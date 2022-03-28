@@ -96,4 +96,6 @@ export interface ProfileState {
   timePrice?: any;
   additionallyPrice?: CarAdditionally["price"];
   durationMinute?: number;
+  categoryId?: any;
+  loadingCarList?: boolean;
 }

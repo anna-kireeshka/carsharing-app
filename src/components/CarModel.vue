@@ -26,7 +26,7 @@
                   class="filter__radio-item"
                   name="radioModel"
                   :value="item.id"
-                  @change="choseCarFilter($event, item.id)"
+                  @change="choseCarFilter(item.id)"
                 />
                 <span class="filter__castom"></span>
                 {{ item.name }}</label
@@ -34,11 +34,21 @@
             </div>
           </div>
 
-          <div class="car-order">
+          <template v-if="loader === false">
+            <div class="car-order">
+              <button
+                class="car-order__card car-order--preload"
+                v-for="item in 10"
+                :key="item"
+              ></button>
+            </div>
+          </template>
+          <div class="car-order" v-else>
             <button
               class="car-order__card"
               v-for="car in carList"
               :key="car.id"
+              @click="choseCar(car.name, car.number)"
             >
               <div
                 class="car-content"
@@ -120,8 +130,8 @@ export default class CarModel extends Vue {
     this.$store.commit("OrderForm/getCarPriceMax", priceMax);
   }
 
-  choseCarFilter(event: { target: HTMLInputElement }, carId: number) {
-    this.$store.commit("OrderForm/getCarId", carId);
+  choseCarFilter(carId: number) {
+    this.$store.commit("OrderForm/getCategoryId", carId);
 
     this.carListFetch();
     this.carList;
@@ -132,11 +142,15 @@ export default class CarModel extends Vue {
   }
 
   get carList() {
-    return this.$store.getters["OrderForm/getFilteredCar"];
+    return this.$store.state.OrderForm.car.data;
   }
 
   get carFilter() {
-    return this.$store.state.OrderForm.carFilter.data;
+    return this.$store.getters["OrderForm/getSortFilter"];
+  }
+
+  get loader() {
+    return this.$store.state.OrderForm.loadingCarList;
   }
 }
 </script>
@@ -181,11 +195,12 @@ export default class CarModel extends Vue {
   min-width: calc(100% - 384px - 128px);
   padding: 32px 192px 0 64px;
   align-items: flex-start;
-  max-height: 100vh;
+  min-height: 100vh;
   border-right: 1px solid $main-light-gray;
 }
 .filter {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   margin-bottom: 48px;
   &__list {
@@ -223,12 +238,13 @@ export default class CarModel extends Vue {
 .car-order {
   display: flex;
   flex-wrap: wrap;
-  width: 736px;
+  width: 100%;
   max-height: 100vh;
   overflow-y: scroll;
   &::-webkit-scrollbar {
     display: none;
   }
+
   &__card {
     background-color: transparent;
     outline: none;
@@ -238,6 +254,30 @@ export default class CarModel extends Vue {
     border: 1px solid $main-light-gray;
 
     padding: 16px;
+  }
+  &--preload {
+    width: 100%;
+    margin: 10px;
+    background-color: #b8c6db;
+    background: linear-gradient(315deg, #c6cdd9 0%, #f5f7fa 74%);
+
+    animation: colored 2s infinite alternate;
+  }
+  @keyframes colored {
+    from {
+      opacity: 0.4;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @-webkit-keyframes colored {
+    from {
+      opacity: 0.4;
+    }
+    to {
+      opacity: 1;
+    }
   }
   &__card:hover {
     border: 1px solid $main-dark-gray;

@@ -99,11 +99,11 @@ import { Vue, Component } from "vue-property-decorator";
 export default class PreOrderInfo extends Vue {
   /* eslint-disable */
   get city() {
-    return this.$store.state.OrderForm.valueCity;
+    return this.$store.state.OrderForm.valueCity
   }
 
   get pvz() {
-    return this.$store.state.OrderForm.valuePvz;
+    return this.$store.state.OrderForm.valuePvz
   }
 
   get fullRoute() {
@@ -199,7 +199,6 @@ export default class PreOrderInfo extends Vue {
     }
     &__dote {
       border-bottom: 1px dotted $main-dark-gray;
-      //width: 100%;
     }
     &__block {
       @include flex-column;

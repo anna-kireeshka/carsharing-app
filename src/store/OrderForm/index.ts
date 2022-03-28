@@ -30,6 +30,8 @@ export const state: ProfileState = {
   additionallyPrice: 0,
   rateFilter: "",
   durationMinute: 0,
+  loadingCarList:false,
+
 };
 
 const namespaced: boolean = true;

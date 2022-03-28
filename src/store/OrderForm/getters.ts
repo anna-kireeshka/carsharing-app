@@ -74,4 +74,9 @@ export const getters: GetterTree<ProfileState, RootState> = {
       state.ratePrice * state.durationMinute
     );
   },
+
+  getSortFilter: (state) => {
+    const filterList = state.carFilter.data;
+    return filterList?.filter((el: any) => el.name !== "Name");
+  },
 };

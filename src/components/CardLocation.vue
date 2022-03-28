@@ -1,3 +1,4 @@
+<reference path="ymaps.d.ts" />
 <template>
   <div class="main-wrapper">
     <Navigation />
@@ -28,7 +29,6 @@
                 autocomplete="off"
                 class="city__form"
                 @input="searchCity"
-                @click.prevent="searchCity"
                 :value="valueCity"
               />
               <button class="city__cross-icon" @click="resetCity">
@@ -50,8 +50,8 @@
                 >
                   <p>{{ city.name }}</p>
                 </li>
-                <li class="city__autocomplete-item" v-show="!emptyCityList">
-                  <p>Ничего не надено</p>
+                <li class="city__autocomplete-item" v-show="emptyCityList">
+                  <p>Ничего не найдено</p>
                 </li>
               </ul>
             </div>
@@ -86,14 +86,19 @@
                 >
                   <p>{{ pvz.name }} - {{ pvz.address }}</p>
                 </li>
-                <li class="city__autocomplete-item" v-if="!emptyPvzList">
-                  <p>В выбраном городе отсутствуют пункты выдачи</p>
+                <li class="city__autocomplete-item" v-show="emptyPvzList">
+                  <p>В выбранном городе пвз отсутствуют</p>
                 </li>
               </ul>
             </div>
           </div>
-          <CardMap />
+
+          <div class="card">
+            <p class="card__desc">Выбрать на карте:</p>
+            <div id="map" class="card__map"></div>
+          </div>
         </div>
+
         <PreOrderInfo />
       </div>
     </div>
@@ -106,16 +111,17 @@ import { Component, Vue } from "vue-property-decorator";
 import BreadcrumbsRoute from "./BreadcrumbsRoute.vue";
 import PreOrderInfo from "./PreOrderInfo.vue";
 import Navigation from "./Navigation.vue";
-import CardMap from "@/components/CardMap.vue";
 
 @Component({
-  components: { CardMap, BreadcrumbsRoute, PreOrderInfo, Navigation },
+  components: { BreadcrumbsRoute, PreOrderInfo, Navigation },
 })
 export default class CardLocation extends Vue {
   openCity: boolean = false;
   openPvz: boolean = false;
   arrowCounterCity: number = -1;
   arrowCounterPvz: number = -1;
+  mapIcon = require("@/assets/mark.png");
+  newCoords = null;
 
   mounted() {
     let page = document.querySelector(".main-wrapper") as HTMLElement;
@@ -123,6 +129,53 @@ export default class CardLocation extends Vue {
       this.openCity = false;
       this.openPvz = false;
     });
+  }
+
+  created() {
+    ymaps.ready().then(() => {
+      this.myMap;
+    });
+  }
+
+  get myMap() {
+    return new ymaps.Map("map", {
+      center: [54.30327383672103,48.600127895911314],
+      zoom: 10,
+      controls: [],
+    });
+  }
+
+  get myMapIcon() {
+    return new ymaps.Placemark(this.newCoords, {
+      hintContent: this.valuePvz,
+    },{
+      iconLayout: "default#image",
+      iconImageHref: this.mapIcon,
+      iconImageSize: [18, 18],
+    });
+  }
+
+  get geoObject() {
+    let fullValue: string = `${this.valueCity}, ${this.valuePvz}`;
+
+    if (this.valuePvz && this.valueCity) {
+      ymaps
+        .geocode(fullValue, {
+          results: 1,
+        })
+        .then((res: any) => {
+          let firstGeoObject = res.geoObjects.get(0);
+          this.newCoords = firstGeoObject.geometry.getCoordinates();
+          let bounds = firstGeoObject.properties.get("boundedBy");
+
+          this.myMap.setBounds(bounds, {
+            checkZoomRange: true,
+          });
+
+          this.myMap.geoObjects.add(this.myMapIcon);
+        });
+    }
+    return fullValue;
   }
 
   searchCity(e: { target: HTMLInputElement }) {
@@ -150,11 +203,13 @@ export default class CardLocation extends Vue {
     this.$store.commit("OrderForm/searchPvz", name + address);
     this.$store.commit("OrderForm/getPvzId", id);
     this.openPvz = false;
+    this.geoObject;
   }
 
   setResultCity(name: string, id: number) {
     this.$store.commit("OrderForm/searchCity", name);
     this.$store.commit("OrderForm/getCityId", id);
+
     this.openCity = false;
   }
 
@@ -187,7 +242,7 @@ export default class CardLocation extends Vue {
 
   get emptyCityList() {
     let empty: boolean = false;
-    if (this.cityList === [] && this.valueCity !== "") {
+    if (this.cityList?.length === 0 && this.valueCity !== "") {
       empty = true;
     }
     return empty;
@@ -195,12 +250,13 @@ export default class CardLocation extends Vue {
 
   get emptyPvzList() {
     let empty = false;
-    if (this.valuePvz !== "" && this.pvzList === []) {
+    if (this.pvzList?.length === 0 && this.valuePvz !== "") {
       empty = true;
     }
     return empty;
   }
 }
+
 </script>
 
 <style scoped lang="scss">
@@ -316,4 +372,36 @@ export default class CardLocation extends Vue {
     margin-bottom: 16px;
   }
 }
+.card {
+  @include flex-column;
+  width: 100%;
+  height: 100%;
+  align-items: flex-start;
+  margin-top: calc(45px - 16px);
+
+  #map {
+    width: 100% !important;
+    height: 352px;
+
+    filter: grayscale(0.8);
+    -ms-filter: grayscale(0.8);
+    -webkit-filter: grayscale(0.8);
+    -moz-filter: grayscale(0.8);
+    -o-filter: grayscale(0.8);
+  }
+
+  &__desc {
+    font-weight: $light;
+    font-size: 14px;
+    line-height: 16px;
+    color: $main-black;
+
+    margin-bottom: 16px;
+  }
+
+  ymaps {
+    width: 100%;
+  }
+}
+
 </style>
