@@ -83,11 +83,11 @@ import { Vue, Component } from "vue-property-decorator";
 export default class PreOrderInfo extends Vue {
   /* eslint-disable */
   get city() {
-    return this.$store.state.OrderForm.valueCity;
+    return this.$store.state.OrderForm.valueCity
   }
 
   get pvz() {
-    return this.$store.state.OrderForm.valuePvz;
+    return this.$store.state.OrderForm.valuePvz
   }
 
   get fullRoute() {
