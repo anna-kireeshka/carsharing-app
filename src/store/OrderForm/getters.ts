@@ -9,4 +9,8 @@ export const getters: GetterTree<ProfileState, RootState> = {
       el.name.toLowerCase().includes(value.toLowerCase())
     );
   },
+  getSortFilter: (state) => {
+    const filterList = state.carFilter.data;
+    return filterList?.filter((el: any) => el.name !== "Name");
+  },
 };

@@ -19,95 +19,63 @@
       <div class="form">
         <div class="car-model">
           <div class="filter">
-            <div
-              class="filter__list"
-              v-for="item in radioFilter"
-              :key="item.val"
-            >
-              <input
-                type="radio"
-                class="filter__radio-item"
-                name="radioModel"
-                :checked="item.checked"
-              />
-              <span class="filter__castom"></span>
-              <label class="filter__label" for="radioModel">{{
-                item.name
-              }}</label>
+            <div class="filter__list" v-for="item in carFilter" :key="item.id">
+              <label class="filter__label">
+                <input
+                  type="radio"
+                  class="filter__radio-item"
+                  name="radioModel"
+                  :value="item.id"
+                  @change="choseCarFilter(item.id)"
+                />
+                <span class="filter__castom"></span>
+                {{ item.name }}</label
+              >
             </div>
           </div>
 
-          <div class="car-order">
-            <div class="car-order__card">
+          <template v-if="loader === false">
+            <div class="car-order">
+              <button
+                class="car-order__card car-order--preload"
+                v-for="item in 10"
+                :key="item"
+              ></button>
+            </div>
+          </template>
+          <div class="car-order" v-else>
+            <button
+              class="car-order__card"
+              v-for="car in carList"
+              :key="car.id"
+              @click="choseCar(car.name, car.number)"
+            >
               <div class="car-content">
-                <p class="car-content__model">Модель</p>
-                <p class="car-content__price">Цена</p>
+                <p class="car-content__model">{{ car.name }}</p>
+                <p class="car-content__price">
+                  {{ car.priceMin }} - {{ car.priceMax }}
+                </p>
               </div>
               <div class="car-order__image">
                 <img
-                  src="../assets/car-1.png"
                   alt="Машина"
                   width="256"
                   height="116"
+                  @error="defaultImage($event)"
+                  :src="car.thumbnail.path"
                 />
               </div>
-            </div>
-            <div class="car-order__card">
-              <div class="car-content">
-                <p class="car-content__model">Модель</p>
-                <p class="car-content__price">Цена</p>
-              </div>
-              <div class="car-order__image">
-                <img src="../assets/car-1.png" alt="Машина" />
-              </div>
-            </div>
-            <div class="car-order__card">
-              <div class="car-content">
-                <p class="car-content__model">Модель</p>
-                <p class="car-content__price">Цена</p>
-              </div>
-              <div class="car-order__image">
-                <img src="../assets/car-1.png" alt="Машина" />
-              </div>
-            </div>
-            <div class="car-order__card">
-              <div class="car-content">
-                <p class="car-content__model">Модель</p>
-                <p class="car-content__price">Цена</p>
-              </div>
-              <div class="car-order__image">
-                <img src="../assets/car-1.png" alt="Машина" />
-              </div>
-            </div>
-            <div class="car-order__card">
-              <div class="car-content">
-                <p class="car-content__model">Модель</p>
-                <p class="car-content__price">Цена</p>
-              </div>
-              <div class="car-order__image">
-                <img src="../assets/car-1.png" alt="Машина" />
-              </div>
-            </div>
-            <div class="car-order__card">
-              <div class="car-content">
-                <p class="car-content__model">Модель</p>
-                <p class="car-content__price">Цена</p>
-              </div>
-              <div class="car-order__image">
-                <img src="../assets/car-1.png" alt="Машина" />
-              </div>
-            </div>
+            </button>
           </div>
         </div>
+        <PreOrderInfo />
       </div>
     </div>
-    <PreOrderInfo />
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
-import { CarModelFilter } from "../types";
 import BreadcrumbsRoute from "./BreadcrumbsRoute.vue";
 import PreOrderInfo from "./PreOrderInfo.vue";
 import Navigation from "./Navigation.vue";
@@ -120,25 +88,49 @@ import Navigation from "./Navigation.vue";
   },
 })
 export default class CarModel extends Vue {
-  radioFilter: CarModelFilter[];
+  image = require("@/assets/car.png");
+
   mounted() {
-    this.radioFilter = [
-      {
-        name: "Все модели",
-        checked: true,
-        val: "allModel",
-      },
-      {
-        name: "Эконом",
-        checked: false,
-        val: "economy",
-      },
-      {
-        name: "Премиум",
-        checked: false,
-        val: "premium",
-      },
-    ];
+    this.carListFetch();
+    this.carFilterFetch();
+  }
+
+  carListFetch() {
+    this.$store.dispatch("OrderForm/fetchDataCar");
+    this.carList;
+  }
+
+  carFilterFetch() {
+    this.$store.dispatch("OrderForm/fetchDataCarFilter");
+    this.carFilter;
+  }
+
+  choseCar(model: string, num: string) {
+    this.$store.commit("OrderForm/getCarModel", model);
+    this.$store.commit("OrderForm/getCarNumber", num);
+  }
+
+  choseCarFilter(carId: number) {
+    this.$store.commit("OrderForm/getCategoryId", carId);
+
+    this.carListFetch();
+    this.carList;
+  }
+
+  defaultImage(event: { target: HTMLImageElement }) {
+    event.target.src = this.image;
+  }
+
+  get carList() {
+    return this.$store.state.OrderForm.car.data;
+  }
+
+  get carFilter() {
+    return this.$store.getters["OrderForm/getSortFilter"];
+  }
+
+  get loader() {
+    return this.$store.state.OrderForm.loadingCarList;
   }
 }
 </script>
@@ -149,12 +141,15 @@ export default class CarModel extends Vue {
 }
 .main {
   width: 100%;
+  height: 100vh;
+  overflow: hidden;
 }
 .main-nav {
   @include flex-row;
   @include flex-logo;
   @include order-card-mobile;
   padding: 32px 63px 32px 64px;
+
   &__company {
     @include logo;
   }
@@ -177,14 +172,15 @@ export default class CarModel extends Vue {
   @include order-card;
   @include order-card-mobile;
   @include flex-column;
-  min-width: calc(100% - 728px);
-  height: 100vh;
+  min-width: calc(100% - 384px - 128px);
   padding: 32px 192px 0 64px;
   align-items: flex-start;
+  min-height: 100vh;
   border-right: 1px solid $main-light-gray;
 }
 .filter {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   margin-bottom: 48px;
   &__list {
@@ -222,13 +218,53 @@ export default class CarModel extends Vue {
 .car-order {
   display: flex;
   flex-wrap: wrap;
-  width: 736px;
+  width: 100%;
+  max-height: 100vh;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
   &__card {
+    background-color: transparent;
+    outline: none;
+
     width: 368px;
     height: 224px;
     border: 1px solid $main-light-gray;
 
     padding: 16px;
+  }
+  &--preload {
+    width: 100%;
+    margin: 10px;
+    background-color: #b8c6db;
+    background: linear-gradient(315deg, #c6cdd9 0%, #f5f7fa 74%);
+
+    animation: colored 2s infinite alternate;
+  }
+  @keyframes colored {
+    from {
+      opacity: 0.4;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @-webkit-keyframes colored {
+    from {
+      opacity: 0.4;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  &__card:hover {
+    border: 1px solid $main-dark-gray;
+  }
+  &__card:active,
+  &__card:focus {
+    border: 1px solid $color-green;
   }
   .car-content {
     @include flex-column;

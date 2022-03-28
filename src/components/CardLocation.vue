@@ -295,6 +295,7 @@ export default class CardLocation extends Vue {
   @include order-card-mobile;
   @include flex-column;
   min-width: calc(100% - 384px - 128px);
+  max-height: 100vh;
   padding: 32px 192px 0 64px;
   align-items: flex-start;
   border-right: 1px solid $main-light-gray;
