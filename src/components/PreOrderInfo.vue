@@ -33,14 +33,14 @@
           </div>
           <div class="form">
             <p class="additionally__name">Длительность аренды</p>
-            <p class="additionally__dote additionally__dote--rent"></p>
+            <p class="additionally__dote additionally__dote--time"></p>
             <div class="additionally__block">
               <p class="additionally__text">{{ dateDuration }}</p>
             </div>
           </div>
           <div class="form">
             <p class="additionally__name">Тариф</p>
-            <p class="additionally__dote additionally__dote--color"></p>
+            <p class="additionally__dote additionally__dote--rent"></p>
             <div class="additionally__block">
               <p class="additionally__text">{{ rate }}</p>
             </div>
@@ -92,19 +92,19 @@
         :to="{ name: 'FinalOrder' }"
         :class="{
           'price__model-action--active':
-            !checkValidFormAdditionally && (minValidPrice || maxValidPrice),
+            !checkValidFormAdditionally && (!minValidPrice || !maxValidPrice),
         }"
       >
         Итого
       </router-link>
       <p
-        v-if="maxValidPrice && fullRoute === 'OrderAdditionally'"
+        v-if="!maxValidPrice && fullRoute === 'OrderAdditionally'"
         class="price__model-action--error"
       >
         Цена аренды автомобиля не может быть больше {{ maxPrice }}
       </p>
       <p
-        v-else-if="minValidPrice && fullRoute === 'OrderAdditionally'"
+        v-else-if="!minValidPrice && fullRoute === 'OrderAdditionally'"
         class="price__model-action--error"
       >
         Цена аренды автомобиля не может быть меньше {{ minPrice }}
@@ -236,6 +236,7 @@ export default class PreOrderInfo extends Vue {
     @include flex-column;
     .form {
       @include flex-row;
+      justify-content: space-between;
       align-items: flex-end;
       width: 100%;
       margin-bottom: 16px;
@@ -248,6 +249,19 @@ export default class PreOrderInfo extends Vue {
     }
     &__dote {
       border-bottom: 1px dotted $main-dark-gray;
+      width: 10%;
+    }
+    &__dote--rent {
+      width: 70%;
+    }
+    &__dote--color {
+      width: 60%;
+    }
+    &__dote--time {
+      width: 50%;
+    }
+    &__dote--model {
+      width: 50%;
     }
     &__block {
       @include flex-column;

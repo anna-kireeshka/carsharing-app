@@ -186,7 +186,7 @@ export default class CarModel extends Vue {
   @include order-card;
   @include order-card-mobile;
   @include flex-column;
-  min-width: calc(100% - 384px - 128px);
+  max-width: calc(100% - 384px - 128px);
   padding: 32px 192px 0 64px;
   align-items: flex-start;
   min-height: 100vh;
