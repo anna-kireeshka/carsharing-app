@@ -2,13 +2,18 @@
   <div class="navigation">
     <ul
       class="navigation__list"
-      v-for="(item, index) in breadCrumbs"
+      v-for="(item, index) in crumbsList"
       :key="index"
     >
-      <li class="navigation___item">
-        <router-link :to="item.to" class="navigation__link">{{
-          item.text
-        }}</router-link>
+      <li class="navigation__item">
+        <router-link
+          :to="{ name: item.name }"
+          class="navigation__link"
+          :class="{
+            'navigation__link--active': $route.name === item.name,
+          }"
+          >{{ item.text }}
+        </router-link>
         <svg width="6" height="8" class="navigation__arrow">
           <use xlink:href="#arrow-breadcrumbs" />
         </svg>
@@ -18,15 +23,38 @@
 </template>
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
-import { RouteMeta } from "vue-router";
 
 @Component({})
 export default class BreadcrumbsRoute extends Vue {
-  get breadCrumbs(): string[] {
-    if ((this.$route.meta as RouteMeta).breadCrumb) {
-      return (this.$route.meta as RouteMeta).breadCrumb.call(this, this.$route);
+  crumbsList = [
+    {
+      text: "Местоположение",
+      name: "location",
+    },
+    {
+      text: "Модель",
+      name: "CarModel",
+    },
+    {
+      text: "Дополнительно",
+      name: "OrderAdditionally",
+    },
+    {
+      text: "Итого",
+      name: "FinalOrder",
+    },
+  ];
+
+  get activeRoutes() {
+    let active = document.querySelector(".navigation__link") as Element;
+    for (let i = 0; i < this.crumbsList.length; i++) {
+      if (this.$route.name === this.crumbsList[i].name) {
+        return active.classList?.add("navigation__link--active");
+      } else {
+        console.log(false);
+      }
     }
-    return (this.$route.meta as RouteMeta).breadCrumb;
+    return active;
   }
 }
 </script>
@@ -34,25 +62,28 @@ export default class BreadcrumbsRoute extends Vue {
 <style scoped lang="scss">
 .navigation {
   display: flex;
+  flex-wrap: wrap;
   border-top: 1px solid #eeeeee;
   border-bottom: 1px solid #eeeeee;
-  padding-left: 128px;
+  padding-left: 64px;
   &__list {
     list-style: none;
     margin: 0;
-  }
-  &__item {
   }
   &__link {
     font-weight: bold;
     font-size: 14px;
     line-height: 16px;
-    color: #0ec261;
+    color: #999999;
     text-decoration: none;
   }
-  &__link--disabled {
-    color: #999999;
+
+  &__link--active {
+    color: #0ec261;
   }
+  //&__disabled {
+  //  color: #999999;
+  //}
   &__link--sucsess {
     color: $main-black;
   }

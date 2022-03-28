@@ -6,8 +6,8 @@
         <p class="pvz__name">Пункт выдачи</p>
         <p class="pvz__dote"></p>
         <div class="pvz__block-location">
-          <p class="pvz__location">Ульяновск,</p>
-          <p class="pvz__location">Нариманова 42</p>
+          <p class="pvz__location">{{ city }}</p>
+          <p class="pvz__location">{{ pvz }}</p>
         </div>
       </div>
     </div>
@@ -15,7 +15,15 @@
       <p class="price__first-step">
         <span class="price__first-step--dark">Цена</span>: от 8 000 до 12 000 ₽
       </p>
-      <button class="price__model-action">Выбрать модель</button>
+      <button
+        class="price__model-action"
+        :class="{
+          'price__model-action--active': !checkValidForm,
+        }"
+        @click="fNextStep"
+      >
+        Выбрать модель
+      </button>
     </div>
   </div>
 </template>
@@ -23,10 +31,32 @@
 import { Vue, Component } from "vue-property-decorator";
 
 @Component
-export default class PreOrderInfo extends Vue {}
+export default class PreOrderInfo extends Vue {
+  /* eslint-disable */
+  get city() {
+    return this.$store.state.OrderForm.valueCity
+  }
+
+  get pvz() {
+    return this.$store.state.OrderForm.valuePvz
+  }
+
+  fNextStep() {
+    this.$router.push({ query: {city:this.city, pvz:this.pvz}})
+  }
+
+  get checkValidForm() {
+    let empty: boolean = true;
+    if (this.city !== '' && this.pvz !== '') {
+      empty = false;
+    }
+    return empty;
+  }
+}
 </script>
 <style scoped lang="scss">
 .wrapper-form {
+  width: 100%;
   padding: 32px 63px 32px 32px;
 }
 .order {
@@ -53,7 +83,7 @@ export default class PreOrderInfo extends Vue {}
     }
     &__dote {
       border-bottom: 1px dotted $main-dark-gray;
-      width: calc(100% - 91px - 101px - 24px);
+      width: calc(100% - 91px - 101px - 80px);
     }
     &__block-location {
       @include flex-column;
@@ -87,6 +117,9 @@ export default class PreOrderInfo extends Vue {}
     @include base-disabled-green;
     width: 287px;
     padding: 15px 0;
+  }
+  &__model-action--active {
+    @include base-btn-green;
   }
 }
 </style>

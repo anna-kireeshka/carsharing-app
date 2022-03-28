@@ -1,4 +1,3 @@
-
 export interface CarColorFilter {
   name: string;
   checked: boolean;
@@ -14,6 +13,13 @@ export interface CarRate {
 [];
 
 export interface CarModelFilter {
+  name: string;
+  checked: boolean;
+  val: string;
+}
+[];
+
+export interface CarAdditionaly {
   name: string;
   checked: boolean;
   val: string;
