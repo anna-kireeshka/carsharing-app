@@ -17,7 +17,10 @@ export interface Car {
   priceMax: number;
   priceMin: number;
   name: string;
-  thumbnail: any;
+  thumbnail: {
+    path: string;
+  };
+  tank: number;
   description: string;
   categoryId: any;
   colors: string[];
@@ -81,7 +84,6 @@ export interface ProfileState {
   cityId?: any;
   pvzId?: any;
   carModel?: any;
-  carNumber?: any;
   colorFilter?: ColorFilter[];
   carAdditionally?: CarAdditionally[];
   carColor?: any;
@@ -92,6 +94,9 @@ export interface ProfileState {
   rateFilter?: any;
   carPrice?: Car["priceMin"];
   maxCarPrice?: Car["priceMax"];
+  fuel?: Car["tank"];
+  img?: Car["thumbnail"]["path"];
+  carNumber?: Car["number"];
   ratePrice?: Rate["price"];
   timePrice?: any;
   additionallyPrice?: CarAdditionally["price"];

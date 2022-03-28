@@ -73,13 +73,8 @@ export const mutations: MutationTree<ProfileState> = {
     return state.carModel;
   },
 
-  getCarNumber(state, car: Car[]) {
-    if (car.length !== 0) {
-      for (let i = 0; i < car.length; i++) {
-        state.carNumber = car;
-      }
-    }
-    return state.carNumber;
+  getCarNumber(state, car: Car["number"]) {
+    return (state.carNumber = car);
   },
 
   getCarColor(state, color: ColorFilter[]) {
@@ -97,6 +92,14 @@ export const mutations: MutationTree<ProfileState> = {
 
   getCarPriceMax(state, car: Car["priceMax"]) {
     return (state.maxCarPrice = car);
+  },
+
+  getCarImg(state, car: Car["thumbnail"]["path"]) {
+    return (state.img = car);
+  },
+
+  getCarFuel(state, car: Car["tank"]) {
+    return (state.fuel = car);
   },
 
   getCarAdditionallyFilter(state, filter: CarFilter[]) {

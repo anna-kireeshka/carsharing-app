@@ -11,14 +11,16 @@
             <p class="additionally__text">{{ pvz }}</p>
           </div>
         </div>
-        <template v-if="fullRoute === 'CarModel'">
+        <template v-if="fullRoute === 'CarModel' || fullRoute === 'FinalOrder'">
           <div class="form">
             <p class="additionally__name">Модель</p>
             <p class="additionally__dote additionally__dote--model"></p>
             <p class="additionally__text">{{ carModel }}</p>
           </div>
         </template>
-        <template v-if="fullRoute === 'OrderAdditionally'">
+        <template
+          v-if="fullRoute === 'OrderAdditionally' || fullRoute === 'FinalOrder'"
+        >
           <div class="form">
             <p class="additionally__name">Модель</p>
             <p class="additionally__dote additionally__dote--model"></p>
@@ -66,6 +68,9 @@
       <p class="price__first-step" v-if="fullRoute === 'OrderAdditionally'">
         <span class="price__first-step--dark">Цена</span>: {{ finalPrice }} ₽
       </p>
+      <p class="price__first-step" v-if="fullRoute === 'FinalOrder'">
+        <span class="price__first-step--dark">Цена</span>: {{ finalPrice }} ₽
+      </p>
       <router-link
         v-show="fullRoute === 'location'"
         class="price__model-action"
@@ -97,6 +102,15 @@
       >
         Итого
       </router-link>
+      <button
+        v-show="fullRoute === 'FinalOrder'"
+        class="price__model-action"
+        :class="{
+          'price__model-action--active': !checkValidFormAdditionally,
+        }"
+      >
+        Заказать
+      </button>
       <p
         v-if="!maxValidPrice && fullRoute === 'OrderAdditionally'"
         class="price__model-action--error"

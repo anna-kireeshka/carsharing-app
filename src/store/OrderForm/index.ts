@@ -31,6 +31,8 @@ export const state: ProfileState = {
   rateFilter: "",
   durationMinute: 0,
   loadingCarList:false,
+  img: "",
+  fuel: 0,
 
 };
 

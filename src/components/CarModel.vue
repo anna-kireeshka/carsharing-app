@@ -49,26 +49,20 @@
               v-for="car in carList"
               :key="car.id"
               @click="
-                choseCar(car.name, car.number, car.priceMax, car.priceMin)
+                choseCar(
+                  car.name,
+                  car.number,
+                  car.priceMax,
+                  car.priceMin,
+                  car.tank,
+                  car.thumbnail.path
+                )
               "
             >
-              <div
-                class="car-content"
-                @click="
-                  choseCar(
-                    car.name,
-                    car.number,
-                    car.priceMin,
-                    car.priceMax,
-                    car.id
-                  )
-                "
-              >
-                <p class="car-content__model">{{ car.name }}</p>
-                <p class="car-content__price">
-                  {{ car.priceMin }} - {{ car.priceMax }}
-                </p>
-              </div>
+              <p class="car-content__model">{{ car.name }}</p>
+              <p class="car-content__price">
+                {{ car.priceMin }} - {{ car.priceMax }}
+              </p>
               <div class="car-order__image">
                 <img
                   alt="Машина"
@@ -118,11 +112,20 @@ export default class CarModel extends Vue {
     this.carFilter;
   }
 
-  choseCar(model: string, num: string, priceMin: number, priceMax: number) {
+  choseCar(
+    model: string,
+    num: string,
+    priceMin: number,
+    priceMax: number,
+    tank: string,
+    img: string
+  ) {
     this.$store.commit("OrderForm/getCarModel", model);
     this.$store.commit("OrderForm/getCarNumber", num);
     this.$store.commit("OrderForm/getCarPrice", priceMin);
     this.$store.commit("OrderForm/getCarPriceMax", priceMax);
+    this.$store.commit("OrderForm/getCarFuel", tank);
+    this.$store.commit("OrderForm/getCarImg", img);
   }
 
   choseCarFilter(carId: number, name: string) {
