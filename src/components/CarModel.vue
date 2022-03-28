@@ -40,7 +40,18 @@
               v-for="car in carList"
               :key="car.id"
             >
-              <div class="car-content" @click="choseCar(car.name, car.number)">
+              <div
+                class="car-content"
+                @click="
+                  choseCar(
+                    car.name,
+                    car.number,
+                    car.priceMin,
+                    car.priceMax,
+                    car.id
+                  )
+                "
+              >
                 <p class="car-content__model">{{ car.name }}</p>
                 <p class="car-content__price">
                   {{ car.priceMin }} - {{ car.priceMax }}
@@ -79,7 +90,7 @@ import Navigation from "./Navigation.vue";
 })
 export default class CarModel extends Vue {
   image = require("@/assets/car.png");
-  // radioFilter:CarModelFilter[];
+
   mounted() {
     this.carListFetch();
     this.carFilterFetch();
@@ -95,9 +106,18 @@ export default class CarModel extends Vue {
     this.carFilter;
   }
 
-  choseCar(model: string, num: string) {
+  choseCar(
+    model: string,
+    num: string,
+    priceMin: number,
+    carId: string,
+    priceMax: number
+  ) {
     this.$store.commit("OrderForm/getCarModel", model);
     this.$store.commit("OrderForm/getCarNumber", num);
+    this.$store.commit("OrderForm/getCarPrice", priceMin);
+    this.$store.commit("OrderForm/getCarId", carId);
+    this.$store.commit("OrderForm/getCarPriceMax", priceMax);
   }
 
   choseCarFilter(event: { target: HTMLInputElement }, carId: number) {

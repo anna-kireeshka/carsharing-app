@@ -20,11 +20,15 @@ export const state: ProfileState = {
   carAdditionally: [],
   carColor: "",
   additionallyFilter: [],
-  rateFilter: "",
   dateFrom: "",
   dateTo: "",
   checkedAdditionally: false,
-
+  carPrice: 0,
+  maxCarPrice: 0,
+  ratePrice: 0,
+  timePrice: 0,
+  additionallyPrice: 0,
+  rateFilter: "",
 };
 
 const namespaced: boolean = true;

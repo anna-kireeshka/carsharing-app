@@ -21,6 +21,7 @@ export interface Car {
   description: string;
   categoryId: any;
   colors: string[];
+  id: string;
 }
 [];
 
@@ -85,8 +86,13 @@ export interface ProfileState {
   carAdditionally?: CarAdditionally[];
   carColor?: any;
   additionallyFilter?: any;
-  rateFilter?: any;
   dateFrom?: ValueInput["dateFrom"];
   dateTo?: ValueInput["dateTo"];
   checkedAdditionally?: any;
+  rateFilter?: any;
+  carPrice?: Car["priceMin"];
+  maxCarPrice?: Car["priceMax"];
+  ratePrice?: Rate["price"];
+  timePrice?: any;
+  additionallyPrice?: CarAdditionally["price"];
 }

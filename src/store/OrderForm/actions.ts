@@ -55,7 +55,7 @@ export const actions: ActionTree<ProfileState, RootState> = {
     );
   },
 
-  fetchDataRate({ commit }) {
+  fetchDataRate({ commit, state }) {
     HTTP.get("/api/db/rate").then(
       (response) => {
         const rate: Rate[] = response.data;

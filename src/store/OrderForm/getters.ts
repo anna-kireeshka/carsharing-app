@@ -53,4 +53,8 @@ export const getters: GetterTree<ProfileState, RootState> = {
     }
     return duration;
   },
+
+  fullPrice: (state) => {
+    return state.carPrice + state.additionallyPrice + state.ratePrice;
+  },
 };

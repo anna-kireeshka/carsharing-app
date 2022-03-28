@@ -42,7 +42,14 @@
 import { Vue, Component } from "vue-property-decorator";
 
 @Component
-export default class FormAdditionally extends Vue {}
+export default class FormAdditionally extends Vue {
+  get carPriceMin() {
+    return this.$store.state.OrderForm.carPrice;
+  }
+  get carPriceMax() {
+    return this.$store.state.OrderForm.maxCarPrice;
+  }
+}
 </script>
 
 <style scoped lang="scss">

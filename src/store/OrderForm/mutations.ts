@@ -84,6 +84,14 @@ export const mutations: MutationTree<ProfileState> = {
     return state.carModel;
   },
 
+  getCarPrice(state, car: Car["priceMin"]) {
+    return (state.carPrice = car);
+  },
+
+  getCarPriceMax(state, car: Car["priceMax"]) {
+    return (state.maxCarPrice = car);
+  },
+
   getCarAdditionallyFilter(state, filter: CarFilter[]) {
     if (filter.length !== 0) {
       state.additionallyFilter.push(filter);
@@ -100,11 +108,19 @@ export const mutations: MutationTree<ProfileState> = {
     return state.rateFilter;
   },
 
+  getCarPriceAdditionally(state, filter: CarAdditionally["price"]) {
+    return (state.additionallyPrice = filter);
+  },
+
   getDateTimeFrom(state, startDate: ValueInput["dateFrom"]) {
     state.dateFrom = startDate;
   },
 
   getDateTimeTo(state, endDate: ValueInput["dateTo"]) {
     state.dateTo = endDate;
+  },
+
+  getCarPriceRate(state, rate: Rate["price"]) {
+    return (state.ratePrice = rate);
   },
 };

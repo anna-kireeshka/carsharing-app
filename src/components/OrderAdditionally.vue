@@ -82,7 +82,7 @@
                 <input
                   type="radio"
                   class="filter__radio-item"
-                  @change="checkRate(item.rateTypeId.name)"
+                  @change="checkRate(item.rateTypeId.name, item.price)"
                   :id="item.rateTypeId.id"
                   :value="item.rateTypeId.name"
                   name="rate"
@@ -111,7 +111,7 @@
                   class="filter__checkbox-item"
                   :id="item.name"
                   :checked="item.checked"
-                  @change="checkFilter(item.name, item.checked)"
+                  @change="checkFilter(item.name, item.price)"
                 />
                 <span class="filter__castom--checkbox"></span>
                 {{ item.name }}</label
@@ -150,12 +150,15 @@ export default class OrderAdditionally extends Vue {
     this.$store.commit("OrderForm/getCarColor", color);
   }
 
-  checkFilter(filter: string) {
+  checkFilter(filter: string, price:number) {
     this.$store.commit("OrderForm/getCarAdditionallyFilter", filter);
+    this.$store.commit("OrderForm/getCarPriceAdditionally", price);
   }
 
-  checkRate(duration: string) {
+  checkRate(duration: string, price:number) {
     this.$store.commit("OrderForm/getCarRate", duration);
+    this.$store.commit("OrderForm/getCarPriceRate", price)
+    console.log(this.$store.commit("OrderForm/getCarPriceRate", price))
   }
 
   checkDateFrom(from: string) {
@@ -185,6 +188,7 @@ export default class OrderAdditionally extends Vue {
   get endDate(): string {
     return this.$store.state.OrderForm.dateTo;
   }
+
 }
 </script>
 

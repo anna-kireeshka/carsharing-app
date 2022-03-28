@@ -165,6 +165,7 @@ export default class PreOrderInfo extends Vue {
   }
 }
 </script>
+
 <style scoped lang="scss">
 .wrapper-form {
   width: 100%;
