@@ -125,7 +125,6 @@ export default class CarModel extends Vue {
 
     this.carListFetch();
     this.carList;
-    console.log(event.target, carId);
   }
 
   defaultImage(event: { target: HTMLImageElement }) {

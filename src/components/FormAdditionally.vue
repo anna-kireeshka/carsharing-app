@@ -30,10 +30,24 @@
     </div>
 
     <div class="price">
-      <p class="price__first-step">
+      <p class="price__first-step" v-if="fullRoute === 'location'">
         <span class="price__first-step--dark">Цена</span>: от 8 000 до 12 000 ₽
       </p>
+      <p class="price__first-step" v-if="fullRoute === 'CarModel'">
+        <span class="price__first-step--dark">Цена</span>: от
+        {{ carPriceMin }} до {{ carPriceMax }} ₽
+      </p>
+      <p class="price__first-step" v-if="fullRoute === 'OrderAdditionally'">
+        <span class="price__first-step--dark">Цена</span>: {{ fullPrice }} ₽
+      </p>
+
       <button class="price__model-action">Выбрать модель</button>
+      <p v-if="priceValidMax" class="price__model--error">
+        Цена аренды автомобиля не может превышать {{ carPriceMax }}
+      </p>
+      <p v-if="priceValidMin" class="price__model--error">
+        Цена аренды автомобиля не может быть меньше {{ carPriceMin }}
+      </p>
     </div>
   </div>
 </template>
@@ -46,8 +60,33 @@ export default class FormAdditionally extends Vue {
   get carPriceMin() {
     return this.$store.state.OrderForm.carPrice;
   }
+
   get carPriceMax() {
     return this.$store.state.OrderForm.maxCarPrice;
+  }
+
+  get fullRoute() {
+    return this.$route.name;
+  }
+
+  get fullPrice() {
+    return this.$store.getters["OrderForm/fullPrice"];
+  }
+
+  get priceValidMax() {
+    let maxPrice = false;
+    if (this.carPriceMax > this.fullPrice) {
+      maxPrice = true;
+    }
+    return maxPrice;
+  }
+
+  get priceValidMin() {
+    let minPrice = false;
+    if (this.fullPrice < this.carPriceMin) {
+      minPrice = true;
+    }
+    return minPrice;
   }
 }
 </script>
@@ -131,6 +170,9 @@ export default class FormAdditionally extends Vue {
     @include base-disabled-green;
     width: 100%;
     padding: 15px 0;
+  }
+  &__model--error {
+    color: #ce2b2b;
   }
 }
 </style>

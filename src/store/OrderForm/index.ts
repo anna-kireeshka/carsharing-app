@@ -29,6 +29,7 @@ export const state: ProfileState = {
   timePrice: 0,
   additionallyPrice: 0,
   rateFilter: "",
+  durationMinute: 0,
 };
 
 const namespaced: boolean = true;

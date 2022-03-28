@@ -95,4 +95,5 @@ export interface ProfileState {
   ratePrice?: Rate["price"];
   timePrice?: any;
   additionallyPrice?: CarAdditionally["price"];
+  durationMinute?: number;
 }

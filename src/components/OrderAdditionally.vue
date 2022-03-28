@@ -158,7 +158,6 @@ export default class OrderAdditionally extends Vue {
   checkRate(duration: string, price:number) {
     this.$store.commit("OrderForm/getCarRate", duration);
     this.$store.commit("OrderForm/getCarPriceRate", price)
-    console.log(this.$store.commit("OrderForm/getCarPriceRate", price))
   }
 
   checkDateFrom(from: string) {
