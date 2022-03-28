@@ -25,8 +25,8 @@
                   type="radio"
                   class="filter__radio-item"
                   name="radioModel"
-                  :value="item.id"
-                  @change="choseCarFilter(item.id)"
+                  :value="item.name"
+                  @change="choseCarFilter(item.id, item.name)"
                 />
                 <span class="filter__castom"></span>
                 {{ item.name }}</label
@@ -48,7 +48,9 @@
               class="car-order__card"
               v-for="car in carList"
               :key="car.id"
-              @click="choseCar(car.name, car.number)"
+              @click="
+                choseCar(car.name, car.number, car.priceMax, car.priceMin)
+              "
             >
               <div
                 class="car-content"
@@ -116,23 +118,15 @@ export default class CarModel extends Vue {
     this.carFilter;
   }
 
-  choseCar(
-    model: string,
-    num: string,
-    priceMin: number,
-    carId: string,
-    priceMax: number
-  ) {
+  choseCar(model: string, num: string, priceMin: number, priceMax: number) {
     this.$store.commit("OrderForm/getCarModel", model);
     this.$store.commit("OrderForm/getCarNumber", num);
     this.$store.commit("OrderForm/getCarPrice", priceMin);
-    this.$store.commit("OrderForm/getCarId", carId);
     this.$store.commit("OrderForm/getCarPriceMax", priceMax);
   }
 
-  choseCarFilter(carId: number) {
+  choseCarFilter(carId: number, name: string) {
     this.$store.commit("OrderForm/getCategoryId", carId);
-
     this.carListFetch();
     this.carList;
   }

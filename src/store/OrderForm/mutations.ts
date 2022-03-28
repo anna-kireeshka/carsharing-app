@@ -10,7 +10,6 @@ import {
   Rate,
   ValueInput,
 } from "./types";
-import { ProfileState, City, Pvz, ValueInput, Car, CarFilter } from "./types";
 
 export const mutations: MutationTree<ProfileState> = {
   cityLoaded(state, city: City[]) {
@@ -58,7 +57,7 @@ export const mutations: MutationTree<ProfileState> = {
   },
 
   getCategoryId(state, category: CarFilter[]) {
-    for (let i = 0; i < category.length; i++) {
+    for (let i = 0; i < category?.length; i++) {
       state.categoryId = category;
     }
     return state.categoryId;

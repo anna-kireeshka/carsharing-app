@@ -64,15 +64,21 @@ export const getters: GetterTree<ProfileState, RootState> = {
         .duration(startDate.diff(endDate))
         .asMinutes();
     }
-    return state.durationMinute;
+    return parseInt(state.durationMinute);
   },
 
   fullPrice: (state) => {
-    return (
-      state.carPrice +
-      state.additionallyPrice +
-      state.ratePrice * state.durationMinute
-    );
+    let fullPrice = 0;
+
+    if (state.dateTo === "" && state.dateFrom === "") {
+      fullPrice = state.carPrice + state.additionallyPrice + state.ratePrice;
+    } else {
+      fullPrice =
+        state.carPrice +
+        state.additionallyPrice +
+        state.ratePrice * state.durationMinute;
+    }
+    return fullPrice;
   },
 
   getSortFilter: (state) => {

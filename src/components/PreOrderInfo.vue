@@ -56,8 +56,15 @@
       </div>
     </div>
     <div class="price">
-      <p class="price__first-step">
+      <p class="price__first-step" v-if="fullRoute === 'location'">
         <span class="price__first-step--dark">Цена</span>: от 8 000 до 12 000 ₽
+      </p>
+      <p class="price__first-step" v-if="fullRoute === 'CarModel'">
+        <span class="price__first-step--dark">Цена</span>: от {{ minPrice }} до
+        {{ maxPrice }} ₽
+      </p>
+      <p class="price__first-step" v-if="fullRoute === 'OrderAdditionally'">
+        <span class="price__first-step--dark">Цена</span>: {{ finalPrice }} ₽
       </p>
       <router-link
         v-show="fullRoute === 'location'"
@@ -84,11 +91,24 @@
         class="price__model-action"
         :to="{ name: 'FinalOrder' }"
         :class="{
-          'price__model-action--active': !checkValidFormAdditionally,
+          'price__model-action--active':
+            !checkValidFormAdditionally && (minValidPrice || maxValidPrice),
         }"
       >
         Итого
       </router-link>
+      <p
+        v-if="maxValidPrice && fullRoute === 'OrderAdditionally'"
+        class="price__model-action--error"
+      >
+        Цена аренды автомобиля не может быть больше {{ maxPrice }}
+      </p>
+      <p
+        v-else-if="minValidPrice && fullRoute === 'OrderAdditionally'"
+        class="price__model-action--error"
+      >
+        Цена аренды автомобиля не может быть меньше {{ minPrice }}
+      </p>
     </div>
   </div>
 </template>
@@ -99,11 +119,11 @@ import { Vue, Component } from "vue-property-decorator";
 export default class PreOrderInfo extends Vue {
   /* eslint-disable */
   get city() {
-    return this.$store.state.OrderForm.valueCity
+    return this.$store.state.OrderForm.valueCity;
   }
 
   get pvz() {
-    return this.$store.state.OrderForm.valuePvz
+    return this.$store.state.OrderForm.valuePvz;
   }
 
   get fullRoute() {
@@ -129,10 +149,11 @@ export default class PreOrderInfo extends Vue {
   get checkValidFormAdditionally() {
     let empty: boolean = true;
     if (
-      this.city !== "" && this.pvz !== "" &&
+      this.city !== "" &&
+      this.pvz !== "" &&
       this.carColor !== "" &&
-      this.dateDuration !== null &&
-      this.rate !== "" &&
+      (this.dateDuration !== null ||
+      this.rate !== "") &&
       this.checkbox.length > 0
     ) {
       empty = false;
@@ -162,6 +183,34 @@ export default class PreOrderInfo extends Vue {
 
   get checkbox() {
     return this.$store.state.OrderForm.additionallyFilter;
+  }
+
+  get minPrice() {
+    return this.$store.state.OrderForm.carPrice;
+  }
+
+  get maxPrice() {
+    return this.$store.state.OrderForm.maxCarPrice;
+  }
+
+  get finalPrice() {
+    return this.$store.getters["OrderForm/fullPrice"];
+  }
+
+  get maxValidPrice() {
+    let validMaxPrice: boolean = false;
+    if (this.maxPrice > this.finalPrice) {
+      validMaxPrice = true;
+    }
+    return validMaxPrice;
+  }
+
+  get minValidPrice() {
+    let validMinPrice: boolean = false;
+    if (this.finalPrice < this.minPrice) {
+      validMinPrice = true
+    }
+    return validMinPrice
   }
 }
 </script>
@@ -236,6 +285,10 @@ export default class PreOrderInfo extends Vue {
   }
   &__model-action--active {
     @include base-btn-green;
+  }
+  &__model-action--error {
+    color: #d73b3b;
+    margin-top:10px;
   }
 }
 </style>

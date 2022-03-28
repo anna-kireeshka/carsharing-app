@@ -110,7 +110,7 @@
                   type="checkbox"
                   class="filter__checkbox-item"
                   :id="item.name"
-                  :checked="item.checked"
+                  :value="item.name"
                   @change="checkFilter(item.name, item.price)"
                 />
                 <span class="filter__castom--checkbox"></span>
@@ -187,7 +187,6 @@ export default class OrderAdditionally extends Vue {
   get endDate(): string {
     return this.$store.state.OrderForm.dateTo;
   }
-
 }
 </script>
 
@@ -198,7 +197,6 @@ export default class OrderAdditionally extends Vue {
 .main {
   height: 100vh;
   width: 100%;
-  overflow: hidden;
 }
 .main-nav {
   @include flex-row;
@@ -220,7 +218,6 @@ export default class OrderAdditionally extends Vue {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  height: 100vh;
 
   @include flex-row;
   @include content-very-large-main;
