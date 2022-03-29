@@ -124,12 +124,13 @@ export interface ProfileState {
   pvzId?: any;
   carModel?: any;
   colorFilter?: ColorFilter[];
+  colorCheck?: ColorFilter["checked"];
   carAdditionally?: CarAdditionally[];
+  checked: CarAdditionally["checked"];
   carColor?: any;
   additionallyFilter?: any;
   dateFrom?: ValueInput["dateFrom"];
   dateTo?: ValueInput["dateTo"];
-  checkedAdditionally?: any;
   rateFilter?: any;
   carPrice?: Car["priceMin"];
   maxCarPrice?: Car["priceMax"];

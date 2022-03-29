@@ -125,13 +125,13 @@
       >
         Заказать
       </button>
-      <button
+      <router-link
         v-show="fullRoute === 'ConfirmOrder'"
         class="price__model-action price__model-action--reset"
-        @click="resetOrder"
+        :to="{ name: 'FinalOrder' }"
       >
         Отменить
-      </button>
+      </router-link>
       <p
         v-if="!maxValidPrice && fullRoute === 'OrderAdditionally'"
         class="price__model-action--error"
@@ -159,9 +159,6 @@ export default class PreOrderInfo extends Vue {
   openModalWindow:boolean = false
   openModalConfirm() {
     this.openModalWindow = !this.openModalWindow
-  }
-  resetOrder(){
-    console.log('reset')
   }
   get city() {
     return this.$store.state.OrderForm.valueCity;
@@ -344,6 +341,15 @@ export default class PreOrderInfo extends Vue {
   }
   &__model-action--active {
     @include base-btn-green;
+  }
+  &__model-action--active:hover {
+    @include base-hover-green;
+  }
+  &__model-action--active:active {
+    @include base-active-green;
+  }
+  &__model-action--active:active:before {
+    @include base-click-green;
   }
   &__model-action--reset {
     background: $btn-slider-red;

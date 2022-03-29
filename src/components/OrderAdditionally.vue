@@ -36,7 +36,7 @@
                   :id="item.val"
                   :value="item.val"
                   name="color"
-                  @change="checkColor(item.name)"
+                  @change="checkColor(item.name, $event)"
                 />
                 <span class="filter__castom"></span>
                 {{ item.name }}</label
@@ -98,8 +98,8 @@
             <p class="filter__desc">Доп услуги</p>
             <div
               class="filter__item"
-              v-for="item in additionally"
-              :key="item.val"
+              v-for="(item, index) in additionally"
+              :key="index"
             >
               <label
                 class="filter__label flter__lable--check"
@@ -110,8 +110,8 @@
                   type="checkbox"
                   class="filter__checkbox-item"
                   :id="item.name"
-                  :value="item.name"
-                  @change="checkFilter(item.name, item.price)"
+                  v-model="item.checked"
+                  @input="checkFilter(item.name, item.price, $event)"
                 />
                 <span class="filter__castom--checkbox"></span>
                 {{ item.name }}</label
@@ -146,13 +146,15 @@ export default class OrderAdditionally extends Vue {
     this.rate;
   }
 
-  checkColor(color: string) {
-    this.$store.commit("OrderForm/getCarColor", color);
+  checkColor(color: string,e :{ target: HTMLInputElement}) {
+    this.$store.commit("OrderForm/getCarColor", color)
+    this.$store.commit("OrderForm/getColorChecked", e.target.checked)
   }
 
-  checkFilter(filter: string, price:number) {
+  checkFilter(filter: string, price:number, e :{ target: HTMLInputElement},) {
     this.$store.commit("OrderForm/getCarAdditionallyFilter", filter);
     this.$store.commit("OrderForm/getCarPriceAdditionally", price);
+    this.$store.commit("OrderForm/getCarAdditionallyChecked", e.target.checked);
   }
 
   checkRate(duration: string, price:number, rateId:string) {

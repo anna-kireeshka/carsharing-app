@@ -92,6 +92,10 @@ export const mutations: MutationTree<ProfileState> = {
     return (state.carNumber = car);
   },
 
+  getColorChecked(state, colorCheck: ColorFilter["checked"]) {
+    return (state.colorCheck = colorCheck);
+  },
+
   getCarColor(state, color: ColorFilter[]) {
     if (color.length !== 0) {
       for (let i = 0; i < color.length; i++) {
@@ -120,9 +124,16 @@ export const mutations: MutationTree<ProfileState> = {
     return (state.carId = car);
   },
 
-  getCarAdditionallyFilter(state, filter: CarFilter[]) {
-    if (filter.length !== 0) {
+  getCarAdditionallyChecked(state, filter: CarAdditionally["checked"]) {
+    return (state.checked = filter);
+  },
+
+  getCarAdditionallyFilter(state, filter: CarAdditionally[]) {
+    if (state.additionallyFilter.indexOf(filter) === -1 && state.checked) {
       state.additionallyFilter.push(filter);
+    } else if (!state.checked) {
+      const index = state.additionallyFilter.indexOf(filter);
+      state.additionallyFilter.splice(index, 1);
     }
     return state.additionallyFilter;
   },

@@ -23,16 +23,15 @@ export const getters: GetterTree<ProfileState, RootState> = {
   },
 
   getColorFilter: (state) => {
-    state.colorFilter = [
+    return (state.colorFilter = [
       { name: "Любой", checked: false, val: "allColor" },
       { name: "Красный", checked: false, val: "red" },
       { name: "Голубой", checked: false, val: "blue" },
-    ];
-    return state.colorFilter;
+    ]);
   },
 
   getCarAdditionally: (state) => {
-    state.carAdditionally = [
+    return (state.carAdditionally = [
       { name: "Полный бак", checked: false, val: "fullTank", price: 500 },
       { name: "Детское кресло", checked: false, val: "babyChair", price: 200 },
       {
@@ -41,8 +40,7 @@ export const getters: GetterTree<ProfileState, RootState> = {
         val: "rightHandDrive",
         price: 1600,
       },
-    ];
-    return state.carAdditionally;
+    ]);
   },
 
   getRateTime: (state) => {
@@ -85,17 +83,6 @@ export const getters: GetterTree<ProfileState, RootState> = {
     return filterList?.filter((el: any) => el.name !== "Name");
   },
 
-  // getConfirmOrderId: (state) => {
-  //   return (state.orderId = state.confirmOrder?.filter((el: any) =>
-  //     el?.include("5e26a1f0099b810b946c5d8b")
-  //   ));
-  //   //   for (let i = 0; i < state.confirmOrder.length; i++) {
-  //   //     if (state.confirmOrder[i].id === "5e26a1f0099b810b946c5d8b")
-  //   //       state.orderId = state.confirmOrder[i].id;
-  //   //   }
-  //   //   return state.orderId;
-  // },
-
   getFinalCard: (state) => {
     const order = {
       orderStatusId: "5e26a1f0099b810b946c5d8b",
@@ -107,9 +94,9 @@ export const getters: GetterTree<ProfileState, RootState> = {
       dateTo: state.dateTo,
       rateId: state.rateId,
       price: state.fullPrice,
-      isFullTank: true,
-      isNeedChildChair: true,
-      isRightWheel: true,
+      isFullTank: state.checked,
+      isNeedChildChair: state.checked,
+      isRightWheel: state.checked,
     };
     return (state.finalOrderCard = order);
   },
