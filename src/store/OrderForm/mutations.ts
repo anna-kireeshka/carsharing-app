@@ -5,10 +5,13 @@ import {
   CarFilter,
   City,
   ColorFilter,
+  FinalOrderCard,
+  OrderStatus,
   ProfileState,
   Pvz,
   Rate,
   ValueInput,
+  ConfirmOrder,
 } from "./types";
 
 export const mutations: MutationTree<ProfileState> = {
@@ -29,6 +32,18 @@ export const mutations: MutationTree<ProfileState> = {
 
   rateLoaded(state, rate: Rate[]) {
     state.rate = rate;
+  },
+
+  orderCardLoaded(state, order: FinalOrderCard) {
+    state.finalOrderCard = order;
+  },
+
+  orderLoaded(state, order: ConfirmOrder[]) {
+    state.confirmOrder = order;
+  },
+
+  orderStatusLoaded(state, order: OrderStatus[]) {
+    state.orderStatus = order;
   },
 
   searchCity(state, payload: ValueInput["valueCity"]) {
@@ -101,6 +116,9 @@ export const mutations: MutationTree<ProfileState> = {
   getCarFuel(state, car: Car["tank"]) {
     return (state.fuel = car);
   },
+  getCarId(state, car: Car["id"]) {
+    return (state.carId = car);
+  },
 
   getCarAdditionallyFilter(state, filter: CarFilter[]) {
     if (filter.length !== 0) {
@@ -132,5 +150,13 @@ export const mutations: MutationTree<ProfileState> = {
 
   getCarPriceRate(state, rate: Rate["price"]) {
     return (state.ratePrice = rate);
+  },
+
+  getRateId(state, rate: Rate["id"]) {
+    return (state.rateId = rate);
+  },
+
+  getOrderId(state) {
+    return state.orderId;
   },
 };

@@ -82,7 +82,7 @@
                 <input
                   type="radio"
                   class="filter__radio-item"
-                  @change="checkRate(item.rateTypeId.name, item.price)"
+                  @change="checkRate(item.rateTypeId.name, item.price, item.id)"
                   :id="item.rateTypeId.id"
                   :value="item.rateTypeId.name"
                   name="rate"
@@ -155,9 +155,10 @@ export default class OrderAdditionally extends Vue {
     this.$store.commit("OrderForm/getCarPriceAdditionally", price);
   }
 
-  checkRate(duration: string, price:number) {
+  checkRate(duration: string, price:number, rateId:string) {
     this.$store.commit("OrderForm/getCarRate", duration);
-    this.$store.commit("OrderForm/getCarPriceRate", price)
+    this.$store.commit("OrderForm/getCarPriceRate", price);
+    this.$store.commit("OrderForm/getRateId", rateId)
   }
 
   checkDateFrom(from: string) {

@@ -45,17 +45,17 @@ export default class BreadcrumbsRoute extends Vue {
     },
   ];
 
-  get activeRoutes() {
-    let active = document.querySelector(".navigation__link") as Element;
-    for (let i = 0; i < this.crumbsList.length; i++) {
-      if (this.$route.name === this.crumbsList[i].name) {
-        return active.classList?.add("navigation__link--active");
-      } else {
-        console.log(false);
-      }
-    }
-    return active;
-  }
+  // get activeRoutes() {
+  //   let active = document.querySelector(".navigation__link") as Element;
+  //   for (let i = 0; i < this.crumbsList.length; i++) {
+  //     if (this.$route.name === this.crumbsList[i].name) {
+  //       return active.classList?.add("navigation__link--active");
+  //     } else {
+  //       console.log(false);
+  //     }
+  //   }
+  //   return active;
+  // }
 }
 </script>
 

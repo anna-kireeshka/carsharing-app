@@ -11,7 +11,13 @@
             <p class="additionally__text">{{ pvz }}</p>
           </div>
         </div>
-        <template v-if="fullRoute === 'CarModel' || fullRoute === 'FinalOrder'">
+        <template
+          v-if="
+            fullRoute === 'CarModel' ||
+            fullRoute === 'FinalOrder' ||
+            fullRoute === 'ConfirmOrder'
+          "
+        >
           <div class="form">
             <p class="additionally__name">Модель</p>
             <p class="additionally__dote additionally__dote--model"></p>
@@ -19,7 +25,11 @@
           </div>
         </template>
         <template
-          v-if="fullRoute === 'OrderAdditionally' || fullRoute === 'FinalOrder'"
+          v-if="
+            fullRoute === 'OrderAdditionally' ||
+            fullRoute === 'FinalOrder' ||
+            fullRoute === 'ConfirmOrder'
+          "
         >
           <div class="form">
             <p class="additionally__name">Модель</p>
@@ -68,7 +78,10 @@
       <p class="price__first-step" v-if="fullRoute === 'OrderAdditionally'">
         <span class="price__first-step--dark">Цена</span>: {{ finalPrice }} ₽
       </p>
-      <p class="price__first-step" v-if="fullRoute === 'FinalOrder'">
+      <p
+        class="price__first-step"
+        v-if="fullRoute === 'FinalOrder' || fullRoute === 'ConfirmOrder'"
+      >
         <span class="price__first-step--dark">Цена</span>: {{ finalPrice }} ₽
       </p>
       <router-link
@@ -108,8 +121,16 @@
         :class="{
           'price__model-action--active': !checkValidFormAdditionally,
         }"
+        @click.self="openModalConfirm"
       >
         Заказать
+      </button>
+      <button
+        v-show="fullRoute === 'ConfirmOrder'"
+        class="price__model-action price__model-action--reset"
+        @click="resetOrder"
+      >
+        Отменить
       </button>
       <p
         v-if="!maxValidPrice && fullRoute === 'OrderAdditionally'"
@@ -124,14 +145,24 @@
         Цена аренды автомобиля не может быть меньше {{ minPrice }}
       </p>
     </div>
+    <ModalFinalOrder :open-window="openModalWindow" />
   </div>
 </template>
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
-
-@Component
+import ModalFinalOrder from "@/components/ModalFinalOrder.vue";
+@Component({
+  components: { ModalFinalOrder },
+})
 export default class PreOrderInfo extends Vue {
   /* eslint-disable */
+  openModalWindow:boolean = false
+  openModalConfirm() {
+    this.openModalWindow = !this.openModalWindow
+  }
+  resetOrder(){
+    console.log('reset')
+  }
   get city() {
     return this.$store.state.OrderForm.valueCity;
   }
@@ -313,6 +344,9 @@ export default class PreOrderInfo extends Vue {
   }
   &__model-action--active {
     @include base-btn-green;
+  }
+  &__model-action--reset {
+    background: $btn-slider-red;
   }
   &__model-action--error {
     color: #d73b3b;

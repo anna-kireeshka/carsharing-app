@@ -55,7 +55,8 @@
                   car.priceMax,
                   car.priceMin,
                   car.tank,
-                  car.thumbnail.path
+                  car.thumbnail.path,
+                  car.id
                 )
               "
             >
@@ -118,7 +119,8 @@ export default class CarModel extends Vue {
     priceMin: number,
     priceMax: number,
     tank: string,
-    img: string
+    img: string,
+    id: string
   ) {
     this.$store.commit("OrderForm/getCarModel", model);
     this.$store.commit("OrderForm/getCarNumber", num);
@@ -126,6 +128,7 @@ export default class CarModel extends Vue {
     this.$store.commit("OrderForm/getCarPriceMax", priceMax);
     this.$store.commit("OrderForm/getCarFuel", tank);
     this.$store.commit("OrderForm/getCarImg", img);
+    this.$store.commit("OrderForm/getCarId", id);
   }
 
   choseCarFilter(carId: number, name: string) {

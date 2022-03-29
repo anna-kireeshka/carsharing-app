@@ -68,21 +68,49 @@ export const getters: GetterTree<ProfileState, RootState> = {
   },
 
   fullPrice: (state) => {
-    let fullPrice = 0;
-
     if (state.dateTo === "" && state.dateFrom === "") {
-      fullPrice = state.carPrice + state.additionallyPrice + state.ratePrice;
+      state.fullPrice =
+        state.carPrice + state.additionallyPrice + state.ratePrice;
     } else {
-      fullPrice =
+      state.fullPrice =
         state.carPrice +
         state.additionallyPrice +
         state.ratePrice * state.durationMinute;
     }
-    return fullPrice;
+    return state.fullPrice;
   },
 
   getSortFilter: (state) => {
     const filterList = state.carFilter.data;
     return filterList?.filter((el: any) => el.name !== "Name");
+  },
+
+  // getConfirmOrderId: (state) => {
+  //   return (state.orderId = state.confirmOrder?.filter((el: any) =>
+  //     el?.include("5e26a1f0099b810b946c5d8b")
+  //   ));
+  //   //   for (let i = 0; i < state.confirmOrder.length; i++) {
+  //   //     if (state.confirmOrder[i].id === "5e26a1f0099b810b946c5d8b")
+  //   //       state.orderId = state.confirmOrder[i].id;
+  //   //   }
+  //   //   return state.orderId;
+  // },
+
+  getFinalCard: (state) => {
+    const order = {
+      orderStatusId: "5e26a1f0099b810b946c5d8b",
+      cityId: state.cityId,
+      pointId: state.pvzId,
+      carId: state.carId,
+      color: state.carColor,
+      dateFrom: state.dateFrom,
+      dateTo: state.dateTo,
+      rateId: state.rateId,
+      price: state.fullPrice,
+      isFullTank: true,
+      isNeedChildChair: true,
+      isRightWheel: true,
+    };
+    return (state.finalOrderCard = order);
   },
 };
