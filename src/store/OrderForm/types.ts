@@ -1,3 +1,5 @@
+import FinalOrder from "@/components/FinalOrder.vue";
+
 export interface City {
   updatedAt: number;
   createdAt: number;
@@ -17,7 +19,10 @@ export interface Car {
   priceMax: number;
   priceMin: number;
   name: string;
-  thumbnail: any;
+  thumbnail: {
+    path: string;
+  };
+  tank: number;
   description: string;
   categoryId: any;
   colors: string[];
@@ -69,6 +74,41 @@ export interface CarAdditionally {
   price: number;
 }
 [];
+export interface ConfirmOrder {
+  orderStatusId: string;
+  cityId: string;
+  pointId: string;
+  carId: string;
+  color: string;
+  dateFrom: number;
+  dateTo?: number;
+  rateId: string;
+  price: number;
+  isFullTank?: boolean;
+  isNeedChildChair?: boolean;
+  isRightWheel?: boolean;
+}
+[];
+
+export interface FinalOrderCard {
+  orderStatusId: string;
+  cityId: string;
+  pointId: string;
+  carId: string;
+  color: string;
+  dateFrom: number;
+  dateTo?: number;
+  rateId: string;
+  price: number;
+  isFullTank?: boolean;
+  isNeedChildChair?: boolean;
+  isRightWheel?: boolean;
+}
+export interface OrderStatus {
+  status: string;
+  id: number;
+}
+[];
 
 export interface ProfileState {
   city?: City[];
@@ -76,26 +116,36 @@ export interface ProfileState {
   carFilter: CarFilter[];
   car?: Car[];
   rate?: Rate[];
+  finalOrderCard?: FinalOrderCard;
+  orderStatus?: OrderStatus[];
   valueCity?: ValueInput["valueCity"];
   valuePvz?: ValueInput["valuePvz"];
   cityId?: any;
   pvzId?: any;
   carModel?: any;
-  carNumber?: any;
   colorFilter?: ColorFilter[];
+  colorCheck?: ColorFilter["checked"];
   carAdditionally?: CarAdditionally[];
+  checked: CarAdditionally["checked"];
   carColor?: any;
   additionallyFilter?: any;
   dateFrom?: ValueInput["dateFrom"];
   dateTo?: ValueInput["dateTo"];
-  checkedAdditionally?: any;
   rateFilter?: any;
   carPrice?: Car["priceMin"];
   maxCarPrice?: Car["priceMax"];
+  fuel?: Car["tank"];
+  img?: Car["thumbnail"]["path"];
+  carNumber?: Car["number"];
   ratePrice?: Rate["price"];
+  rateId?: Rate["id"];
   timePrice?: any;
   additionallyPrice?: CarAdditionally["price"];
   durationMinute?: number;
   categoryId?: any;
   loadingCarList?: boolean;
+  fullPrice?: number;
+  carId?: Car["id"];
+  orderId?: OrderStatus["id"];
+  confirmOrder?: ConfirmOrder[];
 }

@@ -1,21 +1,36 @@
 <template>
-  <transition name="fade">
+  <transition name="fade" v-if="openWindow === true">
     <div class="modal">
       <div class="modal-inner">
         <p class="modal-inner__title">Подтвердить заказ</p>
         <div class="actions">
-          <button class="actions__sucsess">Подтвердить</button>
-          <button class="actions__discard">Вернуться</button>
+          <button class="actions__sucsess" @click="confirmOrder">
+            Подтвердить
+          </button>
+          <button class="actions__discard" @click="closeModal">
+            Вернуться
+          </button>
         </div>
       </div>
     </div>
   </transition>
 </template>
 <script lang="ts">
-import { Vue, Component } from "vue-property-decorator";
+import { Vue, Component, Prop } from "vue-property-decorator";
 
 @Component({})
-export default class ModalFinalOrder extends Vue {}
+export default class ModalFinalOrder extends Vue {
+  @Prop() private openWindow!: boolean;
+
+  confirmOrder() {
+    this.$store.dispatch("OrderForm/fetchDataOrder");
+    this.$store.dispatch("OrderForm/fetchDataStatusOrder");
+    this.$router.push({ name: "ConfirmOrder" });
+  }
+  closeModal() {
+    this.openWindow = !this.openWindow;
+  }
+}
 </script>
 <style lang="scss" scoped>
 .modal {

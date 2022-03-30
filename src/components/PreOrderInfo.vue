@@ -11,14 +11,26 @@
             <p class="additionally__text">{{ pvz }}</p>
           </div>
         </div>
-        <template v-if="fullRoute === 'CarModel'">
+        <template
+          v-if="
+            fullRoute === 'CarModel' ||
+            fullRoute === 'FinalOrder' ||
+            fullRoute === 'ConfirmOrder'
+          "
+        >
           <div class="form">
             <p class="additionally__name">Модель</p>
             <p class="additionally__dote additionally__dote--model"></p>
             <p class="additionally__text">{{ carModel }}</p>
           </div>
         </template>
-        <template v-if="fullRoute === 'OrderAdditionally'">
+        <template
+          v-if="
+            fullRoute === 'OrderAdditionally' ||
+            fullRoute === 'FinalOrder' ||
+            fullRoute === 'ConfirmOrder'
+          "
+        >
           <div class="form">
             <p class="additionally__name">Модель</p>
             <p class="additionally__dote additionally__dote--model"></p>
@@ -66,6 +78,12 @@
       <p class="price__first-step" v-if="fullRoute === 'OrderAdditionally'">
         <span class="price__first-step--dark">Цена</span>: {{ finalPrice }} ₽
       </p>
+      <p
+        class="price__first-step"
+        v-if="fullRoute === 'FinalOrder' || fullRoute === 'ConfirmOrder'"
+      >
+        <span class="price__first-step--dark">Цена</span>: {{ finalPrice }} ₽
+      </p>
       <router-link
         v-show="fullRoute === 'location'"
         class="price__model-action"
@@ -97,6 +115,23 @@
       >
         Итого
       </router-link>
+      <button
+        v-show="fullRoute === 'FinalOrder'"
+        class="price__model-action"
+        :class="{
+          'price__model-action--active': !checkValidFormAdditionally,
+        }"
+        @click.self="openModalConfirm"
+      >
+        Заказать
+      </button>
+      <router-link
+        v-show="fullRoute === 'ConfirmOrder'"
+        class="price__model-action price__model-action--reset"
+        :to="{ name: 'FinalOrder' }"
+      >
+        Отменить
+      </router-link>
       <p
         v-if="!maxValidPrice && fullRoute === 'OrderAdditionally'"
         class="price__model-action--error"
@@ -110,14 +145,21 @@
         Цена аренды автомобиля не может быть меньше {{ minPrice }}
       </p>
     </div>
+    <ModalFinalOrder :open-window="openModalWindow" />
   </div>
 </template>
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
-
-@Component
+import ModalFinalOrder from "@/components/ModalFinalOrder.vue";
+@Component({
+  components: { ModalFinalOrder },
+})
 export default class PreOrderInfo extends Vue {
   /* eslint-disable */
+  openModalWindow:boolean = false
+  openModalConfirm() {
+    this.openModalWindow = !this.openModalWindow
+  }
   get city() {
     return this.$store.state.OrderForm.valueCity;
   }
@@ -299,6 +341,18 @@ export default class PreOrderInfo extends Vue {
   }
   &__model-action--active {
     @include base-btn-green;
+  }
+  &__model-action--active:hover {
+    @include base-hover-green;
+  }
+  &__model-action--active:active {
+    @include base-active-green;
+  }
+  &__model-action--active:active:before {
+    @include base-click-green;
+  }
+  &__model-action--reset {
+    background: $btn-slider-red;
   }
   &__model-action--error {
     color: #d73b3b;

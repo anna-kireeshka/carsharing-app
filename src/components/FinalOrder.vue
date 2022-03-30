@@ -15,35 +15,36 @@
           Ульяновск
         </p>
       </div>
-      <!-- <BreadcrumbsRoute /> -->
+      <div v-if="routeName === 'ConfirmOrder'" class="navigation">
+        <p>Заказ номер RU58491823</p>
+      </div>
+      <BreadcrumbsRoute v-else />
       <div class="card-form">
         <div class="car-container">
           <div class="form">
             <div class="order">
-              <p class="order__car-model">Hyndai, i30 N</p>
-              <p class="order__car-number">K 761 HA 73</p>
+              <p class="order__car-model">{{ carModel }}</p>
+              <p class="order__car-number">{{ carNumber }}</p>
               <p class="order__fuel">
                 Топливо
-                <span class="order__fuel order__fuel--precent">100%</span>
+                <span class="order__fuel order__fuel--precent"
+                  >{{ carFuel }}%</span
+                >
               </p>
               <p class="order__date">
                 Доступна с
                 <span class="order__date order__date--time">
-                  12.06.2019 12:00</span
+                  {{ carDate }}</span
                 >
               </p>
             </div>
             <div class="card">
-              <img
-                src="../assets/car.png"
-                alt="Выбраная машина"
-                class="card__image"
-              />
+              <img :src="carImg" alt="Выбраная машина" class="card__image" />
             </div>
           </div>
         </div>
+        <PreOrderInfo />
       </div>
-      <PreOrderInfo />
     </div>
   </div>
 </template>
@@ -51,9 +52,35 @@
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
 import Navigation from "@/components/Navigation.vue";
+import PreOrderInfo from "@/components/PreOrderInfo.vue";
+import BreadcrumbsRoute from "@/components/BreadcrumbsRoute.vue";
 
-@Component({ components: { Navigation } })
-export default class FinalOrder extends Vue {}
+@Component({ components: { Navigation, PreOrderInfo, BreadcrumbsRoute } })
+export default class FinalOrder extends Vue {
+  get carModel() {
+    return this.$store.state.OrderForm.carModel;
+  }
+
+  get carNumber() {
+    return this.$store.state.OrderForm.carNumber;
+  }
+
+  get carImg() {
+    return this.$store.state.OrderForm.img;
+  }
+
+  get carFuel() {
+    return this.$store.state.OrderForm.fuel;
+  }
+
+  get carDate() {
+    return this.$store.state.OrderForm.dateFrom;
+  }
+
+  get routeName() {
+    return this.$route.name;
+  }
+}
 </script>
 <style scoped lang="scss">
 .main-wrapper {
@@ -61,12 +88,13 @@ export default class FinalOrder extends Vue {}
 }
 .main {
   width: 100%;
+  height: 100vh;
 }
 .main-nav {
   @include flex-row;
   @include flex-logo;
   @include order-card-mobile;
-  padding: 32px 63px 32px 128px;
+  padding: 32px 63px 32px 64px;
   &__company {
     @include logo;
   }
@@ -89,13 +117,12 @@ export default class FinalOrder extends Vue {}
   @include flex-row;
   @include order-card;
   @include order-card-mobile;
-
-  padding: 32px 192px 0 128px;
+  min-width: calc(100% - 384px - 128px);
+  padding: 32px 63px 32px 64px;
   flex-wrap: wrap;
 }
 .car-container {
   min-width: calc(100% - 384px - 128px);
-  height: 100vh;
   border-right: 1px solid $main-light-gray;
 }
 .order {
@@ -153,5 +180,19 @@ export default class FinalOrder extends Vue {}
   &__date--time {
     font-weight: 300;
   }
+}
+.card {
+  width: 256px;
+  &__image {
+    width: 100%;
+    object-fit: contain;
+  }
+}
+.navigation {
+  display: flex;
+  flex-wrap: wrap;
+  border-top: 1px solid #eeeeee;
+  border-bottom: 1px solid #eeeeee;
+  padding-left: 64px;
 }
 </style>

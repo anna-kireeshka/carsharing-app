@@ -23,16 +23,15 @@ export const getters: GetterTree<ProfileState, RootState> = {
   },
 
   getColorFilter: (state) => {
-    state.colorFilter = [
+    return (state.colorFilter = [
       { name: "Любой", checked: false, val: "allColor" },
       { name: "Красный", checked: false, val: "red" },
       { name: "Голубой", checked: false, val: "blue" },
-    ];
-    return state.colorFilter;
+    ]);
   },
 
   getCarAdditionally: (state) => {
-    state.carAdditionally = [
+    return (state.carAdditionally = [
       { name: "Полный бак", checked: false, val: "fullTank", price: 500 },
       { name: "Детское кресло", checked: false, val: "babyChair", price: 200 },
       {
@@ -41,8 +40,7 @@ export const getters: GetterTree<ProfileState, RootState> = {
         val: "rightHandDrive",
         price: 1600,
       },
-    ];
-    return state.carAdditionally;
+    ]);
   },
 
   getRateTime: (state) => {
@@ -68,21 +66,38 @@ export const getters: GetterTree<ProfileState, RootState> = {
   },
 
   fullPrice: (state) => {
-    let fullPrice = 0;
-
     if (state.dateTo === "" && state.dateFrom === "") {
-      fullPrice = state.carPrice + state.additionallyPrice + state.ratePrice;
+      state.fullPrice =
+        state.carPrice + state.additionallyPrice + state.ratePrice;
     } else {
-      fullPrice =
+      state.fullPrice =
         state.carPrice +
         state.additionallyPrice +
         state.ratePrice * state.durationMinute;
     }
-    return fullPrice;
+    return state.fullPrice;
   },
 
   getSortFilter: (state) => {
     const filterList = state.carFilter.data;
     return filterList?.filter((el: any) => el.name !== "Name");
+  },
+
+  getFinalCard: (state) => {
+    const order = {
+      orderStatusId: "5e26a1f0099b810b946c5d8b",
+      cityId: state.cityId,
+      pointId: state.pvzId,
+      carId: state.carId,
+      color: state.carColor,
+      dateFrom: state.dateFrom,
+      dateTo: state.dateTo,
+      rateId: state.rateId,
+      price: state.fullPrice,
+      isFullTank: state.checked,
+      isNeedChildChair: state.checked,
+      isRightWheel: state.checked,
+    };
+    return (state.finalOrderCard = order);
   },
 };

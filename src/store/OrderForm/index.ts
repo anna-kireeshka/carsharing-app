@@ -5,24 +5,43 @@ import { actions } from './actions';
 import { mutations } from './mutations';
 import { ProfileState } from "./types";
 import { RootState } from '../types';
+import FinalOrder from "@/components/FinalOrder.vue";
 
+// @ts-ignore
+// @ts-ignore
 export const state: ProfileState = {
   city: [],
   pvz: [],
   car: [],
   rate: [],
   carFilter: [],
+  finalOrderCard:{
+    orderStatusId: "",
+    cityId:  "",
+    pointId:  "",
+    carId:  "",
+    color:  "",
+    dateFrom: 0,
+    dateTo: 0,
+    rateId:  "",
+    price: 0,
+    isFullTank: false,
+    isNeedChildChair: false,
+    isRightWheel: false,
+  },
+  orderStatus: [],
   valueCity: "",
   valuePvz: "",
   carModel: "",
   carNumber: "",
   colorFilter: [],
+  colorCheck:false,
   carAdditionally: [],
   carColor: "",
   additionallyFilter: [],
   dateFrom: "",
   dateTo: "",
-  checkedAdditionally: false,
+  checked: true,
   carPrice: 0,
   maxCarPrice: 0,
   ratePrice: 0,
@@ -31,6 +50,13 @@ export const state: ProfileState = {
   rateFilter: "",
   durationMinute: 0,
   loadingCarList:false,
+  img: "",
+  fuel: 0,
+  orderId:0,
+  fullPrice: 0,
+  carId: "",
+  rateId:"",
+  confirmOrder:[],
 
 };
 

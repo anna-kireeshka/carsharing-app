@@ -44,18 +44,6 @@ export default class BreadcrumbsRoute extends Vue {
       name: "FinalOrder",
     },
   ];
-
-  get activeRoutes() {
-    let active = document.querySelector(".navigation__link") as Element;
-    for (let i = 0; i < this.crumbsList.length; i++) {
-      if (this.$route.name === this.crumbsList[i].name) {
-        return active.classList?.add("navigation__link--active");
-      } else {
-        console.log(false);
-      }
-    }
-    return active;
-  }
 }
 </script>
 
@@ -79,11 +67,9 @@ export default class BreadcrumbsRoute extends Vue {
   }
 
   &__link--active {
-    color: #0ec261;
+    color: #0ec261 !important;
   }
-  //&__disabled {
-  //  color: #999999;
-  //}
+
   &__link--sucsess {
     color: $main-black;
   }

@@ -49,26 +49,21 @@
               v-for="car in carList"
               :key="car.id"
               @click="
-                choseCar(car.name, car.number, car.priceMax, car.priceMin)
+                choseCar(
+                  car.name,
+                  car.number,
+                  car.priceMax,
+                  car.priceMin,
+                  car.tank,
+                  car.thumbnail.path,
+                  car.id
+                )
               "
             >
-              <div
-                class="car-content"
-                @click="
-                  choseCar(
-                    car.name,
-                    car.number,
-                    car.priceMin,
-                    car.priceMax,
-                    car.id
-                  )
-                "
-              >
-                <p class="car-content__model">{{ car.name }}</p>
-                <p class="car-content__price">
-                  {{ car.priceMin }} - {{ car.priceMax }}
-                </p>
-              </div>
+              <p class="car-content__model">{{ car.name }}</p>
+              <p class="car-content__price">
+                {{ car.priceMin }} - {{ car.priceMax }}
+              </p>
               <div class="car-order__image">
                 <img
                   alt="Машина"
@@ -118,11 +113,22 @@ export default class CarModel extends Vue {
     this.carFilter;
   }
 
-  choseCar(model: string, num: string, priceMin: number, priceMax: number) {
+  choseCar(
+    model: string,
+    num: string,
+    priceMin: number,
+    priceMax: number,
+    tank: string,
+    img: string,
+    id: string
+  ) {
     this.$store.commit("OrderForm/getCarModel", model);
     this.$store.commit("OrderForm/getCarNumber", num);
     this.$store.commit("OrderForm/getCarPrice", priceMin);
     this.$store.commit("OrderForm/getCarPriceMax", priceMax);
+    this.$store.commit("OrderForm/getCarFuel", tank);
+    this.$store.commit("OrderForm/getCarImg", img);
+    this.$store.commit("OrderForm/getCarId", id);
   }
 
   choseCarFilter(carId: number, name: string) {
@@ -186,8 +192,9 @@ export default class CarModel extends Vue {
   @include order-card;
   @include order-card-mobile;
   @include flex-column;
+  flex-wrap: wrap;
   max-width: calc(100% - 384px - 128px);
-  padding: 32px 192px 0 64px;
+  padding: 32px 50px 0 64px;
   align-items: flex-start;
   min-height: 100vh;
   border-right: 1px solid $main-light-gray;

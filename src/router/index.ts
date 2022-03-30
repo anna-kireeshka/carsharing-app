@@ -5,6 +5,7 @@ import FinalOrder from "@/components/FinalOrder.vue";
 import OrderAdditionally from "@/components/OrderAdditionally.vue";
 import CarModel from "@/components/CarModel.vue";
 import CardLocation from "@/components/CardLocation.vue";
+import ConfirmOrder from "@/pages/ConfirmOrder.vue";
 
 Vue.use(VueRouter);
 
@@ -38,6 +39,11 @@ const routes: Array<RouteConfig> = [
     name: "FinalOrder",
     component: FinalOrder,
     props: true,
+  },
+  {
+    path: "/order",
+    name: "ConfirmOrder",
+    component: ConfirmOrder,
   },
 ];
 

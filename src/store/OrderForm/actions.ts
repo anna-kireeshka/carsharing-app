@@ -1,7 +1,18 @@
 import { HTTP } from "../../services/api";
 import { ActionTree } from "vuex";
-import { ProfileState, City, Pvz, Car, CarFilter, Rate } from "./types";
+import {
+  ProfileState,
+  City,
+  Pvz,
+  Car,
+  CarFilter,
+  Rate,
+  FinalOrderCard,
+  OrderStatus,
+  ConfirmOrder,
+} from "./types";
 import { RootState } from "../types";
+import { state } from "@/store/OrderForm/index";
 
 export const actions: ActionTree<ProfileState, RootState> = {
   fetchData({ commit }) {
@@ -67,6 +78,31 @@ export const actions: ActionTree<ProfileState, RootState> = {
       (error) => {
         console.log(error);
         commit("rateLoaded");
+      }
+    );
+  },
+
+  fetchDataOrder({ commit, state }) {
+    HTTP.post("/api/db/order", { order: state.finalOrderCard }).then(
+      (response) => {
+        const order: ConfirmOrder = response.data;
+        commit("orderLoaded", order);
+      },
+      (error) => {
+        console.log(error);
+        commit("orderLoaded");
+      }
+    );
+  },
+  fetchDataStatusOrder({ commit }) {
+    HTTP.get("/api/db/orderStatus").then(
+      (response) => {
+        const orderSatatus: OrderStatus = response.data;
+        commit("orderStatusLoaded", orderSatatus);
+      },
+      (error) => {
+        console.log(error);
+        commit("orderStatusLoaded");
       }
     );
   },
