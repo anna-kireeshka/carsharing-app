@@ -36,6 +36,7 @@
                   :id="item.val"
                   :value="item.val"
                   name="color"
+                  @change="checkColor(item.name)"
                 />
                 <span class="filter__castom"></span>
                 {{ item.name }}</label
@@ -49,11 +50,13 @@
                 >С
                 <input
                   type="text"
-                  onfocus="(this.type='date')"
+                  onfocus="(this.type='datetime-local')"
                   onblur="(this.type='text')"
                   id="startDate"
-                  class="filter__date"
+                  class="filter__date filter__date--start"
                   placeholder="Введите дату и время"
+                  v-model="startDateModel"
+                  @input="checkDateFrom(startDateModel)"
                 />
               </label>
             </p>
@@ -61,40 +64,41 @@
               <label for="endDate" class="filter__label"
                 >По<input
                   type="text"
-                  onfocus="(this.type='date')"
+                  onfocus="(this.type='datetime-local')"
                   onblur="(this.type='text')"
                   id="endDate"
                   class="filter__date"
                   placeholder="Введите дату и время"
+                  v-model="endDateModel"
+                  @input="checkDateTo(endDateModel)"
               /></label>
             </p>
           </div>
           <div class="filter__rate">
             <p class="filter__desc">Тариф</p>
 
-            <div class="filter__item" v-for="item in rate" :key="item.val">
-              <label
-                class="filter__label"
-                :for="item.val"
-                :class="{ 'filter__label--disabled': !item.checked }"
-              >
+            <div class="filter__item" v-for="item in rate" :key="item.id">
+              <label class="filter__label" :for="item.rateTypeId.id">
                 <input
                   type="radio"
                   class="filter__radio-item"
-                  :id="item.val"
-                  :value="item.val"
+                  @change="checkRate(item.rateTypeId.name, item.price)"
+                  :id="item.rateTypeId.id"
+                  :value="item.rateTypeId.name"
                   name="rate"
                 />
                 <span class="filter__castom"></span>
-                {{ item.name }}</label
-              >
+                {{ item.rateTypeId.name }}, {{ item.price }} ₽/{{
+                  item.rateTypeId.unit
+                }}
+              </label>
             </div>
           </div>
           <div class="filter__services">
             <p class="filter__desc">Доп услуги</p>
             <div
               class="filter__item"
-              v-for="item in additionaly"
+              v-for="item in additionally"
               :key="item.val"
             >
               <label
@@ -106,7 +110,8 @@
                   type="checkbox"
                   class="filter__checkbox-item"
                   :id="item.name"
-                  :checked="item.checked"
+                  :value="item.name"
+                  @change="checkFilter(item.name, item.price)"
                 />
                 <span class="filter__castom--checkbox"></span>
                 {{ item.name }}</label
@@ -114,7 +119,7 @@
             </div>
           </div>
         </div>
-        <FinalInfo />
+        <PreOrderInfo />
       </div>
     </div>
   </div>
@@ -122,44 +127,65 @@
 
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
-import FinalInfo from "./FormAdditionally.vue";
+import PreOrderInfo from "@/components/PreOrderInfo.vue";
 import Navigation from "./Navigation.vue";
 import BreadcrumbsRoute from "@/components/BreadcrumbsRoute.vue";
-import { CarColorFilter, CarRate, CarAdditionaly } from "../types";
 
-@Component({ components: { FinalInfo, Navigation, BreadcrumbsRoute } })
+@Component({ components: { PreOrderInfo, Navigation, BreadcrumbsRoute } })
 export default class OrderAdditionally extends Vue {
-  colorFilter: CarColorFilter[];
-  rate: CarRate[];
-  additionaly: CarAdditionaly[];
+  /* eslint-disable */
+  startDateModel:string = "";
+  endDateModel:string = "";
 
   mounted() {
-    this.colorFilter = [
-      {
-        name: "Любой",
-        checked: true,
-        val: "allColor",
-      },
-      {
-        name: "Красный",
-        checked: false,
-        val: "red",
-      },
-      {
-        name: "Голубой",
-        checked: false,
-        val: "blue",
-      },
-    ];
-    this.rate = [
-      { name: "Поминутно, 7₽/мин", checked: false, val: "minute" },
-      { name: "На сутки, 1999 ₽/сутки", checked: true, val: "allDay" },
-    ];
-    this.additionaly = [
-      { name: "Полный бак, 500р", checked: true, val: "fullTank" },
-      { name: "Детское кресло, 200р", checked: false, val: "babyChair" },
-      { name: "Правый руль, 1600р", checked: false, val: "rightHandDrive" },
-    ];
+    this.fetchRate();
+  }
+
+  fetchRate() {
+    this.$store.dispatch("OrderForm/fetchDataRate");
+    this.rate;
+  }
+
+  checkColor(color: string) {
+    this.$store.commit("OrderForm/getCarColor", color);
+  }
+
+  checkFilter(filter: string, price:number) {
+    this.$store.commit("OrderForm/getCarAdditionallyFilter", filter);
+    this.$store.commit("OrderForm/getCarPriceAdditionally", price);
+  }
+
+  checkRate(duration: string, price:number) {
+    this.$store.commit("OrderForm/getCarRate", duration);
+    this.$store.commit("OrderForm/getCarPriceRate", price)
+  }
+
+  checkDateFrom(from: string) {
+    this.$store.commit("OrderForm/getDateTimeFrom", from);
+  }
+
+  checkDateTo(to: string) {
+    this.$store.commit("OrderForm/getDateTimeTo", to);
+  }
+
+  get rate() {
+    return this.$store.getters["OrderForm/getRateFilter"];
+  }
+
+  get colorFilter() {
+    return this.$store.getters["OrderForm/getColorFilter"];
+  }
+
+  get additionally() {
+    return this.$store.getters["OrderForm/getCarAdditionally"];
+  }
+
+  get startDate(): string {
+    return this.$store.state.OrderForm.dateFrom;
+  }
+
+  get endDate(): string {
+    return this.$store.state.OrderForm.dateTo;
   }
 }
 </script>
@@ -169,6 +195,7 @@ export default class OrderAdditionally extends Vue {
   @include flex-row;
 }
 .main {
+  height: 100vh;
   width: 100%;
 }
 .main-nav {
@@ -191,7 +218,7 @@ export default class OrderAdditionally extends Vue {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  height: 100vh;
+
   @include flex-row;
   @include content-very-large-main;
   @include content-large-main;
@@ -206,7 +233,7 @@ export default class OrderAdditionally extends Vue {
   min-width: calc(100% - 384px - 128px);
   padding: 32px 192px 0 64px;
   align-items: flex-start;
-  //border-right: 1px solid $main-light-gray;
+  border-right: 1px solid $main-light-gray;
   &__desc-wrap {
     display: flex;
     align-items: flex-start;
@@ -290,6 +317,9 @@ export default class OrderAdditionally extends Vue {
 
     margin-left: 8px;
   }
+  &__date--start {
+    margin-bottom: 13px;
+  }
   &__date[type="text"] {
     font-family: inherit;
     font-weight: 300;
@@ -297,7 +327,7 @@ export default class OrderAdditionally extends Vue {
     line-height: 16px;
     color: #121212;
   }
-  input[type="date"]::-webkit-calendar-picker-indicator {
+  input[type="datetime"]::-webkit-calendar-picker-indicator {
     opacity: 0;
   }
   &__rate {

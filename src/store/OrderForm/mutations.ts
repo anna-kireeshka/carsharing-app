@@ -1,5 +1,15 @@
 import { MutationTree } from "vuex";
-import { ProfileState, City, Pvz, ValueInput, Car, CarFilter } from "./types";
+import {
+  Car,
+  CarAdditionally,
+  CarFilter,
+  City,
+  ColorFilter,
+  ProfileState,
+  Pvz,
+  Rate,
+  ValueInput,
+} from "./types";
 
 export const mutations: MutationTree<ProfileState> = {
   cityLoaded(state, city: City[]) {
@@ -15,6 +25,10 @@ export const mutations: MutationTree<ProfileState> = {
 
   carFilterLoaded(state, filter: CarFilter[]) {
     state.carFilter = filter;
+  },
+
+  rateLoaded(state, rate: Rate[]) {
+    state.rate = rate;
   },
 
   searchCity(state, payload: ValueInput["valueCity"]) {
@@ -43,7 +57,7 @@ export const mutations: MutationTree<ProfileState> = {
   },
 
   getCategoryId(state, category: CarFilter[]) {
-    for (let i = 0; i < category.length; i++) {
+    for (let i = 0; i < category?.length; i++) {
       state.categoryId = category;
     }
     return state.categoryId;
@@ -66,5 +80,54 @@ export const mutations: MutationTree<ProfileState> = {
       }
     }
     return state.carNumber;
+  },
+
+  getCarColor(state, color: ColorFilter[]) {
+    if (color.length !== 0) {
+      for (let i = 0; i < color.length; i++) {
+        state.carColor = color;
+      }
+    }
+    return state.carModel;
+  },
+
+  getCarPrice(state, car: Car["priceMin"]) {
+    return (state.carPrice = car);
+  },
+
+  getCarPriceMax(state, car: Car["priceMax"]) {
+    return (state.maxCarPrice = car);
+  },
+
+  getCarAdditionallyFilter(state, filter: CarFilter[]) {
+    if (filter.length !== 0) {
+      state.additionallyFilter.push(filter);
+    }
+    return state.additionallyFilter;
+  },
+
+  getCarRate(state, rate: Rate[]) {
+    if (rate.length !== 0) {
+      for (let i = 0; i < rate.length; i++) {
+        state.rateFilter = rate;
+      }
+    }
+    return state.rateFilter;
+  },
+
+  getCarPriceAdditionally(state, filter: CarAdditionally["price"]) {
+    return (state.additionallyPrice = filter);
+  },
+
+  getDateTimeFrom(state, startDate: ValueInput["dateFrom"]) {
+    state.dateFrom = startDate;
+  },
+
+  getDateTimeTo(state, endDate: ValueInput["dateTo"]) {
+    state.dateTo = endDate;
+  },
+
+  getCarPriceRate(state, rate: Rate["price"]) {
+    return (state.ratePrice = rate);
   },
 };

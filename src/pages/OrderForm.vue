@@ -4,6 +4,7 @@
     <CardLocation />
     <FormAdditionally />
     <FinalOrder />
+    <OrderAdditionally />
   </div>
 </template>
 
@@ -13,8 +14,10 @@ import CardLocation from "@/components/CardLocation.vue";
 import { Vue, Component } from "vue-property-decorator";
 import FormAdditionally from "@/components/FormAdditionally.vue";
 import FinalOrder from "@/components/FinalOrder.vue";
+import OrderAdditionally from "@/components/OrderAdditionally.vue";
 @Component({
   components: {
+    OrderAdditionally,
     FinalOrder,
     FormAdditionally,
     CarModel,

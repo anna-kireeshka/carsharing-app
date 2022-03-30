@@ -4,3 +4,5 @@ declare module "*.vue" {
 }
 declare module "lodash";
 declare module "*.scss";
+declare module "dayjs";
+declare module "dayjs/plugin/duration";

@@ -25,8 +25,8 @@
                   type="radio"
                   class="filter__radio-item"
                   name="radioModel"
-                  :value="item.id"
-                  @change="choseCarFilter(item.id)"
+                  :value="item.name"
+                  @change="choseCarFilter(item.id, item.name)"
                 />
                 <span class="filter__castom"></span>
                 {{ item.name }}</label
@@ -48,9 +48,22 @@
               class="car-order__card"
               v-for="car in carList"
               :key="car.id"
-              @click="choseCar(car.name, car.number)"
+              @click="
+                choseCar(car.name, car.number, car.priceMax, car.priceMin)
+              "
             >
-              <div class="car-content">
+              <div
+                class="car-content"
+                @click="
+                  choseCar(
+                    car.name,
+                    car.number,
+                    car.priceMin,
+                    car.priceMax,
+                    car.id
+                  )
+                "
+              >
                 <p class="car-content__model">{{ car.name }}</p>
                 <p class="car-content__price">
                   {{ car.priceMin }} - {{ car.priceMax }}
@@ -105,14 +118,15 @@ export default class CarModel extends Vue {
     this.carFilter;
   }
 
-  choseCar(model: string, num: string) {
+  choseCar(model: string, num: string, priceMin: number, priceMax: number) {
     this.$store.commit("OrderForm/getCarModel", model);
     this.$store.commit("OrderForm/getCarNumber", num);
+    this.$store.commit("OrderForm/getCarPrice", priceMin);
+    this.$store.commit("OrderForm/getCarPriceMax", priceMax);
   }
 
-  choseCarFilter(carId: number) {
+  choseCarFilter(carId: number, name: string) {
     this.$store.commit("OrderForm/getCategoryId", carId);
-
     this.carListFetch();
     this.carList;
   }
@@ -172,7 +186,7 @@ export default class CarModel extends Vue {
   @include order-card;
   @include order-card-mobile;
   @include flex-column;
-  min-width: calc(100% - 384px - 128px);
+  max-width: calc(100% - 384px - 128px);
   padding: 32px 192px 0 64px;
   align-items: flex-start;
   min-height: 100vh;

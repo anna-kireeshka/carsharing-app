@@ -21,6 +21,7 @@ export interface Car {
   description: string;
   categoryId: any;
   colors: string[];
+  id: string;
 }
 [];
 
@@ -36,23 +37,65 @@ export interface CarFilter {
 export interface ValueInput {
   valuePvz: string;
   valueCity: string;
+  dateFrom: string;
+  dateTo: string;
 }
-export interface CarInfo {
-  carModel: string;
-  carNumber: string;
+
+export interface Rate {
+  updatedAt: number;
+  createdAt: number;
+  price: number;
+  rateTypeId: {
+    unit: string;
+    name: string;
+    id: string;
+  }[];
+
+  id: string;
 }
+[];
+
+export interface ColorFilter {
+  name: string;
+  checked: boolean;
+  val: string;
+}
+[];
+
+export interface CarAdditionally {
+  name: string;
+  checked: boolean;
+  val: string;
+  price: number;
+}
+[];
 
 export interface ProfileState {
   city?: City[];
   pvz?: Pvz[];
   carFilter: CarFilter[];
+  car?: Car[];
+  rate?: Rate[];
   valueCity?: ValueInput["valueCity"];
   valuePvz?: ValueInput["valuePvz"];
   cityId?: any;
   pvzId?: any;
-  car?: Car[];
   carModel?: any;
   carNumber?: any;
+  colorFilter?: ColorFilter[];
+  carAdditionally?: CarAdditionally[];
+  carColor?: any;
+  additionallyFilter?: any;
+  dateFrom?: ValueInput["dateFrom"];
+  dateTo?: ValueInput["dateTo"];
+  checkedAdditionally?: any;
+  rateFilter?: any;
+  carPrice?: Car["priceMin"];
+  maxCarPrice?: Car["priceMax"];
+  ratePrice?: Rate["price"];
+  timePrice?: any;
+  additionallyPrice?: CarAdditionally["price"];
+  durationMinute?: number;
   categoryId?: any;
   loadingCarList?: boolean;
 }
