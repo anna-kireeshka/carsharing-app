@@ -5,13 +5,12 @@ import {
   CarFilter,
   City,
   ColorFilter,
-  FinalOrderCard,
   OrderStatus,
   ProfileState,
   Pvz,
   Rate,
   ValueInput,
-  ConfirmOrder,
+  FinalOrder,
 } from "./types";
 
 export const mutations: MutationTree<ProfileState> = {
@@ -34,16 +33,12 @@ export const mutations: MutationTree<ProfileState> = {
     state.rate = rate;
   },
 
-  orderCardLoaded(state, order: FinalOrderCard) {
-    state.finalOrderCard = order;
-  },
-
-  orderLoaded(state, order: ConfirmOrder[]) {
-    state.confirmOrder = order;
-  },
-
   orderStatusLoaded(state, order: OrderStatus[]) {
     state.orderStatus = order;
+  },
+
+  finalOrderLoaded(state, order: FinalOrder[]) {
+    state.finalOrder = order;
   },
 
   searchCity(state, payload: ValueInput["valueCity"]) {

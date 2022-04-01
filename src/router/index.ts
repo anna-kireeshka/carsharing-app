@@ -42,7 +42,7 @@ const routes: Array<RouteConfig> = [
     props: true,
   },
   {
-    path: "/order",
+    path: "/order/:id",
     name: "ConfirmOrder",
     component: ConfirmOrder,
   },

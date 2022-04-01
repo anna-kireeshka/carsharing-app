@@ -15,10 +15,7 @@
           Ульяновск
         </p>
       </div>
-      <div v-if="routeName === 'ConfirmOrder'" class="navigation">
-        <p>Заказ номер RU58491823</p>
-      </div>
-      <BreadcrumbsRoute v-else />
+      <BreadcrumbsRoute />
       <div class="card-form">
         <div class="car-container">
           <div class="form">
@@ -75,10 +72,6 @@ export default class FinalOrder extends Vue {
 
   get carDate() {
     return this.$store.state.OrderForm.dateFrom;
-  }
-
-  get routeName() {
-    return this.$route.name;
   }
 }
 </script>

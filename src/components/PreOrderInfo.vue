@@ -11,13 +11,7 @@
             <p class="additionally__text">{{ pvz }}</p>
           </div>
         </div>
-        <template
-          v-if="
-            fullRoute === 'CarModel' ||
-            fullRoute === 'FinalOrder' ||
-            fullRoute === 'ConfirmOrder'
-          "
-        >
+        <template v-if="fullRoute === 'CarModel'">
           <div class="form">
             <p class="additionally__name">Модель</p>
             <p class="additionally__dote additionally__dote--model"></p>
@@ -156,9 +150,9 @@ import ModalFinalOrder from "@/components/ModalFinalOrder.vue";
 })
 export default class PreOrderInfo extends Vue {
   /* eslint-disable */
-  openModalWindow:boolean = false
+  openModalWindow: boolean = false;
   openModalConfirm() {
-    this.openModalWindow = !this.openModalWindow
+    this.openModalWindow = !this.openModalWindow;
   }
   get city() {
     return this.$store.state.OrderForm.valueCity;
@@ -194,8 +188,7 @@ export default class PreOrderInfo extends Vue {
       this.city !== "" &&
       this.pvz !== "" &&
       this.carColor !== "" &&
-      (this.dateDuration !== null ||
-      this.rate !== "") &&
+      (this.dateDuration !== null || this.rate !== "") &&
       this.checkbox.length > 0
     ) {
       empty = false;
@@ -250,9 +243,13 @@ export default class PreOrderInfo extends Vue {
   get minValidPrice() {
     let validMinPrice: boolean = false;
     if (this.finalPrice < this.minPrice) {
-      validMinPrice = true
+      validMinPrice = true;
     }
-    return validMinPrice
+    return validMinPrice;
+  }
+
+  get orderId() {
+    return this.$store.getters["OrderForm/getFinalOrderId"];
   }
 }
 </script>
@@ -356,7 +353,7 @@ export default class PreOrderInfo extends Vue {
   }
   &__model-action--error {
     color: #d73b3b;
-    margin-top:10px;
+    margin-top: 10px;
   }
 }
 </style>

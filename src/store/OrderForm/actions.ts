@@ -1,18 +1,16 @@
 import { HTTP } from "../../services/api";
 import { ActionTree } from "vuex";
 import {
-  ProfileState,
-  City,
-  Pvz,
   Car,
   CarFilter,
-  Rate,
-  FinalOrderCard,
+  City,
+  FinalOrder,
   OrderStatus,
-  ConfirmOrder,
+  ProfileState,
+  Pvz,
+  Rate,
 } from "./types";
 import { RootState } from "../types";
-import { state } from "@/store/OrderForm/index";
 
 export const actions: ActionTree<ProfileState, RootState> = {
   fetchData({ commit }) {
@@ -83,26 +81,52 @@ export const actions: ActionTree<ProfileState, RootState> = {
   },
 
   fetchDataOrder({ commit, state }) {
-    HTTP.post("/api/db/order", { order: state.finalOrderCard }).then(
+    HTTP.post("/api/db/order", {
+      orderStatusId: "5e26a1f0099b810b946c5d8b",
+      cityId: state.cityId,
+      pointId: state.pvzId,
+      carId: state.carId,
+      color: state.carColor,
+      dateFrom: state.dateFrom,
+      dateTo: state.dateTo,
+      rateId: state.rateId,
+      price: state.fullPrice,
+      isFullTank: state.checked,
+      isNeedChildChair: state.checked,
+      isRightWheel: state.checked,
+    }).then(
       (response) => {
-        const order: ConfirmOrder = response.data;
-        commit("orderLoaded", order);
+        const finalOrder: FinalOrder[] = response.data;
+        commit("finalOrderLoaded", finalOrder);
       },
       (error) => {
         console.log(error);
-        commit("orderLoaded");
       }
     );
   },
+
   fetchDataStatusOrder({ commit }) {
     HTTP.get("/api/db/orderStatus").then(
       (response) => {
-        const orderSatatus: OrderStatus = response.data;
-        commit("orderStatusLoaded", orderSatatus);
+        const orderStatus: OrderStatus = response.data;
+        commit("orderStatusLoaded", orderStatus);
       },
       (error) => {
         console.log(error);
         commit("orderStatusLoaded");
+      }
+    );
+  },
+
+  fetchDataFinalOrderForId({ commit, state }) {
+    HTTP.get("/api/db/order/" + state.id).then(
+      (response) => {
+        state.a = response.data;
+        // commit("orderCardLoaded", orderCard);
+      },
+      (error) => {
+        console.log(error);
+        // commit("orderCardLoaded");
       }
     );
   },
