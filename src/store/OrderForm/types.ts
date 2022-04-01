@@ -153,5 +153,5 @@ export interface ProfileState {
   confirmOrder?: ConfirmOrder[];
   finalOrder?: FinalOrder[];
   id?: string;
-  a: [];
+  orderCard: [];
 }

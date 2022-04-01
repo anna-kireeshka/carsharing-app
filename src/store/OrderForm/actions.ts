@@ -118,15 +118,13 @@ export const actions: ActionTree<ProfileState, RootState> = {
     );
   },
 
-  fetchDataFinalOrderForId({ commit, state }) {
+  fetchDataFinalOrderForId({ state }) {
     HTTP.get("/api/db/order/" + state.id).then(
       (response) => {
-        state.a = response.data;
-        // commit("orderCardLoaded", orderCard);
+        state.orderCard = response.data;
       },
       (error) => {
         console.log(error);
-        // commit("orderCardLoaded");
       }
     );
   },

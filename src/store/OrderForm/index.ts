@@ -57,8 +57,8 @@ export const state: ProfileState = {
   finalOrder: [],
   dateToMs: 0,
   dateFromMs: 0,
-  id:"",
-  a:[],
+  id: "",
+  orderCard: [],
 };
 
 const namespaced: boolean = true;
