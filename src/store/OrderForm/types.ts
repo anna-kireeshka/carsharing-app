@@ -117,7 +117,6 @@ export interface ProfileState {
   carFilter: CarFilter[];
   car?: Car[];
   rate?: Rate[];
-  //finalOrderCard?: FinalOrderCard;
   orderStatus?: OrderStatus[];
   valueCity?: ValueInput["valueCity"];
   valuePvz?: ValueInput["valuePvz"];

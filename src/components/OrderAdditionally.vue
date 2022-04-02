@@ -190,6 +190,14 @@ export default class OrderAdditionally extends Vue {
   get endDate(): string {
     return this.$store.state.OrderForm.dateTo;
   }
+
+  get startDateMs() {
+    return this.$store.getters["OrderForm/getDateToMs"];
+  }
+
+  get endDateMs() {
+    return this.$store.getters["OrderForm/getDateFromMs"];
+  }
 }
 </script>
 

@@ -67,14 +67,15 @@ export const getters: GetterTree<ProfileState, RootState> = {
 
   getDateToMs: (state) => {
     if (state.dateTo !== "") {
-      state.dateToMs = state.dateToMs.milliseconds();
+      state.dateToMs = dayjs(state.dateTo).valueOf();
+      console.log(state.dateTo.getMilliseconds());
     }
     return state.dateToMs;
   },
 
   getDateFromMs: (state) => {
     if (state.dateFrom !== "") {
-      state.dateFromMs = state.dateFromMs.milliseconds();
+      state.dateFromMs = dayjs(state.dateFrom).valueOf();
     }
     return state.dateFromMs;
   },
