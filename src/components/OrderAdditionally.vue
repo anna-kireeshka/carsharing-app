@@ -134,8 +134,8 @@ import BreadcrumbsRoute from "@/components/BreadcrumbsRoute.vue";
 @Component({ components: { PreOrderInfo, Navigation, BreadcrumbsRoute } })
 export default class OrderAdditionally extends Vue {
   /* eslint-disable */
-  startDateModel:string = "";
-  endDateModel:string = "";
+  startDateModel: string = "";
+  endDateModel: string = "";
 
   mounted() {
     this.fetchRate();
@@ -146,21 +146,21 @@ export default class OrderAdditionally extends Vue {
     this.rate;
   }
 
-  checkColor(color: string,e :{ target: HTMLInputElement}) {
-    this.$store.commit("OrderForm/getCarColor", color)
-    this.$store.commit("OrderForm/getColorChecked", e.target.checked)
+  checkColor(color: string, e: { target: HTMLInputElement }) {
+    this.$store.commit("OrderForm/getCarColor", color);
+    this.$store.commit("OrderForm/getColorChecked", e.target.checked);
   }
 
-  checkFilter(filter: string, price:number, e :{ target: HTMLInputElement},) {
+  checkFilter(filter: string, price: number, e: { target: HTMLInputElement }) {
     this.$store.commit("OrderForm/getCarAdditionallyFilter", filter);
     this.$store.commit("OrderForm/getCarPriceAdditionally", price);
     this.$store.commit("OrderForm/getCarAdditionallyChecked", e.target.checked);
   }
 
-  checkRate(duration: string, price:number, rateId:string) {
+  checkRate(duration: string, price: number, rateId: string) {
     this.$store.commit("OrderForm/getCarRate", duration);
     this.$store.commit("OrderForm/getCarPriceRate", price);
-    this.$store.commit("OrderForm/getRateId", rateId)
+    this.$store.commit("OrderForm/getRateId", rateId);
   }
 
   checkDateFrom(from: string) {
@@ -194,12 +194,19 @@ export default class OrderAdditionally extends Vue {
 </script>
 
 <style lang="scss" scoped>
+@media screen and (max-width: 1008px) {
+  .additionally-container {
+    @include flex-column;
+  }
+}
 .main-wrapper {
   @include flex-row;
+  overflow: hidden;
 }
 .main {
   height: 100vh;
   width: 100%;
+  overflow: scroll;
 }
 .main-nav {
   @include flex-row;

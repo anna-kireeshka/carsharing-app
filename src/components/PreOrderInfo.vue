@@ -255,6 +255,15 @@ export default class PreOrderInfo extends Vue {
 </script>
 
 <style scoped lang="scss">
+@media screen and (max-width: 375px) {
+  .wrapper-form {
+    padding: 32px 18px;
+  }
+  .form {
+    display: flex;
+    flex-direction: column;
+  }
+}
 .wrapper-form {
   width: 100%;
   padding: 32px 63px 32px 32px;
