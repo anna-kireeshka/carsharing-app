@@ -59,6 +59,7 @@ export const state: ProfileState = {
   dateFromMs: 0,
   id: "",
   orderCard: [],
+  loadedResponsPost: false,
 };
 
 const namespaced: boolean = true;

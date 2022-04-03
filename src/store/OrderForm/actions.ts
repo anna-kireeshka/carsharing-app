@@ -97,6 +97,7 @@ export const actions: ActionTree<ProfileState, RootState> = {
     }).then(
       (response) => {
         const finalOrder: FinalOrder[] = response.data;
+        state.loadedResponsPost = true;
         commit("finalOrderLoaded", finalOrder);
       },
       (error) => {

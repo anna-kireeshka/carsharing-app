@@ -151,6 +151,7 @@ export interface ProfileState {
   orderId?: OrderStatus["id"];
   confirmOrder?: ConfirmOrder[];
   finalOrder?: FinalOrder[];
+  loadedResponsPost: boolean;
   id?: string;
   orderCard: [];
 }

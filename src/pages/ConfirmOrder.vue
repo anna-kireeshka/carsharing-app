@@ -22,16 +22,14 @@
         <div class="car-container">
           <div
             class="form"
-            v-for="(item, index) in finalOrderList"
-            :key="index"
+            v-for="(item, key) in finalOrderList"
+            :key="'list-item-' + key"
           >
-            <div class="order">
+            <div class="order" v-if="key === 'data'">
               <p class="order__car-model">
                 {{ item.carId.name }}
               </p>
-              <p class="order__car-number">
-                {{ item.carId.number }}
-              </p>
+              <p class="order__car-number">{{ item.carId.number }}</p>
               <p class="order__fuel">
                 Топливо
                 <span class="order__fuel order__fuel--precent"
@@ -45,12 +43,12 @@
                 >
               </p>
             </div>
-            <div
-              class="card"
-              v-for="(item, index) in item.carId.thumbnail"
-              :key="index"
-            >
-              <img :src="item" alt="Выбраная машина" class="card__image" />
+            <div class="card" v-if="key === 'data'">
+              <img
+                :src="item.carId.thumbnail.path"
+                alt="Выбраная машина"
+                class="card__image"
+              />
             </div>
           </div>
         </div>
@@ -70,12 +68,11 @@ import Navigation from "@/components/Navigation.vue";
   components: { PreOrderInfo, Navigation },
 })
 export default class ConfirmOrder extends Vue {
+  finalOrderList = [];
+
   mounted() {
     this.$store.dispatch("OrderForm/fetchDataFinalOrderForId");
-  }
-
-  get finalOrderList() {
-    return this.$store.state.OrderForm.orderCard;
+    this.finalOrderList = this.$store.state.OrderForm.orderCard;
   }
 
   get carDate() {

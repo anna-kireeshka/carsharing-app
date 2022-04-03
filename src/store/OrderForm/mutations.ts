@@ -37,7 +37,7 @@ export const mutations: MutationTree<ProfileState> = {
     state.orderStatus = order;
   },
 
-  finalOrderLoaded(state, order: FinalOrder[]) {
+  finalOrderLoaded: function (state, order: FinalOrder[]) {
     state.finalOrder = order;
   },
 
