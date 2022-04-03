@@ -34,7 +34,7 @@
                   type="radio"
                   class="filter__radio-item"
                   :id="item.val"
-                  :value="item.val"
+                  v-model="item.checked"
                   name="color"
                   @change="checkColor(item.name, $event)"
                 />
@@ -45,21 +45,26 @@
           </div>
           <p class="filter__desc">Дата аренды</p>
           <div class="filter__dates">
-            <p>
-              <label for="startDate" class="filter__label"
-                >С
-                <input
-                  type="text"
-                  onfocus="(this.type='datetime-local')"
-                  onblur="(this.type='text')"
-                  id="startDate"
-                  class="filter__date filter__date--start"
-                  placeholder="Введите дату и время"
-                  v-model="startDateModel"
-                  @input="checkDateFrom(startDateModel)"
-                />
-              </label>
-            </p>
+            <div>
+              <div class="date-wrap">
+                <label for="startDate" class="filter__label"
+                  >С
+                  <input
+                    type="text"
+                    onfocus="(this.type='datetime-local')"
+                    onblur="(this.type='text')"
+                    id="startDate"
+                    class="filter__date filter__date--start"
+                    placeholder="Введите дату и время"
+                    v-model="startDateModel"
+                    @input="checkDateFrom(startDateModel)"
+                  />
+                </label>
+                <small class="error" v-if="startDateModel === ''"
+                  >Поле обязательно для заполнения</small
+                >
+              </div>
+            </div>
             <p>
               <label for="endDate" class="filter__label"
                 >По<input
@@ -335,9 +340,6 @@ export default class OrderAdditionally extends Vue {
 
     margin-left: 8px;
   }
-  &__date--start {
-    margin-bottom: 13px;
-  }
   &__date[type="text"] {
     font-family: inherit;
     font-weight: 300;
@@ -361,5 +363,13 @@ export default class OrderAdditionally extends Vue {
     flex-direction: column;
     align-items: flex-start;
   }
+  .error {
+    color: #d73b3b;
+  }
+}
+.date-wrap {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 13px;
 }
 </style>
