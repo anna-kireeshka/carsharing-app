@@ -87,6 +87,14 @@
   0: function (t, e, a) {
     t.exports = a("cd49");
   },
+  "073d": function (t, e, a) {
+    "use strict";
+    a("dd9f");
+  },
+  "08a4": function (t, e, a) {
+    "use strict";
+    a("5bfe");
+  },
   "0b3f": function (t, e, a) {
     t.exports = {
       green: "linear-gradient(90deg, #13493F 0%, #0C7B1B 100%)",
@@ -99,46 +107,52 @@
       hoverViolet: "linear-gradient(90deg, #1e014d 0%, #970477 100%)",
     };
   },
-  "2a1c": function (t, e, a) {},
   "2fea": function (t, e, a) {
     t.exports = a.p + "img/slider-3.3a884404.png";
   },
+  "354d": function (t, e, a) {},
   3639: function (t, e, a) {
     "use strict";
     a("7bda");
   },
-  3668: function (t, e, a) {},
   4172: function (t, e, a) {
     t.exports = a.p + "img/slider-2.54d42d5c.png";
   },
-  "4a12": function (t, e, a) {
+  "47ab": function (t, e, a) {
     "use strict";
-    a("cc67");
+    a("354d");
   },
   "4fd3": function (t, e) {
     t.exports =
       "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAGrSURBVHgBlZQ/T8JAGMbf96qJUQkkOBN0IC4GcCaRziysToBOfgOdxM1vwCZ10VFMcC6oM5C4GAfSMENS/2CIsXe+12gl7aH0Wdo+1/vlues9RVBo1SznUWMlFCIPCEnXFNATiD1w+PWrbjT8c3D6IWaWkw7DOiLk4W9ZH47QJ7phBUArZjmjaWhKHswn2yHYWDd6Hkgm4Rp2Q0A8GCXLymRMPvFwSaYVW6StcBNFbstFBLzyv5FYWoNaag+2VhIQXViGm1EHDvuXMJiMAjROS2QosKiC3GerkItuuhCpQnybvBMaiwdAqEGJAYO0f+B0Y9cDTEt6tdR+EASYZ3Q+Mv6BQjwLsySXqlCSqdznz3eYJVVSKQmy/ObDeACz1Bx1gyadelqaaPv9g6czZSrpHfUvghwUPcY5GP6BwWQIuW4VmsOOB7izH8k7Vn5+2u6Ge7Ij7Yo5R7/UEmC97NTX3c3WuKjQxYawElQRLnR564Js6oosYCgYQRz++wfwPr9sMaMCyqj/MoRoUZLsT/OlUPVixKT+MZDVSQNi5nu2JRBawoHzN91o+ed8AUoErYKNETOoAAAAAElFTkSuQmCC";
   },
-  "57cb": function (t, e, a) {},
+  "5bdc": function (t, e, a) {},
+  "5bfe": function (t, e, a) {},
   "5c0b": function (t, e, a) {
     "use strict";
     a("9c0c");
   },
-  "670b": function (t, e, a) {},
-  "6f01": function (t, e, a) {
+  "61e2": function (t, e, a) {},
+  "68a0": function (t, e, a) {
     "use strict";
-    a("3668");
+    a("84a4");
   },
+  "6a1e": function (t, e, a) {
+    "use strict";
+    a("705e");
+  },
+  "6e31": function (t, e, a) {
+    "use strict";
+    a("5bdc");
+  },
+  "705e": function (t, e, a) {},
   "7bda": function (t, e, a) {},
+  "84a4": function (t, e, a) {},
   "92b9": function (t, e, a) {
     "use strict";
     a("edea");
   },
   "931a": function (t, e, a) {},
-  9355: function (t, e, a) {
-    "use strict";
-    a("f9f1");
-  },
   "965e": function (t, e, a) {
     "use strict";
     a("ba79");
@@ -155,15 +169,15 @@
       hoverViolet: "linear-gradient(90deg, #1e014d 0%, #970477 100%)",
     };
   },
-  b15a: function (t, e, a) {
-    "use strict";
-    a("ef86");
-  },
+  b2ae: function (t, e, a) {},
   ba79: function (t, e, a) {},
   c013: function (t, e, a) {
     t.exports = a.p + "img/car.32b83a02.png";
   },
-  cc67: function (t, e, a) {},
+  cbf9: function (t, e, a) {
+    "use strict";
+    a("61e2");
+  },
   cd49: function (t, e, a) {
     "use strict";
     a.r(e);
@@ -408,8 +422,8 @@
       k = a("262e"),
       b = a("2caf"),
       O = a("9ab4"),
-      w = a("1b40"),
-      F = function () {
+      F = a("1b40"),
+      w = function () {
         var t = this,
           e = t.$createElement,
           a = t._self._c || e;
@@ -642,12 +656,12 @@
           ]),
           i
         );
-      })(w["c"]);
-    x = Object(O["a"])([Object(w["a"])({})], x);
+      })(F["c"]);
+    x = Object(O["a"])([Object(F["a"])({})], x);
     var L = x,
-      I = L,
-      $ = (a("965e"), Object(c["a"])(I, F, P, !1, null, "09d6882e", null)),
-      A = $.exports,
+      $ = L,
+      I = (a("965e"), Object(c["a"])($, w, P, !1, null, "09d6882e", null)),
+      A = I.exports,
       R = function () {
         var t = this,
           e = t.$createElement,
@@ -731,7 +745,7 @@
           ]);
         },
       ],
-      N = function () {
+      D = function () {
         var t = this,
           e = t.$createElement,
           a = t._self._c || e;
@@ -964,7 +978,7 @@
           t.showNavigationLink ? a("div", { staticClass: "overlay" }) : t._e(),
         ]);
       },
-      D = [],
+      N = [],
       S = (function (t) {
         Object(k["a"])(a, t);
         var e = Object(b["a"])(a);
@@ -1028,11 +1042,11 @@
           ]),
           a
         );
-      })(w["c"]);
-    S = Object(O["a"])([Object(w["a"])({})], S);
-    var E = S,
-      T = E,
-      B = (a("3639"), Object(c["a"])(T, N, D, !1, null, "66452eff", null)),
+      })(F["c"]);
+    S = Object(O["a"])([Object(F["a"])({})], S);
+    var T = S,
+      E = T,
+      B = (a("3639"), Object(c["a"])(E, D, N, !1, null, "66452eff", null)),
       W = B.exports,
       V = (function (t) {
         Object(k["a"])(a, t);
@@ -1041,12 +1055,12 @@
           return Object(y["a"])(this, a), e.apply(this, arguments);
         }
         return Object(C["a"])(a);
-      })(w["c"]);
-    V = Object(O["a"])([Object(w["a"])({ components: { Navigation: W } })], V);
+      })(F["c"]);
+    V = Object(O["a"])([Object(F["a"])({ components: { Navigation: W } })], V);
     var H = V,
       Q = H,
-      U = (a("d0ad"), Object(c["a"])(Q, R, z, !1, null, "48220522", null)),
-      Y = U.exports,
+      Y = (a("d0ad"), Object(c["a"])(Q, R, z, !1, null, "48220522", null)),
+      U = Y.exports,
       Z = (function (t) {
         Object(k["a"])(a, t);
         var e = Object(b["a"])(a);
@@ -1054,15 +1068,15 @@
           return Object(y["a"])(this, a), e.apply(this, arguments);
         }
         return Object(C["a"])(a);
-      })(w["c"]);
+      })(F["c"]);
     Z = Object(O["a"])(
-      [Object(w["a"])({ components: { Slider: A, MainInfo: Y } })],
+      [Object(F["a"])({ components: { Slider: A, MainInfo: U } })],
       Z
     );
     var G = Z,
       X = G,
-      J = (a("92b9"), Object(c["a"])(X, p, g, !1, null, "0c74c646", null)),
-      q = J.exports,
+      q = (a("92b9"), Object(c["a"])(X, p, g, !1, null, "0c74c646", null)),
+      J = q.exports,
       K = function () {
         var t = this,
           e = t.$createElement,
@@ -1098,11 +1112,7 @@
                     t._v(" Ульяновск "),
                   ]),
                 ]),
-                "ConfirmOrder" === t.routeName
-                  ? a("div", { staticClass: "navigation" }, [
-                      a("p", [t._v("Заказ номер RU58491823")]),
-                    ])
-                  : a("BreadcrumbsRoute"),
+                a("BreadcrumbsRoute"),
                 a(
                   "div",
                   { staticClass: "card-form" },
@@ -1155,302 +1165,295 @@
         );
       },
       tt = [],
-      et =
-        (a("b0c0"),
-        function () {
-          var t = this,
-            e = t.$createElement,
-            a = t._self._c || e;
-          return a(
-            "div",
-            { staticClass: "wrapper-form" },
-            [
-              a("div", { staticClass: "order" }, [
-                a("p", { staticClass: "order__title" }, [t._v("Ваш заказ:")]),
-                a(
-                  "div",
-                  { staticClass: "additionally" },
-                  [
-                    a("div", { staticClass: "form" }, [
-                      a("p", { staticClass: "additionally__name" }, [
-                        t._v("Пункт выдачи"),
+      et = function () {
+        var t = this,
+          e = t.$createElement,
+          a = t._self._c || e;
+        return a(
+          "div",
+          { staticClass: "wrapper-form" },
+          [
+            a("div", { staticClass: "order" }, [
+              a("p", { staticClass: "order__title" }, [t._v("Ваш заказ:")]),
+              a(
+                "div",
+                { staticClass: "additionally" },
+                [
+                  a("div", { staticClass: "form" }, [
+                    a("p", { staticClass: "additionally__name" }, [
+                      t._v("Пункт выдачи"),
+                    ]),
+                    a("div", { staticClass: "additionally__dote" }),
+                    a("div", { staticClass: "additionally__block" }, [
+                      a("p", { staticClass: "additionally__text" }, [
+                        t._v(t._s(t.city)),
                       ]),
-                      a("div", { staticClass: "additionally__dote" }),
-                      a("div", { staticClass: "additionally__block" }, [
-                        a("p", { staticClass: "additionally__text" }, [
-                          t._v(t._s(t.city)),
-                        ]),
-                        a("p", { staticClass: "additionally__text" }, [
-                          t._v(t._s(t.pvz)),
-                        ]),
+                      a("p", { staticClass: "additionally__text" }, [
+                        t._v(t._s(t.pvz)),
                       ]),
                     ]),
-                    "CarModel" === t.fullRoute ||
-                    "FinalOrder" === t.fullRoute ||
-                    "ConfirmOrder" === t.fullRoute
-                      ? [
-                          a("div", { staticClass: "form" }, [
-                            a("p", { staticClass: "additionally__name" }, [
-                              t._v("Модель"),
-                            ]),
-                            a("p", {
-                              staticClass:
-                                "additionally__dote additionally__dote--model",
-                            }),
+                  ]),
+                  "CarModel" === t.fullRoute
+                    ? [
+                        a("div", { staticClass: "form" }, [
+                          a("p", { staticClass: "additionally__name" }, [
+                            t._v("Модель"),
+                          ]),
+                          a("p", {
+                            staticClass:
+                              "additionally__dote additionally__dote--model",
+                          }),
+                          a("p", { staticClass: "additionally__text" }, [
+                            t._v(t._s(t.carModel)),
+                          ]),
+                        ]),
+                      ]
+                    : t._e(),
+                  "OrderAdditionally" === t.fullRoute ||
+                  "FinalOrder" === t.fullRoute ||
+                  "ConfirmOrder" === t.fullRoute
+                    ? [
+                        a("div", { staticClass: "form" }, [
+                          a("p", { staticClass: "additionally__name" }, [
+                            t._v("Модель"),
+                          ]),
+                          a("p", {
+                            staticClass:
+                              "additionally__dote additionally__dote--model",
+                          }),
+                          a("p", { staticClass: "additionally__text" }, [
+                            t._v(t._s(t.carModel)),
+                          ]),
+                        ]),
+                        a("div", { staticClass: "form" }, [
+                          a("p", { staticClass: "additionally__name" }, [
+                            t._v("Цвет"),
+                          ]),
+                          a("p", {
+                            staticClass:
+                              "additionally__dote additionally__dote--color",
+                          }),
+                          a("div", { staticClass: "additionally__block" }, [
                             a("p", { staticClass: "additionally__text" }, [
-                              t._v(t._s(t.carModel)),
+                              t._v(t._s(t.carColor)),
                             ]),
                           ]),
-                        ]
-                      : t._e(),
-                    "OrderAdditionally" === t.fullRoute ||
-                    "FinalOrder" === t.fullRoute ||
-                    "ConfirmOrder" === t.fullRoute
-                      ? [
-                          a("div", { staticClass: "form" }, [
-                            a("p", { staticClass: "additionally__name" }, [
-                              t._v("Модель"),
-                            ]),
-                            a("p", {
-                              staticClass:
-                                "additionally__dote additionally__dote--model",
-                            }),
+                        ]),
+                        a("div", { staticClass: "form" }, [
+                          a("p", { staticClass: "additionally__name" }, [
+                            t._v("Длительность аренды"),
+                          ]),
+                          a("p", {
+                            staticClass:
+                              "additionally__dote additionally__dote--time",
+                          }),
+                          a("div", { staticClass: "additionally__block" }, [
                             a("p", { staticClass: "additionally__text" }, [
-                              t._v(t._s(t.carModel)),
+                              t._v(t._s(t.dateDuration)),
                             ]),
                           ]),
-                          a("div", { staticClass: "form" }, [
-                            a("p", { staticClass: "additionally__name" }, [
-                              t._v("Цвет"),
-                            ]),
-                            a("p", {
-                              staticClass:
-                                "additionally__dote additionally__dote--color",
-                            }),
-                            a("div", { staticClass: "additionally__block" }, [
-                              a("p", { staticClass: "additionally__text" }, [
-                                t._v(t._s(t.carColor)),
-                              ]),
+                        ]),
+                        a("div", { staticClass: "form" }, [
+                          a("p", { staticClass: "additionally__name" }, [
+                            t._v("Тариф"),
+                          ]),
+                          a("p", {
+                            staticClass:
+                              "additionally__dote additionally__dote--rent",
+                          }),
+                          a("div", { staticClass: "additionally__block" }, [
+                            a("p", { staticClass: "additionally__text" }, [
+                              t._v(t._s(t.rate)),
                             ]),
                           ]),
-                          a("div", { staticClass: "form" }, [
+                        ]),
+                        t._l(t.checkbox, function (e, i) {
+                          return a("div", { key: i, staticClass: "form" }, [
                             a("p", { staticClass: "additionally__name" }, [
-                              t._v("Длительность аренды"),
-                            ]),
-                            a("p", {
-                              staticClass:
-                                "additionally__dote additionally__dote--time",
-                            }),
-                            a("div", { staticClass: "additionally__block" }, [
-                              a("p", { staticClass: "additionally__text" }, [
-                                t._v(t._s(t.dateDuration)),
-                              ]),
-                            ]),
-                          ]),
-                          a("div", { staticClass: "form" }, [
-                            a("p", { staticClass: "additionally__name" }, [
-                              t._v("Тариф"),
+                              t._v(t._s(e)),
                             ]),
                             a("p", {
                               staticClass:
                                 "additionally__dote additionally__dote--rent",
                             }),
-                            a("div", { staticClass: "additionally__block" }, [
-                              a("p", { staticClass: "additionally__text" }, [
-                                t._v(t._s(t.rate)),
-                              ]),
-                            ]),
-                          ]),
-                          t._l(t.checkbox, function (e, i) {
-                            return a("div", { key: i, staticClass: "form" }, [
-                              a("p", { staticClass: "additionally__name" }, [
-                                t._v(t._s(e)),
-                              ]),
-                              a("p", {
-                                staticClass:
-                                  "additionally__dote additionally__dote--rent",
-                              }),
-                              t._m(0, !0),
-                            ]);
-                          }),
-                        ]
-                      : t._e(),
-                  ],
-                  2
+                            t._m(0, !0),
+                          ]);
+                        }),
+                      ]
+                    : t._e(),
+                ],
+                2
+              ),
+            ]),
+            a(
+              "div",
+              { staticClass: "price" },
+              [
+                "location" === t.fullRoute
+                  ? a("p", { staticClass: "price__first-step" }, [
+                      a("span", { staticClass: "price__first-step--dark" }, [
+                        t._v("Цена"),
+                      ]),
+                      t._v(": от 8 000 до 12 000 ₽ "),
+                    ])
+                  : t._e(),
+                "CarModel" === t.fullRoute
+                  ? a("p", { staticClass: "price__first-step" }, [
+                      a("span", { staticClass: "price__first-step--dark" }, [
+                        t._v("Цена"),
+                      ]),
+                      t._v(
+                        ": от " +
+                          t._s(t.minPrice) +
+                          " до " +
+                          t._s(t.maxPrice) +
+                          " ₽ "
+                      ),
+                    ])
+                  : t._e(),
+                "OrderAdditionally" === t.fullRoute
+                  ? a("p", { staticClass: "price__first-step" }, [
+                      a("span", { staticClass: "price__first-step--dark" }, [
+                        t._v("Цена"),
+                      ]),
+                      t._v(": " + t._s(t.finalPrice) + " ₽ "),
+                    ])
+                  : t._e(),
+                "FinalOrder" === t.fullRoute || "ConfirmOrder" === t.fullRoute
+                  ? a("p", { staticClass: "price__first-step" }, [
+                      a("span", { staticClass: "price__first-step--dark" }, [
+                        t._v("Цена"),
+                      ]),
+                      t._v(": " + t._s(t.finalPrice) + " ₽ "),
+                    ])
+                  : t._e(),
+                a(
+                  "router-link",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: "location" === t.fullRoute,
+                        expression: "fullRoute === 'location'",
+                      },
+                    ],
+                    staticClass: "price__model-action",
+                    class: { "price__model-action--active": !t.checkValidForm },
+                    attrs: { to: { name: "CarModel" } },
+                  },
+                  [t._v(" Выбрать модель ")]
                 ),
-              ]),
-              a(
-                "div",
-                { staticClass: "price" },
-                [
-                  "location" === t.fullRoute
-                    ? a("p", { staticClass: "price__first-step" }, [
-                        a("span", { staticClass: "price__first-step--dark" }, [
-                          t._v("Цена"),
-                        ]),
-                        t._v(": от 8 000 до 12 000 ₽ "),
-                      ])
-                    : t._e(),
-                  "CarModel" === t.fullRoute
-                    ? a("p", { staticClass: "price__first-step" }, [
-                        a("span", { staticClass: "price__first-step--dark" }, [
-                          t._v("Цена"),
-                        ]),
-                        t._v(
-                          ": от " +
-                            t._s(t.minPrice) +
-                            " до " +
-                            t._s(t.maxPrice) +
-                            " ₽ "
-                        ),
-                      ])
-                    : t._e(),
-                  "OrderAdditionally" === t.fullRoute
-                    ? a("p", { staticClass: "price__first-step" }, [
-                        a("span", { staticClass: "price__first-step--dark" }, [
-                          t._v("Цена"),
-                        ]),
-                        t._v(": " + t._s(t.finalPrice) + " ₽ "),
-                      ])
-                    : t._e(),
-                  "FinalOrder" === t.fullRoute || "ConfirmOrder" === t.fullRoute
-                    ? a("p", { staticClass: "price__first-step" }, [
-                        a("span", { staticClass: "price__first-step--dark" }, [
-                          t._v("Цена"),
-                        ]),
-                        t._v(": " + t._s(t.finalPrice) + " ₽ "),
-                      ])
-                    : t._e(),
-                  a(
-                    "router-link",
-                    {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
-                          value: "location" === t.fullRoute,
-                          expression: "fullRoute === 'location'",
-                        },
-                      ],
-                      staticClass: "price__model-action",
-                      class: {
-                        "price__model-action--active": !t.checkValidForm,
+                a(
+                  "router-link",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: "CarModel" === t.fullRoute,
+                        expression: "fullRoute === 'CarModel'",
                       },
-                      attrs: { to: { name: "CarModel" } },
+                    ],
+                    staticClass: "price__model-action",
+                    class: {
+                      "price__model-action--active": !t.checkValidFormCarModel,
                     },
-                    [t._v(" Выбрать модель ")]
-                  ),
-                  a(
-                    "router-link",
-                    {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
-                          value: "CarModel" === t.fullRoute,
-                          expression: "fullRoute === 'CarModel'",
-                        },
-                      ],
-                      staticClass: "price__model-action",
-                      class: {
-                        "price__model-action--active":
-                          !t.checkValidFormCarModel,
+                    attrs: { to: { name: "OrderAdditionally" } },
+                  },
+                  [t._v(" Дополнительно ")]
+                ),
+                a(
+                  "router-link",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: "OrderAdditionally" === t.fullRoute,
+                        expression: "fullRoute === 'OrderAdditionally'",
                       },
-                      attrs: { to: { name: "OrderAdditionally" } },
+                    ],
+                    staticClass: "price__model-action",
+                    class: {
+                      "price__model-action--active":
+                        !t.checkValidFormAdditionally &&
+                        (!t.minValidPrice || !t.maxValidPrice),
                     },
-                    [t._v(" Дополнительно ")]
-                  ),
-                  a(
-                    "router-link",
-                    {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
-                          value: "OrderAdditionally" === t.fullRoute,
-                          expression: "fullRoute === 'OrderAdditionally'",
-                        },
-                      ],
-                      staticClass: "price__model-action",
-                      class: {
-                        "price__model-action--active":
-                          !t.checkValidFormAdditionally &&
-                          (!t.minValidPrice || !t.maxValidPrice),
+                    attrs: { to: { name: "FinalOrder" } },
+                  },
+                  [t._v(" Итого ")]
+                ),
+                a(
+                  "button",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: "FinalOrder" === t.fullRoute,
+                        expression: "fullRoute === 'FinalOrder'",
                       },
-                      attrs: { to: { name: "FinalOrder" } },
+                    ],
+                    staticClass: "price__model-action",
+                    class: {
+                      "price__model-action--active":
+                        !t.checkValidFormAdditionally,
                     },
-                    [t._v(" Итого ")]
-                  ),
-                  a(
-                    "button",
-                    {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
-                          value: "FinalOrder" === t.fullRoute,
-                          expression: "fullRoute === 'FinalOrder'",
-                        },
-                      ],
-                      staticClass: "price__model-action",
-                      class: {
-                        "price__model-action--active":
-                          !t.checkValidFormAdditionally,
-                      },
-                      on: {
-                        click: function (e) {
-                          return e.target !== e.currentTarget
-                            ? null
-                            : t.openModalConfirm.apply(null, arguments);
-                        },
+                    on: {
+                      click: function (e) {
+                        return e.target !== e.currentTarget
+                          ? null
+                          : t.openModalConfirm.apply(null, arguments);
                       },
                     },
-                    [t._v(" Заказать ")]
-                  ),
-                  a(
-                    "router-link",
-                    {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
-                          value: "ConfirmOrder" === t.fullRoute,
-                          expression: "fullRoute === 'ConfirmOrder'",
-                        },
-                      ],
-                      staticClass:
-                        "price__model-action price__model-action--reset",
-                      attrs: { to: { name: "FinalOrder" } },
-                    },
-                    [t._v(" Отменить ")]
-                  ),
-                  t.maxValidPrice || "OrderAdditionally" !== t.fullRoute
-                    ? t.minValidPrice || "OrderAdditionally" !== t.fullRoute
-                      ? t._e()
-                      : a("p", { staticClass: "price__model-action--error" }, [
-                          t._v(
-                            " Цена аренды автомобиля не может быть меньше " +
-                              t._s(t.minPrice) +
-                              " "
-                          ),
-                        ])
+                  },
+                  [t._v(" Заказать ")]
+                ),
+                a(
+                  "router-link",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: "ConfirmOrder" === t.fullRoute,
+                        expression: "fullRoute === 'ConfirmOrder'",
+                      },
+                    ],
+                    staticClass:
+                      "price__model-action price__model-action--reset",
+                    attrs: { to: { name: "FinalOrder" } },
+                  },
+                  [t._v(" Отменить ")]
+                ),
+                t.maxValidPrice || "OrderAdditionally" !== t.fullRoute
+                  ? t.minValidPrice || "OrderAdditionally" !== t.fullRoute
+                    ? t._e()
                     : a("p", { staticClass: "price__model-action--error" }, [
                         t._v(
-                          " Цена аренды автомобиля не может быть больше " +
-                            t._s(t.maxPrice) +
+                          " Цена аренды автомобиля не может быть меньше " +
+                            t._s(t.minPrice) +
                             " "
                         ),
-                      ]),
-                ],
-                1
-              ),
-              a("ModalFinalOrder", {
-                attrs: { "open-window": t.openModalWindow },
-              }),
-            ],
-            1
-          );
-        }),
+                      ])
+                  : a("p", { staticClass: "price__model-action--error" }, [
+                      t._v(
+                        " Цена аренды автомобиля не может быть больше " +
+                          t._s(t.maxPrice) +
+                          " "
+                      ),
+                    ]),
+              ],
+              1
+            ),
+            a("ModalFinalOrder", {
+              attrs: { "open-window": t.openModalWindow },
+            }),
+          ],
+          1
+        );
+      },
       at = [
         function () {
           var t = this,
@@ -1461,40 +1464,42 @@
           ]);
         },
       ],
-      it = function () {
-        var t = this,
-          e = t.$createElement,
-          a = t._self._c || e;
-        return !0 === t.openWindow
-          ? a("transition", { attrs: { name: "fade" } }, [
-              a("div", { staticClass: "modal" }, [
-                a("div", { staticClass: "modal-inner" }, [
-                  a("p", { staticClass: "modal-inner__title" }, [
-                    t._v("Подтвердить заказ"),
-                  ]),
-                  a("div", { staticClass: "actions" }, [
-                    a(
-                      "button",
-                      {
-                        staticClass: "actions__sucsess",
-                        on: { click: t.confirmOrder },
-                      },
-                      [t._v(" Подтвердить ")]
-                    ),
-                    a(
-                      "button",
-                      {
-                        staticClass: "actions__discard",
-                        on: { click: t.closeModal },
-                      },
-                      [t._v(" Вернуться ")]
-                    ),
+      it =
+        (a("b0c0"),
+        function () {
+          var t = this,
+            e = t.$createElement,
+            a = t._self._c || e;
+          return !0 === t.openWindow
+            ? a("transition", { attrs: { name: "fade" } }, [
+                a("div", { staticClass: "modal" }, [
+                  a("div", { staticClass: "modal-inner" }, [
+                    a("p", { staticClass: "modal-inner__title" }, [
+                      t._v("Подтвердить заказ"),
+                    ]),
+                    a("div", { staticClass: "actions" }, [
+                      a(
+                        "button",
+                        {
+                          staticClass: "actions__sucsess",
+                          on: { click: t.confirmOrder },
+                        },
+                        [t._v(" Подтвердить ")]
+                      ),
+                      a(
+                        "button",
+                        {
+                          staticClass: "actions__discard",
+                          on: { click: t.closeModal },
+                        },
+                        [t._v(" Вернуться ")]
+                      ),
+                    ]),
                   ]),
                 ]),
-              ]),
-            ])
-          : t._e();
-      },
+              ])
+            : t._e();
+        }),
       rt = [],
       nt = (function (t) {
         Object(k["a"])(a, t);
@@ -1508,8 +1513,13 @@
               key: "confirmOrder",
               value: function () {
                 this.$store.dispatch("OrderForm/fetchDataOrder"),
-                  this.$store.dispatch("OrderForm/fetchDataStatusOrder"),
-                  this.$router.push({ name: "ConfirmOrder" });
+                  this.$store.state.OrderForm.loadedResponsPost &&
+                    ((this.$store.state.OrderForm.id =
+                      this.$store.state.OrderForm.finalOrder.data.id),
+                    this.$router.push({
+                      name: "ConfirmOrder",
+                      query: { id: this.$store.state.OrderForm.id },
+                    }));
               },
             },
             {
@@ -1521,12 +1531,12 @@
           ]),
           a
         );
-      })(w["c"]);
-    Object(O["a"])([Object(w["b"])()], nt.prototype, "openWindow", void 0),
-      (nt = Object(O["a"])([Object(w["a"])({})], nt));
+      })(F["c"]);
+    Object(O["a"])([Object(F["b"])()], nt.prototype, "openWindow", void 0),
+      (nt = Object(O["a"])([Object(F["a"])({})], nt));
     var st = nt,
       ot = st,
-      ct = (a("f066"), Object(c["a"])(ot, it, rt, !1, null, "212f4a2a", null)),
+      ct = (a("68a0"), Object(c["a"])(ot, it, rt, !1, null, "5d33cbda", null)),
       lt = ct.exports,
       dt = (function (t) {
         Object(k["a"])(a, t);
@@ -1669,17 +1679,23 @@
                 return this.finalPrice < this.minPrice && (t = !0), t;
               },
             },
+            {
+              key: "orderId",
+              get: function () {
+                return this.$store.getters["OrderForm/getFinalOrderId"];
+              },
+            },
           ]),
           a
         );
-      })(w["c"]);
+      })(F["c"]);
     dt = Object(O["a"])(
-      [Object(w["a"])({ components: { ModalFinalOrder: lt } })],
+      [Object(F["a"])({ components: { ModalFinalOrder: lt } })],
       dt
     );
     var ut = dt,
       vt = ut,
-      mt = (a("d027"), Object(c["a"])(vt, et, at, !1, null, "fb22518a", null)),
+      mt = (a("eb28"), Object(c["a"])(vt, et, at, !1, null, "6f53c572", null)),
       ft = mt.exports,
       ht = function () {
         var t = this,
@@ -1744,11 +1760,11 @@
           );
         }
         return Object(C["a"])(a);
-      })(w["c"]);
-    pt = Object(O["a"])([Object(w["a"])({})], pt);
+      })(F["c"]);
+    pt = Object(O["a"])([Object(F["a"])({})], pt);
     var gt = pt,
       Ct = gt,
-      yt = (a("9355"), Object(c["a"])(Ct, ht, _t, !1, null, "62959e4e", null)),
+      yt = (a("6e31"), Object(c["a"])(Ct, ht, _t, !1, null, "c472b42e", null)),
       kt = yt.exports,
       bt = (function (t) {
         Object(k["a"])(a, t);
@@ -1788,28 +1804,22 @@
                 return this.$store.state.OrderForm.dateFrom;
               },
             },
-            {
-              key: "routeName",
-              get: function () {
-                return this.$route.name;
-              },
-            },
           ]),
           a
         );
-      })(w["c"]);
+      })(F["c"]);
     bt = Object(O["a"])(
       [
-        Object(w["a"])({
+        Object(F["a"])({
           components: { Navigation: W, PreOrderInfo: ft, BreadcrumbsRoute: kt },
         }),
       ],
       bt
     );
     var Ot = bt,
-      wt = Ot,
-      Ft = (a("6f01"), Object(c["a"])(wt, K, tt, !1, null, "645cf7a8", null)),
-      Pt = Ft.exports,
+      Ft = Ot,
+      wt = (a("fb6b"), Object(c["a"])(Ft, K, tt, !1, null, "27dc4696", null)),
+      Pt = wt.exports,
       Mt = function () {
         var t = this,
           e = t.$createElement,
@@ -1871,17 +1881,32 @@
                                 },
                                 [
                                   a("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: e.checked,
+                                        expression: "item.checked",
+                                      },
+                                    ],
                                     staticClass: "filter__radio-item",
                                     attrs: {
                                       type: "radio",
                                       id: e.val,
                                       name: "color",
                                     },
-                                    domProps: { value: e.val },
+                                    domProps: {
+                                      checked: t._q(e.checked, null),
+                                    },
                                     on: {
-                                      change: function (a) {
-                                        return t.checkColor(e.name, a);
-                                      },
+                                      change: [
+                                        function (a) {
+                                          return t.$set(e, "checked", null);
+                                        },
+                                        function (a) {
+                                          return t.checkColor(e.name, a);
+                                        },
+                                      ],
                                     },
                                   }),
                                   a("span", { staticClass: "filter__castom" }),
@@ -1897,47 +1922,57 @@
                         t._v("Дата аренды"),
                       ]),
                       a("div", { staticClass: "filter__dates" }, [
-                        a("p", [
-                          a(
-                            "label",
-                            {
-                              staticClass: "filter__label",
-                              attrs: { for: "startDate" },
-                            },
-                            [
-                              t._v("С "),
-                              a("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: t.startDateModel,
-                                    expression: "startDateModel",
-                                  },
-                                ],
-                                staticClass: "filter__date filter__date--start",
-                                attrs: {
-                                  type: "text",
-                                  onfocus: "(this.type='datetime-local')",
-                                  onblur: "(this.type='text')",
-                                  id: "startDate",
-                                  placeholder: "Введите дату и время",
-                                },
-                                domProps: { value: t.startDateModel },
-                                on: {
-                                  input: [
-                                    function (e) {
-                                      e.target.composing ||
-                                        (t.startDateModel = e.target.value);
-                                    },
-                                    function (e) {
-                                      return t.checkDateFrom(t.startDateModel);
+                        a("div", [
+                          a("div", { staticClass: "date-wrap" }, [
+                            a(
+                              "label",
+                              {
+                                staticClass: "filter__label",
+                                attrs: { for: "startDate" },
+                              },
+                              [
+                                t._v("С "),
+                                a("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: t.startDateModel,
+                                      expression: "startDateModel",
                                     },
                                   ],
-                                },
-                              }),
-                            ]
-                          ),
+                                  staticClass:
+                                    "filter__date filter__date--start",
+                                  attrs: {
+                                    type: "text",
+                                    onfocus: "(this.type='datetime-local')",
+                                    onblur: "(this.type='text')",
+                                    id: "startDate",
+                                    placeholder: "Введите дату и время",
+                                  },
+                                  domProps: { value: t.startDateModel },
+                                  on: {
+                                    input: [
+                                      function (e) {
+                                        e.target.composing ||
+                                          (t.startDateModel = e.target.value);
+                                      },
+                                      function (e) {
+                                        return t.checkDateFrom(
+                                          t.startDateModel
+                                        );
+                                      },
+                                    ],
+                                  },
+                                }),
+                              ]
+                            ),
+                            "" === t.startDateModel
+                              ? a("small", { staticClass: "error" }, [
+                                  t._v("Поле обязательно для заполнения"),
+                                ])
+                              : t._e(),
+                          ]),
                         ]),
                         a("p", [
                           a(
@@ -2235,22 +2270,34 @@
                 return this.$store.state.OrderForm.dateTo;
               },
             },
+            {
+              key: "startDateMs",
+              get: function () {
+                return this.$store.getters["OrderForm/getDateToMs"];
+              },
+            },
+            {
+              key: "endDateMs",
+              get: function () {
+                return this.$store.getters["OrderForm/getDateFromMs"];
+              },
+            },
           ]),
           a
         );
-      })(w["c"]);
+      })(F["c"]);
     xt = Object(O["a"])(
       [
-        Object(w["a"])({
+        Object(F["a"])({
           components: { PreOrderInfo: ft, Navigation: W, BreadcrumbsRoute: kt },
         }),
       ],
       xt
     );
     var Lt = xt,
-      It = Lt,
-      $t = (a("4a12"), Object(c["a"])(It, Mt, jt, !1, null, "61a6d887", null)),
-      At = $t.exports,
+      $t = Lt,
+      It = (a("47ab"), Object(c["a"])($t, Mt, jt, !1, null, "2acb14c0", null)),
+      At = It.exports,
       Rt = function () {
         var t = this,
           e = t.$createElement,
@@ -2421,7 +2468,7 @@
         );
       },
       zt = [],
-      Nt = (function (t) {
+      Dt = (function (t) {
         Object(k["a"])(i, t);
         var e = Object(b["a"])(i);
         function i() {
@@ -2501,19 +2548,19 @@
           ]),
           i
         );
-      })(w["c"]);
-    Nt = Object(O["a"])(
+      })(F["c"]);
+    Dt = Object(O["a"])(
       [
-        Object(w["a"])({
+        Object(F["a"])({
           components: { Navigation: W, BreadcrumbsRoute: kt, PreOrderInfo: ft },
         }),
       ],
-      Nt
+      Dt
     );
-    var Dt = Nt,
-      St = Dt,
-      Et = (a("b15a"), Object(c["a"])(St, Rt, zt, !1, null, "c23e0e38", null)),
-      Tt = Et.exports,
+    var Nt = Dt,
+      St = Nt,
+      Tt = (a("cbf9"), Object(c["a"])(St, Rt, zt, !1, null, "4e40e7f0", null)),
+      Et = Tt.exports,
       Bt = function () {
         var t = this,
           e = t.$createElement,
@@ -2971,10 +3018,10 @@
             ]),
             i
           );
-        })(w["c"]));
+        })(F["c"]));
     Vt = Object(O["a"])(
       [
-        Object(w["a"])({
+        Object(F["a"])({
           components: { BreadcrumbsRoute: kt, PreOrderInfo: ft, Navigation: W },
         }),
       ],
@@ -2982,27 +3029,241 @@
     );
     var Ht = Vt,
       Qt = Ht,
-      Ut = (a("eabe"), a("d4cc")),
-      Yt = a.n(Ut),
-      Zt = Object(c["a"])(Qt, Bt, Wt, !1, null, "7747717c", null);
-    "function" === typeof Yt.a && Yt()(Zt);
-    var Gt = Zt.exports,
-      Xt = function () {
+      Yt = (a("073d"), a("d4cc")),
+      Ut = a.n(Yt),
+      Zt = Object(c["a"])(Qt, Bt, Wt, !1, null, "1078c8d8", null);
+    "function" === typeof Ut.a && Ut()(Zt);
+    var Gt,
+      Xt,
+      qt = Zt.exports,
+      Jt = function () {
         var t = this,
           e = t.$createElement,
           a = t._self._c || e;
-        return a("div", [a("FinalOrder")], 1);
+        return a(
+          "div",
+          { staticClass: "main-wrapper" },
+          [
+            a("Navigation"),
+            a("div", { staticClass: "main" }, [
+              a("div", { staticClass: "main-nav" }, [
+                a(
+                  "h1",
+                  [
+                    a(
+                      "router-link",
+                      {
+                        staticClass: "main-nav__company",
+                        attrs: { to: { name: "MainPage" } },
+                      },
+                      [t._v("Need for drive")]
+                    ),
+                  ],
+                  1
+                ),
+                a("p", { staticClass: "main-nav__city-name" }, [
+                  a("svg", { attrs: { width: "18", height: "20" } }, [
+                    a("use", { attrs: { "xlink:href": "#gps" } }),
+                  ]),
+                  t._v(" Ульяновск "),
+                ]),
+              ]),
+              a("div", { staticClass: "navigation" }, [
+                a("p", { staticClass: "navigation__item" }, [
+                  t._v("Заказ номер " + t._s(t.id)),
+                ]),
+              ]),
+              a(
+                "div",
+                { staticClass: "card-form" },
+                [
+                  a(
+                    "div",
+                    { staticClass: "car-container" },
+                    t._l(t.finalOrderList, function (e, i) {
+                      return a(
+                        "div",
+                        { key: "list-item-" + i, staticClass: "form" },
+                        [
+                          "data" === i
+                            ? a("div", { staticClass: "order" }, [
+                                a("p", { staticClass: "order__car-model" }, [
+                                  t._v(" " + t._s(e.carId.name) + " "),
+                                ]),
+                                a("p", { staticClass: "order__car-number" }, [
+                                  t._v(t._s(e.carId.number)),
+                                ]),
+                                a("p", { staticClass: "order__fuel" }, [
+                                  t._v(" Топливо "),
+                                  a(
+                                    "span",
+                                    {
+                                      staticClass:
+                                        "order__fuel order__fuel--precent",
+                                    },
+                                    [t._v(t._s(e.carId.tank) + "%")]
+                                  ),
+                                ]),
+                                a("p", { staticClass: "order__date" }, [
+                                  t._v(" Доступна с "),
+                                  a(
+                                    "span",
+                                    {
+                                      staticClass:
+                                        "order__date order__date--time",
+                                    },
+                                    [t._v(" " + t._s(t.carDate))]
+                                  ),
+                                ]),
+                              ])
+                            : t._e(),
+                          "data" === i
+                            ? a("div", { staticClass: "card" }, [
+                                a("img", {
+                                  staticClass: "card__image",
+                                  attrs: {
+                                    src: e.carId.thumbnail.path,
+                                    alt: "Выбраная машина",
+                                  },
+                                }),
+                              ])
+                            : t._e(),
+                        ]
+                      );
+                    }),
+                    0
+                  ),
+                  a("PreOrderInfo"),
+                ],
+                1
+              ),
+            ]),
+          ],
+          1
+        );
       },
-      Jt = [],
-      qt = { name: "ConfirmOrder", components: { FinalOrder: Pt } },
-      Kt = qt,
-      te = Object(c["a"])(Kt, Xt, Jt, !1, null, "608c4198", null),
-      ee = te.exports;
+      Kt = [],
+      te = a("257e"),
+      ee = a("ade3"),
+      ae =
+        ((Gt = Object(F["a"])({
+          components: { PreOrderInfo: ft, Navigation: W },
+        })),
+        Gt(
+          (Xt = (function (t) {
+            Object(k["a"])(a, t);
+            var e = Object(b["a"])(a);
+            function a() {
+              var t;
+              Object(y["a"])(this, a);
+              for (
+                var i = arguments.length, r = new Array(i), n = 0;
+                n < i;
+                n++
+              )
+                r[n] = arguments[n];
+              return (
+                (t = e.call.apply(e, [this].concat(r))),
+                Object(ee["a"])(Object(te["a"])(t), "finalOrderList", []),
+                t
+              );
+            }
+            return (
+              Object(C["a"])(a, [
+                {
+                  key: "mounted",
+                  value: function () {
+                    this.$store.dispatch("OrderForm/fetchDataFinalOrderForId"),
+                      (this.finalOrderList =
+                        this.$store.state.OrderForm.orderCard);
+                  },
+                },
+                {
+                  key: "carDate",
+                  get: function () {
+                    return this.$store.state.OrderForm.dateTo;
+                  },
+                },
+                {
+                  key: "id",
+                  get: function () {
+                    return this.$store.state.OrderForm.id;
+                  },
+                },
+              ]),
+              a
+            );
+          })(F["c"]))
+        ) || Xt),
+      ie = ae,
+      re = (a("08a4"), Object(c["a"])(ie, Jt, Kt, !1, null, "6b7d7433", null)),
+      ne = re.exports,
+      se = function () {
+        var t = this,
+          e = t.$createElement,
+          a = t._self._c || e;
+        return a(
+          "div",
+          { staticClass: "wrapper-error" },
+          [
+            a("Navigation"),
+            a("div", { staticClass: "main" }, [
+              a("div", { staticClass: "main-nav" }, [
+                a(
+                  "h1",
+                  [
+                    a(
+                      "router-link",
+                      {
+                        staticClass: "main-nav__company",
+                        attrs: { to: { name: "MainPage" } },
+                      },
+                      [t._v("Need for drive")]
+                    ),
+                  ],
+                  1
+                ),
+                a("p", { staticClass: "main-nav__city-name" }, [
+                  a("svg", { attrs: { width: "18", height: "20" } }, [
+                    a("use", { attrs: { "xlink:href": "#gps" } }),
+                  ]),
+                  t._v(" Ульяновск "),
+                ]),
+              ]),
+              a(
+                "div",
+                { staticClass: "error" },
+                [
+                  a("p", { staticClass: "error__code" }, [t._v("404")]),
+                  a("p", { staticClass: "error__status" }, [
+                    t._v("Упс! Такая страница не найдена"),
+                  ]),
+                  a(
+                    "router-link",
+                    {
+                      staticClass: "main-nav__company",
+                      attrs: { to: { name: "MainPage" } },
+                    },
+                    [t._v("На главную")]
+                  ),
+                ],
+                1
+              ),
+            ]),
+          ],
+          1
+        );
+      },
+      oe = [],
+      ce = { name: "NotFoundPage", components: { Navigation: W } },
+      le = ce,
+      de = (a("6a1e"), Object(c["a"])(le, se, oe, !1, null, "8c1d054c", null)),
+      ue = de.exports;
     i["a"].use(_["a"]);
-    var ae = [
-        { path: "", name: "MainPage", component: q, props: !0 },
-        { path: "/OrderForm", name: "location", component: Gt, props: !0 },
-        { path: "/car-model", name: "CarModel", component: Tt, props: !0 },
+    var ve = [
+        { path: "", name: "MainPage", component: J, props: !0 },
+        { path: "/OrderForm", name: "location", component: qt, props: !0 },
+        { path: "/car-model", name: "CarModel", component: Et, props: !0 },
         {
           path: "/additionally",
           name: "OrderAdditionally",
@@ -3010,14 +3271,15 @@
           props: !0,
         },
         { path: "/final-order", name: "FinalOrder", component: Pt, props: !0 },
-        { path: "/order", name: "ConfirmOrder", component: ee },
+        { path: "/order/:id", name: "ConfirmOrder", component: ne },
+        { path: "*", component: ue, name: "NotFoundPage" },
       ],
-      ie = new _["a"]({ routes: ae }),
-      re = ie,
-      ne = a("2f62"),
-      se = (a("4de4"), a("d3b7"), a("caad"), a("2532"), a("5a0c")),
-      oe = a.n(se),
-      ce = {
+      me = new _["a"]({ routes: ve }),
+      fe = me,
+      he = a("2f62"),
+      _e = (a("4de4"), a("d3b7"), a("caad"), a("2532"), a("5a0c")),
+      pe = a.n(_e),
+      ge = {
         getCityValue: function (t) {
           return function (e) {
             var a = t.city.data;
@@ -3071,19 +3333,33 @@
         getRateTime: function (t) {
           var e = null;
           if ("" !== t.dateTo && "" !== t.dateFrom) {
-            var a = oe()(t.dateTo),
-              i = oe()(t.dateFrom);
-            e = oe.a.duration(a.diff(i)).format("D[д] H[ч]");
+            var a = pe()(t.dateTo),
+              i = pe()(t.dateFrom);
+            e = pe.a.duration(a.diff(i)).format("D[д] H[ч]");
           }
           return e;
         },
         getRateTimeMinute: function (t) {
           if ("" !== t.dateTo && "" !== t.dateFrom) {
-            var e = oe()(t.dateTo),
-              a = oe()(t.dateFrom);
-            t.durationMinute = oe.a.duration(e.diff(a)).asMinutes();
+            var e = pe()(t.dateTo),
+              a = pe()(t.dateFrom);
+            t.durationMinute = pe.a.duration(e.diff(a)).asMinutes();
           }
           return parseInt(t.durationMinute);
+        },
+        getDateToMs: function (t) {
+          return (
+            "" !== t.dateTo &&
+              ((t.dateToMs = pe()(t.dateTo).valueOf()),
+              console.log(t.dateTo.getMilliseconds())),
+            t.dateToMs
+          );
+        },
+        getDateFromMs: function (t) {
+          return (
+            "" !== t.dateFrom && (t.dateFromMs = pe()(t.dateFrom).valueOf()),
+            t.dateFromMs
+          );
         },
         fullPrice: function (t) {
           return (
@@ -3104,36 +3380,19 @@
                 return "Name" !== t.name;
               });
         },
-        getFinalCard: function (t) {
-          var e = {
-            orderStatusId: "5e26a1f0099b810b946c5d8b",
-            cityId: t.cityId,
-            pointId: t.pvzId,
-            carId: t.carId,
-            color: t.carColor,
-            dateFrom: t.dateFrom,
-            dateTo: t.dateTo,
-            rateId: t.rateId,
-            price: t.fullPrice,
-            isFullTank: t.checked,
-            isNeedChildChair: t.checked,
-            isRightWheel: t.checked,
-          };
-          return (t.finalOrderCard = e);
-        },
       },
-      le = a("bc3a"),
-      de = a.n(le),
-      ue = de.a.create({
+      Ce = a("bc3a"),
+      ye = a.n(Ce),
+      ke = ye.a.create({
         baseURL: "https://api-factory.simbirsoft1.com",
         headers: { "Content-Type": "application/json" },
       });
-    ue.defaults.headers.common["X-Api-Factory-Application-Id"] =
+    ke.defaults.headers.common["X-Api-Factory-Application-Id"] =
       "5e25c641099b810b946c5d5b";
-    var ve = {
+    var be = {
         fetchData: function (t) {
           var e = t.commit;
-          ue.get("/api/db/city/").then(
+          ke.get("/api/db/city/").then(
             function (t) {
               var a = t.data;
               e("cityLoaded", a);
@@ -3146,7 +3405,7 @@
         fetchDataPvz: function (t) {
           var e = t.commit,
             a = t.state;
-          ue.get("/api/db/point", { params: { cityId: a.cityId } }).then(
+          ke.get("/api/db/point", { params: { cityId: a.cityId } }).then(
             function (t) {
               var a = t.data;
               e("pvzLoaded", a);
@@ -3159,7 +3418,7 @@
         fetchDataCar: function (t) {
           var e = t.commit,
             a = t.state;
-          ue.get("/api/db/car", { params: { categoryId: a.categoryId } }).then(
+          ke.get("/api/db/car", { params: { categoryId: a.categoryId } }).then(
             function (t) {
               var i = t.data;
               (a.loadingCarList = !0), e("carLoaded", i);
@@ -3171,7 +3430,7 @@
         },
         fetchDataCarFilter: function (t) {
           var e = t.commit;
-          ue.get("/api/db/category").then(
+          ke.get("/api/db/category").then(
             function (t) {
               var a = t.data;
               e("carFilterLoaded", a);
@@ -3184,7 +3443,7 @@
         fetchDataRate: function (t) {
           var e = t.commit;
           t.state;
-          ue.get("/api/db/rate").then(
+          ke.get("/api/db/rate").then(
             function (t) {
               var a = t.data;
               e("rateLoaded", a);
@@ -3197,19 +3456,32 @@
         fetchDataOrder: function (t) {
           var e = t.commit,
             a = t.state;
-          ue.post("/api/db/order", { order: a.finalOrderCard }).then(
+          ke.post("/api/db/order", {
+            orderStatusId: "5e26a1f0099b810b946c5d8b",
+            cityId: a.cityId,
+            pointId: a.pvzId,
+            carId: a.carId,
+            color: a.carColor,
+            dateFrom: a.dateFrom,
+            dateTo: a.dateTo,
+            rateId: a.rateId,
+            price: a.fullPrice,
+            isFullTank: a.checked,
+            isNeedChildChair: a.checked,
+            isRightWheel: a.checked,
+          }).then(
             function (t) {
-              var a = t.data;
-              e("orderLoaded", a);
+              var i = t.data;
+              (a.loadedResponsPost = !0), e("finalOrderLoaded", i);
             },
             function (t) {
-              console.log(t), e("orderLoaded");
+              console.log(t);
             }
           );
         },
         fetchDataStatusOrder: function (t) {
           var e = t.commit;
-          ue.get("/api/db/orderStatus").then(
+          ke.get("/api/db/orderStatus").then(
             function (t) {
               var a = t.data;
               e("orderStatusLoaded", a);
@@ -3219,8 +3491,19 @@
             }
           );
         },
+        fetchDataFinalOrderForId: function (t) {
+          var e = t.state;
+          ke.get("/api/db/order/" + e.id).then(
+            function (t) {
+              e.orderCard = t.data;
+            },
+            function (t) {
+              console.log(t);
+            }
+          );
+        },
       },
-      me =
+      Oe =
         (a("a434"),
         {
           cityLoaded: function (t, e) {
@@ -3238,14 +3521,11 @@
           rateLoaded: function (t, e) {
             t.rate = e;
           },
-          orderCardLoaded: function (t, e) {
-            t.finalOrderCard = e;
-          },
-          orderLoaded: function (t, e) {
-            t.confirmOrder = e;
-          },
           orderStatusLoaded: function (t, e) {
             t.orderStatus = e;
+          },
+          finalOrderLoaded: function (t, e) {
+            t.finalOrder = e;
           },
           searchCity: function (t, e) {
             t.valueCity = e;
@@ -3337,26 +3617,12 @@
             return t.orderId;
           },
         }),
-      fe = {
+      Fe = {
         city: [],
         pvz: [],
         car: [],
         rate: [],
         carFilter: [],
-        finalOrderCard: {
-          orderStatusId: "",
-          cityId: "",
-          pointId: "",
-          carId: "",
-          color: "",
-          dateFrom: 0,
-          dateTo: 0,
-          rateId: "",
-          price: 0,
-          isFullTank: !1,
-          isNeedChildChair: !1,
-          isRightWheel: !1,
-        },
         orderStatus: [],
         valueCity: "",
         valuePvz: "",
@@ -3385,62 +3651,64 @@
         carId: "",
         rateId: "",
         confirmOrder: [],
+        finalOrder: [],
+        dateToMs: 0,
+        dateFromMs: 0,
+        id: "",
+        orderCard: [],
+        loadedResponsPost: !1,
       },
-      he = !0,
-      _e = {
-        namespaced: he,
-        state: fe,
-        getters: ce,
-        actions: ve,
-        mutations: me,
+      we = !0,
+      Pe = {
+        namespaced: we,
+        state: Fe,
+        getters: ge,
+        actions: be,
+        mutations: Oe,
       };
-    i["a"].use(ne["a"]);
-    var pe = new ne["a"].Store({
+    i["a"].use(he["a"]);
+    var Me = new he["a"].Store({
         state: { version: "1.0.0" },
-        modules: { OrderForm: _e },
+        modules: { OrderForm: Pe },
         mutations: {},
         actions: {},
       }),
-      ge = a("130e"),
-      Ce = a("d772"),
-      ye = a.n(Ce);
-    i["a"].use(ge["a"], de.a),
-      i["a"].use(se),
-      se["extend"](ye.a),
+      je = a("130e"),
+      xe = a("d772"),
+      Le = a.n(xe);
+    i["a"].use(je["a"], ye.a),
+      i["a"].use(_e),
+      _e["extend"](Le.a),
       (i["a"].config.productionTip = !1),
       new i["a"]({
-        router: re,
-        store: pe,
+        router: fe,
+        store: Me,
         render: function (t) {
           return t(h);
         },
       }).$mount("#app");
-  },
-  d027: function (t, e, a) {
-    "use strict";
-    a("670b");
   },
   d0ad: function (t, e, a) {
     "use strict";
     a("931a");
   },
   d4cc: function (t, e) {},
+  dd9f: function (t, e, a) {},
   e8b1: function (t, e, a) {
     t.exports = a.p + "img/slider-4.1618de5d.png";
   },
-  eabe: function (t, e, a) {
+  eb28: function (t, e, a) {
     "use strict";
-    a("57cb");
+    a("b2ae");
   },
   edea: function (t, e, a) {},
-  ef86: function (t, e, a) {},
-  f066: function (t, e, a) {
-    "use strict";
-    a("2a1c");
-  },
+  f41d: function (t, e, a) {},
   f453: function (t, e, a) {
     t.exports = a.p + "img/slider-1.5decc706.png";
   },
-  f9f1: function (t, e, a) {},
+  fb6b: function (t, e, a) {
+    "use strict";
+    a("f41d");
+  },
 });
-//# sourceMappingURL=app.51409c93.js.map
+//# sourceMappingURL=app.81d7b89b.js.map
