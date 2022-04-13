@@ -156,13 +156,23 @@ export default class CarModel extends Vue {
 </script>
 
 <style lang="scss" scoped>
+@media screen and (max-width: 1008px) {
+  .form {
+    @include flex-column;
+    .car-model {
+      border: 0;
+      min-width: 100%;
+    }
+  }
+}
 .main-wrapper {
   @include flex-row;
+  overflow: hidden;
 }
 .main {
   width: 100%;
   height: 100vh;
-  overflow: hidden;
+  overflow: scroll;
 }
 .main-nav {
   @include flex-row;
@@ -190,6 +200,7 @@ export default class CarModel extends Vue {
 }
 .car-model {
   @include order-card;
+  @include wrapper-mobile;
   @include order-card-mobile;
   @include flex-column;
   flex-wrap: wrap;
@@ -257,7 +268,7 @@ export default class CarModel extends Vue {
     padding: 16px;
   }
   &--preload {
-    width: 100%;
+    max-width: 100%;
     margin: 10px;
     background-color: #b8c6db;
     background: linear-gradient(315deg, #c6cdd9 0%, #f5f7fa 74%);
