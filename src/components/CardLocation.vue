@@ -98,7 +98,6 @@
             <div id="map" class="card__map"></div>
           </div>
         </div>
-
         <PreOrderInfo />
       </div>
     </div>
@@ -139,20 +138,24 @@ export default class CardLocation extends Vue {
 
   get myMap() {
     return new ymaps.Map("map", {
-      center: [54.30327383672103,48.600127895911314],
+      center: [54.30327383672103, 48.600127895911314],
       zoom: 10,
       controls: [],
     });
   }
 
   get myMapIcon() {
-    return new ymaps.Placemark(this.newCoords, {
-      hintContent: this.valuePvz,
-    },{
-      iconLayout: "default#image",
-      iconImageHref: this.mapIcon,
-      iconImageSize: [18, 18],
-    });
+    return new ymaps.Placemark(
+      this.newCoords,
+      {
+        hintContent: this.valuePvz,
+      },
+      {
+        iconLayout: "default#image",
+        iconImageHref: this.mapIcon,
+        iconImageSize: [18, 18],
+      }
+    );
   }
 
   get geoObject() {
@@ -256,15 +259,22 @@ export default class CardLocation extends Vue {
     return empty;
   }
 }
-
 </script>
 
 <style scoped lang="scss">
+@media screen and (max-width: 1008px) {
+  .card-form {
+    @include flex-column;
+  }
+}
 .main-wrapper {
   @include flex-row;
+  overflow: hidden;
 }
 .main {
+  height: 100vh;
   width: 100%;
+  overflow: scroll;
 }
 .main-nav {
   @include flex-row;
@@ -403,5 +413,4 @@ export default class CardLocation extends Vue {
     width: 100%;
   }
 }
-
 </style>

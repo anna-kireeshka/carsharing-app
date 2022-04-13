@@ -1,5 +1,3 @@
-import FinalOrder from "@/components/FinalOrder.vue";
-
 export interface City {
   updatedAt: number;
   createdAt: number;
@@ -90,7 +88,7 @@ export interface ConfirmOrder {
 }
 [];
 
-export interface FinalOrderCard {
+export interface FinalOrder {
   orderStatusId: string;
   cityId: string;
   pointId: string;
@@ -103,7 +101,10 @@ export interface FinalOrderCard {
   isFullTank?: boolean;
   isNeedChildChair?: boolean;
   isRightWheel?: boolean;
+  id?: string;
 }
+[];
+
 export interface OrderStatus {
   status: string;
   id: number;
@@ -116,7 +117,6 @@ export interface ProfileState {
   carFilter: CarFilter[];
   car?: Car[];
   rate?: Rate[];
-  finalOrderCard?: FinalOrderCard;
   orderStatus?: OrderStatus[];
   valueCity?: ValueInput["valueCity"];
   valuePvz?: ValueInput["valuePvz"];
@@ -131,6 +131,8 @@ export interface ProfileState {
   additionallyFilter?: any;
   dateFrom?: ValueInput["dateFrom"];
   dateTo?: ValueInput["dateTo"];
+  dateToMs?: number;
+  dateFromMs?: number;
   rateFilter?: any;
   carPrice?: Car["priceMin"];
   maxCarPrice?: Car["priceMax"];
@@ -148,4 +150,8 @@ export interface ProfileState {
   carId?: Car["id"];
   orderId?: OrderStatus["id"];
   confirmOrder?: ConfirmOrder[];
+  finalOrder?: FinalOrder[];
+  loadedResponsPost: boolean;
+  id?: string;
+  orderCard: [];
 }

@@ -65,6 +65,21 @@ export const getters: GetterTree<ProfileState, RootState> = {
     return parseInt(state.durationMinute);
   },
 
+  getDateToMs: (state) => {
+    if (state.dateTo !== "") {
+      state.dateToMs = dayjs(state.dateTo).valueOf();
+      console.log(state.dateTo.getMilliseconds());
+    }
+    return state.dateToMs;
+  },
+
+  getDateFromMs: (state) => {
+    if (state.dateFrom !== "") {
+      state.dateFromMs = dayjs(state.dateFrom).valueOf();
+    }
+    return state.dateFromMs;
+  },
+
   fullPrice: (state) => {
     if (state.dateTo === "" && state.dateFrom === "") {
       state.fullPrice =
@@ -81,23 +96,5 @@ export const getters: GetterTree<ProfileState, RootState> = {
   getSortFilter: (state) => {
     const filterList = state.carFilter.data;
     return filterList?.filter((el: any) => el.name !== "Name");
-  },
-
-  getFinalCard: (state) => {
-    const order = {
-      orderStatusId: "5e26a1f0099b810b946c5d8b",
-      cityId: state.cityId,
-      pointId: state.pvzId,
-      carId: state.carId,
-      color: state.carColor,
-      dateFrom: state.dateFrom,
-      dateTo: state.dateTo,
-      rateId: state.rateId,
-      price: state.fullPrice,
-      isFullTank: state.checked,
-      isNeedChildChair: state.checked,
-      isRightWheel: state.checked,
-    };
-    return (state.finalOrderCard = order);
   },
 };

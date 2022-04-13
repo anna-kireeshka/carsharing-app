@@ -6,6 +6,7 @@ import OrderAdditionally from "@/components/OrderAdditionally.vue";
 import CarModel from "@/components/CarModel.vue";
 import CardLocation from "@/components/CardLocation.vue";
 import ConfirmOrder from "@/pages/ConfirmOrder.vue";
+import NotFoundPage from "@/pages/NotFoundPage.vue";
 
 Vue.use(VueRouter);
 
@@ -41,9 +42,14 @@ const routes: Array<RouteConfig> = [
     props: true,
   },
   {
-    path: "/order",
+    path: "/order/:id",
     name: "ConfirmOrder",
     component: ConfirmOrder,
+  },
+  {
+    path: "*",
+    component: NotFoundPage,
+    name: "NotFoundPage",
   },
 ];
 

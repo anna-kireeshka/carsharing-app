@@ -5,37 +5,34 @@ import { actions } from './actions';
 import { mutations } from './mutations';
 import { ProfileState } from "./types";
 import { RootState } from '../types';
-import FinalOrder from "@/components/FinalOrder.vue";
 
-// @ts-ignore
-// @ts-ignore
 export const state: ProfileState = {
   city: [],
   pvz: [],
   car: [],
   rate: [],
   carFilter: [],
-  finalOrderCard:{
-    orderStatusId: "",
-    cityId:  "",
-    pointId:  "",
-    carId:  "",
-    color:  "",
-    dateFrom: 0,
-    dateTo: 0,
-    rateId:  "",
-    price: 0,
-    isFullTank: false,
-    isNeedChildChair: false,
-    isRightWheel: false,
-  },
+  // finalOrder:{
+  //   orderStatusId: "",
+  //   cityId:  "",
+  //   pointId:  "",
+  //   carId:  "",
+  //   color:  "",
+  //   dateFrom: 0,
+  //   dateTo: 0,
+  //   rateId:  "",
+  //   price: 0,
+  //   isFullTank: false,
+  //   isNeedChildChair: false,
+  //   isRightWheel: false,
+  // },
   orderStatus: [],
   valueCity: "",
   valuePvz: "",
   carModel: "",
   carNumber: "",
   colorFilter: [],
-  colorCheck:false,
+  colorCheck: false,
   carAdditionally: [],
   carColor: "",
   additionallyFilter: [],
@@ -49,15 +46,20 @@ export const state: ProfileState = {
   additionallyPrice: 0,
   rateFilter: "",
   durationMinute: 0,
-  loadingCarList:false,
+  loadingCarList: false,
   img: "",
   fuel: 0,
-  orderId:0,
+  orderId: 0,
   fullPrice: 0,
   carId: "",
-  rateId:"",
-  confirmOrder:[],
-
+  rateId: "",
+  confirmOrder: [],
+  finalOrder: [],
+  dateToMs: 0,
+  dateFromMs: 0,
+  id: "",
+  orderCard: [],
+  loadedResponsPost: false,
 };
 
 const namespaced: boolean = true;

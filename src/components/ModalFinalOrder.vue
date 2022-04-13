@@ -24,8 +24,15 @@ export default class ModalFinalOrder extends Vue {
 
   confirmOrder() {
     this.$store.dispatch("OrderForm/fetchDataOrder");
-    this.$store.dispatch("OrderForm/fetchDataStatusOrder");
-    this.$router.push({ name: "ConfirmOrder" });
+
+    if (this.$store.state.OrderForm.loadedResponsPost) {
+      this.$store.state.OrderForm.id =
+        this.$store.state.OrderForm.finalOrder.data.id;
+      this.$router.push({
+        name: "ConfirmOrder",
+        query: { id: this.$store.state.OrderForm.id },
+      });
+    }
   }
   closeModal() {
     this.openWindow = !this.openWindow;
