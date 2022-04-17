@@ -2,7 +2,6 @@ import { GetterTree } from "vuex";
 import { CarAdditionally, ProfileState, ValueInput } from "./types";
 import { RootState } from "../types";
 import dayjs from "dayjs";
-import { state } from "@/store/OrderForm/index";
 
 export const getters: GetterTree<ProfileState, RootState> = {
   getCityValue: (state) => (value: ValueInput["valueCity"]) => {
@@ -68,7 +67,6 @@ export const getters: GetterTree<ProfileState, RootState> = {
   getDateToMs: (state) => {
     if (state.dateTo !== "") {
       state.dateToMs = dayjs(state.dateTo).valueOf();
-      console.log(state.dateTo.getMilliseconds());
     }
     return state.dateToMs;
   },
@@ -81,7 +79,7 @@ export const getters: GetterTree<ProfileState, RootState> = {
   },
 
   fullPrice: (state) => {
-    if (state.dateTo === "" && state.dateFrom === "") {
+    if (state.dateTo === "" || state.dateFrom === "") {
       state.fullPrice =
         state.carPrice + state.additionallyPrice + state.ratePrice;
     } else {
