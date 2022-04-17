@@ -2,16 +2,16 @@
 (function (t) {
   function e(e) {
     for (
-      var i, s, o = e[0], c = e[1], l = e[2], u = 0, v = [];
+      var i, s, o = e[0], c = e[1], l = e[2], u = 0, m = [];
       u < o.length;
       u++
     )
       (s = o[u]),
-        Object.prototype.hasOwnProperty.call(r, s) && r[s] && v.push(r[s][0]),
+        Object.prototype.hasOwnProperty.call(r, s) && r[s] && m.push(r[s][0]),
         (r[s] = 0);
     for (i in c) Object.prototype.hasOwnProperty.call(c, i) && (t[i] = c[i]);
     d && d(e);
-    while (v.length) v.shift()();
+    while (m.length) m.shift()();
     return n.push.apply(n, l || []), a();
   }
   function a() {
@@ -87,6 +87,7 @@
   0: function (t, e, a) {
     t.exports = a("cd49");
   },
+  "057e": function (t, e, a) {},
   "073d": function (t, e, a) {
     "use strict";
     a("dd9f");
@@ -107,26 +108,26 @@
       hoverViolet: "linear-gradient(90deg, #1e014d 0%, #970477 100%)",
     };
   },
+  "27f7": function (t, e, a) {},
+  "2abe": function (t, e, a) {
+    "use strict";
+    a("27f7");
+  },
   "2fea": function (t, e, a) {
     t.exports = a.p + "img/slider-3.3a884404.png";
-  },
-  "354d": function (t, e, a) {},
-  3639: function (t, e, a) {
-    "use strict";
-    a("7bda");
   },
   4172: function (t, e, a) {
     t.exports = a.p + "img/slider-2.54d42d5c.png";
   },
-  "47ab": function (t, e, a) {
-    "use strict";
-    a("354d");
-  },
+  "45b1": function (t, e, a) {},
   "4fd3": function (t, e) {
     t.exports =
       "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAGrSURBVHgBlZQ/T8JAGMbf96qJUQkkOBN0IC4GcCaRziysToBOfgOdxM1vwCZ10VFMcC6oM5C4GAfSMENS/2CIsXe+12gl7aH0Wdo+1/vlues9RVBo1SznUWMlFCIPCEnXFNATiD1w+PWrbjT8c3D6IWaWkw7DOiLk4W9ZH47QJ7phBUArZjmjaWhKHswn2yHYWDd6Hkgm4Rp2Q0A8GCXLymRMPvFwSaYVW6StcBNFbstFBLzyv5FYWoNaag+2VhIQXViGm1EHDvuXMJiMAjROS2QosKiC3GerkItuuhCpQnybvBMaiwdAqEGJAYO0f+B0Y9cDTEt6tdR+EASYZ3Q+Mv6BQjwLsySXqlCSqdznz3eYJVVSKQmy/ObDeACz1Bx1gyadelqaaPv9g6czZSrpHfUvghwUPcY5GP6BwWQIuW4VmsOOB7izH8k7Vn5+2u6Ge7Ij7Yo5R7/UEmC97NTX3c3WuKjQxYawElQRLnR564Js6oosYCgYQRz++wfwPr9sMaMCyqj/MoRoUZLsT/OlUPVixKT+MZDVSQNi5nu2JRBawoHzN91o+ed8AUoErYKNETOoAAAAAElFTkSuQmCC";
   },
-  "5bdc": function (t, e, a) {},
+  "532e": function (t, e, a) {
+    "use strict";
+    a("057e");
+  },
   "5bfe": function (t, e, a) {},
   "5c0b": function (t, e, a) {
     "use strict";
@@ -141,18 +142,17 @@
     "use strict";
     a("705e");
   },
-  "6e31": function (t, e, a) {
-    "use strict";
-    a("5bdc");
-  },
   "705e": function (t, e, a) {},
-  "7bda": function (t, e, a) {},
   "84a4": function (t, e, a) {},
   "92b9": function (t, e, a) {
     "use strict";
     a("edea");
   },
   "931a": function (t, e, a) {},
+  "95b3": function (t, e, a) {
+    "use strict";
+    a("e48f");
+  },
   "965e": function (t, e, a) {
     "use strict";
     a("ba79");
@@ -169,7 +169,7 @@
       hoverViolet: "linear-gradient(90deg, #1e014d 0%, #970477 100%)",
     };
   },
-  b2ae: function (t, e, a) {},
+  a093: function (t, e, a) {},
   ba79: function (t, e, a) {},
   c013: function (t, e, a) {
     t.exports = a.p + "img/car.32b83a02.png";
@@ -177,6 +177,10 @@
   cbf9: function (t, e, a) {
     "use strict";
     a("61e2");
+  },
+  cc1a: function (t, e, a) {
+    "use strict";
+    a("a093");
   },
   cd49: function (t, e, a) {
     "use strict";
@@ -397,11 +401,11 @@
       l = {},
       d = Object(c["a"])(l, s, o, !1, null, null, null),
       u = d.exports,
-      v = i["a"].extend({ components: { Icon: u } }),
-      m = v,
-      f = (a("5c0b"), Object(c["a"])(m, r, n, !1, null, null, null)),
-      h = f.exports,
-      _ = a("8c4f"),
+      m = i["a"].extend({ components: { Icon: u } }),
+      v = m,
+      f = (a("5c0b"), Object(c["a"])(v, r, n, !1, null, null, null)),
+      _ = f.exports,
+      h = a("8c4f"),
       p = function () {
         var t = this,
           e = t.$createElement,
@@ -658,9 +662,9 @@
         );
       })(F["c"]);
     x = Object(O["a"])([Object(F["a"])({})], x);
-    var L = x,
-      $ = L,
-      I = (a("965e"), Object(c["a"])($, w, P, !1, null, "09d6882e", null)),
+    var $ = x,
+      L = $,
+      I = (a("965e"), Object(c["a"])(L, w, P, !1, null, "09d6882e", null)),
       A = I.exports,
       R = function () {
         var t = this,
@@ -1046,7 +1050,7 @@
     S = Object(O["a"])([Object(F["a"])({})], S);
     var T = S,
       E = T,
-      B = (a("3639"), Object(c["a"])(E, D, N, !1, null, "66452eff", null)),
+      B = (a("2abe"), Object(c["a"])(E, D, N, !1, null, "c65a748e", null)),
       W = B.exports,
       V = (function (t) {
         Object(k["a"])(a, t);
@@ -1057,10 +1061,10 @@
         return Object(C["a"])(a);
       })(F["c"]);
     V = Object(O["a"])([Object(F["a"])({ components: { Navigation: W } })], V);
-    var H = V,
-      Q = H,
-      Y = (a("d0ad"), Object(c["a"])(Q, R, z, !1, null, "48220522", null)),
-      U = Y.exports,
+    var Y = V,
+      H = Y,
+      Q = (a("d0ad"), Object(c["a"])(H, R, z, !1, null, "48220522", null)),
+      U = Q.exports,
       Z = (function (t) {
         Object(k["a"])(a, t);
         var e = Object(b["a"])(a);
@@ -1694,10 +1698,10 @@
       dt
     );
     var ut = dt,
-      vt = ut,
-      mt = (a("eb28"), Object(c["a"])(vt, et, at, !1, null, "6f53c572", null)),
-      ft = mt.exports,
-      ht = function () {
+      mt = ut,
+      vt = (a("cc1a"), Object(c["a"])(mt, et, at, !1, null, "f94c7384", null)),
+      ft = vt.exports,
+      _t = function () {
         var t = this,
           e = t.$createElement,
           a = t._self._c || e;
@@ -1741,7 +1745,7 @@
           0
         );
       },
-      _t = [],
+      ht = [],
       pt = (function (t) {
         Object(k["a"])(a, t);
         var e = Object(b["a"])(a);
@@ -1764,9 +1768,11 @@
     pt = Object(O["a"])([Object(F["a"])({})], pt);
     var gt = pt,
       Ct = gt,
-      yt = (a("6e31"), Object(c["a"])(Ct, ht, _t, !1, null, "c472b42e", null)),
+      yt = (a("532e"), Object(c["a"])(Ct, _t, ht, !1, null, "dfeb4614", null)),
       kt = yt.exports,
-      bt = (function (t) {
+      bt = a("5a0c"),
+      Ot = a.n(bt),
+      Ft = (function (t) {
         Object(k["a"])(a, t);
         var e = Object(b["a"])(a);
         function a() {
@@ -1801,26 +1807,28 @@
             {
               key: "carDate",
               get: function () {
-                return this.$store.state.OrderForm.dateFrom;
+                return Ot()(this.$store.state.OrderForm.dateFrom).format(
+                  "YYYY-MM-DD"
+                );
               },
             },
           ]),
           a
         );
       })(F["c"]);
-    bt = Object(O["a"])(
+    Ft = Object(O["a"])(
       [
         Object(F["a"])({
           components: { Navigation: W, PreOrderInfo: ft, BreadcrumbsRoute: kt },
         }),
       ],
-      bt
+      Ft
     );
-    var Ot = bt,
-      Ft = Ot,
-      wt = (a("fb6b"), Object(c["a"])(Ft, K, tt, !1, null, "27dc4696", null)),
-      Pt = wt.exports,
-      Mt = function () {
+    var wt = Ft,
+      Pt = wt,
+      Mt = (a("95b3"), Object(c["a"])(Pt, K, tt, !1, null, "7bd66c91", null)),
+      jt = Mt.exports,
+      xt = function () {
         var t = this,
           e = t.$createElement,
           a = t._self._c || e;
@@ -1926,46 +1934,34 @@
                           a("div", { staticClass: "date-wrap" }, [
                             a(
                               "label",
-                              {
-                                staticClass: "filter__label",
-                                attrs: { for: "startDate" },
-                              },
+                              { staticClass: "filter__label" },
                               [
                                 t._v("С "),
-                                a("input", {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: t.startDateModel,
-                                      expression: "startDateModel",
-                                    },
-                                  ],
+                                a("date-picker", {
                                   staticClass:
                                     "filter__date filter__date--start",
                                   attrs: {
-                                    type: "text",
-                                    onfocus: "(this.type='datetime-local')",
-                                    onblur: "(this.type='text')",
-                                    id: "startDate",
+                                    type: "datetime",
                                     placeholder: "Введите дату и время",
                                   },
-                                  domProps: { value: t.startDateModel },
                                   on: {
-                                    input: [
-                                      function (e) {
-                                        e.target.composing ||
-                                          (t.startDateModel = e.target.value);
-                                      },
-                                      function (e) {
-                                        return t.checkDateFrom(
-                                          t.startDateModel
-                                        );
-                                      },
-                                    ],
+                                    change: function (e) {
+                                      return t.checkDateFrom(t.startDateModel);
+                                    },
+                                    clear: function (e) {
+                                      return t.clearDateStart(t.startDateModel);
+                                    },
+                                  },
+                                  model: {
+                                    value: t.startDateModel,
+                                    callback: function (e) {
+                                      t.startDateModel = e;
+                                    },
+                                    expression: "startDateModel",
                                   },
                                 }),
-                              ]
+                              ],
+                              1
                             ),
                             "" === t.startDateModel
                               ? a("small", { staticClass: "error" }, [
@@ -1977,43 +1973,33 @@
                         a("p", [
                           a(
                             "label",
-                            {
-                              staticClass: "filter__label",
-                              attrs: { for: "endDate" },
-                            },
+                            { staticClass: "filter__label" },
                             [
-                              t._v("По"),
-                              a("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: t.endDateModel,
-                                    expression: "endDateModel",
-                                  },
-                                ],
-                                staticClass: "filter__date",
+                              t._v(" По "),
+                              a("date-picker", {
+                                staticClass: "filter__date filter__date--start",
                                 attrs: {
-                                  type: "text",
-                                  onfocus: "(this.type='datetime-local')",
-                                  onblur: "(this.type='text')",
-                                  id: "endDate",
+                                  type: "datetime",
                                   placeholder: "Введите дату и время",
                                 },
-                                domProps: { value: t.endDateModel },
                                 on: {
-                                  input: [
-                                    function (e) {
-                                      e.target.composing ||
-                                        (t.endDateModel = e.target.value);
-                                    },
-                                    function (e) {
-                                      return t.checkDateTo(t.endDateModel);
-                                    },
-                                  ],
+                                  change: function (e) {
+                                    return t.checkDateTo(t.endDateModel);
+                                  },
+                                  clear: function (e) {
+                                    return t.clearDateEnd(t.endDateModel);
+                                  },
+                                },
+                                model: {
+                                  value: t.endDateModel,
+                                  callback: function (e) {
+                                    t.endDateModel = e;
+                                  },
+                                  expression: "endDateModel",
                                 },
                               }),
-                            ]
+                            ],
+                            1
                           ),
                         ]),
                       ]),
@@ -2171,8 +2157,8 @@
           1
         );
       },
-      jt = [],
-      xt = (function (t) {
+      $t = [],
+      Lt = (function (t) {
         Object(k["a"])(a, t);
         var e = Object(b["a"])(a);
         function a() {
@@ -2241,6 +2227,18 @@
               },
             },
             {
+              key: "clearDateStart",
+              value: function (t) {
+                this.$store.commit("OrderForm/deleteDateStart", t);
+              },
+            },
+            {
+              key: "clearDateEnd",
+              value: function (t) {
+                this.$store.commit("OrderForm/deleteDateEnd", t);
+              },
+            },
+            {
               key: "rate",
               get: function () {
                 return this.$store.getters["OrderForm/getRateFilter"];
@@ -2286,19 +2284,19 @@
           a
         );
       })(F["c"]);
-    xt = Object(O["a"])(
+    Lt = Object(O["a"])(
       [
         Object(F["a"])({
           components: { PreOrderInfo: ft, Navigation: W, BreadcrumbsRoute: kt },
         }),
       ],
-      xt
+      Lt
     );
-    var Lt = xt,
-      $t = Lt,
-      It = (a("47ab"), Object(c["a"])($t, Mt, jt, !1, null, "2acb14c0", null)),
-      At = It.exports,
-      Rt = function () {
+    var It = Lt,
+      At = It,
+      Rt = (a("d3f7"), Object(c["a"])(At, xt, $t, !1, null, "2d4be909", null)),
+      zt = Rt.exports,
+      Dt = function () {
         var t = this,
           e = t.$createElement,
           a = t._self._c || e;
@@ -2467,8 +2465,8 @@
           1
         );
       },
-      zt = [],
-      Dt = (function (t) {
+      Nt = [],
+      St = (function (t) {
         Object(k["a"])(i, t);
         var e = Object(b["a"])(i);
         function i() {
@@ -2549,19 +2547,19 @@
           i
         );
       })(F["c"]);
-    Dt = Object(O["a"])(
+    St = Object(O["a"])(
       [
         Object(F["a"])({
           components: { Navigation: W, BreadcrumbsRoute: kt, PreOrderInfo: ft },
         }),
       ],
-      Dt
+      St
     );
-    var Nt = Dt,
-      St = Nt,
-      Tt = (a("cbf9"), Object(c["a"])(St, Rt, zt, !1, null, "4e40e7f0", null)),
-      Et = Tt.exports,
-      Bt = function () {
+    var Tt = St,
+      Et = Tt,
+      Bt = (a("cbf9"), Object(c["a"])(Et, Dt, Nt, !1, null, "4e40e7f0", null)),
+      Wt = Bt.exports,
+      Vt = function () {
         var t = this,
           e = t.$createElement,
           a = t._self._c || e;
@@ -2803,7 +2801,7 @@
           1
         );
       },
-      Wt = [
+      Yt = [
         function () {
           var t = this,
             e = t.$createElement,
@@ -2814,7 +2812,7 @@
           ]);
         },
       ],
-      Vt =
+      Ht =
         (a("99af"),
         (function (t) {
           Object(k["a"])(i, t);
@@ -3019,24 +3017,24 @@
             i
           );
         })(F["c"]));
-    Vt = Object(O["a"])(
+    Ht = Object(O["a"])(
       [
         Object(F["a"])({
           components: { BreadcrumbsRoute: kt, PreOrderInfo: ft, Navigation: W },
         }),
       ],
-      Vt
+      Ht
     );
-    var Ht = Vt,
-      Qt = Ht,
-      Yt = (a("073d"), a("d4cc")),
-      Ut = a.n(Yt),
-      Zt = Object(c["a"])(Qt, Bt, Wt, !1, null, "1078c8d8", null);
-    "function" === typeof Ut.a && Ut()(Zt);
-    var Gt,
-      Xt,
-      qt = Zt.exports,
-      Jt = function () {
+    var Qt = Ht,
+      Ut = Qt,
+      Zt = (a("073d"), a("d4cc")),
+      Gt = a.n(Zt),
+      Xt = Object(c["a"])(Ut, Vt, Yt, !1, null, "1078c8d8", null);
+    "function" === typeof Gt.a && Gt()(Xt);
+    var qt,
+      Jt,
+      Kt = Xt.exports,
+      te = function () {
         var t = this,
           e = t.$createElement,
           a = t._self._c || e;
@@ -3142,15 +3140,15 @@
           1
         );
       },
-      Kt = [],
-      te = a("257e"),
-      ee = a("ade3"),
-      ae =
-        ((Gt = Object(F["a"])({
+      ee = [],
+      ae = a("257e"),
+      ie = a("ade3"),
+      re =
+        ((qt = Object(F["a"])({
           components: { PreOrderInfo: ft, Navigation: W },
         })),
-        Gt(
-          (Xt = (function (t) {
+        qt(
+          (Jt = (function (t) {
             Object(k["a"])(a, t);
             var e = Object(b["a"])(a);
             function a() {
@@ -3164,7 +3162,7 @@
                 r[n] = arguments[n];
               return (
                 (t = e.call.apply(e, [this].concat(r))),
-                Object(ee["a"])(Object(te["a"])(t), "finalOrderList", []),
+                Object(ie["a"])(Object(ae["a"])(t), "finalOrderList", []),
                 t
               );
             }
@@ -3194,11 +3192,11 @@
               a
             );
           })(F["c"]))
-        ) || Xt),
-      ie = ae,
-      re = (a("08a4"), Object(c["a"])(ie, Jt, Kt, !1, null, "6b7d7433", null)),
-      ne = re.exports,
-      se = function () {
+        ) || Jt),
+      ne = re,
+      se = (a("08a4"), Object(c["a"])(ne, te, ee, !1, null, "6b7d7433", null)),
+      oe = se.exports,
+      ce = function () {
         var t = this,
           e = t.$createElement,
           a = t._self._c || e;
@@ -3254,133 +3252,134 @@
           1
         );
       },
-      oe = [],
-      ce = { name: "NotFoundPage", components: { Navigation: W } },
-      le = ce,
-      de = (a("6a1e"), Object(c["a"])(le, se, oe, !1, null, "8c1d054c", null)),
-      ue = de.exports;
-    i["a"].use(_["a"]);
-    var ve = [
+      le = [],
+      de = { name: "NotFoundPage", components: { Navigation: W } },
+      ue = de,
+      me = (a("6a1e"), Object(c["a"])(ue, ce, le, !1, null, "8c1d054c", null)),
+      ve = me.exports;
+    i["a"].use(h["a"]);
+    var fe = [
         { path: "", name: "MainPage", component: J, props: !0 },
-        { path: "/OrderForm", name: "location", component: qt, props: !0 },
-        { path: "/car-model", name: "CarModel", component: Et, props: !0 },
+        { path: "/OrderForm", name: "location", component: Kt, props: !0 },
+        { path: "/car-model", name: "CarModel", component: Wt, props: !0 },
         {
           path: "/additionally",
           name: "OrderAdditionally",
-          component: At,
+          component: zt,
           props: !0,
         },
-        { path: "/final-order", name: "FinalOrder", component: Pt, props: !0 },
-        { path: "/order/:id", name: "ConfirmOrder", component: ne },
-        { path: "*", component: ue, name: "NotFoundPage" },
+        { path: "/final-order", name: "FinalOrder", component: jt, props: !0 },
+        { path: "/order/:id", name: "ConfirmOrder", component: oe },
+        { path: "*", component: ve, name: "NotFoundPage" },
       ],
-      me = new _["a"]({ routes: ve }),
-      fe = me,
-      he = a("2f62"),
-      _e = (a("4de4"), a("d3b7"), a("caad"), a("2532"), a("5a0c")),
-      pe = a.n(_e),
-      ge = {
-        getCityValue: function (t) {
-          return function (e) {
-            var a = t.city.data;
-            return null === a || void 0 === a
-              ? void 0
-              : a.filter(function (t) {
-                  return t.name.toLowerCase().includes(e.toLowerCase());
-                });
-          };
-        },
-        getFilteredCar: function (t) {
-          var e,
-            a = t.car.data;
-          return (
-            (a =
-              null === (e = a) || void 0 === e
+      _e = new h["a"]({ routes: fe }),
+      he = _e,
+      pe = a("2f62"),
+      ge =
+        (a("4de4"),
+        a("d3b7"),
+        a("caad"),
+        a("2532"),
+        {
+          getCityValue: function (t) {
+            return function (e) {
+              var a = t.city.data;
+              return null === a || void 0 === a
                 ? void 0
-                : e.filter(function (t) {
-                    return t.priceMin >= 5e3;
-                  })),
-            a
-          );
-        },
-        getRateFilter: function (t) {
-          return t.rate.data;
-        },
-        getColorFilter: function (t) {
-          return (t.colorFilter = [
-            { name: "Любой", checked: !1, val: "allColor" },
-            { name: "Красный", checked: !1, val: "red" },
-            { name: "Голубой", checked: !1, val: "blue" },
-          ]);
-        },
-        getCarAdditionally: function (t) {
-          return (t.carAdditionally = [
-            { name: "Полный бак", checked: !1, val: "fullTank", price: 500 },
-            {
-              name: "Детское кресло",
-              checked: !1,
-              val: "babyChair",
-              price: 200,
-            },
-            {
-              name: "Правый руль",
-              checked: !1,
-              val: "rightHandDrive",
-              price: 1600,
-            },
-          ]);
-        },
-        getRateTime: function (t) {
-          var e = null;
-          if ("" !== t.dateTo && "" !== t.dateFrom) {
-            var a = pe()(t.dateTo),
-              i = pe()(t.dateFrom);
-            e = pe.a.duration(a.diff(i)).format("D[д] H[ч]");
-          }
-          return e;
-        },
-        getRateTimeMinute: function (t) {
-          if ("" !== t.dateTo && "" !== t.dateFrom) {
-            var e = pe()(t.dateTo),
-              a = pe()(t.dateFrom);
-            t.durationMinute = pe.a.duration(e.diff(a)).asMinutes();
-          }
-          return parseInt(t.durationMinute);
-        },
-        getDateToMs: function (t) {
-          return (
-            "" !== t.dateTo &&
-              ((t.dateToMs = pe()(t.dateTo).valueOf()),
-              console.log(t.dateTo.getMilliseconds())),
-            t.dateToMs
-          );
-        },
-        getDateFromMs: function (t) {
-          return (
-            "" !== t.dateFrom && (t.dateFromMs = pe()(t.dateFrom).valueOf()),
-            t.dateFromMs
-          );
-        },
-        fullPrice: function (t) {
-          return (
-            "" === t.dateTo && "" === t.dateFrom
-              ? (t.fullPrice = t.carPrice + t.additionallyPrice + t.ratePrice)
-              : (t.fullPrice =
-                  t.carPrice +
-                  t.additionallyPrice +
-                  t.ratePrice * t.durationMinute),
-            t.fullPrice
-          );
-        },
-        getSortFilter: function (t) {
-          var e = t.carFilter.data;
-          return null === e || void 0 === e
-            ? void 0
-            : e.filter(function (t) {
-                return "Name" !== t.name;
-              });
-        },
-      },
+                : a.filter(function (t) {
+                    return t.name.toLowerCase().includes(e.toLowerCase());
+                  });
+            };
+          },
+          getFilteredCar: function (t) {
+            var e,
+              a = t.car.data;
+            return (
+              (a =
+                null === (e = a) || void 0 === e
+                  ? void 0
+                  : e.filter(function (t) {
+                      return t.priceMin >= 5e3;
+                    })),
+              a
+            );
+          },
+          getRateFilter: function (t) {
+            return t.rate.data;
+          },
+          getColorFilter: function (t) {
+            return (t.colorFilter = [
+              { name: "Любой", checked: !1, val: "allColor" },
+              { name: "Красный", checked: !1, val: "red" },
+              { name: "Голубой", checked: !1, val: "blue" },
+            ]);
+          },
+          getCarAdditionally: function (t) {
+            return (t.carAdditionally = [
+              { name: "Полный бак", checked: !1, val: "fullTank", price: 500 },
+              {
+                name: "Детское кресло",
+                checked: !1,
+                val: "babyChair",
+                price: 200,
+              },
+              {
+                name: "Правый руль",
+                checked: !1,
+                val: "rightHandDrive",
+                price: 1600,
+              },
+            ]);
+          },
+          getRateTime: function (t) {
+            var e = null;
+            if ("" !== t.dateTo && "" !== t.dateFrom) {
+              var a = Ot()(t.dateTo),
+                i = Ot()(t.dateFrom);
+              e = Ot.a.duration(a.diff(i)).format("D[д] H[ч]");
+            }
+            return e;
+          },
+          getRateTimeMinute: function (t) {
+            if ("" !== t.dateTo && "" !== t.dateFrom) {
+              var e = Ot()(t.dateTo),
+                a = Ot()(t.dateFrom);
+              t.durationMinute = Ot.a.duration(e.diff(a)).asMinutes();
+            }
+            return parseInt(t.durationMinute);
+          },
+          getDateToMs: function (t) {
+            return (
+              "" !== t.dateTo && (t.dateToMs = Ot()(t.dateTo).valueOf()),
+              t.dateToMs
+            );
+          },
+          getDateFromMs: function (t) {
+            return (
+              "" !== t.dateFrom && (t.dateFromMs = Ot()(t.dateFrom).valueOf()),
+              t.dateFromMs
+            );
+          },
+          fullPrice: function (t) {
+            return (
+              "" === t.dateTo || "" === t.dateFrom
+                ? (t.fullPrice = t.carPrice + t.additionallyPrice + t.ratePrice)
+                : (t.fullPrice =
+                    t.carPrice +
+                    t.additionallyPrice +
+                    t.ratePrice * t.durationMinute),
+              t.fullPrice
+            );
+          },
+          getSortFilter: function (t) {
+            var e = t.carFilter.data;
+            return null === e || void 0 === e
+              ? void 0
+              : e.filter(function (t) {
+                  return "Name" !== t.name;
+                });
+          },
+        }),
       Ce = a("bc3a"),
       ye = a.n(Ce),
       ke = ye.a.create({
@@ -3616,6 +3615,12 @@
           getOrderId: function (t) {
             return t.orderId;
           },
+          deleteDateStart: function (t) {
+            t.dateTo = "";
+          },
+          deleteDateEnd: function (t) {
+            t.dateFrom = "";
+          },
         }),
       Fe = {
         city: [],
@@ -3666,8 +3671,8 @@
         actions: be,
         mutations: Oe,
       };
-    i["a"].use(he["a"]);
-    var Me = new he["a"].Store({
+    i["a"].use(pe["a"]);
+    var Me = new pe["a"].Store({
         state: { version: "1.0.0" },
         modules: { OrderForm: Pe },
         mutations: {},
@@ -3675,16 +3680,19 @@
       }),
       je = a("130e"),
       xe = a("d772"),
-      Le = a.n(xe);
+      $e = a.n(xe),
+      Le = a("ec45");
+    a("411c");
     i["a"].use(je["a"], ye.a),
-      i["a"].use(_e),
-      _e["extend"](Le.a),
+      i["a"].use(bt),
+      bt["extend"]($e.a),
+      i["a"].use(Le["a"]),
       (i["a"].config.productionTip = !1),
       new i["a"]({
-        router: fe,
+        router: he,
         store: Me,
         render: function (t) {
-          return t(h);
+          return t(_);
         },
       }).$mount("#app");
   },
@@ -3692,23 +3700,19 @@
     "use strict";
     a("931a");
   },
+  d3f7: function (t, e, a) {
+    "use strict";
+    a("45b1");
+  },
   d4cc: function (t, e) {},
   dd9f: function (t, e, a) {},
+  e48f: function (t, e, a) {},
   e8b1: function (t, e, a) {
     t.exports = a.p + "img/slider-4.1618de5d.png";
   },
-  eb28: function (t, e, a) {
-    "use strict";
-    a("b2ae");
-  },
   edea: function (t, e, a) {},
-  f41d: function (t, e, a) {},
   f453: function (t, e, a) {
     t.exports = a.p + "img/slider-1.5decc706.png";
   },
-  fb6b: function (t, e, a) {
-    "use strict";
-    a("f41d");
-  },
 });
-//# sourceMappingURL=app.81d7b89b.js.map
+//# sourceMappingURL=app.2b597e56.js.map
