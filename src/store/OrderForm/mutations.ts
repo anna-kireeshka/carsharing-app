@@ -12,7 +12,6 @@ import {
   ValueInput,
   FinalOrder,
 } from "./types";
-
 export const mutations: MutationTree<ProfileState> = {
   cityLoaded(state, city: City[]) {
     state.city = city;
@@ -164,5 +163,13 @@ export const mutations: MutationTree<ProfileState> = {
 
   getOrderId(state) {
     return state.orderId;
+  },
+
+  deleteDateStart(state) {
+    state.dateTo = "";
+  },
+
+  deleteDateEnd(state) {
+    state.dateFrom = "";
   },
 };

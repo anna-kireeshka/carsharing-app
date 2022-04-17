@@ -51,7 +51,7 @@ import { Vue, Component } from "vue-property-decorator";
 import Navigation from "@/components/Navigation.vue";
 import PreOrderInfo from "@/components/PreOrderInfo.vue";
 import BreadcrumbsRoute from "@/components/BreadcrumbsRoute.vue";
-
+import dayjs from "dayjs";
 @Component({ components: { Navigation, PreOrderInfo, BreadcrumbsRoute } })
 export default class FinalOrder extends Vue {
   get carModel() {
@@ -71,7 +71,7 @@ export default class FinalOrder extends Vue {
   }
 
   get carDate() {
-    return this.$store.state.OrderForm.dateFrom;
+    return dayjs(this.$store.state.OrderForm.dateFrom).format("YYYY-MM-DD");
   }
 }
 </script>

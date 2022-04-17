@@ -47,18 +47,16 @@
           <div class="filter__dates">
             <div>
               <div class="date-wrap">
-                <label for="startDate" class="filter__label"
+                <label class="filter__label"
                   >С
-                  <input
-                    type="text"
-                    onfocus="(this.type='datetime-local')"
-                    onblur="(this.type='text')"
-                    id="startDate"
+                  <date-picker
+                    type="datetime"
                     class="filter__date filter__date--start"
                     placeholder="Введите дату и время"
                     v-model="startDateModel"
-                    @input="checkDateFrom(startDateModel)"
-                  />
+                    @change="checkDateFrom(startDateModel)"
+                    @clear="clearDateStart(startDateModel)"
+                  ></date-picker>
                 </label>
                 <small class="error" v-if="startDateModel === ''"
                   >Поле обязательно для заполнения</small
@@ -66,17 +64,17 @@
               </div>
             </div>
             <p>
-              <label for="endDate" class="filter__label"
-                >По<input
-                  type="text"
-                  onfocus="(this.type='datetime-local')"
-                  onblur="(this.type='text')"
-                  id="endDate"
-                  class="filter__date"
+              <label class="filter__label">
+                По
+                <date-picker
+                  type="datetime"
+                  class="filter__date filter__date--start"
                   placeholder="Введите дату и время"
                   v-model="endDateModel"
-                  @input="checkDateTo(endDateModel)"
-              /></label>
+                  @change="checkDateTo(endDateModel)"
+                  @clear="clearDateEnd(endDateModel)"
+                ></date-picker>
+              </label>
             </p>
           </div>
           <div class="filter__rate">
@@ -174,6 +172,14 @@ export default class OrderAdditionally extends Vue {
 
   checkDateTo(to: string) {
     this.$store.commit("OrderForm/getDateTimeTo", to);
+  }
+
+  clearDateStart(to:string) {
+    this.$store.commit("OrderForm/deleteDateStart", to)
+  }
+
+  clearDateEnd(end: string) {
+    this.$store.commit("OrderForm/deleteDateEnd", end)
   }
 
   get rate() {
@@ -340,16 +346,6 @@ export default class OrderAdditionally extends Vue {
 
     margin-left: 8px;
   }
-  &__date[type="text"] {
-    font-family: inherit;
-    font-weight: 300;
-    font-size: 14px;
-    line-height: 16px;
-    color: #121212;
-  }
-  input[type="datetime"]::-webkit-calendar-picker-indicator {
-    opacity: 0;
-  }
   &__rate {
     display: flex;
     flex-direction: column;
@@ -372,4 +368,12 @@ export default class OrderAdditionally extends Vue {
   flex-direction: column;
   margin-bottom: 13px;
 }
+::v-deep {
+  .mx-input {
+    border: 1px solid transparent;
+    box-shadow: none;
+    padding: 0;
+  }
+}
+
 </style>
