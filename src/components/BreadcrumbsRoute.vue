@@ -48,15 +48,10 @@ export default class BreadcrumbsRoute extends Vue {
 </script>
 
 <style scoped lang="scss">
-@media screen and(max-width:375px) {
-  .navigation {
-    padding-left: 17px;
-  }
-  .navigation__arrow {
-    padding: 0 10px;
-  }
-}
 .navigation {
+  @media screen and (max-width: 375px) {
+    padding-left: 16px;
+  }
   display: flex;
   flex-wrap: wrap;
   border-top: 1px solid #eeeeee;
