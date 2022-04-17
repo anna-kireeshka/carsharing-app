@@ -290,12 +290,18 @@ export default class PreOrderInfo extends Vue {
       margin-bottom: 16px;
     }
     &__name {
+      @media screen and (max-width: 375px) {
+        margin-bottom: 5px;
+      }
       font-weight: $light;
       font-size: 14px;
       line-height: 16px;
       color: $main-black;
     }
     &__dote {
+      @media screen and (max-width: 375px) {
+        border: none;
+      }
       border-bottom: 1px dotted $main-dark-gray;
       width: 10%;
     }

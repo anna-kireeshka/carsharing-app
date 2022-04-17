@@ -253,10 +253,10 @@ export default class StartScreen extends Vue {
 
 
 .slide-fade-enter-active {
-  transition: all 0.4s;
+  transition: all 0.5s;
 }
 .slide-fade-leave-active {
-  transition: all 0.4s ease-out;
+  transition: all 0.5s ease-out;
 }
 .slide-fade-enter {
   transform: translateX(-47rem);
@@ -264,7 +264,7 @@ export default class StartScreen extends Vue {
 }
 
 .slide-fade-leave-to {
-  transform: translateX(-42.5rem);
+  transform: translateX(-54rem);
   opacity: 1;
 }
 
