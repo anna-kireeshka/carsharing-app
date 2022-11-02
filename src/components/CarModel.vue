@@ -82,77 +82,52 @@
   </div>
 </template>
 
-<script lang="ts">
-import { Vue, Component } from "vue-property-decorator";
+<script lang="ts" setup>
+import { ref, computed } from "vue";
+import { useStore } from "vuex";
 import BreadcrumbsRoute from "./BreadcrumbsRoute.vue";
 import PreOrderInfo from "./PreOrderInfo.vue";
 import Navigation from "./Navigation.vue";
 
-@Component({
-  components: {
-    Navigation,
-    BreadcrumbsRoute,
-    PreOrderInfo,
-  },
-})
-export default class CarModel extends Vue {
-  image = require("@/assets/car.png");
+const store = useStore();
+const image = ref(require("@/assets/car.png"));
 
-  mounted() {
-    this.carListFetch();
-    this.carFilterFetch();
-  }
+store.dispatch("OrderForm/fetchDataCar");
 
-  carListFetch() {
-    this.$store.dispatch("OrderForm/fetchDataCar");
-    this.carList;
-  }
+store.dispatch("OrderForm/fetchDataCarFilter");
 
-  carFilterFetch() {
-    this.$store.dispatch("OrderForm/fetchDataCarFilter");
-    this.carFilter;
-  }
+const choseCar = (
+  model: string,
+  num: string,
+  priceMin: number,
+  priceMax: number,
+  tank: string,
+  img: string,
+  id: string
+) => {
+  store.commit("OrderForm/getCarModel", model);
+  store.commit("OrderForm/getCarNumber", num);
+  store.commit("OrderForm/getCarPrice", priceMin);
+  store.commit("OrderForm/getCarPriceMax", priceMax);
+  store.commit("OrderForm/getCarFuel", tank);
+  store.commit("OrderForm/getCarImg", img);
+  store.commit("OrderForm/getCarId", id);
+};
 
-  choseCar(
-    model: string,
-    num: string,
-    priceMin: number,
-    priceMax: number,
-    tank: string,
-    img: string,
-    id: string
-  ) {
-    this.$store.commit("OrderForm/getCarModel", model);
-    this.$store.commit("OrderForm/getCarNumber", num);
-    this.$store.commit("OrderForm/getCarPrice", priceMin);
-    this.$store.commit("OrderForm/getCarPriceMax", priceMax);
-    this.$store.commit("OrderForm/getCarFuel", tank);
-    this.$store.commit("OrderForm/getCarImg", img);
-    this.$store.commit("OrderForm/getCarId", id);
-  }
+const choseCarFilter = (carId: number, name: string) => {
+  store.commit("OrderForm/getCategoryId", carId);
+  store.dispatch("OrderForm/fetchDataCar");
+};
 
-  choseCarFilter(carId: number, name: string) {
-    this.$store.commit("OrderForm/getCategoryId", carId);
-    this.carListFetch();
-    this.carList;
-  }
+const defaultImage = (event: { target: HTMLImageElement }) => {
+  event.target.src = image.value;
+};
 
-  defaultImage(event: { target: HTMLImageElement }) {
-    event.target.src = this.image;
-  }
+const carList = computed(() => store.state.OrderForm.car.data);
 
-  get carList() {
-    return this.$store.state.OrderForm.car.data;
-  }
+const carFilter = computed(() => store.getters["OrderForm/getSortFilter"]);
 
-  get carFilter() {
-    return this.$store.getters["OrderForm/getSortFilter"];
-  }
-
-  get loader() {
-    return this.$store.state.OrderForm.loadingCarList;
-  }
-}
+const loader = computed(() => store.state.OrderForm.loadingCarList);
 </script>
 
 <style lang="scss" scoped>

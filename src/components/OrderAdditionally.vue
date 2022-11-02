@@ -128,88 +128,71 @@
   </div>
 </template>
 
-<script lang="ts">
-import { Vue, Component } from "vue-property-decorator";
+<script lang="ts" setup>
+import { ref, computed, onMounted } from "vue";
+import { useStore } from "vuex";
 import PreOrderInfo from "@/components/PreOrderInfo.vue";
 import Navigation from "./Navigation.vue";
 import BreadcrumbsRoute from "@/components/BreadcrumbsRoute.vue";
 
-@Component({ components: { PreOrderInfo, Navigation, BreadcrumbsRoute } })
-export default class OrderAdditionally extends Vue {
-  /* eslint-disable */
-  startDateModel: string = "";
-  endDateModel: string = "";
+const store = useStore();
+const startDateModel = ref<string>("");
+const endDateModel = ref<string>("");
 
-  mounted() {
-    this.fetchRate();
-  }
+store.dispatch("OrderForm/fetchDataRate");
 
-  fetchRate() {
-    this.$store.dispatch("OrderForm/fetchDataRate");
-    this.rate;
-  }
+const checkColor = (color: string, e: { target: HTMLInputElement }) => {
+  store.commit("OrderForm/getCarColor", color);
+  store.commit("OrderForm/getColorChecked", e.target.checked);
+};
 
-  checkColor(color: string, e: { target: HTMLInputElement }) {
-    this.$store.commit("OrderForm/getCarColor", color);
-    this.$store.commit("OrderForm/getColorChecked", e.target.checked);
-  }
+const checkFilter = (
+  filter: string,
+  price: number,
+  e: { target: HTMLInputElement }
+) => {
+  store.commit("OrderForm/getCarAdditionallyFilter", filter);
+  store.commit("OrderForm/getCarPriceAdditionally", price);
+  store.commit("OrderForm/getCarAdditionallyChecked", e.target.checked);
+};
 
-  checkFilter(filter: string, price: number, e: { target: HTMLInputElement }) {
-    this.$store.commit("OrderForm/getCarAdditionallyFilter", filter);
-    this.$store.commit("OrderForm/getCarPriceAdditionally", price);
-    this.$store.commit("OrderForm/getCarAdditionallyChecked", e.target.checked);
-  }
+const checkRate = (duration: string, price: number, rateId: string) => {
+  store.commit("OrderForm/getCarRate", duration);
+  store.commit("OrderForm/getCarPriceRate", price);
+  store.commit("OrderForm/getRateId", rateId);
+};
 
-  checkRate(duration: string, price: number, rateId: string) {
-    this.$store.commit("OrderForm/getCarRate", duration);
-    this.$store.commit("OrderForm/getCarPriceRate", price);
-    this.$store.commit("OrderForm/getRateId", rateId);
-  }
+const checkDateFrom = (from: string) => {
+  store.commit("OrderForm/getDateTimeFrom", from);
+};
 
-  checkDateFrom(from: string) {
-    this.$store.commit("OrderForm/getDateTimeFrom", from);
-  }
+const checkDateTo = (to: string) => {
+  store.commit("OrderForm/getDateTimeTo", to);
+};
 
-  checkDateTo(to: string) {
-    this.$store.commit("OrderForm/getDateTimeTo", to);
-  }
+const clearDateStart = (to: string) => {
+  store.commit("OrderForm/deleteDateStart", to);
+};
 
-  clearDateStart(to:string) {
-    this.$store.commit("OrderForm/deleteDateStart", to)
-  }
+const clearDateEnd = (end: string) => {
+  store.commit("OrderForm/deleteDateEnd", end);
+};
 
-  clearDateEnd(end: string) {
-    this.$store.commit("OrderForm/deleteDateEnd", end)
-  }
+const rate = computed(() => store.getters["OrderForm/getRateFilter"]);
 
-  get rate() {
-    return this.$store.getters["OrderForm/getRateFilter"];
-  }
+const colorFilter = computed(() => store.getters["OrderForm/getColorFilter"]);
 
-  get colorFilter() {
-    return this.$store.getters["OrderForm/getColorFilter"];
-  }
+const additionally = computed(
+  () => store.getters["OrderForm/getCarAdditionally"]
+);
 
-  get additionally() {
-    return this.$store.getters["OrderForm/getCarAdditionally"];
-  }
+const startDate = computed(() => store.state.OrderForm.dateFrom);
 
-  get startDate(): string {
-    return this.$store.state.OrderForm.dateFrom;
-  }
+const endDate = computed(() => store.state.OrderForm.dateTo);
 
-  get endDate(): string {
-    return this.$store.state.OrderForm.dateTo;
-  }
+const startDateM = computed(() => store.getters["OrderForm/getDateToMs"]);
 
-  get startDateMs() {
-    return this.$store.getters["OrderForm/getDateToMs"];
-  }
-
-  get endDateMs() {
-    return this.$store.getters["OrderForm/getDateFromMs"];
-  }
-}
+const endDateMs = computed(() => store.getters["OrderForm/getDateFromMs"]);
 </script>
 
 <style lang="scss" scoped>
@@ -375,5 +358,4 @@ export default class OrderAdditionally extends Vue {
     padding: 0;
   }
 }
-
 </style>

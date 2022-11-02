@@ -142,116 +142,92 @@
     <ModalFinalOrder :open-window="openModalWindow" />
   </div>
 </template>
-<script lang="ts">
-import { Vue, Component } from "vue-property-decorator";
+<script lang="ts" setup>
 import ModalFinalOrder from "@/components/ModalFinalOrder.vue";
-@Component({
-  components: { ModalFinalOrder },
-})
-export default class PreOrderInfo extends Vue {
-  /* eslint-disable */
-  openModalWindow: boolean = false;
-  openModalConfirm() {
-    this.openModalWindow = !this.openModalWindow;
-  }
-  get city() {
-    return this.$store.state.OrderForm.valueCity;
-  }
+import { ref, computed } from "vue";
+import { useStore } from "vuex";
+import { useRoute } from "vue-router";
 
-  get pvz() {
-    return this.$store.state.OrderForm.valuePvz;
-  }
+const store = useStore();
 
-  get fullRoute() {
-    return this.$route.name;
-  }
+const router = useRoute();
 
-  get checkValidForm() {
-    let empty: boolean = true;
-    if (this.city !== "" && this.pvz !== "") {
-      empty = false;
-    }
-    return empty;
-  }
+const openModalWindow = ref<boolean>(false);
 
-  get checkValidFormCarModel() {
-    let empty: boolean = true;
-    if (this.city !== "" && this.pvz !== "" && this.carModel !== "") {
-      empty = false;
-    }
-    return empty;
-  }
+const openModalConfirm = () => {
+  openModalWindow.value = !openModalWindow.value;
+};
+const city = computed<string>(() => store.state.OrderForm.valueCity);
 
-  get checkValidFormAdditionally() {
-    let empty: boolean = true;
-    if (
-      this.city !== "" &&
-      this.pvz !== "" &&
-      this.carColor !== "" &&
-      (this.dateDuration !== null || this.rate !== "") &&
-      this.checkbox.length > 0
-    ) {
-      empty = false;
-    }
-    return empty;
-  }
+const pvz = computed<string>(() => store.state.OrderForm.valuePvz);
 
-  get carNumber() {
-    return this.$store.state.OrderForm.carNumber;
-  }
+const fullRoute = router.name;
 
-  get carModel() {
-    return this.$store.state.OrderForm.carModel;
+const checkValidForm = computed<boolean>(() => {
+  let empty = true;
+  if (city.value !== "" && pvz.value !== "") {
+    return false;
   }
+  return empty;
+});
 
-  get carColor() {
-    return this.$store.state.OrderForm.carColor;
+const checkValidFormCarModel = computed(() => {
+  let empty = true;
+  if (city.value !== "" && pvz.value !== "" && carModel.value !== "") {
+    empty = false;
   }
+  return empty;
+});
 
-  get rate() {
-    return this.$store.state.OrderForm.rateFilter;
+const checkValidFormAdditionally = computed(() => {
+  let empty = true;
+  if (
+    city.value !== "" &&
+    pvz.value !== "" &&
+    carColor.value !== "" &&
+    (dateDuration.value !== null || rate.value !== "") &&
+    this.checkbox.length > 0
+  ) {
+    empty = false;
   }
+  return empty;
+});
 
-  get dateDuration() {
-    return this.$store.getters["OrderForm/getRateTime"];
-  }
+const carNumber = computed<string>(() => store.state.OrderForm.carNumber);
 
-  get checkbox() {
-    return this.$store.state.OrderForm.additionallyFilter;
-  }
+const carModel = computed<string>(() => store.state.OrderForm.carModel);
 
-  get minPrice() {
-    return this.$store.state.OrderForm.carPrice;
-  }
+const carColor = computed<string>(() => store.state.OrderForm.carColor);
 
-  get maxPrice() {
-    return this.$store.state.OrderForm.maxCarPrice;
-  }
+const rate = computed<string>(() => store.state.OrderForm.rateFilter);
 
-  get finalPrice() {
-    return this.$store.getters["OrderForm/fullPrice"];
-  }
+const dateDuration = computed(() => store.getters["OrderForm/getRateTime"]);
 
-  get maxValidPrice() {
-    let validMaxPrice: boolean = false;
-    if (this.maxPrice > this.finalPrice) {
-      validMaxPrice = true;
-    }
-    return validMaxPrice;
-  }
+const checkbox = computed(() => store.state.OrderForm.additionallyFilter);
 
-  get minValidPrice() {
-    let validMinPrice: boolean = false;
-    if (this.finalPrice < this.minPrice) {
-      validMinPrice = true;
-    }
-    return validMinPrice;
-  }
+const minPrice = computed<number>(() => store.state.OrderForm.carPrice);
 
-  get orderId() {
-    return this.$store.getters["OrderForm/getFinalOrderId"];
+const maxPrice = computed<number>(() => store.state.OrderForm.maxCarPrice);
+
+const finalPrice = computed<number>(() => store.getters["OrderForm/fullPrice"]);
+
+const maxValidPrice = computed(() => {
+  let validMaxPrice = false;
+  if (maxPrice > finalPrice) {
+    validMaxPrice = true;
   }
-}
+  return validMaxPrice;
+});
+
+const minValidPrice = computed(() => {
+  let validMinPrice = false;
+  if (finalPrice < this.minPrice) {
+    validMinPrice = true;
+  }
+  return validMinPrice;
+});
+
+const orderId = computed(() => store.getters["OrderForm/getFinalOrderId"]);
 </script>
 
 <style scoped lang="scss">

@@ -6,12 +6,13 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
 import Icon from "@/components/Icon.vue";
-
-export default Vue.extend({
-  components: { Icon },
-});
+export default {
+  name: "App",
+  components: {
+    Icon,
+  },
+};
 </script>
 
 <style lang="scss">

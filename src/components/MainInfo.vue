@@ -36,12 +36,8 @@
     </div>
   </div>
 </template>
-<script lang="ts">
-import { Vue, Component } from "vue-property-decorator";
+<script lang="ts" setup>
 import Navigation from "@/components/Navigation.vue";
-
-@Component({ components: { Navigation } })
-export default class MainInfo extends Vue {}
 </script>
 
 <style lang="scss" scoped>

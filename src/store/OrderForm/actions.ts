@@ -11,11 +11,12 @@ import {
   Rate,
 } from "./types";
 import { RootState } from "../types";
+import { AxiosResponse } from "axios";
 
 export const actions: ActionTree<ProfileState, RootState> = {
-  fetchData({ commit }) {
-    HTTP.get("/api/db/city/").then(
-      (response) => {
+  async fetchData({ commit }) {
+    await HTTP.get("/api/db/city/").then(
+      (response: AxiosResponse<City[]>) => {
         const city: City[] = response.data;
         commit("cityLoaded", city);
       },
@@ -27,7 +28,7 @@ export const actions: ActionTree<ProfileState, RootState> = {
   },
   fetchDataPvz({ commit, state }) {
     HTTP.get("/api/db/point", { params: { cityId: state.cityId } }).then(
-      (response) => {
+      (response: AxiosResponse<Pvz[]>) => {
         const pvz: Pvz[] = response.data;
         commit("pvzLoaded", pvz);
       },
@@ -42,7 +43,7 @@ export const actions: ActionTree<ProfileState, RootState> = {
     HTTP.get("/api/db/car", {
       params: { categoryId: state.categoryId },
     }).then(
-      (response) => {
+      (response: AxiosResponse<Car[]>) => {
         const car: Car[] = response.data;
         state.loadingCarList = true;
         commit("carLoaded", car);
@@ -69,7 +70,7 @@ export const actions: ActionTree<ProfileState, RootState> = {
 
   fetchDataRate({ commit, state }) {
     HTTP.get("/api/db/rate").then(
-      (response) => {
+      (response: AxiosResponse<Rate[]>) => {
         const rate: Rate[] = response.data;
         commit("rateLoaded", rate);
       },
@@ -95,7 +96,7 @@ export const actions: ActionTree<ProfileState, RootState> = {
       isNeedChildChair: state.checked,
       isRightWheel: state.checked,
     }).then(
-      (response) => {
+      (response: AxiosResponse<FinalOrder[]>) => {
         const finalOrder: FinalOrder[] = response.data;
         state.loadedResponsPost = true;
         commit("finalOrderLoaded", finalOrder);
@@ -108,7 +109,7 @@ export const actions: ActionTree<ProfileState, RootState> = {
 
   fetchDataStatusOrder({ commit }) {
     HTTP.get("/api/db/orderStatus").then(
-      (response) => {
+      (response: AxiosResponse<OrderStatus>) => {
         const orderStatus: OrderStatus = response.data;
         commit("orderStatusLoaded", orderStatus);
       },

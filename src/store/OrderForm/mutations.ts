@@ -50,7 +50,7 @@ export const mutations: MutationTree<ProfileState> = {
   getCityId(state, city: City[]) {
     if (city.length !== 0) {
       for (let i = 0; i < city.length; i++) {
-        state.cityId = city;
+        state.cityId = city[i].id;
       }
     }
     return state.cityId;
@@ -59,7 +59,7 @@ export const mutations: MutationTree<ProfileState> = {
   getPvzId(state, pvz: Pvz[]) {
     if (pvz.length !== 0) {
       for (let i = 0; i < pvz.length; i++) {
-        state.pvzId = pvz;
+        state.pvzId = pvz[i].cityId;
       }
     }
     return state.cityId;
@@ -67,7 +67,7 @@ export const mutations: MutationTree<ProfileState> = {
 
   getCategoryId(state, category: CarFilter[]) {
     for (let i = 0; i < category?.length; i++) {
-      state.categoryId = category;
+      state.categoryId = category[i].id;
     }
     return state.categoryId;
   },
@@ -75,7 +75,7 @@ export const mutations: MutationTree<ProfileState> = {
   getCarModel(state, car: Car[]) {
     if (car.length !== 0) {
       for (let i = 0; i < car.length; i++) {
-        state.carModel = car;
+        state.carModel = car[i].name;
       }
     }
 
@@ -90,7 +90,7 @@ export const mutations: MutationTree<ProfileState> = {
     return (state.colorCheck = colorCheck);
   },
 
-  getCarColor(state, color: ColorFilter[]) {
+  getCarColor(state, color: ColorFilter["name"]) {
     if (color.length !== 0) {
       for (let i = 0; i < color.length; i++) {
         state.carColor = color;

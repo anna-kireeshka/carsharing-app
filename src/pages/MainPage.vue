@@ -5,18 +5,10 @@
   </div>
 </template>
 
-<script lang="ts">
-import { Vue, Component } from "vue-property-decorator";
-
+<script lang="ts" setup>
 import Slider from "@/components/Slider.vue";
 import MainInfo from "@/components/MainInfo.vue";
-@Component({
-  components: {
-    Slider,
-    MainInfo,
-  },
-})
-export default class MainPage extends Vue {}
+
 </script>
 <style lang="scss" scoped>
 .page {
@@ -25,7 +17,7 @@ export default class MainPage extends Vue {}
 .info {
   min-height: 100vh;
   width: 50%;
-  @media screen and(max-width:900px) {
+  @media screen and (max-width:900px) {
     min-width: 100%;
   }
 }

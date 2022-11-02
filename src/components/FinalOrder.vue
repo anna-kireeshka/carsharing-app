@@ -46,34 +46,20 @@
   </div>
 </template>
 
-<script lang="ts">
-import { Vue, Component } from "vue-property-decorator";
+<script lang="ts" setup>
+import { computed } from "vue";
+import { useStore } from "vuex";
 import Navigation from "@/components/Navigation.vue";
 import PreOrderInfo from "@/components/PreOrderInfo.vue";
 import BreadcrumbsRoute from "@/components/BreadcrumbsRoute.vue";
-import dayjs from "dayjs";
-@Component({ components: { Navigation, PreOrderInfo, BreadcrumbsRoute } })
-export default class FinalOrder extends Vue {
-  get carModel() {
-    return this.$store.state.OrderForm.carModel;
-  }
 
-  get carNumber() {
-    return this.$store.state.OrderForm.carNumber;
-  }
+const store = useStore();
+const carModel = computed(() => store.state.OrderForm.carModel);
+const carNumber = computed(() => store.state.OrderForm.carNumber);
 
-  get carImg() {
-    return this.$store.state.OrderForm.img;
-  }
-
-  get carFuel() {
-    return this.$store.state.OrderForm.fuel;
-  }
-
-  get carDate() {
-    return dayjs(this.$store.state.OrderForm.dateFrom).format("YYYY-MM-DD");
-  }
-}
+const carImg = computed(() => store.state.OrderForm.img);
+const carFuel = computed(() => store.state.OrderForm.fuel);
+const carDate = computed(() => store.state.OrderForm.dateFrom);
 </script>
 <style scoped lang="scss">
 @media screen and (max-width: 1008px) {

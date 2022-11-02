@@ -21,30 +21,29 @@
     </ul>
   </div>
 </template>
-<script lang="ts">
-import { Vue, Component } from "vue-property-decorator";
+<script lang="ts" setup>
+import { ref } from "vue";
 
-@Component({})
-export default class BreadcrumbsRoute extends Vue {
-  crumbsList = [
-    {
-      text: "Местоположение",
-      name: "location",
-    },
-    {
-      text: "Модель",
-      name: "CarModel",
-    },
-    {
-      text: "Дополнительно",
-      name: "OrderAdditionally",
-    },
-    {
-      text: "Итого",
-      name: "FinalOrder",
-    },
-  ];
-}
+type CrumbsList = { text: string; name: string }[];
+
+const crumbsList = ref<CrumbsList>([
+  {
+    text: "Местоположение",
+    name: "location",
+  },
+  {
+    text: "Модель",
+    name: "CarModel",
+  },
+  {
+    text: "Дополнительно",
+    name: "OrderAdditionally",
+  },
+  {
+    text: "Итого",
+    name: "FinalOrder",
+  },
+]);
 </script>
 
 <style scoped lang="scss">

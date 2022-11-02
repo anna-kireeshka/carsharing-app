@@ -1,24 +1,31 @@
 import { GetterTree } from "vuex";
-import { CarAdditionally, ProfileState, ValueInput } from "./types";
+import {
+  CarAdditionally,
+  ProfileState,
+  ValueInput,
+  City,
+  Car,
+  CarFilter,
+} from "./types";
 import { RootState } from "../types";
 import dayjs from "dayjs";
 
 export const getters: GetterTree<ProfileState, RootState> = {
   getCityValue: (state) => (value: ValueInput["valueCity"]) => {
-    const arr = state.city.data;
-    return arr?.filter((el: any) =>
+    const arr = state.city;
+    return arr?.filter((el: City) =>
       el.name.toLowerCase().includes(value.toLowerCase())
     );
   },
 
   getFilteredCar: (state) => {
-    let carList = state.car.data;
-    carList = carList?.filter((el: any) => el.priceMin >= 5000);
+    let carList = state.car;
+    carList = carList?.filter((el: Car) => el.priceMin >= 5000);
     return carList;
   },
 
   getRateFilter: (state) => {
-    return state.rate.data;
+    return state.rate;
   },
 
   getColorFilter: (state) => {
@@ -43,7 +50,7 @@ export const getters: GetterTree<ProfileState, RootState> = {
   },
 
   getRateTime: (state) => {
-    let duration: any = null;
+    let duration = "";
 
     if (state.dateTo !== "" && state.dateFrom !== "") {
       const startDate = dayjs(state.dateTo);
@@ -61,7 +68,7 @@ export const getters: GetterTree<ProfileState, RootState> = {
         .duration(startDate.diff(endDate))
         .asMinutes();
     }
-    return parseInt(state.durationMinute);
+    return parseInt(state.durationMinute as string);
   },
 
   getDateToMs: (state) => {
@@ -79,20 +86,20 @@ export const getters: GetterTree<ProfileState, RootState> = {
   },
 
   fullPrice: (state) => {
+    const price =
+      Number(state.carPrice) +
+      Number(state.additionallyPrice) +
+      Number(state.ratePrice);
     if (state.dateTo === "" || state.dateFrom === "") {
-      state.fullPrice =
-        state.carPrice + state.additionallyPrice + state.ratePrice;
+      state.fullPrice = price;
     } else {
-      state.fullPrice =
-        state.carPrice +
-        state.additionallyPrice +
-        state.ratePrice * state.durationMinute;
+      state.fullPrice = price * Number(state.durationMinute);
     }
     return state.fullPrice;
   },
 
   getSortFilter: (state) => {
-    const filterList = state.carFilter.data;
-    return filterList?.filter((el: any) => el.name !== "Name");
+    const filterList = state.carFilter;
+    return filterList?.filter((el: CarFilter) => el.name !== "Name");
   },
 };

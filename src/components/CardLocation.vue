@@ -104,161 +104,158 @@
   </div>
 </template>
 
-<script lang="ts">
-/* eslint-disable */
-import { Component, Vue } from "vue-property-decorator";
+<script lang="ts" setup>
+import { ref, computed, onMounted } from "vue";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 import BreadcrumbsRoute from "./BreadcrumbsRoute.vue";
 import PreOrderInfo from "./PreOrderInfo.vue";
 import Navigation from "./Navigation.vue";
 
-@Component({
-  components: { BreadcrumbsRoute, PreOrderInfo, Navigation },
-})
-export default class CardLocation extends Vue {
-  openCity: boolean = false;
-  openPvz: boolean = false;
-  arrowCounterCity: number = -1;
-  arrowCounterPvz: number = -1;
-  mapIcon = require("@/assets/mark.png");
-  newCoords = null;
+const store = useStore();
 
-  mounted() {
-    let page = document.querySelector(".main-wrapper") as HTMLElement;
-    page.addEventListener("click", () => {
-      this.openCity = false;
-      this.openPvz = false;
-    });
-  }
+const router = useRouter();
 
-  created() {
-    ymaps.ready().then(() => {
-      this.myMap;
-    });
-  }
+const openCity = ref<boolean>(false);
 
-  get myMap() {
-    return new ymaps.Map("map", {
-      center: [54.30327383672103, 48.600127895911314],
-      zoom: 10,
-      controls: [],
-    });
-  }
+const openPvz = ref<boolean>(false);
 
-  get myMapIcon() {
-    return new ymaps.Placemark(
-      this.newCoords,
-      {
-        hintContent: this.valuePvz,
-      },
-      {
-        iconLayout: "default#image",
-        iconImageHref: this.mapIcon,
-        iconImageSize: [18, 18],
-      }
-    );
-  }
+const arrowCounterCity = ref<number>(-1);
 
-  get geoObject() {
-    let fullValue: string = `${this.valueCity}, ${this.valuePvz}`;
+const arrowCounterPvz = ref<number>(-1);
 
-    if (this.valuePvz && this.valueCity) {
-      ymaps
-        .geocode(fullValue, {
-          results: 1,
-        })
-        .then((res: any) => {
-          let firstGeoObject = res.geoObjects.get(0);
-          this.newCoords = firstGeoObject.geometry.getCoordinates();
-          let bounds = firstGeoObject.properties.get("boundedBy");
+const mapIcon = ref(("@/assets/mark.png"));
 
-          this.myMap.setBounds(bounds, {
-            checkZoomRange: true,
-          });
+const newCoords = ref(null);
 
-          this.myMap.geoObjects.add(this.myMapIcon);
+store.dispatch("OrderForm/fetchDataPvz");
+
+store.dispatch("OrderForm/fetchData");
+
+onMounted(() => {
+  let page = document.querySelector(".main-wrapper") as HTMLElement;
+  page.addEventListener("click", () => {
+    openCity.value = false;
+    openPvz.value = false;
+  });
+});
+
+// eslint-disable-next-line no-undef
+ymaps.ready().then(() => {
+  myMap;
+});
+
+const myMap = computed(() => {
+  // eslint-disable-next-line no-undef
+  return new ymaps.Map("map", {
+    center: [54.30327383672103, 48.600127895911314],
+    zoom: 10,
+    controls: [],
+  });
+});
+
+const myMapIcon = computed(() => {
+  // eslint-disable-next-line no-undef
+  return new ymaps.Placemark(
+    newCoords.value,
+    {
+      hintContent: valuePvz,
+    },
+    {
+      iconLayout: "default#image",
+      iconImageHref: mapIcon.value,
+      iconImageSize: [18, 18],
+    }
+  );
+});
+
+const geoObject = () => {
+  let fullValue = `${valueCity}, ${valuePvz}`;
+
+  if (valuePvz && valueCity) {
+    // eslint-disable-next-line no-undef
+    ymaps
+      .geocode(fullValue, {
+        results: 1,
+      })
+      .then((res: any) => {
+        let firstGeoObject = res.geoObjects.get(0);
+        newCoords.value = firstGeoObject.geometry.getCoordinates();
+        let bounds = firstGeoObject.properties.get("boundedBy");
+
+        myMap.value.setBounds(bounds, {
+          checkZoomRange: true,
         });
-    }
-    return fullValue;
+
+        myMap.value.geoObjects.add(myMapIcon.value);
+      });
   }
+  return fullValue;
+};
 
-  searchCity(e: { target: HTMLInputElement }) {
-    this.$store.commit("OrderForm/searchCity", e.target.value);
-    this.openCity = true;
-    this.fetchData();
+const searchCity = (e: { target: HTMLInputElement }) => {
+  store.commit("OrderForm/searchCity", e.target.value);
+  openCity.value = true;
+  store.dispatch("OrderForm/fetchData");
+};
+
+const searchPvz = (e: { target: HTMLInputElement }) => {
+  store.commit("OrderForm/searchPvz", e.target.value);
+
+  openPvz.value = true;
+  store.dispatch("OrderForm/fetchDataPvz");
+};
+
+const setResultPvz = (name: string, address: string, id: number) => {
+  store.commit("OrderForm/searchPvz", name + address);
+  store.commit("OrderForm/getPvzId", id);
+  openPvz.value = false;
+  geoObject();
+};
+
+const setResultCity = (name: string, id: number) => {
+  store.commit("OrderForm/searchCity", name);
+  store.commit("OrderForm/getCityId", id);
+
+  openCity.value = false;
+};
+
+const resetCity = () => {
+  store.commit("OrderForm/searchCity", "");
+  router.push(this.$route.path);
+};
+
+const resetPvz = () => {
+  store.commit("OrderForm/searchPvz", "");
+  router.push(this.$route.path);
+};
+
+const valueCity = computed(() => store.state.OrderForm.valueCity);
+
+const valuePvz = computed(() => store.state.OrderForm.valuePvz);
+
+const cityList = computed(() => {
+  if (valueCity.value !== "")
+    return store.getters["OrderForm/getCityValue"](valueCity.value);
+});
+
+const pvzList = computed(() => store.state.OrderForm.pvz.data);
+
+const emptyCityList = computed(() => {
+  let empty = false;
+  if (cityList.value.length === 0 && valueCity.value !== "") {
+    empty = true;
   }
+  return empty;
+});
 
-  searchPvz(e: { target: HTMLInputElement }) {
-    this.$store.commit("OrderForm/searchPvz", e.target.value);
-
-    this.openPvz = true;
-    this.fetchDataPvz();
+const emptyPvzList = computed(() => {
+  let empty = false;
+  if (pvzList.value.length === 0 && valuePvz.value !== "") {
+    empty = true;
   }
-
-  fetchDataPvz() {
-    return this.$store.dispatch("OrderForm/fetchDataPvz");
-  }
-
-  fetchData() {
-    return this.$store.dispatch("OrderForm/fetchData");
-  }
-
-  setResultPvz(name: string, address: string, id: number) {
-    this.$store.commit("OrderForm/searchPvz", name + address);
-    this.$store.commit("OrderForm/getPvzId", id);
-    this.openPvz = false;
-    this.geoObject;
-  }
-
-  setResultCity(name: string, id: number) {
-    this.$store.commit("OrderForm/searchCity", name);
-    this.$store.commit("OrderForm/getCityId", id);
-
-    this.openCity = false;
-  }
-
-  resetCity() {
-    this.$store.commit("OrderForm/searchCity", "");
-    this.$router.push(this.$route.path);
-  }
-
-  resetPvz() {
-    this.$store.commit("OrderForm/searchPvz", "");
-    this.$router.push(this.$route.path);
-  }
-
-  get valueCity(): string {
-    return this.$store.state.OrderForm.valueCity;
-  }
-
-  get valuePvz(): string {
-    return this.$store.state.OrderForm.valuePvz;
-  }
-
-  get cityList() {
-    if (this.valueCity !== "")
-      return this.$store.getters["OrderForm/getCityValue"](this.valueCity);
-  }
-
-  get pvzList() {
-    return this.$store.state.OrderForm.pvz.data;
-  }
-
-  get emptyCityList() {
-    let empty: boolean = false;
-    if (this.cityList?.length === 0 && this.valueCity !== "") {
-      empty = true;
-    }
-    return empty;
-  }
-
-  get emptyPvzList() {
-    let empty = false;
-    if (this.pvzList?.length === 0 && this.valuePvz !== "") {
-      empty = true;
-    }
-    return empty;
-  }
-}
+  return empty;
+});
 </script>
 
 <style scoped lang="scss">

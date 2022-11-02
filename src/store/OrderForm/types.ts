@@ -53,7 +53,6 @@ export interface Rate {
     name: string;
     id: string;
   }[];
-
   id: string;
 }
 [];
@@ -120,14 +119,14 @@ export interface ProfileState {
   orderStatus?: OrderStatus[];
   valueCity?: ValueInput["valueCity"];
   valuePvz?: ValueInput["valuePvz"];
-  cityId?: any;
-  pvzId?: any;
-  carModel?: any;
+  cityId?: number;
+  pvzId?: number;
+  carModel?: string;
   colorFilter?: ColorFilter[];
   colorCheck?: ColorFilter["checked"];
   carAdditionally?: CarAdditionally[];
   checked: CarAdditionally["checked"];
-  carColor?: any;
+  carColor?: string;
   additionallyFilter?: any;
   dateFrom?: ValueInput["dateFrom"];
   dateTo?: ValueInput["dateTo"];
@@ -141,10 +140,10 @@ export interface ProfileState {
   carNumber?: Car["number"];
   ratePrice?: Rate["price"];
   rateId?: Rate["id"];
-  timePrice?: any;
+  timePrice?: number;
   additionallyPrice?: CarAdditionally["price"];
-  durationMinute?: number;
-  categoryId?: any;
+  durationMinute?: number | string;
+  categoryId?: string;
   loadingCarList?: boolean;
   fullPrice?: number;
   carId?: Car["id"];

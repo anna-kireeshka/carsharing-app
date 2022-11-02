@@ -61,7 +61,7 @@ export default {
   }
 
   .error {
-    @media screen and(max-width:900px) {
+    @media screen and (max-width:900px) {
       min-width: 90%;
     }
     width: 30%;
