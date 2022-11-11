@@ -1,4 +1,4 @@
-import { HTTP } from "../../services/api";
+import { HTTP, HTTP_FAKE } from "@/services/api";
 import { ActionTree } from "vuex";
 import {
   Car,
@@ -14,33 +14,27 @@ import { RootState } from "../types";
 import { AxiosResponse } from "axios";
 
 export const actions: ActionTree<ProfileState, RootState> = {
-  async fetchData({ commit }) {
-    await HTTP.get("/api/db/city/").then(
-      (response: AxiosResponse<City[]>) => {
-        const city: City[] = response.data;
-        commit("cityLoaded", city);
-      },
-      (error) => {
-        console.log(error);
-        commit("cityLoaded");
-      }
-    );
+  async loadСities({ commit }) {
+    try {
+      const response: AxiosResponse<City> = await HTTP_FAKE.get("/city");
+      commit("cityLoaded", response.data);
+    } catch (err) {
+      console.log(err);
+    }
   },
-  fetchDataPvz({ commit, state }) {
-    HTTP.get("/api/db/point", { params: { cityId: state.cityId } }).then(
-      (response: AxiosResponse<Pvz[]>) => {
-        const pvz: Pvz[] = response.data;
-        commit("pvzLoaded", pvz);
-      },
-      (error) => {
-        console.log(error);
-        commit("pvzLoaded");
-      }
-    );
+  async loadPoint({ commit, state }) {
+    try {
+      const response: AxiosResponse<Pvz> = await HTTP_FAKE.get("/pvz", {
+        params: { cityId: state.cityId },
+      });
+      commit("pvzLoaded", response.data);
+    } catch (err) {
+      console.log(err);
+    }
   },
 
   fetchDataCar({ commit, state }) {
-    HTTP.get("/api/db/car", {
+    HTTP.get("/car", {
       params: { categoryId: state.categoryId },
     }).then(
       (response: AxiosResponse<Car[]>) => {
@@ -56,7 +50,7 @@ export const actions: ActionTree<ProfileState, RootState> = {
   },
 
   fetchDataCarFilter({ commit }) {
-    HTTP.get("/api/db/category").then(
+    HTTP.get("/category").then(
       (response) => {
         const carFilter: CarFilter[] = response.data;
         commit("carFilterLoaded", carFilter);
@@ -69,7 +63,7 @@ export const actions: ActionTree<ProfileState, RootState> = {
   },
 
   fetchDataRate({ commit, state }) {
-    HTTP.get("/api/db/rate").then(
+    HTTP.get("/rate").then(
       (response: AxiosResponse<Rate[]>) => {
         const rate: Rate[] = response.data;
         commit("rateLoaded", rate);
@@ -82,7 +76,7 @@ export const actions: ActionTree<ProfileState, RootState> = {
   },
 
   fetchDataOrder({ commit, state }) {
-    HTTP.post("/api/db/order", {
+    HTTP.post("/order", {
       orderStatusId: "5e26a1f0099b810b946c5d8b",
       cityId: state.cityId,
       pointId: state.pvzId,
@@ -108,7 +102,7 @@ export const actions: ActionTree<ProfileState, RootState> = {
   },
 
   fetchDataStatusOrder({ commit }) {
-    HTTP.get("/api/db/orderStatus").then(
+    HTTP.get("/orderStatus").then(
       (response: AxiosResponse<OrderStatus>) => {
         const orderStatus: OrderStatus = response.data;
         commit("orderStatusLoaded", orderStatus);
@@ -121,7 +115,7 @@ export const actions: ActionTree<ProfileState, RootState> = {
   },
 
   fetchDataFinalOrderForId({ state }) {
-    HTTP.get("/api/db/order/" + state.id).then(
+    HTTP.get("/order/" + state.id).then(
       (response) => {
         state.orderCard = response.data;
       },

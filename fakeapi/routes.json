@@ -1,0 +1,6 @@
+{
+  "/city": "/city",
+  "/city/:id": "/city/:id",
+  "/city/:name": "/city/:name",
+  "/pvz/:cityId": "/pvz/:cityId"
+}
