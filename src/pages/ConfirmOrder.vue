@@ -2,19 +2,7 @@
   <div class="main-wrapper">
     <Navigation />
     <div class="main">
-      <div class="main-nav">
-        <h1>
-          <router-link class="main-nav__company" :to="{ name: 'MainPage' }"
-            >Need for drive</router-link
-          >
-        </h1>
-        <p class="main-nav__city-name">
-          <svg width="18" height="20">
-            <use xlink:href="#gps" />
-          </svg>
-          Ульяновск
-        </p>
-      </div>
+      <AppHeader />
       <div class="navigation">
         <p class="navigation__item">Заказ номер {{ id }}</p>
       </div>
@@ -58,31 +46,23 @@
   </div>
 </template>
 
-<script>
-import { Vue, Component } from "vue-property-decorator";
-
+<script lang="ts" setup>
+import { ref, computed } from "vue";
+import { useStore } from "vuex";
 import PreOrderInfo from "@/components/PreOrderInfo.vue";
 import Navigation from "@/components/Navigation.vue";
+import AppHeader from "@/components/AppHeader.vue";
 
-@Component({
-  components: { PreOrderInfo, Navigation },
-})
-export default class ConfirmOrder extends Vue {
-  finalOrderList = [];
+const store = useStore();
 
-  mounted() {
-    this.$store.dispatch("OrderForm/fetchDataFinalOrderForId");
-    this.finalOrderList = this.$store.state.OrderForm.orderCard;
-  }
+const finalOrderList = ref([]);
+store.dispatch("OrderForm/fetchDataFinalOrderForId");
 
-  get carDate() {
-    return this.$store.state.OrderForm.dateTo;
-  }
+finalOrderList.value = store.state.OrderForm.orderCard;
 
-  get id() {
-    return this.$store.state.OrderForm.id;
-  }
-}
+const carDate = computed(() => store.state.OrderForm.dateTo);
+
+const id = computed(() => store.state.OrderForm.id);
 </script>
 
 <style scoped lang="scss">
@@ -99,21 +79,6 @@ export default class ConfirmOrder extends Vue {
   width: 100%;
   height: 100vh;
   overflow: scroll;
-}
-.main-nav {
-  @include flex-row;
-  @include flex-logo;
-  @include order-card-mobile;
-  padding: 32px 63px 32px 64px;
-  &__company {
-    @include logo;
-  }
-  &__city-name {
-    @include city;
-  }
-  &__city-name svg {
-    margin-right: 0.4713rem;
-  }
 }
 .card-form {
   @include flex-row;

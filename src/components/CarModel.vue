@@ -2,19 +2,7 @@
   <div class="main-wrapper">
     <Navigation />
     <div class="main">
-      <div class="main-nav">
-        <h1>
-          <router-link class="main-nav__company" :to="{ name: 'MainPage' }"
-            >Need for drive</router-link
-          >
-        </h1>
-        <p class="main-nav__city-name">
-          <svg width="18" height="20">
-            <use xlink:href="#gps" />
-          </svg>
-          Ульяновск
-        </p>
-      </div>
+      <AppHeader />
       <BreadcrumbsRoute />
       <div class="form">
         <div class="car-model">
@@ -88,9 +76,10 @@ import { useStore } from "vuex";
 import BreadcrumbsRoute from "./BreadcrumbsRoute.vue";
 import PreOrderInfo from "./PreOrderInfo.vue";
 import Navigation from "./Navigation.vue";
+import AppHeader from "@/components/AppHeader.vue";
 
 const store = useStore();
-const image = ref(require("@/assets/car.png"));
+const image = ref("@/assets/car.png");
 
 store.dispatch("OrderForm/fetchDataCar");
 
@@ -149,22 +138,7 @@ const loader = computed(() => store.state.OrderForm.loadingCarList);
   height: 100vh;
   overflow: scroll;
 }
-.main-nav {
-  @include flex-row;
-  @include flex-logo;
-  @include order-card-mobile;
-  padding: 32px 63px 32px 64px;
 
-  &__company {
-    @include logo;
-  }
-  &__city-name {
-    @include city;
-  }
-  &__city-name svg {
-    margin-right: 0.4713rem;
-  }
-}
 .form {
   @include flex-row;
   @include content-very-large-main;
