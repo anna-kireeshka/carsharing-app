@@ -3,54 +3,32 @@
     <div class="order">
       <p class="order__title">Ваш заказ:</p>
       <div class="additionally">
-        <div class="form">
-          <p class="additionally__name">Пункт выдачи</p>
-          <div class="additionally__dote"></div>
-          <div class="additionally__block">
-            <p class="additionally__text">{{ city }}</p>
-            <p class="additionally__text">{{ pvz }}</p>
-          </div>
-        </div>
-        <template v-if="fullRoute === 'CarModel'">
-          <div class="form">
-            <p class="additionally__name">Модель</p>
-            <p class="additionally__dote additionally__dote--model"></p>
-            <p class="additionally__text">{{ carModel }}</p>
-          </div>
-        </template>
+        <TextFieldForm :label="'Пункт выдачи'" :text-value="city">
+          <template #additionallyTextValue>
+            {{ pvz }}
+          </template>
+        </TextFieldForm>
+        <TextFieldForm
+          v-if="route.name === 'CarModel'"
+          :label="'Модель'"
+          :text-value="carModel"
+        >
+        </TextFieldForm>
         <template
           v-if="
-            fullRoute === 'OrderAdditionally' ||
-            fullRoute === 'FinalOrder' ||
-            fullRoute === 'ConfirmOrder'
+            route.name === 'OrderAdditionally' ||
+            route.name === 'FinalOrder' ||
+            route.name === 'ConfirmOrder'
           "
         >
-          <div class="form">
-            <p class="additionally__name">Модель</p>
-            <p class="additionally__dote additionally__dote--model"></p>
-            <p class="additionally__text">{{ carModel }}</p>
-          </div>
-          <div class="form">
-            <p class="additionally__name">Цвет</p>
-            <p class="additionally__dote additionally__dote--color"></p>
-            <div class="additionally__block">
-              <p class="additionally__text">{{ carColor }}</p>
-            </div>
-          </div>
-          <div class="form">
-            <p class="additionally__name">Длительность аренды</p>
-            <p class="additionally__dote additionally__dote--time"></p>
-            <div class="additionally__block">
-              <p class="additionally__text">{{ dateDuration }}</p>
-            </div>
-          </div>
-          <div class="form">
-            <p class="additionally__name">Тариф</p>
-            <p class="additionally__dote additionally__dote--rent"></p>
-            <div class="additionally__block">
-              <p class="additionally__text">{{ rate }}</p>
-            </div>
-          </div>
+          <TextFieldForm :label="'Модель'" :text-value="carModel">
+          </TextFieldForm>
+          <TextFieldForm :label="'Цвет'" :text-value="carColor">
+          </TextFieldForm>
+          <TextFieldForm :label="'Длительность'" :text-value="dateDuration">
+          </TextFieldForm>
+          <TextFieldForm :label="'Тариф'" :text-value="rate"> </TextFieldForm>
+
           <div class="form" v-for="(item, index) in checkbox" :key="index">
             <p class="additionally__name">{{ item }}</p>
             <p class="additionally__dote additionally__dote--rent"></p>
@@ -61,84 +39,13 @@
         </template>
       </div>
     </div>
-    <div class="price">
-      <p class="price__first-step" v-if="fullRoute === 'location'">
-        <span class="price__first-step--dark">Цена</span>: от 8 000 до 12 000 ₽
-      </p>
-      <p class="price__first-step" v-if="fullRoute === 'CarModel'">
-        <span class="price__first-step--dark">Цена</span>: от {{ minPrice }} до
-        {{ maxPrice }} ₽
-      </p>
-      <p class="price__first-step" v-if="fullRoute === 'OrderAdditionally'">
-        <span class="price__first-step--dark">Цена</span>: {{ finalPrice }} ₽
-      </p>
-      <p
-        class="price__first-step"
-        v-if="fullRoute === 'FinalOrder' || fullRoute === 'ConfirmOrder'"
-      >
-        <span class="price__first-step--dark">Цена</span>: {{ finalPrice }} ₽
-      </p>
-      <router-link
-        v-show="fullRoute === 'location'"
-        class="price__model-action"
-        :class="{
-          'price__model-action--active': !checkValidForm,
-        }"
-        :to="{ name: 'CarModel' }"
-      >
-        Выбрать модель
-      </router-link>
-      <router-link
-        v-show="fullRoute === 'CarModel'"
-        class="price__model-action"
-        :to="{ name: 'OrderAdditionally' }"
-        :class="{
-          'price__model-action--active': !checkValidFormCarModel,
-        }"
-      >
-        Дополнительно
-      </router-link>
-      <router-link
-        v-show="fullRoute === 'OrderAdditionally'"
-        class="price__model-action"
-        :to="{ name: 'FinalOrder' }"
-        :class="{
-          'price__model-action--active':
-            !checkValidFormAdditionally && (!minValidPrice || !maxValidPrice),
-        }"
-      >
-        Итого
-      </router-link>
-      <button
-        v-show="fullRoute === 'FinalOrder'"
-        class="price__model-action"
-        :class="{
-          'price__model-action--active': !checkValidFormAdditionally,
-        }"
-        @click.self="openModalConfirm"
-      >
-        Заказать
-      </button>
-      <router-link
-        v-show="fullRoute === 'ConfirmOrder'"
-        class="price__model-action price__model-action--reset"
-        :to="{ name: 'FinalOrder' }"
-      >
-        Отменить
-      </router-link>
-      <p
-        v-if="!maxValidPrice && fullRoute === 'OrderAdditionally'"
-        class="price__model-action--error"
-      >
-        Цена аренды автомобиля не может быть больше {{ maxPrice }}
-      </p>
-      <p
-        v-else-if="!minValidPrice && fullRoute === 'OrderAdditionally'"
-        class="price__model-action--error"
-      >
-        Цена аренды автомобиля не может быть меньше {{ minPrice }}
-      </p>
-    </div>
+    <PriceForm
+      :validation="isValidForm"
+      :name-route="route.name"
+      :queryParams="params.name"
+      :label="params.label"
+      @getOrder="getOrder"
+    />
     <ModalFinalOrder :open-window="openModalWindow" />
   </div>
 </template>
@@ -146,51 +53,47 @@
 import ModalFinalOrder from "@/components/ModalFinalOrder.vue";
 import { ref, computed } from "vue";
 import { useStore } from "vuex";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
+import TextFieldForm from "@/components/UI/TextFieldForm.vue";
+import PriceForm from "@/components/UI/PriceForm.vue";
 
 const store = useStore();
 
-const router = useRoute();
+const router = useRouter();
+
+const route = useRoute();
 
 const openModalWindow = ref<boolean>(false);
 
-const openModalConfirm = () => {
-  openModalWindow.value = !openModalWindow.value;
-};
 const city = computed<string>(() => store.state.OrderForm.valueCity);
 
 const pvz = computed<string>(() => store.state.OrderForm.valuePvz);
 
-const fullRoute = router.name;
+const isValidLocation = computed<boolean>(
+  () => city.value === "" || pvz.value === ""
+);
 
-const checkValidForm = computed<boolean>(() => {
-  let empty = true;
-  if (city.value !== "" && pvz.value !== "") {
-    return false;
-  }
-  return empty;
-});
+const isValidCarModel = computed<boolean>(
+  () => city.value === "" && pvz.value === "" && carModel.value === ""
+);
 
-const checkValidFormCarModel = computed(() => {
-  let empty = true;
-  if (city.value !== "" && pvz.value !== "" && carModel.value !== "") {
-    empty = false;
-  }
-  return empty;
-});
+const isValidAdditionally = computed<boolean>(
+  () =>
+    city.value === "" &&
+    pvz.value === "" &&
+    carColor.value === "" &&
+    (dateDuration.value === null || rate.value === "") &&
+    checkbox.value.length
+);
 
-const checkValidFormAdditionally = computed(() => {
-  let empty = true;
-  if (
-    city.value !== "" &&
-    pvz.value !== "" &&
-    carColor.value !== "" &&
-    (dateDuration.value !== null || rate.value !== "") &&
-    this.checkbox.length > 0
-  ) {
-    empty = false;
+const isValidForm = computed(() => {
+  if (route.name === "location") {
+    return isValidLocation;
+  } else if (route.name === "CarModel") {
+    return isValidCarModel;
+  } else if (route.name === "OrderAdditionally") {
+    return isValidAdditionally;
   }
-  return empty;
 });
 
 const carNumber = computed<string>(() => store.state.OrderForm.carNumber);
@@ -205,29 +108,45 @@ const dateDuration = computed(() => store.getters["OrderForm/getRateTime"]);
 
 const checkbox = computed(() => store.state.OrderForm.additionallyFilter);
 
-const minPrice = computed<number>(() => store.state.OrderForm.carPrice);
-
-const maxPrice = computed<number>(() => store.state.OrderForm.maxCarPrice);
-
-const finalPrice = computed<number>(() => store.getters["OrderForm/fullPrice"]);
-
-const maxValidPrice = computed(() => {
-  let validMaxPrice = false;
-  if (maxPrice > finalPrice) {
-    validMaxPrice = true;
-  }
-  return validMaxPrice;
-});
-
-const minValidPrice = computed(() => {
-  let validMinPrice = false;
-  if (finalPrice < this.minPrice) {
-    validMinPrice = true;
-  }
-  return validMinPrice;
-});
-
 const orderId = computed(() => store.getters["OrderForm/getFinalOrderId"]);
+
+const params = computed(() => {
+  if (route.name === "location") {
+    return {
+      name: "CarModel",
+      label: "Выбрать модель",
+    };
+  } else if (route.name === "CarModel") {
+    return {
+      name: "OrderAdditionally",
+      label: "Дополнительно",
+    };
+  } else if (route.name === "OrderAdditionally") {
+    return {
+      name: "FinalOrder",
+      label: "Итого",
+    };
+  } else if (route.name === "FinalOrder") {
+    return {
+      name: "FinalOrder",
+      label: "Заказать",
+    };
+  } else if (route.name === "ConfirmOrder") {
+    return {
+      name: "FinalOrder",
+      label: "Отменить",
+    };
+  }
+});
+
+const getOrder = (value: string) => {
+  if (route.name !== "FinalOrder") {
+    router.push({ name: value });
+  }
+  if (route.name === "FinalOrder") {
+    openModalWindow.value = true;
+  }
+};
 </script>
 
 <style scoped lang="scss">
@@ -303,48 +222,6 @@ const orderId = computed(() => store.getters["OrderForm/getFinalOrderId"]);
       line-height: 16px;
       color: $main-dark-gray;
     }
-  }
-}
-
-.price {
-  @include flex-column;
-  align-items: flex-start;
-  &__first-step {
-    font-weight: $medium;
-    font-size: 16px;
-    line-height: 16px;
-    color: $main-black;
-
-    padding-bottom: 32px;
-  }
-  &__first-step--dark {
-    font-weight: $semi-bold;
-  }
-  &__model-action {
-    @include base-btn;
-    @include base-disabled-green;
-    text-decoration: none;
-    width: 287px;
-    padding: 15px 0;
-  }
-  &__model-action--active {
-    @include base-btn-green;
-  }
-  &__model-action--active:hover {
-    @include base-hover-green;
-  }
-  &__model-action--active:active {
-    @include base-active-green;
-  }
-  &__model-action--active:active:before {
-    @include base-click-green;
-  }
-  &__model-action--reset {
-    background: $btn-slider-red;
-  }
-  &__model-action--error {
-    color: #d73b3b;
-    margin-top: 10px;
   }
 }
 </style>
