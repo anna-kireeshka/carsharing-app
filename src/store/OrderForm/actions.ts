@@ -22,11 +22,9 @@ export const actions: ActionTree<ProfileState, RootState> = {
       console.log(err);
     }
   },
-  async loadPoint({ commit, state }) {
+  async loadPoint({ commit }, id) {
     try {
-      const response: AxiosResponse<Pvz> = await HTTP_FAKE.get("/pvz", {
-        params: { cityId: state.cityId },
-      });
+      const response: AxiosResponse<Pvz> = await HTTP_FAKE.get(`/pvz/${id}`);
       commit("pvzLoaded", response.data);
     } catch (err) {
       console.log(err);

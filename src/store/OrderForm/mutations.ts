@@ -40,20 +40,11 @@ export const mutations: MutationTree<ProfileState> = {
     state.finalOrder = order;
   },
 
-  searchCity(state, payload: ValueInput["valueCity"]) {
+  setCityValue(state, payload: ValueInput["valueCity"]) {
     state.valueCity = payload;
   },
-  searchPvz(state, payload: ValueInput["valuePvz"]) {
+  setPvzValue(state, payload: ValueInput["valuePvz"]) {
     state.valuePvz = payload;
-  },
-
-  getCityId(state, city: City[]) {
-    if (city.length !== 0) {
-      for (let i = 0; i < city.length; i++) {
-        state.cityId = city[i].id;
-      }
-    }
-    return state.cityId;
   },
 
   getPvzId(state, pvz: Pvz[]) {

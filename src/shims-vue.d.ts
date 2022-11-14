@@ -7,3 +7,4 @@ declare module "*.scss";
 declare module "dayjs";
 declare module "dayjs/plugin/duration";
 declare module "vue2-datepicker";
+declare module "uuid";

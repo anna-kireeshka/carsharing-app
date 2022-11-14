@@ -9,13 +9,17 @@ import {
 } from "./types";
 import { RootState } from "../types";
 import dayjs from "dayjs";
+import _ from "lodash";
 
 export const getters: GetterTree<ProfileState, RootState> = {
-  getCityValue: (state) => (value: ValueInput["valueCity"]) => {
-    const arr = state.city;
-    return arr?.filter((el: City) =>
-      el.name.toLowerCase().includes(value.toLowerCase())
-    );
+  getCityValue: (state: ProfileState) => (value: ValueInput["valueCity"]) => {
+    const arr = _.cloneDeep(state.city);
+    if (!_.isEmpty(value)) {
+      return arr?.filter((el: City) =>
+        el.name.toLowerCase().includes(value.toLowerCase())
+      );
+    }
+    return arr;
   },
 
   getFilteredCar: (state) => {

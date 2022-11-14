@@ -1,14 +1,17 @@
 export interface City {
-  updatedAt: number;
-  createdAt: number;
+  updatedAt?: number;
+  createdAt?: number;
   name: string;
   id: number;
 }
-[];
+
 export interface Pvz {
   name: string;
   cityId: number;
-  address: string;
+  address: {
+    id: string;
+    name: string;
+  }[];
 }
 [];
 
@@ -111,7 +114,7 @@ export interface OrderStatus {
 [];
 
 export interface ProfileState {
-  city?: City[];
+  city?: Array<City>;
   pvz?: Pvz[];
   carFilter: CarFilter[];
   car?: Car[];
