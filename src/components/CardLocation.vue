@@ -205,35 +205,4 @@ const isEmptyPvzList = computed<boolean>(
     margin-bottom: 16px;
   }
 }
-//.card {
-//  @include flex-column;
-//  width: 100%;
-//  height: 100%;
-//  align-items: flex-start;
-//  margin-top: calc(45px - 16px);
-//
-//  #map {
-//    width: 100% !important;
-//    height: 352px;
-//
-//    filter: grayscale(0.8);
-//    -ms-filter: grayscale(0.8);
-//    -webkit-filter: grayscale(0.8);
-//    -moz-filter: grayscale(0.8);
-//    -o-filter: grayscale(0.8);
-//  }
-//
-//  &__desc {
-//    font-weight: $light;
-//    font-size: 14px;
-//    line-height: 16px;
-//    color: $main-black;
-//
-//    margin-bottom: 16px;
-//  }
-//
-//  ymaps {
-//    width: 100%;
-//  }
-//}
 </style>
