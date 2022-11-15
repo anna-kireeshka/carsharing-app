@@ -51,11 +51,12 @@
 </template>
 <script lang="ts" setup>
 import ModalFinalOrder from "@/components/ModalFinalOrder.vue";
-import { ref, computed } from "vue";
+import { ref, computed, ComputedGetter, ComputedRef } from "vue";
 import { useStore } from "vuex";
 import { useRoute, useRouter } from "vue-router";
 import TextFieldForm from "@/components/UI/TextFieldForm.vue";
 import PriceForm from "@/components/UI/PriceForm.vue";
+import { getLabel } from "@/services/hooks/formValidation";
 
 const store = useStore();
 
@@ -74,13 +75,12 @@ const isValidLocation = computed<boolean>(
 );
 
 const isValidCarModel = computed<boolean>(
-  () => city.value === "" && pvz.value === "" && carModel.value === ""
+  () => isValidLocation.value && carModel.value === ""
 );
 
 const isValidAdditionally = computed<boolean>(
   () =>
-    city.value === "" &&
-    pvz.value === "" &&
+    isValidLocation.value &&
     carColor.value === "" &&
     (dateDuration.value === null || rate.value === "") &&
     checkbox.value.length
@@ -88,11 +88,11 @@ const isValidAdditionally = computed<boolean>(
 
 const isValidForm = computed(() => {
   if (route.name === "location") {
-    return isValidLocation;
+    return !isValidLocation.value;
   } else if (route.name === "CarModel") {
-    return isValidCarModel;
+    return !isValidCarModel.value;
   } else if (route.name === "OrderAdditionally") {
-    return isValidAdditionally;
+    return !isValidAdditionally.value;
   }
 });
 
@@ -110,34 +110,7 @@ const checkbox = computed(() => store.state.OrderForm.additionallyFilter);
 
 const orderId = computed(() => store.getters["OrderForm/getFinalOrderId"]);
 
-const params = computed(() => {
-  if (route.name === "location") {
-    return {
-      name: "CarModel",
-      label: "Выбрать модель",
-    };
-  } else if (route.name === "CarModel") {
-    return {
-      name: "OrderAdditionally",
-      label: "Дополнительно",
-    };
-  } else if (route.name === "OrderAdditionally") {
-    return {
-      name: "FinalOrder",
-      label: "Итого",
-    };
-  } else if (route.name === "FinalOrder") {
-    return {
-      name: "FinalOrder",
-      label: "Заказать",
-    };
-  } else if (route.name === "ConfirmOrder") {
-    return {
-      name: "FinalOrder",
-      label: "Отменить",
-    };
-  }
-});
+const params = computed(() => getLabel(route.name));
 
 const getOrder = (value: string) => {
   if (route.name !== "FinalOrder") {
