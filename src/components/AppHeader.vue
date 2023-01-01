@@ -19,7 +19,7 @@
   @include flex-row;
   @include flex-logo;
   @include order-card-mobile;
-  //padding: 32px 63px 32px 64px;
+  padding: 32px 63px 32px 64px;
   &__company {
     @include logo;
   }

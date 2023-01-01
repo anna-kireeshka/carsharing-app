@@ -62,7 +62,7 @@ finalOrderList.value = store.state.OrderForm.orderCard;
 
 const carDate = computed(() => store.state.OrderForm.dateTo);
 
-const id = computed(() => store.state.OrderForm.id);
+const id = computed(() => store.state.OrderForm.orderStatus.id);
 </script>
 
 <style scoped lang="scss">

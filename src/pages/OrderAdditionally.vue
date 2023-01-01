@@ -27,44 +27,12 @@
                   @change="checkColor(item.name, $event)"
                 />
                 <span class="filter__castom"></span>
-                {{ item.name }}</label
-              >
+                {{ item.name }}
+              </label>
             </div>
           </div>
           <p class="filter__desc">Дата аренды</p>
-          <div class="filter__dates">
-            <div>
-              <div class="date-wrap">
-                <label class="filter__label"
-                  >С
-                  <date-picker
-                    type="datetime"
-                    class="filter__date filter__date--start"
-                    placeholder="Введите дату и время"
-                    v-model="startDateModel"
-                    @change="checkDateFrom(startDateModel)"
-                    @clear="clearDateStart(startDateModel)"
-                  ></date-picker>
-                </label>
-                <small class="error" v-if="startDateModel === ''"
-                  >Поле обязательно для заполнения</small
-                >
-              </div>
-            </div>
-            <p>
-              <label class="filter__label">
-                По
-                <date-picker
-                  type="datetime"
-                  class="filter__date filter__date--start"
-                  placeholder="Введите дату и время"
-                  v-model="endDateModel"
-                  @change="checkDateTo(endDateModel)"
-                  @clear="clearDateEnd(endDateModel)"
-                ></date-picker>
-              </label>
-            </p>
-          </div>
+          <DateField />
           <div class="filter__rate">
             <p class="filter__desc">Тариф</p>
 
@@ -120,15 +88,14 @@
 import { ref, computed, onMounted } from "vue";
 import { useStore } from "vuex";
 import PreOrderInfo from "@/components/PreOrderInfo.vue";
-import Navigation from "./Navigation.vue";
+import Navigation from "@/components/Navigation.vue";
 import BreadcrumbsRoute from "@/components/BreadcrumbsRoute.vue";
 import AppHeader from "@/components/AppHeader.vue";
+import DateField from "@/components/UI/DateField.vue";
 
 const store = useStore();
-const startDateModel = ref<string>("");
-const endDateModel = ref<string>("");
 
-store.dispatch("OrderForm/fetchDataRate");
+store.dispatch("OrderForm/loadRate");
 
 const checkColor = (color: string, e: { target: HTMLInputElement }) => {
   store.commit("OrderForm/getCarColor", color);
@@ -151,37 +118,13 @@ const checkRate = (duration: string, price: number, rateId: string) => {
   store.commit("OrderForm/getRateId", rateId);
 };
 
-const checkDateFrom = (from: string) => {
-  store.commit("OrderForm/getDateTimeFrom", from);
-};
-
-const checkDateTo = (to: string) => {
-  store.commit("OrderForm/getDateTimeTo", to);
-};
-
-const clearDateStart = (to: string) => {
-  store.commit("OrderForm/deleteDateStart", to);
-};
-
-const clearDateEnd = (end: string) => {
-  store.commit("OrderForm/deleteDateEnd", end);
-};
-
-const rate = computed(() => store.getters["OrderForm/getRateFilter"]);
+const rate = computed(() => store.state.OrderForm.rate);
 
 const colorFilter = computed(() => store.getters["OrderForm/getColorFilter"]);
 
 const additionally = computed(
   () => store.getters["OrderForm/getCarAdditionally"]
 );
-
-const startDate = computed(() => store.state.OrderForm.dateFrom);
-
-const endDate = computed(() => store.state.OrderForm.dateTo);
-
-const startDateM = computed(() => store.getters["OrderForm/getDateToMs"]);
-
-const endDateMs = computed(() => store.getters["OrderForm/getDateFromMs"]);
 </script>
 
 <style lang="scss" scoped>
@@ -286,23 +229,6 @@ const endDateMs = computed(() => store.getters["OrderForm/getDateFromMs"]);
   input:checked ~ &__castom {
     border: 3px solid #0ec261;
   }
-  &__dates {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-
-    margin-bottom: 32px;
-  }
-  &__date {
-    width: 224px;
-
-    border: none;
-    border-bottom: 1px solid #999999;
-    outline: none;
-    width: 224px;
-
-    margin-left: 8px;
-  }
   &__rate {
     display: flex;
     flex-direction: column;
@@ -319,11 +245,6 @@ const endDateMs = computed(() => store.getters["OrderForm/getDateFromMs"]);
   .error {
     color: #d73b3b;
   }
-}
-.date-wrap {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 13px;
 }
 ::v-deep {
   .mx-input {

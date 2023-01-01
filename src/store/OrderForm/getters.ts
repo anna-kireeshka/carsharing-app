@@ -1,18 +1,11 @@
 import { GetterTree } from "vuex";
-import {
-  CarAdditionally,
-  ProfileState,
-  ValueInput,
-  City,
-  Car,
-  CarFilter,
-} from "./types";
+import { CarAdditionally, ProfileState, City, Car } from "./types";
 import { RootState } from "../types";
 import dayjs from "dayjs";
 import _ from "lodash";
 
 export const getters: GetterTree<ProfileState, RootState> = {
-  getCityValue: (state: ProfileState) => (value: ValueInput["valueCity"]) => {
+  getCityValue: (state: ProfileState) => (value: string) => {
     const arr = _.cloneDeep(state.city);
     if (!_.isEmpty(value)) {
       return arr?.filter((el: City) =>
@@ -20,16 +13,6 @@ export const getters: GetterTree<ProfileState, RootState> = {
       );
     }
     return arr;
-  },
-
-  getFilteredCar: (state) => {
-    let carList = state.car;
-    carList = carList?.filter((el: Car) => el.priceMin >= 5000);
-    return carList;
-  },
-
-  getRateFilter: (state) => {
-    return state.rate;
   },
 
   getColorFilter: (state) => {
@@ -56,16 +39,18 @@ export const getters: GetterTree<ProfileState, RootState> = {
   getRateTime: (state) => {
     let duration = "";
 
-    if (state.dateTo !== "" && state.dateFrom !== "") {
+    if (state.dateTo && state.dateFrom) {
       const startDate = dayjs(state.dateTo);
       const endDate = dayjs(state.dateFrom);
+
       duration = dayjs.duration(startDate.diff(endDate)).format("D[д] H[ч]");
     }
+
     return duration;
   },
 
   getRateTimeMinute: (state) => {
-    if (state.dateTo !== "" && state.dateFrom !== "") {
+    if (state.dateTo && state.dateFrom) {
       const startDate = dayjs(state.dateTo);
       const endDate = dayjs(state.dateFrom);
       state.durationMinute = dayjs
@@ -76,34 +61,32 @@ export const getters: GetterTree<ProfileState, RootState> = {
   },
 
   getDateToMs: (state) => {
-    if (state.dateTo !== "") {
+    if (state.dateTo) {
       state.dateToMs = dayjs(state.dateTo).valueOf();
     }
+
     return state.dateToMs;
   },
 
   getDateFromMs: (state) => {
-    if (state.dateFrom !== "") {
+    if (state.dateFrom) {
       state.dateFromMs = dayjs(state.dateFrom).valueOf();
     }
+
     return state.dateFromMs;
   },
 
   fullPrice: (state) => {
-    const price =
-      Number(state.carPrice) +
-      Number(state.additionallyPrice) +
-      Number(state.ratePrice);
-    if (state.dateTo === "" || state.dateFrom === "") {
-      state.fullPrice = price;
-    } else {
-      state.fullPrice = price * Number(state.durationMinute);
-    }
-    return state.fullPrice;
-  },
+    let price = Number(state.carPrice);
 
-  getSortFilter: (state) => {
-    const filterList = state.carFilter;
-    return filterList?.filter((el: CarFilter) => el.name !== "Name");
+    if (state.dateTo || state.dateFrom) {
+      if (state.rateId === "24h") {
+        price = price + Number(state.ratePrice);
+      } else if (state.rateId === "1min") {
+        price = price + Number(state.durationMinute) * 9;
+      }
+    }
+
+    return (state.fullPrice = price);
   },
 };

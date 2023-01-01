@@ -6,8 +6,8 @@ import axios from "axios";
 import VueAxios from "vue-axios";
 import * as dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
-import DatePicker from "vue2-datepicker";
-import "vue2-datepicker/index.css";
+import VCalendar from "v-calendar";
+import "v-calendar/dist/style.css";
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -18,6 +18,6 @@ app.use(router).use(store);
 app.use(VueAxios, axios);
 app.use(dayjs);
 dayjs.extend(duration);
-app.use(DatePicker);
+app.use(VCalendar, { componentPrefix: "vc" });
 
 app.mount("#app");

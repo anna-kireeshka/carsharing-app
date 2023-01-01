@@ -9,9 +9,7 @@
         <router-link
           :to="{ name: item.name }"
           class="navigation__link"
-          :class="{
-            'navigation__link--active': $route.name === item.name,
-          }"
+          :class="activeRoute(item.idx, item.name)"
           >{{ item.text }}
         </router-link>
         <svg width="6" height="8" class="navigation__arrow">
@@ -22,28 +20,70 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { ref } from "vue";
+import { computed, ref } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { useStore } from "vuex";
 
-type CrumbsList = { text: string; name: string }[];
+type CrumbsList = { idx: number; text: string; name: string };
 
-const crumbsList = ref<CrumbsList>([
+const route = useRoute();
+
+const router = useRouter();
+
+const store = useStore();
+
+const crumbsList = ref<CrumbsList[]>([
   {
+    idx: 0,
     text: "Местоположение",
     name: "location",
   },
   {
+    idx: 1,
     text: "Модель",
     name: "CarModel",
   },
   {
+    idx: 2,
     text: "Дополнительно",
     name: "OrderAdditionally",
   },
   {
+    idx: 3,
     text: "Итого",
     name: "FinalOrder",
   },
 ]);
+
+const activeRoute = (idx: number, name: string) => {
+  if (route.name === name) {
+    return "navigation__link--active";
+  }
+  for (let i = 0; i < crumbsList.value?.length; i++) {
+    if (crumbsList.value[i].idx !== idx && crumbsList.value[i].idx < idx + 1) {
+      return "disabled";
+    }
+  }
+
+  if (
+    isCarModelValidation ||
+    isCarLocationValidation ||
+    isCarAdditionallyValidation
+  ) {
+    return "navigation__link";
+  }
+
+  return "navigation__link";
+};
+const isCarModelValidation = computed(() => store.state.isCarModelValidation);
+
+const isCarLocationValidation = computed(
+  () => store.state.isCarLocationValidation
+);
+
+const isCarAdditionallyValidation = computed(
+  () => store.state.isCarAdditionalyValidation
+);
 </script>
 
 <style scoped lang="scss">
@@ -66,6 +106,7 @@ const crumbsList = ref<CrumbsList>([
     line-height: 16px;
     color: #999999;
     text-decoration: none;
+    cursor: pointer;
   }
 
   &__link--active {
@@ -78,5 +119,9 @@ const crumbsList = ref<CrumbsList>([
   &__arrow {
     padding: 0px 16px;
   }
+}
+.disabled {
+  pointer-events: none;
+  color: #c5c5c5;
 }
 </style>

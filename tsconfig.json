@@ -14,7 +14,7 @@
     "baseUrl": ".",
     "strictPropertyInitialization": false,
     "types": [
-      "webpack-env"
+      "webpack-env",
     ],
     "paths": {
       "@/*": [
@@ -42,5 +42,5 @@
     "no-inferrable-types": [true, "ignore-params",
       "ignore-properties"]
   }
-  
+
 }

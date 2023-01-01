@@ -2,7 +2,6 @@ import { HTTP, HTTP_FAKE } from "@/services/api";
 import { ActionTree } from "vuex";
 import {
   Car,
-  CarFilter,
   City,
   FinalOrder,
   OrderStatus,
@@ -12,6 +11,7 @@ import {
 } from "./types";
 import { RootState } from "../types";
 import { AxiosResponse } from "axios";
+import { v4 as uuidv4 } from "uuid";
 
 export const actions: ActionTree<ProfileState, RootState> = {
   async loadСities({ commit }) {
@@ -31,85 +31,59 @@ export const actions: ActionTree<ProfileState, RootState> = {
     }
   },
 
-  fetchDataCar({ commit, state }) {
-    HTTP.get("/car", {
-      params: { categoryId: state.categoryId },
-    }).then(
-      (response: AxiosResponse<Car[]>) => {
-        const car: Car[] = response.data;
-        state.loadingCarList = true;
-        commit("carLoaded", car);
-      },
-      (error) => {
-        console.log(error);
-        commit("carLoaded");
-      }
-    );
+  async loadCar({ commit, state }, id) {
+    try {
+      const response: AxiosResponse<Car> = await HTTP_FAKE.get("/car", {
+        params: { categoryId: id },
+      });
+      state.loadingCarList = true;
+      commit("carLoaded", response.data);
+    } catch (err) {
+      console.log(err);
+    }
   },
 
-  fetchDataCarFilter({ commit }) {
-    HTTP.get("/category").then(
-      (response) => {
-        const carFilter: CarFilter[] = response.data;
-        commit("carFilterLoaded", carFilter);
-      },
-      (error) => {
-        console.log(error);
-        commit("carFilterLoaded");
-      }
-    );
+  async loadRate({ commit }) {
+    try {
+      const response: AxiosResponse<Rate> = await HTTP_FAKE.get("/rate");
+      commit("rateLoaded", response.data);
+    } catch (err) {
+      console.log(err);
+    }
   },
 
-  fetchDataRate({ commit, state }) {
-    HTTP.get("/rate").then(
-      (response: AxiosResponse<Rate[]>) => {
-        const rate: Rate[] = response.data;
-        commit("rateLoaded", rate);
-      },
-      (error) => {
-        console.log(error);
-        commit("rateLoaded");
-      }
-    );
+  async fetchDataOrder({ commit, state }) {
+    try {
+      const response: AxiosResponse<FinalOrder> = await HTTP.post("/rate", {
+        orderStatusId: uuidv4(),
+        cityId: state.cityId,
+        pointId: state.pvzId,
+        carId: state.carId,
+        color: state.carColor,
+        dateFrom: state.dateFrom,
+        dateTo: state.dateTo,
+        rateId: state.rateId,
+        price: state.fullPrice,
+        isFullTank: state.checked,
+        isNeedChildChair: state.checked,
+        isRightWheel: state.checked,
+      });
+      state.loadedResponsPost = true;
+      commit("finalOrderLoaded", response.data);
+    } catch (err) {
+      console.log(err);
+    }
   },
 
-  fetchDataOrder({ commit, state }) {
-    HTTP.post("/order", {
-      orderStatusId: "5e26a1f0099b810b946c5d8b",
-      cityId: state.cityId,
-      pointId: state.pvzId,
-      carId: state.carId,
-      color: state.carColor,
-      dateFrom: state.dateFrom,
-      dateTo: state.dateTo,
-      rateId: state.rateId,
-      price: state.fullPrice,
-      isFullTank: state.checked,
-      isNeedChildChair: state.checked,
-      isRightWheel: state.checked,
-    }).then(
-      (response: AxiosResponse<FinalOrder[]>) => {
-        const finalOrder: FinalOrder[] = response.data;
-        state.loadedResponsPost = true;
-        commit("finalOrderLoaded", finalOrder);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  },
-
-  fetchDataStatusOrder({ commit }) {
-    HTTP.get("/orderStatus").then(
-      (response: AxiosResponse<OrderStatus>) => {
-        const orderStatus: OrderStatus = response.data;
-        commit("orderStatusLoaded", orderStatus);
-      },
-      (error) => {
-        console.log(error);
-        commit("orderStatusLoaded");
-      }
-    );
+  async fetchDataStatusOrder({ commit }) {
+    try {
+      const response: AxiosResponse<OrderStatus> = await HTTP_FAKE.get(
+        "/orderStatus"
+      );
+      commit("orderStatusLoaded", response.data);
+    } catch (err) {
+      console.log(err);
+    }
   },
 
   fetchDataFinalOrderForId({ state }) {

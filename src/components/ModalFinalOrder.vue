@@ -1,5 +1,5 @@
 <template>
-  <transition name="fade" v-if="isOpenWindow === true">
+  <transition name="fade" v-if="openWindow">
     <div class="modal">
       <div class="modal-inner">
         <p class="modal-inner__title">Подтвердить заказ</p>
@@ -16,7 +16,7 @@
   </transition>
 </template>
 <script lang="ts" setup>
-import { defineProps, ref } from "vue";
+import { computed, defineProps, ref } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 
@@ -34,19 +34,17 @@ const props = defineProps({
 const isOpenWindow = ref(props.openWindow);
 
 const confirmOrder = () => {
-  store.dispatch("OrderForm/fetchDataOrder");
-
-  if (store.state.OrderForm.loadedResponsPost) {
-    store.state.OrderForm.id = store.state.OrderForm.finalOrder.data.id;
-    router.push({
-      name: "ConfirmOrder",
-      query: { id: store.state.OrderForm.id },
-    });
-  }
+  store.dispatch("OrderForm/fetchDataStatusOrder");
+  router.push({
+    name: "ConfirmOrder",
+    params: { id: idOrder.value },
+  });
 };
 const closeModal = () => {
   isOpenWindow.value = !isOpenWindow.value;
 };
+
+const idOrder = computed(() => store.state.OrderForm.orderStatus.id);
 </script>
 <style lang="scss" scoped>
 .modal {

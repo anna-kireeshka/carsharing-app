@@ -11,9 +11,8 @@ export interface Pvz {
   address: {
     id: string;
     name: string;
-  }[];
+  };
 }
-[];
 
 export interface Car {
   number: string;
@@ -24,27 +23,10 @@ export interface Car {
     path: string;
   };
   tank: number;
-  description: string;
-  categoryId: any;
+  description?: string;
+  categoryId: string;
   colors: string[];
   id: string;
-}
-[];
-
-export interface CarFilter {
-  updatedAt: number;
-  createdAt: number;
-  name: string;
-  description: string;
-  id: string;
-}
-[];
-
-export interface ValueInput {
-  valuePvz: string;
-  valueCity: string;
-  dateFrom: string;
-  dateTo: string;
 }
 
 export interface Rate {
@@ -90,70 +72,64 @@ export interface ConfirmOrder {
 }
 [];
 
-export interface FinalOrder {
-  orderStatusId: string;
-  cityId: string;
-  pointId: string;
-  carId: string;
-  color: string;
-  dateFrom: number;
-  dateTo?: number;
-  rateId: string;
-  price: number;
-  isFullTank?: boolean;
-  isNeedChildChair?: boolean;
-  isRightWheel?: boolean;
+export interface FinalOrder extends ConfirmOrder {
   id?: string;
 }
-[];
 
 export interface OrderStatus {
   status: string;
   id: number;
 }
-[];
 
 export interface ProfileState {
-  city?: Array<City>;
+  city?: City[];
   pvz?: Pvz[];
-  carFilter: CarFilter[];
   car?: Car[];
   rate?: Rate[];
+  colorFilter?: ColorFilter[];
+  carAdditionally?: CarAdditionally[];
   orderStatus?: OrderStatus[];
-  valueCity?: ValueInput["valueCity"];
-  valuePvz?: ValueInput["valuePvz"];
+  finalOrder?: FinalOrder[];
+
+  valueCity?: string;
+  valuePvz?: string;
   cityId?: number;
   pvzId?: number;
   carModel?: string;
-  colorFilter?: ColorFilter[];
-  colorCheck?: ColorFilter["checked"];
-  carAdditionally?: CarAdditionally[];
-  checked: CarAdditionally["checked"];
   carColor?: string;
-  additionallyFilter?: any;
-  dateFrom?: ValueInput["dateFrom"];
-  dateTo?: ValueInput["dateTo"];
+  dateFrom?: string;
+  dateTo?: string;
+  carNumber?: string;
+  carId?: Car["id"];
+
   dateToMs?: number;
   dateFromMs?: number;
+
+  colorCheck?: ColorFilter["checked"];
+  checked: CarAdditionally["checked"];
+
+  additionallyFilter?: any;
   rateFilter?: any;
-  carPrice?: Car["priceMin"];
-  maxCarPrice?: Car["priceMax"];
+  carPrice?: number;
+  maxCarPrice?: number;
   fuel?: Car["tank"];
   img?: Car["thumbnail"]["path"];
-  carNumber?: Car["number"];
   ratePrice?: Rate["price"];
   rateId?: Rate["id"];
   timePrice?: number;
   additionallyPrice?: CarAdditionally["price"];
   durationMinute?: number | string;
-  categoryId?: string;
   loadingCarList?: boolean;
   fullPrice?: number;
-  carId?: Car["id"];
+
   orderId?: OrderStatus["id"];
   confirmOrder?: ConfirmOrder[];
-  finalOrder?: FinalOrder[];
   loadedResponsPost: boolean;
   id?: string;
   orderCard: [];
+
+  isCarLocationValidation: false;
+  isCarModelValidation: false;
+  isCarAdditionalyValidation: false;
+  isFinalOrderValidation: false;
 }

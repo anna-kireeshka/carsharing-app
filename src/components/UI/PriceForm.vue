@@ -1,18 +1,18 @@
 <template>
   <div class="price">
     <PriceField v-if="router.name === 'location'">
-      <template #price> от 8 000 до 12 000 </template>
+      <template #price> 0 </template>
     </PriceField>
     <PriceField v-if="router.name === 'CarModel'">
       <template #price> от {{ minPrice }} до {{ maxPrice }} </template>
     </PriceField>
     <PriceField v-if="router.name === 'OrderAdditionally'">
-      <template #price>{{ finalPrice }} </template>
+      <template #price>{{ fullPrice }} </template>
     </PriceField>
     <PriceField
       v-if="router.name === 'FinalOrder' || router.name === 'ConfirmOrder'"
     >
-      <template #price>{{ finalPrice }} </template>
+      <template #price>{{ fullPrice }} </template>
     </PriceField>
     <button
       class="price__model-action"
@@ -28,12 +28,6 @@
       class="price__model-action--error"
     >
       Цена аренды автомобиля не может быть больше {{ maxPrice }}
-    </p>
-    <p
-      v-else-if="!minValidPrice && router.name === 'OrderAdditionally'"
-      class="price__model-action--error"
-    >
-      Цена аренды автомобиля не может быть меньше {{ minPrice }}
     </p>
   </div>
 </template>
@@ -78,11 +72,9 @@ const minPrice = computed<number>(() => store.state.OrderForm.carPrice);
 
 const maxPrice = computed<number>(() => store.state.OrderForm.maxCarPrice);
 
-const finalPrice = computed<number>(() => store.getters["OrderForm/fullPrice"]);
+const fullPrice = computed<number>(() => store.getters["OrderForm/fullPrice"]);
 
-const maxValidPrice = computed(() => maxPrice.value > finalPrice.value);
-
-const minValidPrice = computed(() => finalPrice.value < minPrice.value);
+const maxValidPrice = computed(() => maxPrice.value > fullPrice.value);
 </script>
 
 <style scoped lang="scss">

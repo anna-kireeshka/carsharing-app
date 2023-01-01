@@ -14,7 +14,7 @@
                   class="filter__radio-item"
                   name="radioModel"
                   :value="item.name"
-                  @change="choseCarFilter(item.id, item.name)"
+                  @change="choseCarFilter(item.id)"
                 />
                 <span class="filter__castom"></span>
                 {{ item.name }}</label
@@ -32,36 +32,27 @@
             </div>
           </template>
           <div class="car-order" v-else>
-            <button
+            <div
               class="car-order__card"
               v-for="car in carList"
               :key="car.id"
-              @click="
-                choseCar(
-                  car.name,
-                  car.number,
-                  car.priceMax,
-                  car.priceMin,
-                  car.tank,
-                  car.thumbnail.path,
-                  car.id
-                )
-              "
+              @click="choseCar(car, car.thumbnail.path)"
             >
               <p class="car-content__model">{{ car.name }}</p>
               <p class="car-content__price">
                 {{ car.priceMin }} - {{ car.priceMax }}
               </p>
               <div class="car-order__image">
-                <img
-                  alt="Машина"
-                  width="256"
-                  height="116"
-                  @error="defaultImage($event)"
-                  :src="car.thumbnail.path"
-                />
+                <picture>
+                  <img
+                    :src="`${car.thumbnail.path}`"
+                    :alt="car.name"
+                    width="256"
+                    height="116"
+                  />
+                </picture>
               </div>
-            </button>
+            </div>
           </div>
         </div>
         <PreOrderInfo />
@@ -69,7 +60,6 @@
     </div>
   </div>
 </template>
-
 <script lang="ts" setup>
 import { ref, computed } from "vue";
 import { useStore } from "vuex";
@@ -77,25 +67,34 @@ import BreadcrumbsRoute from "./BreadcrumbsRoute.vue";
 import PreOrderInfo from "./PreOrderInfo.vue";
 import Navigation from "./Navigation.vue";
 import AppHeader from "@/components/AppHeader.vue";
+import { Car } from "@/store/OrderForm/types";
 
 const store = useStore();
 const image = ref("@/assets/car.png");
 
-store.dispatch("OrderForm/fetchDataCar");
+store.dispatch("OrderForm/loadCar");
 
-store.dispatch("OrderForm/fetchDataCarFilter");
+const carFilter = ref([
+  {
+    id: "all",
+    name: "Все модели",
+  },
+  { id: "economy", name: "Эконом" },
+  {
+    id: "comfort",
+    name: "Комфорт",
+  },
+  {
+    id: "premium",
+    name: "Премиум",
+  },
+]);
 
-const choseCar = (
-  model: string,
-  num: string,
-  priceMin: number,
-  priceMax: number,
-  tank: string,
-  img: string,
-  id: string
-) => {
-  store.commit("OrderForm/getCarModel", model);
-  store.commit("OrderForm/getCarNumber", num);
+const choseCar = (car: Car, img: string) => {
+  const { name, number, priceMin, priceMax, tank, id } = car;
+
+  store.commit("OrderForm/getCarModel", name);
+  store.commit("OrderForm/getCarNumber", number);
   store.commit("OrderForm/getCarPrice", priceMin);
   store.commit("OrderForm/getCarPriceMax", priceMax);
   store.commit("OrderForm/getCarFuel", tank);
@@ -103,20 +102,19 @@ const choseCar = (
   store.commit("OrderForm/getCarId", id);
 };
 
-const choseCarFilter = (carId: number, name: string) => {
-  store.commit("OrderForm/getCategoryId", carId);
-  store.dispatch("OrderForm/fetchDataCar");
+const choseCarFilter = (id: string) => {
+  id !== "all"
+    ? store.dispatch("OrderForm/loadCar", id)
+    : store.dispatch("OrderForm/loadCar");
 };
 
 const defaultImage = (event: { target: HTMLImageElement }) => {
   event.target.src = image.value;
 };
 
-const carList = computed(() => store.state.OrderForm.car.data);
+const carList = computed<Car>(() => store.state.OrderForm.car);
 
-const carFilter = computed(() => store.getters["OrderForm/getSortFilter"]);
-
-const loader = computed(() => store.state.OrderForm.loadingCarList);
+const loader = computed<boolean>(() => store.state.OrderForm.loadingCarList);
 </script>
 
 <style lang="scss" scoped>

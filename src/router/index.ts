@@ -22,8 +22,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/additionally",
     name: "OrderAdditionally",
-    component: () => import("@/components/OrderAdditionally.vue"),
-    props: true,
+    component: () => import("@/pages/OrderAdditionally.vue"),
   },
   {
     path: "/final-order",

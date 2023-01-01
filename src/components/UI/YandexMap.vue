@@ -7,8 +7,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, defineProps, defineEmits } from "vue";
-import Ymaps from "ymaps";
+import { computed, ref, defineProps, defineEmits, onUpdated } from "vue";
 
 const props = defineProps({
   valuePvz: {
@@ -23,34 +22,21 @@ const props = defineProps({
 
 const emit = defineEmits(["getObjects"]);
 
-const mapIcon = ref("@/assets/mark.png");
+let newCoords: number[] = [];
 
-const newCoords = ref(null);
+const ymaps = window.ymaps;
 
-declare var ymaps: Ymaps;
+const myMap = () =>
+  new ymaps.Map("map", {
+    center: [54.30327383672103, 48.600127895911314],
+    zoom: 10,
+    controls: [],
+  });
 
-const myMap = computed(
-  () =>
-    new ymaps.Map("map", {
-      center: [54.30327383672103, 48.600127895911314],
-      zoom: 10,
-      controls: [],
-    })
-);
 ymaps.ready().then(() => myMap);
 
-const myMapIcon = computed(() => {
-  return new ymaps.Placemark(
-    newCoords.value,
-    {
-      hintContent: props.valuePvz,
-    },
-    {
-      iconLayout: "default#image",
-      iconImageHref: mapIcon.value,
-      iconImageSize: [18, 18],
-    }
-  );
+const myPlacemark = new ymaps.Placemark(newCoords, {
+  hintConten: props.valuePvz,
 });
 
 const geoObject = () => {
@@ -63,19 +49,23 @@ const geoObject = () => {
       })
       .then((res: any) => {
         let firstGeoObject = res.geoObjects.get(0);
-        newCoords.value = firstGeoObject.geometry.getCoordinates();
+        newCoords = firstGeoObject.geometry.getCoordinates();
+
         let bounds = firstGeoObject.properties.get("boundedBy");
 
         myMap.value.setBounds(bounds, {
           checkZoomRange: true,
         });
 
-        myMap.value.geoObjects.add(myMapIcon.value);
+        myMap.value.geoObjects.add(myPlacemark);
       });
   }
-  // emit('getObjects', fullValue)
   return fullValue;
 };
+
+onUpdated(() => {
+  geoObject();
+});
 </script>
 
 <style scoped lang="scss">

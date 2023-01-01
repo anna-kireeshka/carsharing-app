@@ -2,30 +2,27 @@ import { MutationTree } from "vuex";
 import {
   Car,
   CarAdditionally,
-  CarFilter,
   City,
   ColorFilter,
   OrderStatus,
   ProfileState,
   Pvz,
   Rate,
-  ValueInput,
   FinalOrder,
 } from "./types";
+import dayjs from "dayjs";
+
 export const mutations: MutationTree<ProfileState> = {
   cityLoaded(state, city: City[]) {
     state.city = city;
   },
+
   pvzLoaded(state, pvz: Pvz[]) {
     state.pvz = pvz;
   },
 
   carLoaded(state, car: Car[]) {
     state.car = car;
-  },
-
-  carFilterLoaded(state, filter: CarFilter[]) {
-    state.carFilter = filter;
   },
 
   rateLoaded(state, rate: Rate[]) {
@@ -36,81 +33,58 @@ export const mutations: MutationTree<ProfileState> = {
     state.orderStatus = order;
   },
 
-  finalOrderLoaded: function (state, order: FinalOrder[]) {
+  finalOrderLoaded(state, order: FinalOrder[]) {
     state.finalOrder = order;
   },
 
-  setCityValue(state, payload: ValueInput["valueCity"]) {
+  setCityValue(state, payload: string) {
     state.valueCity = payload;
   },
-  setPvzValue(state, payload: ValueInput["valuePvz"]) {
+  setPvzValue(state, payload: string) {
     state.valuePvz = payload;
   },
 
-  getPvzId(state, pvz: Pvz[]) {
-    if (pvz.length !== 0) {
-      for (let i = 0; i < pvz.length; i++) {
-        state.pvzId = pvz[i].cityId;
-      }
-    }
-    return state.cityId;
+  getPvzId(state, id: number) {
+    state.pvzId = id;
   },
 
-  getCategoryId(state, category: CarFilter[]) {
-    for (let i = 0; i < category?.length; i++) {
-      state.categoryId = category[i].id;
-    }
-    return state.categoryId;
+  getCarModel(state, name: string) {
+    state.carModel = name;
   },
 
-  getCarModel(state, car: Car[]) {
-    if (car.length !== 0) {
-      for (let i = 0; i < car.length; i++) {
-        state.carModel = car[i].name;
-      }
-    }
-
-    return state.carModel;
-  },
-
-  getCarNumber(state, car: Car["number"]) {
-    return (state.carNumber = car);
+  getCarNumber(state, number: string) {
+    state.carNumber = number;
   },
 
   getColorChecked(state, colorCheck: ColorFilter["checked"]) {
-    return (state.colorCheck = colorCheck);
+    state.colorCheck = colorCheck;
   },
 
-  getCarColor(state, color: ColorFilter["name"]) {
-    if (color.length !== 0) {
-      for (let i = 0; i < color.length; i++) {
-        state.carColor = color;
-      }
-    }
-    return state.carModel;
+  getCarColor(state, color: string) {
+    state.carColor = color;
   },
 
   getCarPrice(state, car: Car["priceMin"]) {
-    return (state.carPrice = car);
+    state.carPrice = car;
   },
 
   getCarPriceMax(state, car: Car["priceMax"]) {
-    return (state.maxCarPrice = car);
+    state.maxCarPrice = car;
   },
 
   getCarImg(state, car: Car["thumbnail"]["path"]) {
-    return (state.img = car);
+    state.img = car;
   },
 
   getCarFuel(state, car: Car["tank"]) {
-    return (state.fuel = car);
+    state.fuel = car;
   },
   getCarId(state, car: Car["id"]) {
-    return (state.carId = car);
+    state.carId = car;
   },
 
   getCarAdditionallyChecked(state, filter: CarAdditionally["checked"]) {
-    return (state.checked = filter);
+    state.checked = filter;
   },
 
   getCarAdditionallyFilter(state, filter: CarAdditionally[]) {
@@ -120,47 +94,47 @@ export const mutations: MutationTree<ProfileState> = {
       const index = state.additionallyFilter.indexOf(filter);
       state.additionallyFilter.splice(index, 1);
     }
+
     return state.additionallyFilter;
   },
 
-  getCarRate(state, rate: Rate[]) {
-    if (rate.length !== 0) {
-      for (let i = 0; i < rate.length; i++) {
-        state.rateFilter = rate;
-      }
-    }
-    return state.rateFilter;
+  getCarRate(state, rate: number) {
+    state.rateFilter = rate;
   },
 
   getCarPriceAdditionally(state, filter: CarAdditionally["price"]) {
-    return (state.additionallyPrice = filter);
+    state.additionallyPrice = filter;
   },
 
-  getDateTimeFrom(state, startDate: ValueInput["dateFrom"]) {
-    state.dateFrom = startDate;
+  getDateTimeFrom(state, startDate: string) {
+    state.dateFrom = dayjs(startDate).format("YYYY-MM-DD HH:mm:ss");
   },
 
-  getDateTimeTo(state, endDate: ValueInput["dateTo"]) {
+  getDateTimeTo(state, endDate: string) {
     state.dateTo = endDate;
   },
 
-  getCarPriceRate(state, rate: Rate["price"]) {
-    return (state.ratePrice = rate);
+  getCarPriceRate(state, price: number) {
+    state.ratePrice = price;
   },
 
   getRateId(state, rate: Rate["id"]) {
-    return (state.rateId = rate);
+    state.rateId = rate;
   },
 
-  getOrderId(state) {
-    return state.orderId;
+  getIsCarLocationValidation(state, isValid) {
+    state.isCarAdditionalyValidation = isValid;
   },
 
-  deleteDateStart(state) {
-    state.dateTo = "";
+  getIsCarModelValidation(state, isValid) {
+    state.isCarModelValidation = isValid;
   },
 
-  deleteDateEnd(state) {
-    state.dateFrom = "";
+  getIsCarAdditionalyValidation(state, isValid) {
+    state.isCarAdditionalyValidation = isValid;
+  },
+
+  getIsFinalOrderValidation(state, isValid) {
+    state.isFinalOrderValidation = isValid;
   },
 };

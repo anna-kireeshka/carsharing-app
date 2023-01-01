@@ -11,7 +11,6 @@ export const state: ProfileState = {
   pvz: [],
   car: [],
   rate: [],
-  carFilter: [],
   orderStatus: [],
   valueCity: "",
   valuePvz: "",
@@ -46,6 +45,11 @@ export const state: ProfileState = {
   id: "",
   orderCard: [],
   loadedResponsPost: false,
+
+  isCarLocationValidation: false,
+  isCarModelValidation: false,
+  isCarAdditionalyValidation: false,
+  isFinalOrderValidation: false,
 };
 
 const namespaced: boolean = true;

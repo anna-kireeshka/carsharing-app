@@ -51,7 +51,7 @@
 </template>
 <script lang="ts" setup>
 import ModalFinalOrder from "@/components/ModalFinalOrder.vue";
-import { ref, computed, ComputedGetter, ComputedRef } from "vue";
+import { ref, computed } from "vue";
 import { useStore } from "vuex";
 import { useRoute, useRouter } from "vue-router";
 import TextFieldForm from "@/components/UI/TextFieldForm.vue";
@@ -79,21 +79,21 @@ const isValidCarModel = computed<boolean>(
 );
 
 const isValidAdditionally = computed<boolean>(
-  () =>
-    isValidLocation.value &&
-    carColor.value === "" &&
-    (dateDuration.value === null || rate.value === "") &&
-    checkbox.value.length
+  () => carColor.value.length && dateDuration.value.length && rate.value.length
 );
 
 const isValidForm = computed(() => {
   if (route.name === "location") {
+    store.commit("OrderForm/getIsCarLocationValidation", true);
     return !isValidLocation.value;
   } else if (route.name === "CarModel") {
+    store.commit("OrderForm/getIsCarModelValidation", true);
     return !isValidCarModel.value;
   } else if (route.name === "OrderAdditionally") {
-    return !isValidAdditionally.value;
+    store.commit("OrderForm/getIsCarAdditionalyValidation", true);
+    return isValidAdditionally.value;
   }
+  return true;
 });
 
 const carNumber = computed<string>(() => store.state.OrderForm.carNumber);
