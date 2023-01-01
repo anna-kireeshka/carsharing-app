@@ -33,9 +33,6 @@
           </template>
         </vc-date-picker>
       </label>
-      <small class="error" v-if="startDate"
-        >Поле обязательно для заполнения</small
-      >
       <label class="filter-date__label">
         По
         <vc-date-picker

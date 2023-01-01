@@ -46,7 +46,11 @@
       :label="params.label"
       @getOrder="getOrder"
     />
-    <ModalFinalOrder :open-window="openModalWindow" />
+    <ModalFinalOrder
+      :open-window="openModalWindow"
+      v-if="openModalWindow"
+      @close="openModalWindow = $event"
+    />
   </div>
 </template>
 <script lang="ts" setup>

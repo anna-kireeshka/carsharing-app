@@ -43,11 +43,15 @@ import BreadcrumbsRoute from "@/components/BreadcrumbsRoute.vue";
 import AppHeader from "@/components/AppHeader.vue";
 
 const store = useStore();
+
 const carModel = computed(() => store.state.OrderForm.carModel);
+
 const carNumber = computed(() => store.state.OrderForm.carNumber);
 
 const carImg = computed(() => store.state.OrderForm.img);
+
 const carFuel = computed(() => store.state.OrderForm.fuel);
+
 const carDate = computed(() => store.state.OrderForm.dateFrom);
 </script>
 <style scoped lang="scss">

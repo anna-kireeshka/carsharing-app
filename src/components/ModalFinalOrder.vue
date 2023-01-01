@@ -16,13 +16,15 @@
   </transition>
 </template>
 <script lang="ts" setup>
-import { computed, defineProps, ref } from "vue";
+import { computed, defineProps, ref, defineEmits } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 
 const store = useStore();
 
 const router = useRouter();
+
+const emit = defineEmits(["close"]);
 
 const props = defineProps({
   openWindow: {
@@ -31,17 +33,15 @@ const props = defineProps({
   },
 });
 
-const isOpenWindow = ref(props.openWindow);
-
-const confirmOrder = () => {
-  store.dispatch("OrderForm/fetchDataStatusOrder");
+const confirmOrder = async () => {
+  await store.dispatch("OrderForm/fetchDataStatusOrder");
   router.push({
     name: "ConfirmOrder",
     params: { id: idOrder.value },
   });
 };
 const closeModal = () => {
-  isOpenWindow.value = !isOpenWindow.value;
+  emit("close", false);
 };
 
 const idOrder = computed(() => store.state.OrderForm.orderStatus.id);

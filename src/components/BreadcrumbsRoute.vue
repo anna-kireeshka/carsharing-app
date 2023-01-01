@@ -60,7 +60,7 @@ const activeRoute = (idx: number, name: string) => {
     return "navigation__link--active";
   }
   for (let i = 0; i < crumbsList.value?.length; i++) {
-    if (crumbsList.value[i].idx !== idx && crumbsList.value[i].idx < idx + 1) {
+    if (crumbsList.value[i].idx !== idx && crumbsList.value[i].idx + 1 < idx) {
       return "disabled";
     }
   }
@@ -75,14 +75,16 @@ const activeRoute = (idx: number, name: string) => {
 
   return "navigation__link";
 };
-const isCarModelValidation = computed(() => store.state.isCarModelValidation);
+const isCarModelValidation = computed(
+  () => store.state.OrderForm.isCarModelValidation
+);
 
 const isCarLocationValidation = computed(
-  () => store.state.isCarLocationValidation
+  () => store.state.OrderForm.isCarLocationValidation
 );
 
 const isCarAdditionallyValidation = computed(
-  () => store.state.isCarAdditionalyValidation
+  () => store.state.OrderForm.isCarAdditionalyValidation
 );
 </script>
 
