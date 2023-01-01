@@ -2,7 +2,7 @@
   <div class="wrapper">
     <Navigation />
     <div class="wrapper__block">
-      <AppHeader />
+      <AppHeader class="header" />
       <div class="main-block">
         <h1 class="main-block__title">Каршеринг</h1>
         <h1 class="main-block__title main-block__title--green">
@@ -109,5 +109,8 @@ import AppHeader from "@/components/AppHeader.vue";
     @include info-number;
     color: $main-black;
   }
+}
+.header {
+  padding: 0;
 }
 </style>
