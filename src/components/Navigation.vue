@@ -95,49 +95,46 @@
   </div>
 </template>
 
-<script lang="ts">
-import { Vue, Component } from "vue-property-decorator";
+<script lang="ts" setup>
+type MenuList = { id: number; title: string }[];
+import { ref, computed, onUnmounted } from "vue";
 
-@Component({})
-export default class StartScreen extends Vue {
-  /* eslint-disable */
+const menuList = ref<MenuList>([
+  { id: 0, title: "Парковка" },
+  { id: 1, title: "Страховка" },
+  { id: 2, title: "Бензин" },
+  { id: 3, title: "Обслуживание" },
+]);
 
-  menuList: { id: number; title: string }[] = [
-    { id: 0, title: "Парковка" },
-    { id: 1, title: "Страховка" },
-    { id: 2, title: "Бензин" },
-    { id: 3, title: "Обслуживание" },
-  ];
+const showNavigationLink = ref<boolean>(false);
 
-  showNavigationLink: boolean = false;
-  showEngLang: boolean = true;
-  witdthMobile: number = 0;
+const showEngLang = ref<boolean>(true);
 
-  openMenu() {
-    this.showNavigationLink = !this.showNavigationLink;
-  }
+const witdthMobile = ref<number>(0);
 
-  changeLanguage() {
-    this.showEngLang = !this.showEngLang;
-  }
+const openMenu = () => {
+  showNavigationLink.value = !showNavigationLink.value;
+};
 
-  updateWidth(): void {
-    this.witdthMobile = window.innerWidth;
-  }
+const changeLanguage = () => {
+  showEngLang.value = !showEngLang.value;
+};
 
-  get navigationWidthMobile() {
-    return this.witdthMobile >= 320 && this.witdthMobile <= 768
-  }
+const updateWidth = (): void => {
+  witdthMobile.value = window.innerWidth;
+};
 
-  created() {
-    window.addEventListener("resize", this.updateWidth);
-    this.updateWidth();
-  }
-  destroyed() {
-    window.removeEventListener("resize", this.updateWidth);
-    this.updateWidth();
-  }
-}
+window.addEventListener("resize", updateWidth);
+updateWidth();
+
+const navigationWidthMobile = computed(
+  () => witdthMobile.value >= 320 && witdthMobile.value <= 768
+);
+
+onUnmounted(() => {
+  window.removeEventListener("resize", updateWidth);
+  updateWidth();
+});
 </script>
 
 <style lang="scss" scoped>
@@ -251,7 +248,6 @@ export default class StartScreen extends Vue {
   left: 1rem;
 }
 
-
 .slide-fade-enter-active {
   transition: all 0.5s;
 }
@@ -272,7 +268,8 @@ export default class StartScreen extends Vue {
 .btn-leave-active {
   transition: opacity 0.5s;
 }
-.btn-enter, .btn-leave-to {
+.btn-enter,
+.btn-leave-to {
   opacity: 0;
 }
 .overlay {

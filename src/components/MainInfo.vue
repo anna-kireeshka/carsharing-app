@@ -2,19 +2,7 @@
   <div class="wrapper">
     <Navigation />
     <div class="wrapper__block">
-      <div class="main-nav">
-        <h1>
-          <router-link class="main-nav__company" :to="{ name: 'MainPage' }"
-            >Need for drive</router-link
-          >
-        </h1>
-        <p class="main-nav__city-name">
-          <svg width="18" height="20">
-            <use xlink:href="#gps" />
-          </svg>
-          Ульяновск
-        </p>
-      </div>
+      <AppHeader class="header" />
       <div class="main-block">
         <h1 class="main-block__title">Каршеринг</h1>
         <h1 class="main-block__title main-block__title--green">
@@ -36,12 +24,9 @@
     </div>
   </div>
 </template>
-<script lang="ts">
-import { Vue, Component } from "vue-property-decorator";
+<script lang="ts" setup>
 import Navigation from "@/components/Navigation.vue";
-
-@Component({ components: { Navigation } })
-export default class MainInfo extends Vue {}
+import AppHeader from "@/components/AppHeader.vue";
 </script>
 
 <style lang="scss" scoped>
@@ -61,20 +46,6 @@ export default class MainInfo extends Vue {}
     width: 100%;
     padding: 2rem 4rem;
     justify-content: space-between;
-  }
-}
-.main-nav {
-  @include flex-row;
-  @include flex-logo;
-
-  &__company {
-    @include logo;
-  }
-  &__city-name {
-    @include city;
-  }
-  &__city-name svg {
-    margin-right: 0.4713rem;
   }
 }
 .main-block {
@@ -138,5 +109,8 @@ export default class MainInfo extends Vue {}
     @include info-number;
     color: $main-black;
   }
+}
+.header {
+  padding: 0;
 }
 </style>

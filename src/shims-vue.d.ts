@@ -6,4 +6,6 @@ declare module "lodash";
 declare module "*.scss";
 declare module "dayjs";
 declare module "dayjs/plugin/duration";
-declare module "vue2-datepicker";
+declare module "uuid";
+declare module "*.png";
+declare module "v-calendar";

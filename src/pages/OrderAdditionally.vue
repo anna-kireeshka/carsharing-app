@@ -2,19 +2,7 @@
   <div class="main-wrapper">
     <Navigation />
     <div class="main">
-      <div class="main-nav">
-        <h1>
-          <router-link class="main-nav__company" :to="{ name: 'MainPage' }"
-            >Need for drive</router-link
-          >
-        </h1>
-        <p class="main-nav__city-name">
-          <svg width="18" height="20">
-            <use xlink:href="#gps" />
-          </svg>
-          Ульяновск
-        </p>
-      </div>
+      <AppHeader />
       <BreadcrumbsRoute />
       <div class="additionally-container">
         <div class="filter">
@@ -39,44 +27,12 @@
                   @change="checkColor(item.name, $event)"
                 />
                 <span class="filter__castom"></span>
-                {{ item.name }}</label
-              >
+                {{ item.name }}
+              </label>
             </div>
           </div>
           <p class="filter__desc">Дата аренды</p>
-          <div class="filter__dates">
-            <div>
-              <div class="date-wrap">
-                <label class="filter__label"
-                  >С
-                  <date-picker
-                    type="datetime"
-                    class="filter__date filter__date--start"
-                    placeholder="Введите дату и время"
-                    v-model="startDateModel"
-                    @change="checkDateFrom(startDateModel)"
-                    @clear="clearDateStart(startDateModel)"
-                  ></date-picker>
-                </label>
-                <small class="error" v-if="startDateModel === ''"
-                  >Поле обязательно для заполнения</small
-                >
-              </div>
-            </div>
-            <p>
-              <label class="filter__label">
-                По
-                <date-picker
-                  type="datetime"
-                  class="filter__date filter__date--start"
-                  placeholder="Введите дату и время"
-                  v-model="endDateModel"
-                  @change="checkDateTo(endDateModel)"
-                  @clear="clearDateEnd(endDateModel)"
-                ></date-picker>
-              </label>
-            </p>
-          </div>
+          <DateField />
           <div class="filter__rate">
             <p class="filter__desc">Тариф</p>
 
@@ -128,88 +84,47 @@
   </div>
 </template>
 
-<script lang="ts">
-import { Vue, Component } from "vue-property-decorator";
+<script lang="ts" setup>
+import { ref, computed, onMounted } from "vue";
+import { useStore } from "vuex";
 import PreOrderInfo from "@/components/PreOrderInfo.vue";
-import Navigation from "./Navigation.vue";
+import Navigation from "@/components/Navigation.vue";
 import BreadcrumbsRoute from "@/components/BreadcrumbsRoute.vue";
+import AppHeader from "@/components/AppHeader.vue";
+import DateField from "@/components/UI/DateField.vue";
 
-@Component({ components: { PreOrderInfo, Navigation, BreadcrumbsRoute } })
-export default class OrderAdditionally extends Vue {
-  /* eslint-disable */
-  startDateModel: string = "";
-  endDateModel: string = "";
+const store = useStore();
 
-  mounted() {
-    this.fetchRate();
-  }
+store.dispatch("OrderForm/loadRate");
 
-  fetchRate() {
-    this.$store.dispatch("OrderForm/fetchDataRate");
-    this.rate;
-  }
+const checkColor = (color: string, e: { target: HTMLInputElement }) => {
+  store.commit("OrderForm/getCarColor", color);
+  store.commit("OrderForm/getColorChecked", e.target.checked);
+};
 
-  checkColor(color: string, e: { target: HTMLInputElement }) {
-    this.$store.commit("OrderForm/getCarColor", color);
-    this.$store.commit("OrderForm/getColorChecked", e.target.checked);
-  }
+const checkFilter = (
+  filter: string,
+  price: number,
+  e: { target: HTMLInputElement }
+) => {
+  store.commit("OrderForm/getCarAdditionallyFilter", filter);
+  store.commit("OrderForm/getCarPriceAdditionally", price);
+  store.commit("OrderForm/getCarAdditionallyChecked", e.target.checked);
+};
 
-  checkFilter(filter: string, price: number, e: { target: HTMLInputElement }) {
-    this.$store.commit("OrderForm/getCarAdditionallyFilter", filter);
-    this.$store.commit("OrderForm/getCarPriceAdditionally", price);
-    this.$store.commit("OrderForm/getCarAdditionallyChecked", e.target.checked);
-  }
+const checkRate = (duration: string, price: number, rateId: string) => {
+  store.commit("OrderForm/getCarRate", duration);
+  store.commit("OrderForm/getCarPriceRate", price);
+  store.commit("OrderForm/getRateId", rateId);
+};
 
-  checkRate(duration: string, price: number, rateId: string) {
-    this.$store.commit("OrderForm/getCarRate", duration);
-    this.$store.commit("OrderForm/getCarPriceRate", price);
-    this.$store.commit("OrderForm/getRateId", rateId);
-  }
+const rate = computed(() => store.state.OrderForm.rate);
 
-  checkDateFrom(from: string) {
-    this.$store.commit("OrderForm/getDateTimeFrom", from);
-  }
+const colorFilter = computed(() => store.getters["OrderForm/getColorFilter"]);
 
-  checkDateTo(to: string) {
-    this.$store.commit("OrderForm/getDateTimeTo", to);
-  }
-
-  clearDateStart(to:string) {
-    this.$store.commit("OrderForm/deleteDateStart", to)
-  }
-
-  clearDateEnd(end: string) {
-    this.$store.commit("OrderForm/deleteDateEnd", end)
-  }
-
-  get rate() {
-    return this.$store.getters["OrderForm/getRateFilter"];
-  }
-
-  get colorFilter() {
-    return this.$store.getters["OrderForm/getColorFilter"];
-  }
-
-  get additionally() {
-    return this.$store.getters["OrderForm/getCarAdditionally"];
-  }
-
-  get startDate(): string {
-    return this.$store.state.OrderForm.dateFrom;
-  }
-
-  get endDate(): string {
-    return this.$store.state.OrderForm.dateTo;
-  }
-
-  get startDateMs() {
-    return this.$store.getters["OrderForm/getDateToMs"];
-  }
-
-  get endDateMs() {
-    return this.$store.getters["OrderForm/getDateFromMs"];
-  }
-}
+const additionally = computed(
+  () => store.getters["OrderForm/getCarAdditionally"]
+);
 </script>
 
 <style lang="scss" scoped>
@@ -226,21 +141,6 @@ export default class OrderAdditionally extends Vue {
   height: 100vh;
   width: 100%;
   overflow: scroll;
-}
-.main-nav {
-  @include flex-row;
-  @include flex-logo;
-  @include order-card-mobile;
-  padding: 32px 63px 32px 64px;
-  &__company {
-    @include logo;
-  }
-  &__city-name {
-    @include city;
-  }
-  &__city-name svg {
-    margin-right: 0.4713rem;
-  }
 }
 
 .additionally-container {
@@ -329,23 +229,6 @@ export default class OrderAdditionally extends Vue {
   input:checked ~ &__castom {
     border: 3px solid #0ec261;
   }
-  &__dates {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-
-    margin-bottom: 32px;
-  }
-  &__date {
-    width: 224px;
-
-    border: none;
-    border-bottom: 1px solid #999999;
-    outline: none;
-    width: 224px;
-
-    margin-left: 8px;
-  }
   &__rate {
     display: flex;
     flex-direction: column;
@@ -363,11 +246,6 @@ export default class OrderAdditionally extends Vue {
     color: #d73b3b;
   }
 }
-.date-wrap {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 13px;
-}
 ::v-deep {
   .mx-input {
     border: 1px solid transparent;
@@ -375,5 +253,4 @@ export default class OrderAdditionally extends Vue {
     padding: 0;
   }
 }
-
 </style>

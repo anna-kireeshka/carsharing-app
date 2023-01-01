@@ -3,54 +3,32 @@
     <div class="order">
       <p class="order__title">Ваш заказ:</p>
       <div class="additionally">
-        <div class="form">
-          <p class="additionally__name">Пункт выдачи</p>
-          <div class="additionally__dote"></div>
-          <div class="additionally__block">
-            <p class="additionally__text">{{ city }}</p>
-            <p class="additionally__text">{{ pvz }}</p>
-          </div>
-        </div>
-        <template v-if="fullRoute === 'CarModel'">
-          <div class="form">
-            <p class="additionally__name">Модель</p>
-            <p class="additionally__dote additionally__dote--model"></p>
-            <p class="additionally__text">{{ carModel }}</p>
-          </div>
-        </template>
+        <TextFieldForm :label="'Пункт выдачи'" :text-value="city">
+          <template #additionallyTextValue>
+            {{ pvz }}
+          </template>
+        </TextFieldForm>
+        <TextFieldForm
+          v-if="route.name === 'CarModel'"
+          :label="'Модель'"
+          :text-value="carModel"
+        >
+        </TextFieldForm>
         <template
           v-if="
-            fullRoute === 'OrderAdditionally' ||
-            fullRoute === 'FinalOrder' ||
-            fullRoute === 'ConfirmOrder'
+            route.name === 'OrderAdditionally' ||
+            route.name === 'FinalOrder' ||
+            route.name === 'ConfirmOrder'
           "
         >
-          <div class="form">
-            <p class="additionally__name">Модель</p>
-            <p class="additionally__dote additionally__dote--model"></p>
-            <p class="additionally__text">{{ carModel }}</p>
-          </div>
-          <div class="form">
-            <p class="additionally__name">Цвет</p>
-            <p class="additionally__dote additionally__dote--color"></p>
-            <div class="additionally__block">
-              <p class="additionally__text">{{ carColor }}</p>
-            </div>
-          </div>
-          <div class="form">
-            <p class="additionally__name">Длительность аренды</p>
-            <p class="additionally__dote additionally__dote--time"></p>
-            <div class="additionally__block">
-              <p class="additionally__text">{{ dateDuration }}</p>
-            </div>
-          </div>
-          <div class="form">
-            <p class="additionally__name">Тариф</p>
-            <p class="additionally__dote additionally__dote--rent"></p>
-            <div class="additionally__block">
-              <p class="additionally__text">{{ rate }}</p>
-            </div>
-          </div>
+          <TextFieldForm :label="'Модель'" :text-value="carModel">
+          </TextFieldForm>
+          <TextFieldForm :label="'Цвет'" :text-value="carColor">
+          </TextFieldForm>
+          <TextFieldForm :label="'Длительность'" :text-value="dateDuration">
+          </TextFieldForm>
+          <TextFieldForm :label="'Тариф'" :text-value="rate"> </TextFieldForm>
+
           <div class="form" v-for="(item, index) in checkbox" :key="index">
             <p class="additionally__name">{{ item }}</p>
             <p class="additionally__dote additionally__dote--rent"></p>
@@ -61,197 +39,91 @@
         </template>
       </div>
     </div>
-    <div class="price">
-      <p class="price__first-step" v-if="fullRoute === 'location'">
-        <span class="price__first-step--dark">Цена</span>: от 8 000 до 12 000 ₽
-      </p>
-      <p class="price__first-step" v-if="fullRoute === 'CarModel'">
-        <span class="price__first-step--dark">Цена</span>: от {{ minPrice }} до
-        {{ maxPrice }} ₽
-      </p>
-      <p class="price__first-step" v-if="fullRoute === 'OrderAdditionally'">
-        <span class="price__first-step--dark">Цена</span>: {{ finalPrice }} ₽
-      </p>
-      <p
-        class="price__first-step"
-        v-if="fullRoute === 'FinalOrder' || fullRoute === 'ConfirmOrder'"
-      >
-        <span class="price__first-step--dark">Цена</span>: {{ finalPrice }} ₽
-      </p>
-      <router-link
-        v-show="fullRoute === 'location'"
-        class="price__model-action"
-        :class="{
-          'price__model-action--active': !checkValidForm,
-        }"
-        :to="{ name: 'CarModel' }"
-      >
-        Выбрать модель
-      </router-link>
-      <router-link
-        v-show="fullRoute === 'CarModel'"
-        class="price__model-action"
-        :to="{ name: 'OrderAdditionally' }"
-        :class="{
-          'price__model-action--active': !checkValidFormCarModel,
-        }"
-      >
-        Дополнительно
-      </router-link>
-      <router-link
-        v-show="fullRoute === 'OrderAdditionally'"
-        class="price__model-action"
-        :to="{ name: 'FinalOrder' }"
-        :class="{
-          'price__model-action--active':
-            !checkValidFormAdditionally && (!minValidPrice || !maxValidPrice),
-        }"
-      >
-        Итого
-      </router-link>
-      <button
-        v-show="fullRoute === 'FinalOrder'"
-        class="price__model-action"
-        :class="{
-          'price__model-action--active': !checkValidFormAdditionally,
-        }"
-        @click.self="openModalConfirm"
-      >
-        Заказать
-      </button>
-      <router-link
-        v-show="fullRoute === 'ConfirmOrder'"
-        class="price__model-action price__model-action--reset"
-        :to="{ name: 'FinalOrder' }"
-      >
-        Отменить
-      </router-link>
-      <p
-        v-if="!maxValidPrice && fullRoute === 'OrderAdditionally'"
-        class="price__model-action--error"
-      >
-        Цена аренды автомобиля не может быть больше {{ maxPrice }}
-      </p>
-      <p
-        v-else-if="!minValidPrice && fullRoute === 'OrderAdditionally'"
-        class="price__model-action--error"
-      >
-        Цена аренды автомобиля не может быть меньше {{ minPrice }}
-      </p>
-    </div>
-    <ModalFinalOrder :open-window="openModalWindow" />
+    <PriceForm
+      :validation="isValidForm"
+      :name-route="route.name"
+      :queryParams="params.name"
+      :label="params.label"
+      @getOrder="getOrder"
+    />
+    <ModalFinalOrder
+      :open-window="openModalWindow"
+      v-if="openModalWindow"
+      @close="openModalWindow = $event"
+    />
   </div>
 </template>
-<script lang="ts">
-import { Vue, Component } from "vue-property-decorator";
+<script lang="ts" setup>
 import ModalFinalOrder from "@/components/ModalFinalOrder.vue";
-@Component({
-  components: { ModalFinalOrder },
-})
-export default class PreOrderInfo extends Vue {
-  /* eslint-disable */
-  openModalWindow: boolean = false;
-  openModalConfirm() {
-    this.openModalWindow = !this.openModalWindow;
-  }
-  get city() {
-    return this.$store.state.OrderForm.valueCity;
-  }
+import { ref, computed } from "vue";
+import { useStore } from "vuex";
+import { useRoute, useRouter } from "vue-router";
+import TextFieldForm from "@/components/UI/TextFieldForm.vue";
+import PriceForm from "@/components/UI/PriceForm.vue";
+import { getLabel } from "@/services/hooks/formValidation";
 
-  get pvz() {
-    return this.$store.state.OrderForm.valuePvz;
-  }
+const store = useStore();
 
-  get fullRoute() {
-    return this.$route.name;
-  }
+const router = useRouter();
 
-  get checkValidForm() {
-    let empty: boolean = true;
-    if (this.city !== "" && this.pvz !== "") {
-      empty = false;
-    }
-    return empty;
-  }
+const route = useRoute();
 
-  get checkValidFormCarModel() {
-    let empty: boolean = true;
-    if (this.city !== "" && this.pvz !== "" && this.carModel !== "") {
-      empty = false;
-    }
-    return empty;
-  }
+const openModalWindow = ref<boolean>(false);
 
-  get checkValidFormAdditionally() {
-    let empty: boolean = true;
-    if (
-      this.city !== "" &&
-      this.pvz !== "" &&
-      this.carColor !== "" &&
-      (this.dateDuration !== null || this.rate !== "") &&
-      this.checkbox.length > 0
-    ) {
-      empty = false;
-    }
-    return empty;
-  }
+const city = computed<string>(() => store.state.OrderForm.valueCity);
 
-  get carNumber() {
-    return this.$store.state.OrderForm.carNumber;
-  }
+const pvz = computed<string>(() => store.state.OrderForm.valuePvz);
 
-  get carModel() {
-    return this.$store.state.OrderForm.carModel;
-  }
+const isValidLocation = computed<boolean>(
+  () => city.value === "" || pvz.value === ""
+);
 
-  get carColor() {
-    return this.$store.state.OrderForm.carColor;
-  }
+const isValidCarModel = computed<boolean>(
+  () => isValidLocation.value && carModel.value === ""
+);
 
-  get rate() {
-    return this.$store.state.OrderForm.rateFilter;
-  }
+const isValidAdditionally = computed<boolean>(
+  () => carColor.value.length && dateDuration.value.length && rate.value.length
+);
 
-  get dateDuration() {
-    return this.$store.getters["OrderForm/getRateTime"];
+const isValidForm = computed(() => {
+  if (route.name === "location") {
+    store.commit("OrderForm/getIsCarLocationValidation", true);
+    return !isValidLocation.value;
+  } else if (route.name === "CarModel") {
+    store.commit("OrderForm/getIsCarModelValidation", true);
+    return !isValidCarModel.value;
+  } else if (route.name === "OrderAdditionally") {
+    store.commit("OrderForm/getIsCarAdditionalyValidation", true);
+    return isValidAdditionally.value;
   }
+  return true;
+});
 
-  get checkbox() {
-    return this.$store.state.OrderForm.additionallyFilter;
-  }
+const carNumber = computed<string>(() => store.state.OrderForm.carNumber);
 
-  get minPrice() {
-    return this.$store.state.OrderForm.carPrice;
-  }
+const carModel = computed<string>(() => store.state.OrderForm.carModel);
 
-  get maxPrice() {
-    return this.$store.state.OrderForm.maxCarPrice;
-  }
+const carColor = computed<string>(() => store.state.OrderForm.carColor);
 
-  get finalPrice() {
-    return this.$store.getters["OrderForm/fullPrice"];
-  }
+const rate = computed<string>(() => store.state.OrderForm.rateFilter);
 
-  get maxValidPrice() {
-    let validMaxPrice: boolean = false;
-    if (this.maxPrice > this.finalPrice) {
-      validMaxPrice = true;
-    }
-    return validMaxPrice;
-  }
+const dateDuration = computed(() => store.getters["OrderForm/getRateTime"]);
 
-  get minValidPrice() {
-    let validMinPrice: boolean = false;
-    if (this.finalPrice < this.minPrice) {
-      validMinPrice = true;
-    }
-    return validMinPrice;
-  }
+const checkbox = computed(() => store.state.OrderForm.additionallyFilter);
 
-  get orderId() {
-    return this.$store.getters["OrderForm/getFinalOrderId"];
+const orderId = computed(() => store.getters["OrderForm/getFinalOrderId"]);
+
+const params = computed(() => getLabel(route.name));
+
+const getOrder = (value: string) => {
+  if (route.name !== "FinalOrder") {
+    router.push({ name: value });
   }
-}
+  if (route.name === "FinalOrder") {
+    openModalWindow.value = true;
+  }
+};
 </script>
 
 <style scoped lang="scss">
@@ -327,48 +199,6 @@ export default class PreOrderInfo extends Vue {
       line-height: 16px;
       color: $main-dark-gray;
     }
-  }
-}
-
-.price {
-  @include flex-column;
-  align-items: flex-start;
-  &__first-step {
-    font-weight: $medium;
-    font-size: 16px;
-    line-height: 16px;
-    color: $main-black;
-
-    padding-bottom: 32px;
-  }
-  &__first-step--dark {
-    font-weight: $semi-bold;
-  }
-  &__model-action {
-    @include base-btn;
-    @include base-disabled-green;
-    text-decoration: none;
-    width: 287px;
-    padding: 15px 0;
-  }
-  &__model-action--active {
-    @include base-btn-green;
-  }
-  &__model-action--active:hover {
-    @include base-hover-green;
-  }
-  &__model-action--active:active {
-    @include base-active-green;
-  }
-  &__model-action--active:active:before {
-    @include base-click-green;
-  }
-  &__model-action--reset {
-    background: $btn-slider-red;
-  }
-  &__model-action--error {
-    color: #d73b3b;
-    margin-top: 10px;
   }
 }
 </style>

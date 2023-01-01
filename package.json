@@ -5,20 +5,24 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "start": "json-server --watch ./fakeapi/db.json --port 3000 --routes ./fakeapi/routes.json"
   },
   "dependencies": {
+    "@vue/eslint-config-standard": "^8.0.1",
+    "@vuepic/vue-datepicker": "^3.6.3",
     "axios": "^0.26.1",
     "core-js": "^3.6.5",
     "dayjs": "^1.11.0",
     "lodash": "^4.17.21",
-    "vue": "^2.6.11",
+    "sass": "^1.55.0",
+    "uuid": "^9.0.0",
+    "v-calendar": "^3.0.0-alpha.8",
+    "vue": "^3.2.45",
     "vue-axios": "^3.4.1",
-    "vue-class-component": "^7.2.3",
     "vue-property-decorator": "^9.1.2",
-    "vue-router": "^3.2.0",
-    "vue2-datepicker": "^3.10.4",
-    "vuex": "^3.4.0",
+    "vue-router": "^4.0.0",
+    "vuex": "^4.0.0",
     "vuex-smart-module": "^1.0.0",
     "ymaps": "^0.2.1"
   },
@@ -31,17 +35,17 @@
     "@vue/cli-plugin-typescript": "~4.5.0",
     "@vue/cli-plugin-vuex": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
+    "@vue/compiler-sfc": "^3.1.0-0",
     "@vue/eslint-config-prettier": "^6.0.0",
     "@vue/eslint-config-typescript": "^7.0.0",
+    "@yandex/ymaps3-types": "^0.0.5",
     "eslint": "^6.7.2",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-vue": "^6.2.2",
     "lint-staged": "^9.5.0",
-    "node-sass": "^4.14.1",
     "prettier": "^2.2.1",
     "sass-loader": "^8.0.2",
-    "typescript": "~4.1.5",
-    "vue-template-compiler": "^2.6.11"
+    "typescript": "~4.1.5"
   },
   "eslintConfig": {
     "root": true,

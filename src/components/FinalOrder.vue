@@ -2,19 +2,7 @@
   <div class="main-wrapper">
     <Navigation />
     <div class="main">
-      <div class="main-nav">
-        <h1>
-          <router-link class="main-nav__company" :to="{ name: 'MainPage' }"
-            >Need for drive</router-link
-          >
-        </h1>
-        <p class="main-nav__city-name">
-          <svg width="18" height="20">
-            <use xlink:href="#gps" />
-          </svg>
-          Ульяновск
-        </p>
-      </div>
+      <AppHeader />
       <BreadcrumbsRoute />
       <div class="card-form">
         <div class="car-container">
@@ -46,34 +34,25 @@
   </div>
 </template>
 
-<script lang="ts">
-import { Vue, Component } from "vue-property-decorator";
+<script lang="ts" setup>
+import { computed } from "vue";
+import { useStore } from "vuex";
 import Navigation from "@/components/Navigation.vue";
 import PreOrderInfo from "@/components/PreOrderInfo.vue";
 import BreadcrumbsRoute from "@/components/BreadcrumbsRoute.vue";
-import dayjs from "dayjs";
-@Component({ components: { Navigation, PreOrderInfo, BreadcrumbsRoute } })
-export default class FinalOrder extends Vue {
-  get carModel() {
-    return this.$store.state.OrderForm.carModel;
-  }
+import AppHeader from "@/components/AppHeader.vue";
 
-  get carNumber() {
-    return this.$store.state.OrderForm.carNumber;
-  }
+const store = useStore();
 
-  get carImg() {
-    return this.$store.state.OrderForm.img;
-  }
+const carModel = computed(() => store.state.OrderForm.carModel);
 
-  get carFuel() {
-    return this.$store.state.OrderForm.fuel;
-  }
+const carNumber = computed(() => store.state.OrderForm.carNumber);
 
-  get carDate() {
-    return dayjs(this.$store.state.OrderForm.dateFrom).format("YYYY-MM-DD");
-  }
-}
+const carImg = computed(() => store.state.OrderForm.img);
+
+const carFuel = computed(() => store.state.OrderForm.fuel);
+
+const carDate = computed(() => store.state.OrderForm.dateFrom);
 </script>
 <style scoped lang="scss">
 @media screen and (max-width: 1008px) {
@@ -89,21 +68,6 @@ export default class FinalOrder extends Vue {
   width: 100%;
   height: 100vh;
   overflow: scroll;
-}
-.main-nav {
-  @include flex-row;
-  @include flex-logo;
-  @include order-card-mobile;
-  padding: 32px 63px 32px 64px;
-  &__company {
-    @include logo;
-  }
-  &__city-name {
-    @include city;
-  }
-  &__city-name svg {
-    margin-right: 0.4713rem;
-  }
 }
 .card-form {
   @include flex-row;

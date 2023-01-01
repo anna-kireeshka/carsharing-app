@@ -46,121 +46,119 @@
     </div>
   </div>
 </template>
-<script lang="ts">
-import { Vue, Component } from "vue-property-decorator";
+<script lang="ts" setup>
+import { ref, computed, onMounted, onUnmounted } from "vue";
 import variables from "@/styles/_style.scss";
-@Component({})
-export default class Slider extends Vue {
-  /* eslint-disable */
-  imageWidth: number = 0;
-  activeSlider: number = 0;
 
-  slider: {
-    id: number;
-    img: string;
-    title: string;
-    description: string;
-    background?: string;
-  }[] = [
-    {
-      id: 0,
-      img: require("@/assets/slider-1.png"),
-      title: "Бесплатная парковка",
-      description:
-        "Оставляйте машину на платных городских парковках и разрешенных местах, не нарушая ПДД, а также в аэропортах.",
-      background: variables.green,
-    },
+type Slider = {
+  id: number;
+  img: string;
+  title: string;
+  description: string;
+  background?: string;
+}[];
 
-    {
-      id: 1,
-      img: require("@/assets/slider-2.png"),
-      title: "Страховка",
-      description: "Полная страховка страховка автомобиля",
-      background: variables.blue,
-    },
-    {
-      id: 2,
-      img: require("@/assets/slider-3.png"),
-      title: "Бензин",
-      description: "Полный бак на любой заправке города за наш счёт",
-      background: variables.red,
-    },
-    {
-      id: 3,
-      img: require("@/assets/slider-4.png"),
-      title: "Обслуживание",
-      description: "Автомобиль проходит еженедельное ТО",
-      background: variables.violet,
-    },
-  ];
+const imageWidth = ref(0);
+const activeSlider = ref(0);
+const img = ref<HTMLElement>(null);
 
+const slider = ref<Slider>([
+  {
+    id: 0,
+    img: require("@/assets/slider-1.png"),
+    title: "Бесплатная парковка",
+    description:
+      "Оставляйте машину на платных городских парковках и разрешенных местах, не нарушая ПДД, а также в аэропортах.",
+    background: variables.green,
+  },
 
-  mounted() {
-    window.addEventListener("resize", this.handleResize);
-    this.handleResize();
-  }
-  destroyed() {
-    window.removeEventListener("resize", this.handleResize);
-  }
+  {
+    id: 1,
+    img: require("@/assets/slider-2.png"),
+    title: "Страховка",
+    description: "Полная страховка страховка автомобиля",
+    background: variables.blue,
+  },
+  {
+    id: 2,
+    img: require("@/assets/slider-3.png"),
+    title: "Бензин",
+    description: "Полный бак на любой заправке города за наш счёт",
+    background: variables.red,
+  },
+  {
+    id: 3,
+    img: require("@/assets/slider-4.png"),
+    title: "Обслуживание",
+    description: "Автомобиль проходит еженедельное ТО",
+    background: variables.violet,
+  },
+]);
 
-  handleResize() {
-    let a = (this.$refs.img as HTMLElement).clientWidth;
-    return (this.imageWidth = a);
-  }
+onMounted(() => {
+  window.addEventListener("resize", handleResize);
+  handleResize();
+});
+onUnmounted(() => {
+  window.removeEventListener("resize", handleResize);
+});
 
-  getNextImage() {
-    this.activeSlider++;
-    if (this.activeSlider >= this.slider.length) {
-      this.activeSlider = 0;
-    }
-    this.sliderStylePosition;
-  }
-  
-  getPrevImage() {
-    this.activeSlider--;
-    if (this.activeSlider < 0) {
-      this.activeSlider = this.slider.length - 1;
-    }
-    this.sliderStylePosition;
-  }
-  
-  getSlideForDote(doteId: number, e: MouseEvent) {
-    if (this.activeSlider !== doteId) {
-      this.activeSlider = doteId;
-    }
-    this.sliderStylePosition;
-  }
+const handleResize = () => {
+  return (img.value as HTMLElement).clientWidth;
+};
 
-  hoverButton(id: number, e: HTMLElement) {
-    if (id === 0) {
-      e.style.background = variables.hoverGreen;
-    } else if (id === 1) {
-      e.style.background = variables.hoverBlue;
-    } else if (id === 2) {
-      e.style.background = variables.hoverRed;
-    } else if (id === 3) {
-      e.style.background = variables.hoverViolet;
-    }
+const getNextImage = () => {
+  activeSlider.value++;
+  if (activeSlider.value >= slider.value.length) {
+    activeSlider.value = 0;
   }
-  
-  getOriginalColor(e: HTMLElement, id: number) {
-    if (id === 0) {
-      e.style.background = variables.green;
-    } else if (id === 1) {
-      e.style.background = variables.blue;
-    } else if (id === 2) {
-      e.style.background = variables.red;
-    } else if (id === 3) {
-      e.style.background = variables.violet;
-    }
-  }
+  sliderStylePosition.value;
+};
 
-  get sliderStylePosition() {
-    let sliderList = document.querySelector(".slider") as HTMLElement;
-    return (sliderList.style.marginLeft =
-      -this.imageWidth * this.activeSlider + "px");
+const getPrevImage = () => {
+  activeSlider.value--;
+  if (activeSlider.value < 0) {
+    activeSlider.value = slider.value.length - 1;
   }
-}
+  sliderStylePosition.value;
+};
+
+const getSlideForDote = (doteId: number, e: MouseEvent) => {
+  if (activeSlider.value !== doteId) {
+    activeSlider.value = doteId;
+  }
+  sliderStylePosition.value;
+};
+
+const hoverButton = (id: number, e: HTMLElement) => {
+  if (id === 0) {
+    e.style.background = variables.hoverGreen;
+  } else if (id === 1) {
+    e.style.background = variables.hoverBlue;
+  } else if (id === 2) {
+    e.style.background = variables.hoverRed;
+  } else if (id === 3) {
+    e.style.background = variables.hoverViolet;
+  }
+};
+
+const getOriginalColor = (e: HTMLElement, id: number) => {
+  if (id === 0) {
+    e.style.background = variables.green;
+  } else if (id === 1) {
+    e.style.background = variables.blue;
+  } else if (id === 2) {
+    e.style.background = variables.red;
+  } else if (id === 3) {
+    e.style.background = variables.violet;
+  }
+};
+
+const sliderStylePosition = computed(() => {
+  let sliderList = document.querySelector(".slider") as HTMLElement;
+  return (sliderList.style.marginLeft =
+    -imageWidth.value * activeSlider.value + "px");
+});
 </script>
 
 <style scoped lang="scss">

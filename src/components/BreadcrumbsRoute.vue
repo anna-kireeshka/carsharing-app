@@ -9,9 +9,7 @@
         <router-link
           :to="{ name: item.name }"
           class="navigation__link"
-          :class="{
-            'navigation__link--active': $route.name === item.name,
-          }"
+          :class="activeRoute(item.idx, item.name)"
           >{{ item.text }}
         </router-link>
         <svg width="6" height="8" class="navigation__arrow">
@@ -21,30 +19,73 @@
     </ul>
   </div>
 </template>
-<script lang="ts">
-import { Vue, Component } from "vue-property-decorator";
+<script lang="ts" setup>
+import { computed, ref } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { useStore } from "vuex";
 
-@Component({})
-export default class BreadcrumbsRoute extends Vue {
-  crumbsList = [
-    {
-      text: "Местоположение",
-      name: "location",
-    },
-    {
-      text: "Модель",
-      name: "CarModel",
-    },
-    {
-      text: "Дополнительно",
-      name: "OrderAdditionally",
-    },
-    {
-      text: "Итого",
-      name: "FinalOrder",
-    },
-  ];
-}
+type CrumbsList = { idx: number; text: string; name: string };
+
+const route = useRoute();
+
+const router = useRouter();
+
+const store = useStore();
+
+const crumbsList = ref<CrumbsList[]>([
+  {
+    idx: 0,
+    text: "Местоположение",
+    name: "location",
+  },
+  {
+    idx: 1,
+    text: "Модель",
+    name: "CarModel",
+  },
+  {
+    idx: 2,
+    text: "Дополнительно",
+    name: "OrderAdditionally",
+  },
+  {
+    idx: 3,
+    text: "Итого",
+    name: "FinalOrder",
+  },
+]);
+
+const activeRoute = (idx: number, name: string) => {
+  if (route.name === name) {
+    return "navigation__link--active";
+  }
+  for (let i = 0; i < crumbsList.value?.length; i++) {
+    if (crumbsList.value[i].idx !== idx && crumbsList.value[i].idx + 1 < idx) {
+      return "disabled";
+    }
+  }
+
+  if (
+    isCarModelValidation ||
+    isCarLocationValidation ||
+    isCarAdditionallyValidation
+  ) {
+    return "navigation__link";
+  }
+
+  return "navigation__link";
+};
+const isCarModelValidation = computed(
+  () => store.state.OrderForm.isCarModelValidation
+);
+
+const isCarLocationValidation = computed(
+  () => store.state.OrderForm.isCarLocationValidation
+);
+
+const isCarAdditionallyValidation = computed(
+  () => store.state.OrderForm.isCarAdditionalyValidation
+);
 </script>
 
 <style scoped lang="scss">
@@ -67,6 +108,7 @@ export default class BreadcrumbsRoute extends Vue {
     line-height: 16px;
     color: #999999;
     text-decoration: none;
+    cursor: pointer;
   }
 
   &__link--active {
@@ -79,5 +121,9 @@ export default class BreadcrumbsRoute extends Vue {
   &__arrow {
     padding: 0px 16px;
   }
+}
+.disabled {
+  pointer-events: none;
+  color: #c5c5c5;
 }
 </style>

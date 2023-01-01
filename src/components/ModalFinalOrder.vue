@@ -1,5 +1,5 @@
 <template>
-  <transition name="fade" v-if="openWindow === true">
+  <transition name="fade" v-if="openWindow">
     <div class="modal">
       <div class="modal-inner">
         <p class="modal-inner__title">Подтвердить заказ</p>
@@ -15,29 +15,36 @@
     </div>
   </transition>
 </template>
-<script lang="ts">
-import { Vue, Component, Prop } from "vue-property-decorator";
+<script lang="ts" setup>
+import { computed, defineProps, ref, defineEmits } from "vue";
+import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 
-@Component({})
-export default class ModalFinalOrder extends Vue {
-  @Prop() private openWindow!: boolean;
+const store = useStore();
 
-  confirmOrder() {
-    this.$store.dispatch("OrderForm/fetchDataOrder");
+const router = useRouter();
 
-    if (this.$store.state.OrderForm.loadedResponsPost) {
-      this.$store.state.OrderForm.id =
-        this.$store.state.OrderForm.finalOrder.data.id;
-      this.$router.push({
-        name: "ConfirmOrder",
-        query: { id: this.$store.state.OrderForm.id },
-      });
-    }
-  }
-  closeModal() {
-    this.openWindow = !this.openWindow;
-  }
-}
+const emit = defineEmits(["close"]);
+
+const props = defineProps({
+  openWindow: {
+    type: Boolean,
+    default: false,
+  },
+});
+
+const confirmOrder = async () => {
+  await store.dispatch("OrderForm/fetchDataStatusOrder");
+  router.push({
+    name: "ConfirmOrder",
+    params: { id: idOrder.value },
+  });
+};
+const closeModal = () => {
+  emit("close", false);
+};
+
+const idOrder = computed(() => store.state.OrderForm.orderStatus.id);
 </script>
 <style lang="scss" scoped>
 .modal {

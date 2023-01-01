@@ -1,0 +1,4 @@
+{
+  "/pvz/:cityId": "/pvz?cityId=:cityId",
+  "/car/:categoryId": "car?categoryId=:categoryId"
+}

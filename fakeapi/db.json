@@ -1,0 +1,225 @@
+{
+  "city": [
+    {
+      "id": "63",
+      "name": "Самара"
+    },
+    {
+      "id": "77",
+      "name": "Москва"
+    },
+    {
+      "id": "64",
+      "name": "Саратов"
+    },
+    {
+      "id": "23",
+      "name": "Анапа"
+    },
+    {
+      "id": "54",
+      "name": "Новосибирск"
+    },
+    {
+      "id": "37",
+      "name": "Иваново"
+    },
+    {
+      "id": "74",
+      "name": "Челябинск"
+    }
+  ],
+  "pvz": [
+    {
+      "cityId": "63",
+      "name": "Самара",
+      "address": [
+        {
+          "id": "631",
+          "name": "Московское ш., 17а"
+        },
+        {
+          "id": "632",
+          "name": "ул. Партизанская, 11"
+        },
+        { "id": "633", "name": "ул. Ново-Садовая, 149А" }
+      ]
+    },
+    {
+      "cityId": "77",
+      "name": "Москва",
+      "address": [
+        {
+          "id": "771",
+          "name": "Каширское шоссе, 61кор.3А"
+        },
+        {
+          "id": "772",
+          "name": "Дмитровское ш., 157, стр. 4"
+        },
+        {
+          "id": "773",
+          "name": "Варшавское ш., 170 Г,"
+        }
+      ]
+    },
+    {
+      "cityId": "64",
+      "name": "Саратов",
+      "address": [
+        { "id": "641", "name": "ул. Шехурдина, 6" },
+        { "id": "642", "name": "пр. Строителей, 39" },
+        { "id": "643", "name": "Усть, ул. Курдюмская, 6" }
+      ]
+    },
+    {
+      "cityId": "23",
+      "name": "Анапа",
+      "address": [
+        { "id": "231", "name": "Парковая ул., 64а" },
+        { "id": "232", "name": "5-я Промышленная ул., 3, Цемдолина" },
+        { "id": "233", "name": "ул. Золотая Рыбка, 22а, Новороссийск" }
+      ]
+    },
+    {
+      "cityId": "54",
+      "name": "Новосибирск",
+      "address": [
+        { "id": "541", "name": "ул. Станционная, 101" },
+        { "id": "542", "name": "ул. Богдана Хмельницкого, 75/1" },
+        { "id": "543", "name": "ул. Петухова, 87" }
+      ]
+    },
+    {
+      "cityId": "37",
+      "name": "Иваново",
+      "address": [
+        { "id": "371", "name": "ул. Фрунзе, 96" },
+        { "id": "372", "name": "д.Коляново, ул.Загородная д.22а" },
+        { "id": "373", "name": "ул. Фрунзе, 90" }
+      ]
+    },
+    {
+      "cityId": "74",
+      "name": "Челябинск",
+      "address": [
+        {
+          "id": "741",
+          "name": "Копейское ш., 84"
+        },
+        {
+          "id": "742",
+          "name": "ул. Братьев Кашириных, 137"
+        }
+      ]
+    }
+  ],
+  "car": [
+    {
+      "id": "561",
+      "number": "Ф561АА",
+      "priceMax": 16000,
+      "priceMin": 10000,
+      "name": "Chevrolet Malibu",
+      "thumbnail": {
+        "path": "https://s3.us-east-2.amazonaws.com/dealer-inspire-vps-vehicle-images/stock-images/thumbnails/large/chrome/7f74bb53e788a5266aa05f0177a4fcc4.png"
+      },
+      "tank": "100%",
+      "categoryId": "economy",
+      "colors": ["Красный, Голубой"]
+    },
+    {
+      "id": "562",
+      "number": "A561АА",
+      "priceMax": 50000,
+      "priceMin": 17000,
+      "name": "Audi Q2",
+      "thumbnail": {
+        "path": "https://vinceheyy.com/wp-content/uploads/2017/06/ILLU-CAR-AUDI-Q2-GU-1200x600.png"
+      },
+      "tank": "95%",
+      "categoryId": "premium",
+      "colors": ["Красный, Белый"]
+    },
+    {
+      "id": "563",
+      "number": "A577АА",
+      "priceMax": 50000,
+      "priceMin": 17000,
+      "name": "Audi A7",
+      "thumbnail": {
+        "path": "https://www.motortrend.com/uploads/sites/10/2016/08/2017-audi-a7-premium-plus-hatchback-angular-front.png"
+      },
+      "tank": "95%",
+      "categoryId": "premium",
+      "colors": ["Белый"]
+    },
+    {
+      "id": "564",
+      "number": "A577АА",
+      "priceMax": 30000,
+      "priceMin": 12000,
+      "name": "Volkswagen Polo",
+      "thumbnail": {
+        "path": "https://www.pngitem.com/pimgs/m/491-4919773_volkswagen-car-background-transparent-vw-polo-blue-gt.png"
+      },
+      "tank": "70%",
+      "categoryId": "comfort",
+      "colors": ["Белый"]
+    },
+    {
+      "id": "565",
+      "number": "A578АО",
+      "priceMax": 60000,
+      "priceMin": 30000,
+      "name": "Range rover",
+      "thumbnail": {
+        "path": "https://purepng.com/public/uploads/large/purepng.com-land-rover-range-rover-blue-carcarvehicletransportland-rover-961524659214ltn7v.png"
+      },
+      "tank": "98%",
+      "categoryId": "premium",
+      "colors": ["Черный"]
+    },
+    {
+      "id": "566",
+      "number": "A000АО",
+      "priceMax": 80000,
+      "priceMin": 30000,
+      "name": "Mercedes-Benz S-Class",
+      "thumbnail": {
+        "path": "https://65e81151f52e248c552b-fe74cd567ea2f1228f846834bd67571e.ssl.cf1.rackcdn.com/ldm-images/2022-Mercedes-Benz-S-Class-hero.png"
+      },
+      "tank": "100%",
+      "categoryId": "premium",
+      "colors": ["Черный"]
+    }
+  ],
+  "rate": [
+    {
+      "updatedAt": "21.07.2022",
+      "createdAt": "02.06.2020",
+      "price": 3700,
+      "rateTypeId": {
+        "unit": "24ч",
+        "name": "Суточная аренда",
+        "id": 0
+      },
+      "id": "24h"
+    },
+    {
+      "updatedAt": "21.07.2022",
+      "createdAt": "02.06.2020",
+      "price": 9,
+      "rateTypeId": {
+        "unit": "1мин",
+        "name": "Поминутная аренда",
+        "id": 1
+      },
+      "id": "1min"
+    }
+  ],
+  "orderStatus": {
+    "status": "Оформлен",
+    "id": "123456"
+  }
+}

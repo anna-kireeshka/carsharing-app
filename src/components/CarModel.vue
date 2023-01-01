@@ -2,19 +2,7 @@
   <div class="main-wrapper">
     <Navigation />
     <div class="main">
-      <div class="main-nav">
-        <h1>
-          <router-link class="main-nav__company" :to="{ name: 'MainPage' }"
-            >Need for drive</router-link
-          >
-        </h1>
-        <p class="main-nav__city-name">
-          <svg width="18" height="20">
-            <use xlink:href="#gps" />
-          </svg>
-          Ульяновск
-        </p>
-      </div>
+      <AppHeader />
       <BreadcrumbsRoute />
       <div class="form">
         <div class="car-model">
@@ -26,7 +14,7 @@
                   class="filter__radio-item"
                   name="radioModel"
                   :value="item.name"
-                  @change="choseCarFilter(item.id, item.name)"
+                  @change="choseCarFilter(item.id)"
                 />
                 <span class="filter__castom"></span>
                 {{ item.name }}</label
@@ -44,36 +32,27 @@
             </div>
           </template>
           <div class="car-order" v-else>
-            <button
+            <div
               class="car-order__card"
               v-for="car in carList"
               :key="car.id"
-              @click="
-                choseCar(
-                  car.name,
-                  car.number,
-                  car.priceMax,
-                  car.priceMin,
-                  car.tank,
-                  car.thumbnail.path,
-                  car.id
-                )
-              "
+              @click="choseCar(car, car.thumbnail.path)"
             >
               <p class="car-content__model">{{ car.name }}</p>
               <p class="car-content__price">
                 {{ car.priceMin }} - {{ car.priceMax }}
               </p>
               <div class="car-order__image">
-                <img
-                  alt="Машина"
-                  width="256"
-                  height="116"
-                  @error="defaultImage($event)"
-                  :src="car.thumbnail.path"
-                />
+                <picture>
+                  <img
+                    :src="`${car.thumbnail.path}`"
+                    :alt="car.name"
+                    width="256"
+                    height="116"
+                  />
+                </picture>
               </div>
-            </button>
+            </div>
           </div>
         </div>
         <PreOrderInfo />
@@ -81,78 +60,61 @@
     </div>
   </div>
 </template>
-
-<script lang="ts">
-import { Vue, Component } from "vue-property-decorator";
+<script lang="ts" setup>
+import { ref, computed } from "vue";
+import { useStore } from "vuex";
 import BreadcrumbsRoute from "./BreadcrumbsRoute.vue";
 import PreOrderInfo from "./PreOrderInfo.vue";
 import Navigation from "./Navigation.vue";
+import AppHeader from "@/components/AppHeader.vue";
+import { Car } from "@/store/OrderForm/types";
 
-@Component({
-  components: {
-    Navigation,
-    BreadcrumbsRoute,
-    PreOrderInfo,
+const store = useStore();
+const image = ref("@/assets/car.png");
+
+store.dispatch("OrderForm/loadCar");
+
+const carFilter = ref([
+  {
+    id: "all",
+    name: "Все модели",
   },
-})
-export default class CarModel extends Vue {
-  image = require("@/assets/car.png");
+  { id: "economy", name: "Эконом" },
+  {
+    id: "comfort",
+    name: "Комфорт",
+  },
+  {
+    id: "premium",
+    name: "Премиум",
+  },
+]);
 
-  mounted() {
-    this.carListFetch();
-    this.carFilterFetch();
-  }
+const choseCar = (car: Car, img: string) => {
+  const { name, number, priceMin, priceMax, tank, id } = car;
 
-  carListFetch() {
-    this.$store.dispatch("OrderForm/fetchDataCar");
-    this.carList;
-  }
+  store.commit("OrderForm/getCarModel", name);
+  store.commit("OrderForm/getCarNumber", number);
+  store.commit("OrderForm/getCarPrice", priceMin);
+  store.commit("OrderForm/getCarPriceMax", priceMax);
+  store.commit("OrderForm/getCarFuel", tank);
+  store.commit("OrderForm/getCarImg", img);
+  store.commit("OrderForm/getCarId", id);
+};
 
-  carFilterFetch() {
-    this.$store.dispatch("OrderForm/fetchDataCarFilter");
-    this.carFilter;
-  }
+const choseCarFilter = (id: string) => {
+  id !== "all"
+    ? store.dispatch("OrderForm/loadCar", id)
+    : store.dispatch("OrderForm/loadCar");
+};
 
-  choseCar(
-    model: string,
-    num: string,
-    priceMin: number,
-    priceMax: number,
-    tank: string,
-    img: string,
-    id: string
-  ) {
-    this.$store.commit("OrderForm/getCarModel", model);
-    this.$store.commit("OrderForm/getCarNumber", num);
-    this.$store.commit("OrderForm/getCarPrice", priceMin);
-    this.$store.commit("OrderForm/getCarPriceMax", priceMax);
-    this.$store.commit("OrderForm/getCarFuel", tank);
-    this.$store.commit("OrderForm/getCarImg", img);
-    this.$store.commit("OrderForm/getCarId", id);
-  }
+const defaultImage = (event: { target: HTMLImageElement }) => {
+  event.target.src = image.value;
+};
 
-  choseCarFilter(carId: number, name: string) {
-    this.$store.commit("OrderForm/getCategoryId", carId);
-    this.carListFetch();
-    this.carList;
-  }
+const carList = computed<Car>(() => store.state.OrderForm.car);
 
-  defaultImage(event: { target: HTMLImageElement }) {
-    event.target.src = this.image;
-  }
-
-  get carList() {
-    return this.$store.state.OrderForm.car.data;
-  }
-
-  get carFilter() {
-    return this.$store.getters["OrderForm/getSortFilter"];
-  }
-
-  get loader() {
-    return this.$store.state.OrderForm.loadingCarList;
-  }
-}
+const loader = computed<boolean>(() => store.state.OrderForm.loadingCarList);
 </script>
 
 <style lang="scss" scoped>
@@ -174,22 +136,7 @@ export default class CarModel extends Vue {
   height: 100vh;
   overflow: scroll;
 }
-.main-nav {
-  @include flex-row;
-  @include flex-logo;
-  @include order-card-mobile;
-  padding: 32px 63px 32px 64px;
 
-  &__company {
-    @include logo;
-  }
-  &__city-name {
-    @include city;
-  }
-  &__city-name svg {
-    margin-right: 0.4713rem;
-  }
-}
 .form {
   @include flex-row;
   @include content-very-large-main;

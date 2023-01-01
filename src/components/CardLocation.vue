@@ -1,102 +1,52 @@
-<reference path="ymaps.d.ts" />
 <template>
   <div class="main-wrapper">
     <Navigation />
     <div class="main">
-      <div class="main-nav">
-        <h1>
-          <router-link class="main-nav__company" :to="{ name: 'MainPage' }"
-            >Need for drive</router-link
-          >
-        </h1>
-        <p class="main-nav__city-name">
-          <svg width="18" height="20">
-            <use xlink:href="#gps" />
-          </svg>
-          Ульяновск
-        </p>
-      </div>
+      <AppHeader />
       <BreadcrumbsRoute />
       <div class="card-form">
         <div class="form">
           <div class="city">
             <div class="city__wrap">
-              <label for="city" class="city__label">Город</label>
-              <input
-                id="city"
-                type="text"
-                placeholder="Введите название города"
-                autocomplete="off"
-                class="city__form"
-                @input="searchCity"
-                :value="valueCity"
+              <InputForm
+                :placeholder="'Город'"
+                :label="'Город'"
+                v-model="valueCity"
+                @update:modelValue="searchCity"
+                @resetLocation="resetCity"
+                @loadList="openCity = $event"
               />
-              <button class="city__cross-icon" @click="resetCity">
-                <svg width="8" height="8">
-                  <use xlink:href="#cross" />
-                </svg>
-              </button>
-
-              <ul class="city__autocomplete-list city-wrap" v-show="openCity">
-                <li
-                  class="city__autocomplete-item"
-                  v-for="(city, index) in cityList"
-                  :key="index"
-                  @click="setResultCity(city.name, city.id)"
-                  :class="{
-                    'city__autocomplete-item': index === arrowCounterCity,
-                  }"
-                  ref="optionsCity"
-                >
-                  <p>{{ city.name }}</p>
-                </li>
-                <li class="city__autocomplete-item" v-show="emptyCityList">
-                  <p>Ничего не найдено</p>
-                </li>
-              </ul>
+              <SelectForm
+                v-if="openCity"
+                :location-list="cityList"
+                :is-open-slect-form="openCity"
+                :isEmptyList="isEmptyCityList"
+                :location-value="'city'"
+                @setResult="setResultCity"
+              />
             </div>
 
             <div class="city__wrap">
-              <label for="pvz" class="city__label">Пункт выдачи</label>
-              <input
-                id="pvz"
-                type="text"
-                placeholder="Введите название пункта выдачи"
-                autocomplete="off"
-                class="city__form"
-                @input="searchPvz"
-                :value="valuePvz"
+              <InputForm
+                :placeholder="'Пункт выдачи'"
+                :label="'Пункт выдачи'"
+                v-model="valuePvz"
+                @searchLocation="searchPvz"
+                @resetLocation="resetPvz"
+                @loadList="openPvz = $event"
               />
-              <button class="city__cross-icon" @click="resetPvz">
-                <svg width="8" height="8">
-                  <use xlink:href="#cross" />
-                </svg>
-              </button>
 
-              <ul class="city__autocomplete-list pvz-wrap" v-show="openPvz">
-                <li
-                  class="city__autocomplete-item"
-                  v-for="(pvz, index) in pvzList"
-                  :key="index"
-                  @click="setResultPvz(pvz.name, pvz.address, pvz.id)"
-                  :class="{
-                    'city__autocomplete-item': index === arrowCounterPvz,
-                  }"
-                  ref="optionsPvz"
-                >
-                  <p>{{ pvz.name }} - {{ pvz.address }}</p>
-                </li>
-                <li class="city__autocomplete-item" v-show="emptyPvzList">
-                  <p>В выбранном городе пвз отсутствуют</p>
-                </li>
-              </ul>
+              <SelectForm
+                v-if="openPvz"
+                :location-list="pvzList"
+                :is-open-slect-form="openPvz"
+                :isEmptyList="isEmptyPvzList"
+                :location-value="'pvz'"
+                @setResult="setResultPvz"
+              />
             </div>
           </div>
-
-          <div class="card">
-            <p class="card__desc">Выбрать на карте:</p>
-            <div id="map" class="card__map"></div>
-          </div>
+          <YandexMap :value-city="valueCity" :value-pvz="valuePvz" />
         </div>
         <PreOrderInfo />
       </div>
@@ -104,161 +54,79 @@
   </div>
 </template>
 
-<script lang="ts">
-/* eslint-disable */
-import { Component, Vue } from "vue-property-decorator";
+<script lang="ts" setup>
+import { ref, computed } from "vue";
+import { useStore } from "vuex";
 import BreadcrumbsRoute from "./BreadcrumbsRoute.vue";
 import PreOrderInfo from "./PreOrderInfo.vue";
 import Navigation from "./Navigation.vue";
+import AppHeader from "@/components/AppHeader.vue";
+import SelectForm from "@/components/UI/SelectForm.vue";
+import InputForm from "@/components/UI/InputForm.vue";
+import YandexMap from "@/components/UI/YandexMap.vue";
 
-@Component({
-  components: { BreadcrumbsRoute, PreOrderInfo, Navigation },
-})
-export default class CardLocation extends Vue {
-  openCity: boolean = false;
-  openPvz: boolean = false;
-  arrowCounterCity: number = -1;
-  arrowCounterPvz: number = -1;
-  mapIcon = require("@/assets/mark.png");
-  newCoords = null;
+const store = useStore();
 
-  mounted() {
-    let page = document.querySelector(".main-wrapper") as HTMLElement;
-    page.addEventListener("click", () => {
-      this.openCity = false;
-      this.openPvz = false;
-    });
+const openCity = ref<boolean>(false);
+
+const openPvz = ref<boolean>(false);
+
+const init = async () => {
+  try {
+    await store.dispatch("OrderForm/loadСities");
+  } catch {
+    console.log("error");
   }
+};
 
-  created() {
-    ymaps.ready().then(() => {
-      this.myMap;
-    });
-  }
+init();
 
-  get myMap() {
-    return new ymaps.Map("map", {
-      center: [54.30327383672103, 48.600127895911314],
-      zoom: 10,
-      controls: [],
-    });
-  }
+const valueCity = computed<string>(() => store.state.OrderForm.valueCity);
+const valuePvz = computed<string>(() => store.state.OrderForm.valuePvz);
 
-  get myMapIcon() {
-    return new ymaps.Placemark(
-      this.newCoords,
-      {
-        hintContent: this.valuePvz,
-      },
-      {
-        iconLayout: "default#image",
-        iconImageHref: this.mapIcon,
-        iconImageSize: [18, 18],
-      }
-    );
-  }
+const cityList = computed(() =>
+  store.getters["OrderForm/getCityValue"](valueCity.value)
+);
+const pvzList = computed(() => store.state.OrderForm.pvz);
 
-  get geoObject() {
-    let fullValue: string = `${this.valueCity}, ${this.valuePvz}`;
+const searchCity = (value: string) => {
+  store.commit("OrderForm/setCityValue", value);
+  openCity.value = true;
+};
+const searchPvz = (value: string) => {
+  store.commit("OrderForm/setPvzValue", value);
+  openPvz.value = true;
+};
 
-    if (this.valuePvz && this.valueCity) {
-      ymaps
-        .geocode(fullValue, {
-          results: 1,
-        })
-        .then((res: any) => {
-          let firstGeoObject = res.geoObjects.get(0);
-          this.newCoords = firstGeoObject.geometry.getCoordinates();
-          let bounds = firstGeoObject.properties.get("boundedBy");
+const setResultPvz = (name: string, id: number) => {
+  store.commit("OrderForm/setPvzValue", name);
+  store.commit("OrderForm/getPvzId", id);
 
-          this.myMap.setBounds(bounds, {
-            checkZoomRange: true,
-          });
+  openPvz.value = false;
+};
 
-          this.myMap.geoObjects.add(this.myMapIcon);
-        });
-    }
-    return fullValue;
-  }
+const setResultCity = (name: string, id: number) => {
+  store.commit("OrderForm/setCityValue", name);
+  store.dispatch("OrderForm/loadPoint", id);
 
-  searchCity(e: { target: HTMLInputElement }) {
-    this.$store.commit("OrderForm/searchCity", e.target.value);
-    this.openCity = true;
-    this.fetchData();
-  }
+  openCity.value = false;
+};
 
-  searchPvz(e: { target: HTMLInputElement }) {
-    this.$store.commit("OrderForm/searchPvz", e.target.value);
+const resetCity = () => {
+  store.commit("OrderForm/setCityValue", "");
+};
 
-    this.openPvz = true;
-    this.fetchDataPvz();
-  }
+const resetPvz = () => {
+  store.commit("OrderForm/setPvzValue", "");
+};
 
-  fetchDataPvz() {
-    return this.$store.dispatch("OrderForm/fetchDataPvz");
-  }
+const isEmptyCityList = computed<boolean>(
+  () => !(cityList.value?.length && valueCity.value)
+);
 
-  fetchData() {
-    return this.$store.dispatch("OrderForm/fetchData");
-  }
-
-  setResultPvz(name: string, address: string, id: number) {
-    this.$store.commit("OrderForm/searchPvz", name + address);
-    this.$store.commit("OrderForm/getPvzId", id);
-    this.openPvz = false;
-    this.geoObject;
-  }
-
-  setResultCity(name: string, id: number) {
-    this.$store.commit("OrderForm/searchCity", name);
-    this.$store.commit("OrderForm/getCityId", id);
-
-    this.openCity = false;
-  }
-
-  resetCity() {
-    this.$store.commit("OrderForm/searchCity", "");
-    this.$router.push(this.$route.path);
-  }
-
-  resetPvz() {
-    this.$store.commit("OrderForm/searchPvz", "");
-    this.$router.push(this.$route.path);
-  }
-
-  get valueCity(): string {
-    return this.$store.state.OrderForm.valueCity;
-  }
-
-  get valuePvz(): string {
-    return this.$store.state.OrderForm.valuePvz;
-  }
-
-  get cityList() {
-    if (this.valueCity !== "")
-      return this.$store.getters["OrderForm/getCityValue"](this.valueCity);
-  }
-
-  get pvzList() {
-    return this.$store.state.OrderForm.pvz.data;
-  }
-
-  get emptyCityList() {
-    let empty: boolean = false;
-    if (this.cityList?.length === 0 && this.valueCity !== "") {
-      empty = true;
-    }
-    return empty;
-  }
-
-  get emptyPvzList() {
-    let empty = false;
-    if (this.pvzList?.length === 0 && this.valuePvz !== "") {
-      empty = true;
-    }
-    return empty;
-  }
-}
+const isEmptyPvzList = computed<boolean>(
+  () => !(pvzList.value?.length && valuePvz.value)
+);
 </script>
 
 <style scoped lang="scss">
@@ -275,22 +143,6 @@ export default class CardLocation extends Vue {
   height: 100vh;
   width: 100%;
   overflow: scroll;
-}
-.main-nav {
-  @include flex-row;
-  @include flex-logo;
-  @include order-card-mobile;
-  padding: 32px 63px 32px 64px;
-
-  &__company {
-    @include logo;
-  }
-  &__city-name {
-    @include city;
-  }
-  &__city-name svg {
-    margin-right: 0.4713rem;
-  }
 }
 .card-form {
   @include flex-row;
@@ -314,35 +166,6 @@ export default class CardLocation extends Vue {
 .city {
   @include flex-column;
   align-items: flex-end;
-  &__wrap {
-    position: relative;
-    margin-bottom: 16px;
-  }
-  &__label {
-    font-weight: $light;
-    font-size: 14px;
-    line-height: 16px;
-    color: $main-black;
-    padding-right: 8px;
-  }
-  &__form {
-    border: none;
-    border-bottom: 1px solid $main-light-gray;
-    outline: none;
-    width: 224px;
-  }
-  &__form[type="text"] {
-    padding-right: 20px;
-    font-weight: $light;
-    font-size: 14px;
-    line-height: 16px;
-    color: $main-black;
-  }
-  &__cross-icon {
-    border: none;
-    outline: none;
-    background: transparent;
-  }
   &__autocomplete-list {
     padding: 0;
     margin: 0;
@@ -380,37 +203,6 @@ export default class CardLocation extends Vue {
     color: $main-black;
 
     margin-bottom: 16px;
-  }
-}
-.card {
-  @include flex-column;
-  width: 100%;
-  height: 100%;
-  align-items: flex-start;
-  margin-top: calc(45px - 16px);
-
-  #map {
-    width: 100% !important;
-    height: 352px;
-
-    filter: grayscale(0.8);
-    -ms-filter: grayscale(0.8);
-    -webkit-filter: grayscale(0.8);
-    -moz-filter: grayscale(0.8);
-    -o-filter: grayscale(0.8);
-  }
-
-  &__desc {
-    font-weight: $light;
-    font-size: 14px;
-    line-height: 16px;
-    color: $main-black;
-
-    margin-bottom: 16px;
-  }
-
-  ymaps {
-    width: 100%;
   }
 }
 </style>
