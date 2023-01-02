@@ -62,7 +62,11 @@
     "parserOptions": {
       "ecmaVersion": 2020
     },
-    "rules": {}
+    "rules": {
+      "vue/no-unused-vars": "off",
+      "no-empty-function": "off",
+      "no-undef": "off"
+    }
   },
   "browserslist": [
     "> 1%",
